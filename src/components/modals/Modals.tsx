@@ -2,6 +2,7 @@ import React, {  useState} from "react";
 import AlertModal from "./AlertModal";
 import '../../assets/modal.scss';
 import ConfirmModal from "./ConfirmModal";
+import BottomNavModal from "./BottomNavModal";
 
 /**
  * confirm modal의 yes/no 버튼 type
@@ -88,6 +89,12 @@ const Modals=()=>{
         >
           open confirm modal
         </button>
+        <button 
+          type="button"
+          onClick={()=>setOpenTarget("bottom")}
+        >
+          open bottom nav modal
+        </button>
     { openTarget ==="alert" &&
       <AlertModal
         item={alertModalState}
@@ -97,6 +104,11 @@ const Modals=()=>{
     {openTarget == "confirm"  &&
       <ConfirmModal
         item={confirmModalState}
+        closeModal ={()=> setOpenTarget(null)}
+      />
+    }
+    {openTarget == "bottom" &&
+      <BottomNavModal
         closeModal ={()=> setOpenTarget(null)}
       />
     }
