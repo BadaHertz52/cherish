@@ -1,19 +1,12 @@
-import React, {  useState ,useEffect } from "react";
+import React, {  useState} from "react";
 import AlertModal from "./AlertModal";
 import '../../assets/modal.scss';
 import ConfirmModal from "./ConfirmModal";
 
-const fsModal ="fs-modal";
-const toastModal ="toast-modal";
-const confirmModal ="confirm-modal";
-const alertModal ="alert-modal";
-const bottomNavModal="bottomNav-modal";
-
-export type modalType = typeof fsModal | typeof toastModal| typeof confirmModal| typeof alertModal | typeof bottomNavModal |null;
 /**
  * confirm modal의 yes/no 버튼 type
  */
-export type modalBtnType ={
+export type confirmModalBtnType ={
   //btn 의 text node
   text:string, 
   //btn 클릭 시 이동해야 할 페이지의 경로
@@ -21,7 +14,7 @@ export type modalBtnType ={
   //btn 클릭 시 이동/창 닫기 외의 필요한 기능
   otherFn : (()=>void) | null
 };
-// 상품 type (임시)
+// 상품 type (임시) - full screen modal type
 export type itemType ={
   //class1,2 ,agePart,situation,emotion,gender, preference 에 들어갈 세부 type은 추후에 정할 예정 
   goods :{
@@ -47,37 +40,24 @@ export type itemType ={
   gender:string,
   preference:string
 };
-export type modalStateType ={
-  type:modalType,
+// alert ,toast  modal - modalComonType 
+export type modalCommonType ={
+  contents: string
+};
+export type confrimModalType =modalCommonType &{
   title:string|null,
-  contents: string|null,
-  // full screen modal 을 위한 property
-  item:itemType|null,
-  yesBtn: modalBtnType|null,
-  noBtn:modalBtnType|null
-}
-export const initialModal :modalStateType ={
-  type:null,
-  title:null,
-  contents:null,
-  item:null,
-  yesBtn:null,
-  noBtn:null
+  yesBtn:confirmModalBtnType,
+  noBtn: confirmModalBtnType
 };
 const Modals=()=>{
-  const alertModalState :modalStateType = {
-    type:alertModal,
-    title:null,
+  // 모달 창 기능을 보기 위한 코드로 , 실제 사용에는 필요 없습니다. 
+  const [openTarget , setOpenTarget] =useState<string|null>("alert");
+  const alertModalState :modalCommonType = {
     contents: "alert",
-    item:null,
-    yesBtn:null,
-    noBtn:null
   };
-  const confirmModalState :modalStateType = {
-    type:confirmModal,
+  const confirmModalState :confrimModalType = {
     title:"title",
-    contents: "alert",
-    item:null,
+    contents: "contents",
     yesBtn:{
       text:"yes",
       path:null,
@@ -89,42 +69,32 @@ const Modals=()=>{
       otherFn:null
     }
   };
-  const [modal, setModal]=useState<modalStateType>(alertModalState);
-  const closeModal =()=>{setModal(initialModal)}
+  
+  /**
+   * 모달 창 기능 테스트를 위한 함수로 , 테스트 이후 실제 사용 단계에서 삭제
+   */
 
-  useEffect(()=>{
-    const modalEl = document.querySelector('.modal');
-    //한 페이지에 여러 모달이 나올 경우, 스타일을 다르게 지정하기 위해 class 추가 
-    modal.type !== null && modalEl?.classList.add(modal.type) ;
-    if(modal.type === alertModal || modal.type === confirmModal){
-      modalEl?.classList.add("background")
-    }
-  },[modal])
   return(
     <div id="modals">
-      {modal.type == undefined &&
-      <>
         <button 
           type="button"
-          onClick={()=>setModal(alertModalState)}
+          onClick={()=>setOpenTarget("alert")}
         >
           open alert modal
         </button>
         <button 
           type="button"
-          onClick={()=>setModal(confirmModalState)}
+          onClick={()=>setOpenTarget("confirm")}
         >
           open confirm modal
         </button>
-      </> 
-      }
-    {modal.type === alertModal &&
+    { openTarget ==="alert" &&
       <AlertModal
         item={alertModalState}
         closeModal ={()=> setOpenTarget(null)}
       />
     }
-    {modal.type ===confirmModal &&
+    {openTarget == "confirm"  &&
       <ConfirmModal
         item={confirmModalState}
         closeModal ={()=> setOpenTarget(null)}
