@@ -1,7 +1,7 @@
-import React, {ReactNode,ButtonHTMLAttributes, CSSProperties } from 'react';
-import axios from "axios";
+import React, { ReactNode, ButtonHTMLAttributes, CSSProperties } from 'react';
+import axios from 'axios';
 
-//ButtonProps는 ButtonHTMLAttributes<HTMLButtonElement> 상속받았기 때문에 
+//ButtonProps는 ButtonHTMLAttributes<HTMLButtonElement> 상속받았기 때문에
 // button 태그에 대한 모든 속성을 props 사용 가능. 이외의 속성은 따로 선언.
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -25,8 +25,7 @@ const Button = ({
   onError,
   style,
   ...rest
-}:Props) => {
-
+}: Props) => {
   const handleClick = () => {
     if (onClickAction) {
       onClickAction();
@@ -36,12 +35,12 @@ const Button = ({
     }
     if (fetchUrl) {
       axios(fetchUrl, fetchConfig)
-        .then((response) => {
+        .then(response => {
           if (onSuccess) {
             onSuccess(response);
           }
         })
-        .catch((error) => {
+        .catch(error => {
           if (onError) {
             onError(error);
           }
