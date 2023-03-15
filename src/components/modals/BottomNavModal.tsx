@@ -1,7 +1,7 @@
 import  {  useEffect,  useState } from "react";
 import Modal from "./Modal";
 
-const productType ="produtType";
+const productType ="productType";
 const gender ="gender";
 const job ="job";
 const situation ="situation"; 
@@ -92,7 +92,7 @@ const BottomNavModal =({closeModal}:BottomNavModalProps)=>{
   const categoryBtnTextArry =["상품유형", "성별" ,"직업","상황"];
   const arryOfCheckBoxArry =[productTypeCheckBoxArry, genderCheckBoxArry, jobCheckBoxArry, situationCheckBoxArry];
   /**
-   * A function that detects changes in checkboxes , updates the state of filterContent , return it, and if the value of recovery is true, changes the checked attribute of checkboxes that are currently checked to false
+   * A function that detects changes in checkboxes , updates the state of filterCondition , return it, and if the value of recovery is true, changes the checked attribute of checkboxes that are currently checked to false
    * @param recovery 
    * @returns 
    */
@@ -103,7 +103,7 @@ const BottomNavModal =({closeModal}:BottomNavModalProps)=>{
     let newFilterCondition:fileterConditionType ={
       ...filterCondition 
     };
-    // 현재 화면에서 보여지는 카테코리에서 선택된 필터링 조건들을 newFilerCondition 에 반영
+    // 현재 화면에서 보여지는 카테고리에서 선택된 필터링 조건들을 newFilerCondition 에 반영
     switch (category) {
       case productType:
         newFilterCondition.productType = newCondition; 
@@ -171,7 +171,6 @@ const BottomNavModal =({closeModal}:BottomNavModalProps)=>{
     })
     }
   },[targetCondition]);
-  useEffect(()=>{console.log("fi", filterCondition)},[filterCondition])
   return(
     <Modal>
       <form action="">
