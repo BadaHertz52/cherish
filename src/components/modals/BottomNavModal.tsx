@@ -1,5 +1,6 @@
-import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import  {  useEffect,  useState } from "react";
 import Modal from "./Modal";
+
 const productType ="produtType";
 const gender ="gender";
 const job ="job";
@@ -7,6 +8,27 @@ const situation ="situation";
 
 type categoryType = typeof productType |typeof gender | typeof job | typeof situation ;
 
+type conditionType = string[]|null ;
+
+type fileterConditionType ={
+  productType : conditionType,
+  gender :conditionType,
+  job :conditionType,
+  situation :conditionType
+};
+
+type checkBoxType ={
+  name:string,
+  label:string
+};
+
+type CheckBoxProps ={
+  item: checkBoxType,
+};
+
+type BottomNavModalProps ={
+  closeModal : ()=>void
+};
 // checkBoxType 의 name은 추후 필터링 조건명에 따라 수정
 const productTypeCheckBoxArry:checkBoxType[] =[
   {name:"food", label:"식품"},
@@ -41,56 +63,24 @@ const situationCheckBoxArry :checkBoxType[] =[
   {name:"discharge", label:"전역"},
   {name:"get-well-visit", label:"병문안"}
 ];
-type conditionType = string[]|null
-type fileterConditionType ={
-  productType : conditionType,
-  gender :conditionType,
-  job :conditionType,
-  situation :conditionType
-};
-type checkBoxType ={
-  name:string,
-  label:string
-};
-type CheckBoxProps ={
-  item: checkBoxType,
-  targetCondition:conditionType,
-  setTargetCondition: Dispatch<SetStateAction<conditionType>>
-}
-const CheckBox =({item ,targetCondition ,setTargetCondition}:CheckBoxProps)=>{
-  const checkBoxRef= useRef<HTMLInputElement>(null);
-  const isInCondition =targetCondition?.includes(item.name)
-  const onChange =()=>{
-    if(isInCondition && targetCondition !==null){
-      setTargetCondition([...targetCondition].filter((i)=> i !== item.name));
-    }else{
-      targetCondition === null?
-      setTargetCondition([item.name]):
-      setTargetCondition([...targetCondition, item.name])
-    }
-  }
+
+const CheckBox =({item}:CheckBoxProps)=>{
   return (
     <div className="checkbox">
       <input 
         type="checkbox" 
-        ref={checkBoxRef}
         id={item.name} 
         name={item.name}
-        checked={isInCondition}
-        onChange={onChange}
       />
       <label htmlFor={item.name}> {item.label}</label>
     </div>
     
   )
 };
-type BottomNavModalProps ={
-  closeModal : ()=>void
-};
+
 const BottomNavModal =({closeModal}:BottomNavModalProps)=>{
   const [category, setCategory]= useState<categoryType>(productType);
   const [checkBoxArry, setCheckBoxArry] =useState<checkBoxType[]>(productTypeCheckBoxArry);
-
   const [filterCondition, setFilterCondition] =useState<fileterConditionType>({productType:null,
                                                                               gender:null,
                                                                               job:null,
@@ -101,7 +91,15 @@ const BottomNavModal =({closeModal}:BottomNavModalProps)=>{
   const categoryArry :categoryType[] =[productType, gender, job,situation];
   const categoryBtnTextArry =["상품유형", "성별" ,"직업","상황"];
   const arryOfCheckBoxArry =[productTypeCheckBoxArry, genderCheckBoxArry, jobCheckBoxArry, situationCheckBoxArry];
-  const updateFilterContent =(newCondition:conditionType) =>{
+  /**
+   * A function that detects changes in checkboxes , updates the state of filterContent , return it, and if the value of recovery is true, changes the checked attribute of checkboxes that are currently checked to false
+   * @param recovery 
+   * @returns 
+   */
+  const updateFilterContent =( recovery:boolean) =>{
+    const checked :NodeListOf<HTMLInputElement> = document.querySelectorAll('input[type="checkbox"]:checked');
+    const nameArry =Array.from(checked).map((el)=> el.name);
+    const newCondition = nameArry[0] === undefined? null: nameArry;
     let newFilterCondition:fileterConditionType ={
       ...filterCondition 
     };
@@ -122,19 +120,22 @@ const BottomNavModal =({closeModal}:BottomNavModalProps)=>{
       default:
         break;
     };
-    setFilterCondition(filterCondition);
-    return newFilterCondition;
+    if(recovery){
+    // checked를 풀지 않으면 카테고리 이동시, 해당 카테고리에서 선택되지 않은 box가 선택되는 오류 일어남
+      checked.forEach((el)=>{el.checked =false});
+    };
+    setFilterCondition(newFilterCondition);
+    return newFilterCondition
   };
   /**
-   * A function that displays specific categories and checkboxes on the screen depending on the value of an item
+   * A function that displays specific categories and checkboxes on the screen depending on the value of an item after update filterCondtion and targetCondition
    * @param item 
    * @param index  : categoryArry.indexOf(item)
    */
   const onClickCategoryBtn =(item: categoryType , index :number)=>{
-    const checked :NodeListOf<HTMLInputElement> = document.querySelectorAll('input[type="checkbox"]:checked');
-    checked.forEach((el)=>{el.checked =false});
+    
     // set filerCondition 
-    const newFilterCondition = targetCondition === null ? filterCondition : updateFilterContent(targetCondition);
+    const newFilterCondition = updateFilterContent(true); 
     //set targetCondition 
     switch (item) {
       case productType:
@@ -152,35 +153,43 @@ const BottomNavModal =({closeModal}:BottomNavModalProps)=>{
       default:
         break;
     }
-    setFilterCondition(newFilterCondition);
     setCategory(item); 
     setCheckBoxArry(arryOfCheckBoxArry[index]);
   };
   const onClickSubmitBtn =()=>{
+    updateFilterContent(false);
     closeModal();
   };
   useEffect(()=>{
-    console.log("targetcondition", targetCondition)
-    console.log("filtercondtion", filterCondition)
-  },[filterCondition ,targetCondition])
+    if(targetCondition !==null){
+      const checkBoxEl :NodeListOf<HTMLInputElement> = document.querySelectorAll('input[type="checkbox"]');
+      // targetCondition 의 값을 이용해, 사용자가 이미 선택한 필터링 조건인 경우 checked 표시함 
+      checkBoxEl.forEach((el)=> {
+        if(targetCondition.includes(el.name)){
+          el.checked =true;
+        }
+    })
+    }
+  },[targetCondition]);
+  useEffect(()=>{console.log("fi", filterCondition)},[filterCondition])
   return(
     <Modal>
       <form action="">
         <div className="category">
           {categoryArry.map((v,i)=>
           <button
+            key ={`cateogryBtn_${i}`}
             type="button"
             className="category-btn"
-            onClick={()=>onClickCategoryBtn(v,i)}
+            onClick={()=>category !== v && onClickCategoryBtn(v,i)}
           >
             {categoryBtnTextArry[i]}
           </button>)}
         </div>
         <div className="checkBoxs">
-          {checkBoxArry.map((i)=> <CheckBox 
-                                    item ={i} 
-                                    targetCondition={targetCondition}
-                                    setTargetCondition={setTargetCondition}
+          {checkBoxArry.map((v,i)=> <CheckBox 
+                                    key ={`checkbox_${i}`}
+                                    item ={v} 
                                   />
                             )
           }
