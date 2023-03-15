@@ -121,9 +121,7 @@ const Modals=()=>{
         closeModal ={()=> setOpenTarget(null)}
       />
     }
-      <BottomNavModal
-        closeModal ={()=> setOpenTarget(null)}
-      />
+      <BottomNavModal/>
     </div>
   )
 };

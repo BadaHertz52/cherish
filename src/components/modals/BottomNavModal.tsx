@@ -25,10 +25,6 @@ type checkBoxType ={
 type CheckBoxProps ={
   item: checkBoxType,
 };
-
-type BottomNavModalProps ={
-  closeModal : ()=>void
-};
 // checkBoxType 의 name은 추후 필터링 조건명에 따라 수정
 const productTypeCheckBoxArry:checkBoxType[] =[
   {name:"food", label:"식품"},
@@ -78,7 +74,7 @@ const CheckBox =({item}:CheckBoxProps)=>{
   )
 };
 
-const BottomNavModal =({closeModal}:BottomNavModalProps)=>{
+const BottomNavModal =()=>{
   const [category, setCategory]= useState<categoryType>(productType);
   const [checkBoxArry, setCheckBoxArry] =useState<checkBoxType[]>(productTypeCheckBoxArry);
   const [filterCondition, setFilterCondition] =useState<fileterConditionType>({productType:null,
