@@ -1,5 +1,5 @@
 import  {  useEffect,  useState } from "react";
-import Modal from "./Modal";
+import BottomNavModalPortal from "./BottomNavModalPortal";
 
 const productType ="productType";
 const gender ="gender";
@@ -158,7 +158,6 @@ const BottomNavModal =({closeModal}:BottomNavModalProps)=>{
   };
   const onClickSubmitBtn =()=>{
     updateFilterContent(false);
-    closeModal();
   };
   useEffect(()=>{
     if(targetCondition !==null){
@@ -172,36 +171,39 @@ const BottomNavModal =({closeModal}:BottomNavModalProps)=>{
     }
   },[targetCondition]);
   return(
-    <Modal>
-      <form action="">
-        <div className="category">
-          {categoryArry.map((v,i)=>
-          <button
-            key ={`cateogryBtn_${i}`}
-            type="button"
-            className="category-btn"
-            onClick={()=>category !== v && onClickCategoryBtn(v,i)}
-          >
-            {categoryBtnTextArry[i]}
-          </button>)}
-        </div>
-        <div className="checkBoxs">
-          {checkBoxArry.map((v,i)=> <CheckBox 
-                                    key ={`checkbox_${i}`}
-                                    item ={v} 
-                                  />
-                            )
-          }
+    <BottomNavModalPortal>
+      <form>
+        <div>
+          <div className="category">
+            {categoryArry.map((v,i)=>
+            <button
+              key ={`cateogryBtn_${i}`}
+              type="button"
+              className="category-btn"
+              onClick={()=>category !== v && onClickCategoryBtn(v,i)}
+            >
+              {categoryBtnTextArry[i]}
+            </button>)}
+          </div>
+          <div className="checkboxs">
+            {checkBoxArry.map((v,i)=> <CheckBox 
+                                      key ={`checkbox_${i}`}
+                                      item ={v} 
+                                    />
+                              )
+            }
+          </div>
         </div>
         <button
           type="submit"
+          className="btn-submit"
           onClick={onClickSubmitBtn}
         >
           필터링 하기
         </button>
       </form>
 
-    </Modal>
+    </BottomNavModalPortal>
   )
 };
 export default BottomNavModal;

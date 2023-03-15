@@ -1,4 +1,4 @@
-import React, {  useState} from "react";
+import React, { useState ,useEffect} from "react";
 import AlertModal from "./AlertModal";
 import '../../assets/modal.scss';
 import ConfirmModal from "./ConfirmModal";
@@ -74,6 +74,20 @@ const Modals=()=>{
   /**
    * 모달 창 기능 테스트를 위한 함수로 , 테스트 이후 실제 사용 단계에서 삭제
    */
+  useEffect(()=>{
+    const bottomModalEle= document.querySelector(".bottom-nav-modal") as HTMLElement|null;
+    if(openTarget === "bottom"){
+      bottomModalEle?.classList.add("on");
+      setTimeout(() => {
+        if(bottomModalEle !==null){
+          // top의 값: 추후에 bottomNavModal 디자인이 완성되면 수정
+          bottomModalEle.style.top  = "20vh"
+        }
+      }, 200);
+    }else{
+      bottomModalEle?.classList.remove("on");
+    }
+  },[openTarget]);
 
   return(
     <div id="modals">
@@ -107,11 +121,9 @@ const Modals=()=>{
         closeModal ={()=> setOpenTarget(null)}
       />
     }
-    {openTarget == "bottom" &&
       <BottomNavModal
         closeModal ={()=> setOpenTarget(null)}
       />
-    }
     </div>
   )
 };
