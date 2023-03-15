@@ -1,21 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Modal from "./Modal";
-import { modalStateType } from "./Modals";
+import { confrimModalType } from "./Modals";
 
 type ConfirmModalProps ={
-  modalState:modalStateType,
+  item: confrimModalType,
   closeModal:()=>void
 };
-const ConfirmModal=({modalState, closeModal}:ConfirmModalProps)=>{
+const ConfirmModal=({item, closeModal}:ConfirmModalProps)=>{
+  useEffect(()=>{
+    const modalEle = document.querySelector(".modal");
+    modalEle?.classList.add("confirm-modal");
+  },[]);
   return ( 
     <Modal>
-      {modalState.title !== null &&
+      {item.title !== null &&
         <div className="title">
-          {modalState.title}
+          {item.title}
         </div>
       }
       <div className="contents">
-        {modalState.contents}
+        {item.contents}
       </div>
       <div className="btns">
         <button 
@@ -23,14 +27,14 @@ const ConfirmModal=({modalState, closeModal}:ConfirmModalProps)=>{
           className="btn-yes"
           onClick={closeModal}
         >
-          {modalState.yesBtn?.text}
+          {item.yesBtn?.text}
         </button>
         <button 
           type ="button"
           className="btn-no"
           onClick={closeModal}
         >
-          {modalState.noBtn?.text}
+          {item.noBtn?.text}
         </button>
       </div>
     </Modal>

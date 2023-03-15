@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Modal from "./Modal";
+import { modalCommonType } from "./Modals";
 type AlertModalProps ={
-  contents: string|null,
+  item: modalCommonType,
   closeModal :()=>void
 };
-const AlertModal=({contents ,closeModal}:AlertModalProps)=>{
+const AlertModal=({item ,closeModal}:AlertModalProps)=>{
+  useEffect(()=>{
+    const modalEle = document.querySelector(".modal");
+    modalEle?.classList.add("alert-modal");
+  },[]);
   return ( 
     <Modal>
       <button
@@ -14,7 +19,7 @@ const AlertModal=({contents ,closeModal}:AlertModalProps)=>{
         close
       </button>
       <div className="content">
-        {contents}
+        {item.contents}
       </div>
     </Modal>
   )

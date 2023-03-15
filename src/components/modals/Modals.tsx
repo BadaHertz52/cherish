@@ -120,14 +120,14 @@ const Modals=()=>{
       }
     {modal.type === alertModal &&
       <AlertModal
-        contents={modal.contents}
-        closeModal={closeModal}
+        item={alertModalState}
+        closeModal ={()=> setOpenTarget(null)}
       />
     }
     {modal.type ===confirmModal &&
       <ConfirmModal
-        modalState={modal}
-        closeModal={closeModal}
+        item={confirmModalState}
+        closeModal ={()=> setOpenTarget(null)}
       />
     }
     </div>
