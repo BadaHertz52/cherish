@@ -20,11 +20,19 @@
 @mixin modal-inner{
   padding:12px;
 }
-#modal{
+@mixin modal-root {
   z-index: 999;
   position:absolute;
   top:0;
   left:0;
+} 
+#modal-root{
+  @include modal-root;
+}
+.modal-background{
+  position: relative;
+}
+.alert-modal , .confirm-modal{
   .modal-background{
     @include background;
   }

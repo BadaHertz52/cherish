@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Modal from "./Modal";
+import ModalPortal from "./ModalPortal";
 import { modalCommonType } from "./Modals";
 type AlertModalProps ={
   item: modalCommonType,
@@ -11,7 +11,7 @@ const AlertModal=({item ,closeModal}:AlertModalProps)=>{
     modalEle?.classList.add("alert-modal");
   },[]);
   return ( 
-    <Modal>
+    <ModalPortal>
       <button
         type="button"
         onClick={closeModal}
@@ -21,7 +21,7 @@ const AlertModal=({item ,closeModal}:AlertModalProps)=>{
       <div className="content">
         {item.contents}
       </div>
-    </Modal>
+    </ModalPortal>
   )
 };
 export default React.memo(AlertModal)

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Modal from "./Modal";
+import ModalPortal from "./ModalPortal";
 import { confrimModalType } from "./Modals";
 
 type ConfirmModalProps ={
@@ -12,7 +12,7 @@ const ConfirmModal=({item, closeModal}:ConfirmModalProps)=>{
     modalEle?.classList.add("confirm-modal");
   },[]);
   return ( 
-    <Modal>
+    <ModalPortal>
       {item.title !== null &&
         <div className="title">
           {item.title}
@@ -37,7 +37,7 @@ const ConfirmModal=({item, closeModal}:ConfirmModalProps)=>{
           {item.noBtn?.text}
         </button>
       </div>
-    </Modal>
+    </ModalPortal>
   )
 };
 export default React.memo(ConfirmModal)

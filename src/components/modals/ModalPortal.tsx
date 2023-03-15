@@ -4,8 +4,8 @@ import * as reactDOM from 'react-dom';
 type ModalProps ={
   children:ReactNode
 }
-const Modal=({children}:ModalProps)=>{
-  const modalEl = document.getElementById("modal") as HTMLElement;
+const ModalPortal=({children}:ModalProps)=>{
+  const modalEl = document.getElementById("modal-root") as HTMLElement;
   return reactDOM.createPortal(
     <div className='modal'>
       <div className="modal-background">
@@ -18,4 +18,4 @@ const Modal=({children}:ModalProps)=>{
     </div>
     ,modalEl);
 };
-export default  React.memo(Modal);
+export default  React.memo(ModalPortal);
