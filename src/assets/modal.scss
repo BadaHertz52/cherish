@@ -1,7 +1,6 @@
-//comon
-.background{
+
+@mixin background {
   position:relative;
-  z-index:999;
   height:100vh;
   width:100vw;
   display:flex;
@@ -10,14 +9,31 @@
   text-align:center;
   background-color:#06060676; 
 };
-.modal-inner{
+@mixin modal-box{
   position:relative;
   background-color:#ffff;
   width: 70vw;
   min-height: 80px;
   border-radius:15px;
-  padding:12px;
   box-sizing:border-box;
+}
+@mixin modal-inner{
+  padding:12px;
+}
+#modal{
+  z-index: 999;
+  position:absolute;
+  top:0;
+  left:0;
+  .modal-background{
+    @include background;
+  }
+  .modal-box{
+    @include modal-box;
+  }
+  .modal-inner{
+    @include modal-inner
+  }
 }
 .alert-modal{
   position: relative;

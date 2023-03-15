@@ -7,11 +7,13 @@ type ModalProps ={
 const Modal=({children}:ModalProps)=>{
   const modalEl = document.getElementById("modal") as HTMLElement;
   return reactDOM.createPortal(
-    <div 
-      className='modal'        
-    >
-      <div className="modal-inner">
-        {children}
+    <div className='modal'>
+      <div className="modal-background">
+        <div className="modal-box">
+          <div className="modal-inner">
+            {children}
+          </div>
+        </div>
       </div>
     </div>
     ,modalEl);
