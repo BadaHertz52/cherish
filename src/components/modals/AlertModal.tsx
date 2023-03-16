@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import ModalPortal from "./ModalPortal";
-import { modalCommonType } from "./Modals";
+import { modalCommonType } from "./modalTypes";
+
 type AlertModalProps ={
-  item: modalCommonType,
+  modalState: modalCommonType,
   closeModal :()=>void
 };
-const AlertModal=({item ,closeModal}:AlertModalProps)=>{
+const AlertModal=({modalState ,closeModal}:AlertModalProps)=>{
   useEffect(()=>{
     const modalEle = document.querySelector(".modal");
     modalEle?.classList.add("alert-modal");
@@ -19,7 +20,7 @@ const AlertModal=({item ,closeModal}:AlertModalProps)=>{
         close
       </button>
       <div className="content">
-        {item.contents}
+        {modalState.contents}
       </div>
     </ModalPortal>
   )

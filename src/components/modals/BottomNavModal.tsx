@@ -1,5 +1,6 @@
 import  {  useEffect,  useState } from "react";
 import BottomNavModalPortal from "./BottomNavModalPortal";
+import { conditionType, filterConditionType } from "./modalTypes";
 
 const productType ="productType";
 const gender ="gender";
@@ -7,15 +8,6 @@ const job ="job";
 const situation ="situation"; 
 
 type categoryType = typeof productType |typeof gender | typeof job | typeof situation ;
-
-type conditionType = string[]|null ;
-
-type fileterConditionType ={
-  productType : conditionType,
-  gender :conditionType,
-  job :conditionType,
-  situation :conditionType
-};
 
 type checkBoxType ={
   name:string,
@@ -73,17 +65,16 @@ const CheckBox =({item}:CheckBoxProps)=>{
     
   )
 };
-
-const BottomNavModal =()=>{
+type BottomNavModalProps ={
+  selectedFilterCondition:filterConditionType
+  closeModal:()=>void
+}
+const BottomNavModal =({selectedFilterCondition, closeModal}:BottomNavModalProps)=>{
   const [category, setCategory]= useState<categoryType>(productType);
   const [checkBoxArry, setCheckBoxArry] =useState<checkBoxType[]>(productTypeCheckBoxArry);
-  const [filterCondition, setFilterCondition] =useState<fileterConditionType>({productType:null,
-                                                                              gender:null,
-                                                                              job:null,
-                                                                              situation:null
-                                                                            });
+  const [filterCondition, setFilterCondition] =useState<filterConditionType>(selectedFilterCondition);
   //CheckBox에서 이미 선택된 조건들이 표시 되는데 사용
-  const [targetCondition,setTargetCondition] = useState<conditionType>(filterCondition.productType);
+  const [targetCondition,setTargetCondition] = useState<conditionType>(null);
   const categoryArry :categoryType[] =[productType, gender, job,situation];
   const categoryBtnTextArry =["상품유형", "성별" ,"직업","상황"];
   const arryOfCheckBoxArry =[productTypeCheckBoxArry, genderCheckBoxArry, jobCheckBoxArry, situationCheckBoxArry];
@@ -96,7 +87,7 @@ const BottomNavModal =()=>{
     const checked :NodeListOf<HTMLInputElement> = document.querySelectorAll('input[type="checkbox"]:checked');
     const nameArry =Array.from(checked).map((el)=> el.name);
     const newCondition = nameArry[0] === undefined? null: nameArry;
-    let newFilterCondition:fileterConditionType ={
+    let newFilterCondition:filterConditionType ={
       ...filterCondition 
     };
     // 현재 화면에서 보여지는 카테고리에서 선택된 필터링 조건들을 newFilerCondition 에 반영
@@ -129,32 +120,36 @@ const BottomNavModal =()=>{
    * @param index  : categoryArry.indexOf(item)
    */
   const onClickCategoryBtn =(item: categoryType , index :number)=>{
-    
     // set filerCondition 
     const newFilterCondition = updateFilterContent(true); 
-    //set targetCondition 
-    switch (item) {
-      case productType:
-        setTargetCondition(newFilterCondition.productType)
-        break;
-      case gender :
-        setTargetCondition(newFilterCondition.gender)
-        break;
-      case job :
-        setTargetCondition(newFilterCondition.job)
-        break;
-      case situation :
-        setTargetCondition(newFilterCondition.situation)
-        break;
-      default:
-        break;
-    }
     setCategory(item); 
     setCheckBoxArry(arryOfCheckBoxArry[index]);
   };
   const onClickSubmitBtn =()=>{
     updateFilterContent(false);
+    closeModal();
   };
+  useEffect(()=>{
+    if(filterCondition !==null){
+    //set targetCondition 
+    switch (category) {
+      case productType:
+        setTargetCondition(filterCondition.productType)
+        break;
+      case gender :
+        setTargetCondition(filterCondition.gender)
+        break;
+      case job :
+        setTargetCondition(filterCondition.job)
+        break;
+      case situation :
+        setTargetCondition(filterCondition.situation)
+        break;
+      default:
+        break;
+    };
+    }
+  },[category , filterCondition ])
   useEffect(()=>{
     if(targetCondition !==null){
       const checkBoxEl :NodeListOf<HTMLInputElement> = document.querySelectorAll('input[type="checkbox"]');
