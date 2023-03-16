@@ -3,8 +3,9 @@ import AlertModal from "./AlertModal";
 import '../../assets/modal.scss';
 import ConfirmModal from "./ConfirmModal";
 import BottomNavModal from "./BottomNavModal";
-import { confirmModalType, filterConditionType, modalCommonType } from "./modalTypes";
-
+import { confirmModalType, filterConditionType, modalCommonType, toastModalType } from "./modalTypes";
+import ToastModal from "./ToastModal";
+import '../../assets/modalTest.scss';
 
 const ModalTest=()=>{
   // 모달 창 기능을 보기 위한 코드로 , 실제 사용에는 필요 없습니다. 
@@ -30,7 +31,9 @@ const ModalTest=()=>{
     gender:null,
     job:null,
     situation:null
- };
+  };
+  const bottomNavDomRect = document.querySelector("nav")?.getClientRects()[0]
+  const [toastModalCondition, setToastModalCondition] =useState<toastModalType |null>(null);
   /**
    * 모달 창 기능 테스트를 위한 함수로 , 테스트 이후 실제 사용 단계에서 삭제
    */
@@ -46,12 +49,25 @@ const ModalTest=()=>{
       }, 200);
     }else{
       bottomModalEle?.classList.remove("on");
-    }
+    };
+    // toast modal
+    if(openTarget === "toast"){
+      const targetEleDomRect = document.getElementById("toast-modal-target")?.getBoundingClientRect();
+      if(targetEleDomRect !==undefined){
+        setToastModalCondition ({
+          contents:"toast modal!!!",
+          top: `${targetEleDomRect.top}px`,
+          left :`${targetEleDomRect.left}px`
+        })
+      };
+    };
+
   },[openTarget]);
 
   return(
     <div id="modal-test">
-        <button 
+      <div className="btns">
+      <button 
           type="button"
           onClick={()=>setOpenTarget("alert")}
         >
@@ -69,6 +85,16 @@ const ModalTest=()=>{
         >
           open bottom nav modal
         </button>
+        <button 
+          type="button"
+          onClick={()=>setOpenTarget("toast")}
+        >
+          open toast modal
+        </button>
+      </div>
+      <div id="toast-modal-target">
+        여기에 toast modal 열기 
+      </div>
     { openTarget ==="alert" &&
       <AlertModal
         modalState={alertModalState}
@@ -79,6 +105,12 @@ const ModalTest=()=>{
       <ConfirmModal
         modalState={confirmModalState}
         closeModal ={()=> setOpenTarget(null)}
+      />
+    }
+    {openTarget === "toast" && toastModalCondition !== null &&
+      <ToastModal
+        modalState={toastModalCondition}
+        closeModal={()=> setOpenTarget(null)}
       />
     }
       <BottomNavModal

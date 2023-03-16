@@ -23,6 +23,8 @@ body{
 }
 @mixin modal-inner{
   padding:12px;
+  width: inherit;
+  height: inherit;
 }
 @mixin modal-root {
   z-index: 999;
@@ -117,5 +119,25 @@ body{
     .btn-submit{
       height: 48px;
     }
+  }
+}
+
+.toast-modal{
+  position: absolute;
+  .modal-box{
+    background-color: #fcedba;
+    border-radius: 10px;
+    min-height: 65px;
+    width: 200px;
+  }
+  .modal-inner{
+    @include modal-inner;
+    min-height: inherit;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 800;
   }
 }

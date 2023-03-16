@@ -18,6 +18,13 @@ export type confirmModalType =modalCommonType &{
   yesBtn:confirmModalBtnType,
   noBtn: confirmModalBtnType
 };
+/**
+ * the unit for top and left is px
+ */
+export type toastModalType = modalCommonType & {
+  top:string, // unit: px
+  left: string
+}
 export type conditionType = string[]|null ;
 export type filterConditionType ={
   productType : conditionType,
