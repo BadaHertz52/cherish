@@ -50,7 +50,7 @@ const ModalTest=()=>{
   },[openTarget]);
 
   return(
-    <div id="modals">
+    <div id="modal-test">
         <button 
           type="button"
           onClick={()=>setOpenTarget("alert")}
