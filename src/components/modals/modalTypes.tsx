@@ -9,7 +9,7 @@ export type confirmModalBtnType ={
   //btn 클릭 시 이동/창 닫기 외의 필요한 기능
   otherFn : (()=>void) | null
 };
-// alert ,toast  modal - modalComonType 
+// alert modal - modalComonType 
 export type modalCommonType ={
   contents: string
 };
