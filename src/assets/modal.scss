@@ -254,9 +254,10 @@ body{
     position: absolute;
     top: -20px;
     right:40px;
-    color:rgb(255, 99, 99);
-    svg{
-      font-size: 40px;
+    font-size: 40px;
+    color: $color-light-gray; 
+    &.on{
+      color:$color-primary;
     }
   }
   .one-line-introduction {

@@ -72,17 +72,10 @@ const FullScreModal=({modalState ,closeModal}:FullScreModalProps)=>{
                   )}
             </li>
           </ul>
-          <button
-            type="button"
-            className="btn-save"
+          <FaHeart
+            className={`btn-save ${saved? "on" : ""}`}
             onClick ={onClickSaveBtn}
-          >
-            {saved?
-              <FaHeart/>
-              :
-              <FiHeart/>
-            }
-          </button>
+          />
         </div>
         <div className="store">
           <div className="online-store">
