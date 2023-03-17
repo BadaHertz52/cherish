@@ -1,7 +1,6 @@
 import  {  useEffect,  useState } from "react";
 import BottomNavModalPortal from "./BottomNavModalPortal";
 import { conditionType, filterConditionType } from "./modalTypes";
-
 const productType ="productType";
 const gender ="gender";
 const job ="job";

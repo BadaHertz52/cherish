@@ -1,10 +1,8 @@
 import React, { MouseEvent, TouchEvent, useEffect, useState } from "react";
 import ModalPortal from "./ModalPortal";
 import { fullScreModalType} from "./modalTypes";
-import {FiHeart} from 'react-icons/fi';
-import {FaHeart} from 'react-icons/fa';
-import {MdOutlineArrowBackIosNew} from 'react-icons/md';
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart ,faChevronLeft  } from "@fortawesome/free-solid-svg-icons";
 type FullScreModalProps ={
   modalState: fullScreModalType,
   closeModal :()=>void
@@ -37,7 +35,7 @@ const FullScreModal=({modalState ,closeModal}:FullScreModalProps)=>{
           onClick ={closeModal}
           className ="btn-close"
         >
-          <MdOutlineArrowBackIosNew/>
+          <FontAwesomeIcon icon={faChevronLeft} />
         </button>
         <h2>상세 페이지</h2>
       </div>
@@ -72,10 +70,14 @@ const FullScreModal=({modalState ,closeModal}:FullScreModalProps)=>{
                   )}
             </li>
           </ul>
-          <FaHeart
+          <button
+            type="button"
+            title="save btn"
             className={`btn-save ${saved? "on" : ""}`}
             onClick ={onClickSaveBtn}
-          />
+          >
+            <FontAwesomeIcon icon={faHeart} />
+          </button>
         </div>
         <div className="store">
           <div className="online-store">
