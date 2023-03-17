@@ -149,6 +149,33 @@ body{
       height: 48px;
     }
   }
+  input[type="checkbox"]{
+    display: none;
+  }
+  input[type="checkbox"]+ .check{
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border:1px solid $color-light-gray;
+    border-radius: 50%;
+    background-color: $color-light;
+    position: relative;
+  }
+  input:checked + .check::after{
+    content:'✔';
+    font-size: 14px;
+    width: 15px;
+    height: 15px;
+    color: $color-primary;
+    border: 1px solid $color-white;
+    background-color: $color-white;
+    border-radius: 50%;
+    text-align: center;
+    position: absolute;
+    left: -1px;
+    top:-1px;
+    z-index: 3;
+  }
 }
 
 .toast-modal{

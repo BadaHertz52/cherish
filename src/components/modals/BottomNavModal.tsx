@@ -60,6 +60,7 @@ const CheckBox =({item}:CheckBoxProps)=>{
         id={item.name} 
         name={item.name}
       />
+      <label htmlFor={item.name} className="check"></label>
       <label htmlFor={item.name}> {item.label}</label>
     </div>
     
