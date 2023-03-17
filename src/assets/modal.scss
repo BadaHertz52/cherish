@@ -1,3 +1,9 @@
+$color-primary :#FF6B8F ;
+$color-middle : #FF86A3;
+$color-black : #121212;
+$color-light-gray: #9E9E9E;
+$color-light :#EEEEEE;
+$color-white :#FFFFFF;
 body{
   width: 100vw;
   height: 100vh;
@@ -15,26 +21,32 @@ body{
 };
 @mixin modal-box{
   position:relative;
-  background-color:#ffff;
+  background-color:$color-white;
   width: 70vw;
   min-height: 80px;
   border-radius:15px;
   box-sizing:border-box;
 }
 @mixin modal-inner{
-  padding:12px;
+  padding:16px 14px;
   width: inherit;
   height: inherit;
+  box-sizing: border-box;
 }
 @mixin modal-root {
   z-index: 999;
   position:absolute;
   top:0;
   left:0;
+}
+@mixin reset-btn-style{
+  background-color: $color-white;
+  border: none
 } 
 #modal-root{
   @include modal-root;
   font-size: 16px;
+  color:$color-black;
 }
 .modal-background{
   position: relative;
@@ -52,21 +64,37 @@ body{
 }
 .alert-modal{
   position: relative;
-  button{
+  .modal-inner{
+    min-height: inherit;
+  }
+  .btn-close{
+    @include reset-btn-style;
     position: absolute;
-    right:7px;
-    top:7px;
-    height: 1rem;
+    right:12px;
+    top:12px;
+    height: 20px;
+    svg{
+      font-size: 18px;
+    }
   }
   .contents{
-    margin-top: 1rem;
+    margin-top: 20px;
     box-sizing: border-box;
     width: 100%;
     height: 100%;
     text-align: center;
   }
 }
-
+.confirm-modal{
+  .contents{
+    padding: 16px 0;
+  }
+  .btns{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+}
 .bottom-nav-modal{
   display: none;
   &.on{
@@ -150,7 +178,7 @@ body{
   }
   .modal-box{
     width: 100vw;
-    background-color: #ffff;
+    background-color: $color-white;
   }
   .topbar{
     display: flex;
