@@ -200,8 +200,7 @@ body{
 
 .full-scre-modal {
   button{
-    background-color: initial;
-    border: none;
+    @include reset-btn-style
   }
   .modal-box{
     width: 100vw;
