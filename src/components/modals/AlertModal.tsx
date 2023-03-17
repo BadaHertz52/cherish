@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import ModalPortal from "./ModalPortal";
 import { modalCommonType } from "./modalTypes";
+import {AiOutlineClose} from 'react-icons/ai';
 
 type AlertModalProps ={
   modalState: modalCommonType,
@@ -13,12 +14,10 @@ const AlertModal=({modalState ,closeModal}:AlertModalProps)=>{
   },[]);
   return ( 
     <ModalPortal>
-      <button
-        type="button"
+      <AiOutlineClose
+        className="btn-close"
         onClick={closeModal}
-      >
-        close
-      </button>
+      />
       <div className="contents">
         {modalState.contents}
       </div>
