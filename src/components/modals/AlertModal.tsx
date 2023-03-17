@@ -19,7 +19,7 @@ const AlertModal=({modalState ,closeModal}:AlertModalProps)=>{
       >
         close
       </button>
-      <div className="content">
+      <div className="contents">
         {modalState.contents}
       </div>
     </ModalPortal>

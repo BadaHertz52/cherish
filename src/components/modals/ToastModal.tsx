@@ -20,7 +20,7 @@ const ToastModal=({modalState ,closeModal}:ToastModalProps)=>{
   },[]);
   return ( 
     <ModalPortal>
-      <div className="content">
+      <div className="contents">
         {modalState.contents}
       </div>
     </ModalPortal>
