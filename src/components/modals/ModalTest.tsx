@@ -3,12 +3,13 @@ import AlertModal from "./AlertModal";
 import '../../assets/modal.scss';
 import ConfirmModal from "./ConfirmModal";
 import BottomNavModal from "./BottomNavModal";
-import { confirmModalType, filterConditionType, modalCommonType, toastModalType } from "./modalTypes";
+import { confirmModalType, filterConditionType, fullScreModalType, modalCommonType, toastModalType } from "./modalTypes";
 import ToastModal from "./ToastModal";
 import '../../assets/modalTest.scss';
-
+import FullScreModal from "./FullScreModal";
+import sampleImg from '../../assets/product_sample.jpg';
 const ModalTest=()=>{
-  // 모달 창 기능을 보기 위한 코드로 , 실제 사용에는 필요 없습니다. 
+  // 모달 창 기능을 보기 위한 코드로 , 실제 사용에는 필요 없습니다. 추후 삭제 예정 
   const [openTarget , setOpenTarget] =useState<string|null>("alert");
   const alertModalState :modalCommonType = {
     contents: "alert",
@@ -32,8 +33,23 @@ const ModalTest=()=>{
     job:null,
     situation:null
   };
-  const bottomNavDomRect = document.querySelector("nav")?.getClientRects()[0]
-  const [toastModalCondition, setToastModalCondition] =useState<toastModalType |null>(null);
+  const fullScreModalState :fullScreModalType ={
+    name: "product name",
+    saved: true,
+    img: sampleImg,
+    price: 10000,
+    store: {
+        online:[{name:"네이버", url:'/'}, 
+        {name:"브랜드", url:'/'},
+        {name:"쿠팡", url:'/'},
+        {name:"카카오", url:'/'}
+              ] ,
+        offline:"서울특별시 종로구"
+    },
+    oneLineIntroduction: "test test test test test test test test test test test test test test test test test test test test " ,
+    tag:["tag1", "tag2", "tag3", "tag4"]
+  } 
+  const [toastModalState, setToastModalState] =useState<toastModalType |null>(null);
   /**
    * 모달 창 기능 테스트를 위한 함수로 , 테스트 이후 실제 사용 단계에서 삭제
    */
@@ -54,7 +70,7 @@ const ModalTest=()=>{
     if(openTarget === "toast"){
       const targetEleDomRect = document.getElementById("toast-modal-target")?.getBoundingClientRect();
       if(targetEleDomRect !==undefined){
-        setToastModalCondition ({
+        setToastModalState ({
           contents:"toast modal!!!",
           top: `${targetEleDomRect.top}px`,
           left :`${targetEleDomRect.left}px`
@@ -91,6 +107,12 @@ const ModalTest=()=>{
         >
           open toast modal
         </button>
+        <button 
+          type="button"
+          onClick={()=>setOpenTarget("full")}
+        >
+          open full screen modal
+        </button>
       </div>
       <div id="toast-modal-target">
         여기에 toast modal 열기 
@@ -107,10 +129,16 @@ const ModalTest=()=>{
         closeModal ={()=> setOpenTarget(null)}
       />
     }
-    {openTarget === "toast" && toastModalCondition !== null &&
+    {openTarget === "toast" && toastModalState !== null &&
       <ToastModal
-        modalState={toastModalCondition}
+        modalState={toastModalState}
         closeModal={()=> setOpenTarget(null)}
+      />
+    }
+    {openTarget ==="full" && 
+      <FullScreModal
+        modalState={fullScreModalState}
+        closeModal={()=>setOpenTarget(null)}
       />
     }
       <BottomNavModal

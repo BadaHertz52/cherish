@@ -34,6 +34,7 @@ body{
 } 
 #modal-root{
   @include modal-root;
+  font-size: 16px;
 }
 .modal-background{
   position: relative;
@@ -57,7 +58,7 @@ body{
     top:7px;
     height: 1rem;
   }
-  .content{
+  .contents{
     margin-top: 1rem;
     box-sizing: border-box;
     width: 100%;
@@ -139,5 +140,104 @@ body{
     justify-content: center;
     font-size: 1rem;
     font-weight: 800;
+  }
+}
+
+.full-scre-modal {
+  button{
+    background-color: initial;
+    border: none;
+  }
+  .modal-box{
+    width: 100vw;
+    background-color: #ffff;
+  }
+  .topbar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+    font-size: 20px;
+    position: relative;
+    button{
+      position: absolute;
+      top:16px;
+      left: 32px
+    }
+    svg {
+      font-size: 20px;
+    }
+  }
+  .contents{
+    overflow-y: scroll;
+    height: calc(100vh - 52px);
+  }
+  .product-img{
+    width: 100%;
+  }
+  .inform{
+    position: relative;
+  }
+  ul, .store{
+    padding: 16px;
+    padding-bottom: 0;
+  }
+  ul{
+    // 높이 :100vh - product-image height - .topbar height - a(사용자가 구매자 정보가 있는지 인지할 수 있을 정보)
+    height: calc(100vh - 100vw - 52px - 32px);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  .product-name {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .btn-save{
+    position: absolute;
+    top: -20px;
+    right:40px;
+    color:rgb(255, 99, 99);
+    svg{
+      font-size: 40px;
+    }
+  }
+  .one-line-introduction {
+    span{
+      display: inline-block;
+      width: 100%;
+      line-height: 18px;
+    }
+  }
+  .tag{
+    span{
+      padding-right: 32px;
+    }
+  }
+  h3 {
+    font-size: 18px;
+    font-weight: bold;
+    padding-bottom: 16px;
+  }
+  .site{
+    width: 80vw;
+    padding-bottom: 18px;
+    display: flex;
+    justify-content: space-between;
+    a:link, a:active , a:visited{
+      text-decoration: none;
+      color:black;
+    };
+    
+  }
+  .site a:hover,
+  .stie-link.hover{
+    font-weight: bolder;
+  }
+  .offline-store{
+    padding-top: 16px;
+    padding-bottom: 24px;
   }
 }

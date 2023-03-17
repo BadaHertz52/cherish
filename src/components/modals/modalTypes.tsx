@@ -32,29 +32,28 @@ export type filterConditionType ={
   job :conditionType,
   situation :conditionType
 };
+const brand ="브랜드";
+const kakao ="카카오";
+const coupang ="쿠팡";
+const naver ="네이버"; 
+type onlineStore = {
+  name: typeof brand|typeof kakao |typeof coupang |typeof naver,
+  url :string
+}
 // 상품 type (임시) - full screen modal type
-export type itemType ={
+export type fullScreModalType ={
   //class1,2 ,agePart,situation,emotion,gender, preference 에 들어갈 세부 type은 추후에 정할 예정 
-  goods :{
-    class1:string,
-    class2:string |null
-  },
+  name:string,
+  // 회원이 해당 상품을 저장했는 지 여부 
+  saved : boolean,
+  // full screen modal 용 큰 이미지 필요 (1:1 비율)
+  img : string,
   price:number,
-  onlineStoreUrl: { brand:string | null ,
-              kakao :string |null,
-              coupang:string |null,
-              naver:string |null
-            },
-  offlineStore : string|null,
-  description:string|null ,
-  job:{
-    class1:string,
-    class2:string|null
+  store :{
+    online : onlineStore[],
+    offline :string|null
   },
-  // 상품 데이터 구조는 6단계로 추후에 그렇게 진행하면 될 것 같음
-  agePart :number ,
-  situation:string,
-  emotion:string,
-  gender:string,
-  preference:string
+  oneLineIntroduction:string,
+  //기획팀이 상품데이터 전달 때 같이 전달할 예정
+  tag : string[]
 };
