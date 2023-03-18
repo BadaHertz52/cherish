@@ -14,14 +14,14 @@ const ConfirmModal=({modalState, closeModal}:ConfirmModalProps)=>{
   return ( 
     <ModalPortal>
       {modalState.title !== null &&
-        <div className="title">
+        <title>
           {modalState.title}
-        </div>
+        </title>
       }
-      <div className="contents">
+      <section className="contents">
         {modalState.contents}
-      </div>
-      <div className="btns">
+      </section>
+      <section className="btns">
         <button 
           type ="button"
           className="btn-yes"
@@ -36,7 +36,7 @@ const ConfirmModal=({modalState, closeModal}:ConfirmModalProps)=>{
         >
           {modalState.noBtn?.text}
         </button>
-      </div>
+      </section>
     </ModalPortal>
   )
 };

@@ -164,7 +164,7 @@ const BottomNavModal =({selectedFilterCondition, closeModal}:BottomNavModalProps
   return(
     <BottomNavModalPortal>
       <form>
-        <div>
+        <section>
           <div className="category">
             {categoryArry.map((v,i)=>
             <button
@@ -184,7 +184,7 @@ const BottomNavModal =({selectedFilterCondition, closeModal}:BottomNavModalProps
                               )
             }
           </div>
-        </div>
+        </section>
         <button
           type="submit"
           className="btn-submit"

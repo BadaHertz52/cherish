@@ -23,9 +23,9 @@ const AlertModal=({modalState ,closeModal}:AlertModalProps)=>{
       <FontAwesomeIcon icon={faXmark}/>
       </button>
 
-      <div className="contents">
+      <section className="contents">
         {modalState.contents}
-      </div>
+      </section>
     </ModalPortal>
   )
 };
