@@ -91,22 +91,7 @@ const BottomNavModal =({selectedFilterCondition, closeModal}:BottomNavModalProps
       ...filterCondition 
     };
     // 현재 화면에서 보여지는 카테고리에서 선택된 필터링 조건들을 newFilerCondition 에 반영
-    switch (category) {
-      case productType:
-        newFilterCondition.productType = newCondition; 
-        break;
-      case gender :
-        newFilterCondition.gender =newCondition;
-        break;
-      case job :
-        newFilterCondition.job =newCondition;
-        break;
-      case situation :
-        newFilterCondition.situation =newCondition;
-        break;
-      default:
-        break;
-    };
+    newFilterCondition[`${category}`] = newCondition; 
     if(recovery){
     // checked를 풀지 않으면 카테고리 이동시, 해당 카테고리에서 선택되지 않은 box가 선택되는 오류 일어남
       checked.forEach((el)=>{el.checked =false});
@@ -132,22 +117,7 @@ const BottomNavModal =({selectedFilterCondition, closeModal}:BottomNavModalProps
   useEffect(()=>{
     if(filterCondition !==null){
     //set targetCondition 
-    switch (category) {
-      case productType:
-        setTargetCondition(filterCondition.productType)
-        break;
-      case gender :
-        setTargetCondition(filterCondition.gender)
-        break;
-      case job :
-        setTargetCondition(filterCondition.job)
-        break;
-      case situation :
-        setTargetCondition(filterCondition.situation)
-        break;
-      default:
-        break;
-    };
+    setTargetCondition(filterCondition[`${category}`]);
     }
   },[category , filterCondition ])
   useEffect(()=>{

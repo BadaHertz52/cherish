@@ -27,10 +27,10 @@ export type toastModalType = modalCommonType & {
 }
 export type conditionType = string[]|null ;
 export type filterConditionType ={
-  productType : conditionType,
-  gender :conditionType,
-  job :conditionType,
-  situation :conditionType
+  "productType" : conditionType,
+  "gender" :conditionType,
+  "job" :conditionType,
+  "situation" :conditionType
 };
 const brand ="브랜드";
 const kakao ="카카오";
