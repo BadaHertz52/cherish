@@ -1,5 +1,6 @@
 import Button from '../components/Button';
 import '../assets/Button.scss';
+import axios from 'axios';
 const button = () => {
   const handleButtonClick = () => {
     console.log('Button Clicked!');
@@ -15,14 +16,26 @@ const button = () => {
   return (
     <>
       <Button children="다음" onClickAction={handleButtonClick} className="deactivate" />
-      <Button children="다음" to="/first" className="activate" />
+      <Button
+        children="다음"
+        onClickAction={() => {
+          window.location.href = '/';
+        }}
+        className="activate"
+      />
       <Button children="다음" type="submit" className="default" />
       <Button
         children="다음"
-        onClickAction={handleButtonClick}
-        fetchUrl="https://jsonplaceholder.typicode.com/todos/"
-        onSuccess={handleFetchSuccess}
-        onError={handleFetchError}
+        onClickAction={() => {
+          axios
+            .get('https://jsonplaceholder.typicode.com/todos/')
+            .then(reponse => {
+              console.log(reponse.data);
+            })
+            .catch(error => {
+              console.log(error.reponse);
+            });
+        }}
         className="default2"
       />
     </>
