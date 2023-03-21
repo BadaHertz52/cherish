@@ -8,8 +8,8 @@ type ConfirmModalProps ={
 };
 const ConfirmModal=({modalState, closeModal}:ConfirmModalProps)=>{
   useEffect(()=>{
-    const modalEle = document.querySelector(".modal");
-    modalEle?.classList.add("confirm-modal");
+    const modalEl = document.querySelector(".modal");
+    modalEl?.classList.add("confirm-modal");
   },[]);
   return ( 
     <ModalPortal>

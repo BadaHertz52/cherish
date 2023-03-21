@@ -1,6 +1,6 @@
 import  {  useEffect,  useState } from "react";
 import BottomNavModalPortal from "./BottomNavModalPortal";
-import { conditionType, filterConditionType } from "./modalTypes";
+import { conditionType, filteringConditionType } from "./modalTypes";
 const productType ="productType";
 const gender ="gender";
 const job ="job";
@@ -17,19 +17,19 @@ type CheckBoxProps ={
   item: checkBoxType,
 };
 // checkBoxType 의 name은 추후 필터링 조건명에 따라 수정
-const productTypeCheckBoxArry:checkBoxType[] =[
+const productTypeCheckBoxArr:checkBoxType[] =[
   {name:"food", label:"식품"},
   {name:"beauty", label:"뷰티"},
   {name:"living", label:"리빙/주방"},
   {name:"digital", label:"디지털/가전"},
   {name:"etc", label:"기타"}
 ];
-const genderCheckBoxArry :checkBoxType[]  =[
+const genderCheckBoxArr :checkBoxType[]  =[
   {name:"male", label:"남"},
   {name:"female", label:"여"},
   {name:"irrelevant", label:"무관"},
 ];
-const jobCheckBoxArry :checkBoxType[]  =[
+const jobCheckBoxArr :checkBoxType[]  =[
   {name:"profession", label:"전문직"},
   {name:"management", label:"경영/관리직"},
   {name:"desk", label:"사무직"},
@@ -41,7 +41,7 @@ const jobCheckBoxArry :checkBoxType[]  =[
   {name:"inoccupation", label:"무직"},
   {name:"etc", label:"기타"},
 ];
-const situationCheckBoxArry :checkBoxType[] =[
+const situationCheckBoxArr :checkBoxType[] =[
   {name:"birthday", label:"생일"},
   {name:"move-housewarming", label:"이사/집들이"},
   {name:"admission-graduation", label:"입학/졸업"},
@@ -66,60 +66,60 @@ const CheckBox =({item}:CheckBoxProps)=>{
   )
 };
 type BottomNavModalProps ={
-  selectedFilterCondition:filterConditionType
+  selectedFilteringCondition:filteringConditionType
   closeModal:()=>void
 }
-const BottomNavModal =({selectedFilterCondition, closeModal}:BottomNavModalProps)=>{
+const BottomNavModal =({selectedFilteringCondition, closeModal}:BottomNavModalProps)=>{
   const [category, setCategory]= useState<categoryType>(productType);
-  const [checkBoxArry, setCheckBoxArry] =useState<checkBoxType[]>(productTypeCheckBoxArry);
-  const [filterCondition, setFilterCondition] =useState<filterConditionType>(selectedFilterCondition);
+  const [checkBoxArr, setCheckBoxArr] =useState<checkBoxType[]>(productTypeCheckBoxArr);
+  const [filteringCondition, setFilteringCondition] =useState<filteringConditionType>(selectedFilteringCondition);
   //CheckBox에서 이미 선택된 조건들이 표시 되는데 사용
   const [targetCondition,setTargetCondition] = useState<conditionType>(null);
-  const categoryArry :categoryType[] =[productType, gender, job,situation];
-  const categoryBtnTextArry =["상품유형", "성별" ,"직업","상황"];
-  const arryOfCheckBoxArry =[productTypeCheckBoxArry, genderCheckBoxArry, jobCheckBoxArry, situationCheckBoxArry];
+  const categoryArr :categoryType[] =[productType, gender, job,situation];
+  const categoryBtnTextArr =["상품유형", "성별" ,"직업","상황"];
+  const arrOfCheckBoxArr =[productTypeCheckBoxArr, genderCheckBoxArr, jobCheckBoxArr, situationCheckBoxArr];
   /**
-   * A function that detects changes in checkboxes , updates the state of filterCondition , return it, and if the value of recovery is true, changes the checked attribute of checkboxes that are currently checked to false
+   * A function that detects changes in checkboxes , updates the state of filteringCondition , return it, and if the value of recovery is true, changes the checked attribute of checkboxes that are currently checked to false
    * @param recovery 
    * @returns 
    */
-  const updateFilterContent =( recovery:boolean) =>{
+  const updateFilteringContent =( recovery:boolean) =>{
     const checked :NodeListOf<HTMLInputElement> = document.querySelectorAll('input[type="checkbox"]:checked');
-    const nameArry =Array.from(checked).map((el)=> el.name);
-    const newCondition = nameArry[0] === undefined? null: nameArry;
-    let newFilterCondition:filterConditionType ={
-      ...filterCondition 
+    const nameArr =Array.from(checked).map((el)=> el.name);
+    const newCondition = nameArr[0] === undefined? null: nameArr;
+    let newFilteringCondition:filteringConditionType ={
+      ...filteringCondition 
     };
     // 현재 화면에서 보여지는 카테고리에서 선택된 필터링 조건들을 newFilerCondition 에 반영
-    newFilterCondition[`${category}`] = newCondition; 
+    newFilteringCondition[`${category}`] = newCondition; 
     if(recovery){
     // checked를 풀지 않으면 카테고리 이동시, 해당 카테고리에서 선택되지 않은 box가 선택되는 오류 일어남
       checked.forEach((el)=>{el.checked =false});
     };
-    setFilterCondition(newFilterCondition);
-    return newFilterCondition
+    setFilteringCondition(newFilteringCondition);
+    return newFilteringCondition
   };
   /**
-   * A function that displays specific categories and checkboxes on the screen depending on the value of an item after update filterCondtion and targetCondition
+   * A function that displays specific categories and checkboxes on the screen depending on the value of an item after update filteringCondtion and targetCondition
    * @param item 
-   * @param index  : categoryArry.indexOf(item)
+   * @param index  : categoryArr.indexOf(item)
    */
   const onClickCategoryBtn =(item: categoryType , index :number)=>{
     // set filerCondition 
-    const newFilterCondition = updateFilterContent(true); 
+    updateFilteringContent(true); 
     setCategory(item); 
-    setCheckBoxArry(arryOfCheckBoxArry[index]);
+    setCheckBoxArr(arrOfCheckBoxArr[index]);
   };
   const onClickSubmitBtn =()=>{
-    updateFilterContent(false);
+    updateFilteringContent(false);
     closeModal();
   };
   useEffect(()=>{
-    if(filterCondition !==null){
+    if(filteringCondition !==null){
     //set targetCondition 
-    setTargetCondition(filterCondition[`${category}`]);
+    setTargetCondition(filteringCondition[`${category}`]);
     }
-  },[category , filterCondition ])
+  },[category , filteringCondition ])
   useEffect(()=>{
     if(targetCondition !==null){
       const checkBoxEl :NodeListOf<HTMLInputElement> = document.querySelectorAll('input[type="checkbox"]');
@@ -136,18 +136,18 @@ const BottomNavModal =({selectedFilterCondition, closeModal}:BottomNavModalProps
       <form>
         <section>
           <div className="category">
-            {categoryArry.map((v,i)=>
+            {categoryArr.map((v,i)=>
             <button
               key ={`cateogryBtn_${i}`}
               type="button"
               className="category-btn"
               onClick={()=>category !== v && onClickCategoryBtn(v,i)}
             >
-              {categoryBtnTextArry[i]}
+              {categoryBtnTextArr[i]}
             </button>)}
           </div>
           <div className="checkboxs">
-            {checkBoxArry.map((v,i)=> <CheckBox 
+            {checkBoxArr.map((v,i)=> <CheckBox 
                                       key ={`checkbox_${i}`}
                                       item ={v} 
                                     />

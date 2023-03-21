@@ -9,7 +9,7 @@ export type confirmModalBtnType ={
   //btn 클릭 시 이동/창 닫기 외의 필요한 기능
   otherFn : (()=>void) | null
 };
-// alert modal - modalComonType 
+// alert modal - modalComonType (모달의 공통적인 것들)
 export type modalCommonType ={
   contents: string
 };
@@ -26,7 +26,7 @@ export type toastModalType = modalCommonType & {
   left: string
 }
 export type conditionType = string[]|null ;
-export type filterConditionType ={
+export type filteringConditionType ={
   "productType" : conditionType,
   "gender" :conditionType,
   "job" :conditionType,
@@ -53,7 +53,7 @@ export type fullScreModalType ={
     online : onlineStore[],
     offline :string|null
   },
-  oneLineIntroduction:string,
+  onlineIntroduction:string,
   //기획팀이 상품데이터 전달 때 같이 전달할 예정
   tag : string[]
 };

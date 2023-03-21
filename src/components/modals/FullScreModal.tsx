@@ -9,7 +9,7 @@ type FullScreModalProps ={
 };
 const FullScreModal=({modalState ,closeModal}:FullScreModalProps)=>{
   const [saved,setSaved]= useState<boolean>(modalState.saved);
-  const divRef= useRef<HTMLDivElement>(null);
+  const outBoxRef= useRef<HTMLDivElement>(null);
   const onClickSaveBtn =()=>{
     if(saved){
       //  상품 저장 취소
@@ -24,22 +24,22 @@ const FullScreModal=({modalState ,closeModal}:FullScreModalProps)=>{
     target?.classList.toggle("hover");
   };
   useEffect(()=>{
-    const modalEle = document.querySelector(".modal") as HTMLElement|null;
-    modalEle?.classList.add("full-scre-modal");
+    const modalEl = document.querySelector(".modal") as HTMLElement|null;
+    modalEl?.classList.add("full-scre-modal");
     setTimeout(() => {
-      if(divRef.current !==null){
-        divRef.current.style.display = "block"
+      if(outBoxRef.current !==null){
+        outBoxRef.current.style.display = "block"
       }
     }, 100);
     return ()=>{
-      if(divRef.current !==null){
-        divRef.current.style.display = "none"
+      if(outBoxRef.current !==null){
+        outBoxRef.current.style.display = "none"
       }
     }
   },[]);
   return ( 
     <ModalPortal>
-      <div className="full-scre-modal-outbox" ref={divRef} style={{display:"none"}}>
+      <div className="full-scre-modal-outbox" ref={outBoxRef} style={{display:"none"}}>
         <div className="topbar">
           <button
             type="button"

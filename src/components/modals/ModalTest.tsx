@@ -3,7 +3,7 @@ import AlertModal from "./AlertModal";
 import '../../assets/modal.scss';
 import ConfirmModal from "./ConfirmModal";
 import BottomNavModal from "./BottomNavModal";
-import { confirmModalType, filterConditionType, fullScreModalType, modalCommonType, toastModalType } from "./modalTypes";
+import { confirmModalType, filteringConditionType, fullScreModalType, modalCommonType, toastModalType } from "./modalTypes";
 import ToastModal from "./ToastModal";
 import '../../assets/modalTest.scss';
 import FullScreModal from "./FullScreModal";
@@ -28,7 +28,8 @@ const ModalTest=()=>{
       otherFn:null
     }
   };
-  const selectedFilterCondition:filterConditionType ={productType:null,
+  //사용자가 선택한 필터링 조건
+  const selectedFilteringCondition:filteringConditionType ={productType:null,
     gender:null,
     job:null,
     situation:null
@@ -46,7 +47,7 @@ const ModalTest=()=>{
               ] ,
         offline:"서울특별시 종로구"
     },
-    oneLineIntroduction: "test test test test test test test test test test test test test test test test test test test test " ,
+    onlineIntroduction: "test test test test test test test test test test test test test test test test test test test test " ,
     tag:["tag1", "tag2", "tag3", "tag4"]
   } 
   const [toastModalState, setToastModalState] =useState<toastModalType |null>(null);
@@ -54,26 +55,27 @@ const ModalTest=()=>{
    * 모달 창 기능 테스트를 위한 함수로 , 테스트 이후 실제 사용 단계에서 삭제
    */
   useEffect(()=>{
-    const bottomModalEle= document.querySelector(".bottom-nav-modal") as HTMLElement|null;
+    const bottomModalEl= document.querySelector(".bottom-nav-modal") as HTMLElement|null;
     if(openTarget === "bottom"){
-      bottomModalEle?.classList.add("on");
+      bottomModalEl?.classList.add("on");
       setTimeout(() => {
-        if(bottomModalEle !==null){
+        if(bottomModalEl !==null){
           // top의 값: 추후에 bottomNavModal 디자인이 완성되면 수정
-          bottomModalEle.style.top  = "20vh"
+          bottomModalEl.style.top  = "20vh"
         }
       }, 200);
     }else{
-      bottomModalEle?.classList.remove("on");
+      bottomModalEl?.classList.remove("on");
     };
     // toast modal
     if(openTarget === "toast"){
-      const targetEleDomRect = document.getElementById("toast-modal-target")?.getBoundingClientRect();
-      if(targetEleDomRect !==undefined){
+      // toast modal이 열려야하는 위치에 해당하는 element의 domRect
+      const targetElDomRect = document.getElementById("toast-modal-target")?.getBoundingClientRect();
+      if(targetElDomRect !==undefined){
         setToastModalState ({
           contents:"toast modal!!!",
-          top: `${targetEleDomRect.top}px`,
-          left :`${targetEleDomRect.left}px`
+          top: `${targetElDomRect.top}px`,
+          left :`${targetElDomRect.left}px`
         })
       };
     };
@@ -142,7 +144,7 @@ const ModalTest=()=>{
       />
     }
       <BottomNavModal
-        selectedFilterCondition={selectedFilterCondition}
+        selectedFilteringCondition={selectedFilteringCondition}
         closeModal={()=> setOpenTarget(null)}
       />
     </div>

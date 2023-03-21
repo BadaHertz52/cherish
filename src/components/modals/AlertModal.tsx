@@ -9,8 +9,8 @@ type AlertModalProps ={
 };
 const AlertModal=({modalState ,closeModal}:AlertModalProps)=>{
   useEffect(()=>{
-    const modalEle = document.querySelector(".modal");
-    modalEle?.classList.add("alert-modal");
+    const modalEl = document.querySelector(".modal");
+    modalEl?.classList.add("alert-modal");
   },[]);
   return ( 
     <ModalPortal>
