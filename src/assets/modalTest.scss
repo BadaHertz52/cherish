@@ -1,7 +1,7 @@
-// modal test 이 후 파일 삭제 
-#modal-test{
+// modal test 이 후 파일 삭제
+#modal-test {
   position: relative;
-  .btns{
+  .btn-group {
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
@@ -14,10 +14,10 @@
       font-size: 1rem;
     }
   }
-  #toast-modal-target{
+  #toast-modal-target {
     position: absolute;
     top: 50vh;
-    left: calc((100% - 200px)/2);
+    left: calc((100% - 200px) / 2);
     width: 200px;
     height: 50px;
     background-color: rgb(208, 250, 242);
