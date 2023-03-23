@@ -10,18 +10,14 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   style?: CSSProperties; //button의 style지정.
 };
 
-const Button = ({ children, onClickAction, style, ...rest }: Props) => {
-  const handleClick = () => {
+const Button = ({ onClickAction, style, ...rest }: Props) => {
+  const handleButtonClick = () => {
     if (onClickAction) {
       onClickAction();
     }
   };
 
-  return (
-    <button {...rest} onClick={handleClick} style={style}>
-      {children}
-    </button>
-  );
+  return <button {...rest} onClick={handleButtonClick} style={style}></button>;
 };
 
 export default Button;

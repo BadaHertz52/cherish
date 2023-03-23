@@ -5,27 +5,23 @@ const button = () => {
   const handleButtonClick = () => {
     console.log('Button Clicked!');
   };
-  const handleFetchSuccess = (response: any) => {
-    console.log('Fetch Success!', response.data);
-  };
-
-  const handleFetchError = (error: any) => {
-    console.error('Fetch Error!', error);
-  };
-
   return (
     <>
-      <Button children="다음" onClickAction={handleButtonClick} className="deactivate" />
+      <Button onClickAction={handleButtonClick} className="disabled">
+        다음
+      </Button>
       <Button
-        children="다음"
         onClickAction={() => {
           window.location.href = '/';
         }}
-        className="activate"
-      />
-      <Button children="다음" type="submit" className="default" />
+        className="abled"
+      >
+        다음
+      </Button>
+      <Button type="submit" className="default">
+        다음
+      </Button>
       <Button
-        children="다음"
         onClickAction={() => {
           axios
             .get('https://jsonplaceholder.typicode.com/todos/')
@@ -37,7 +33,9 @@ const button = () => {
             });
         }}
         className="default2"
-      />
+      >
+        다음
+      </Button>
     </>
   );
 };
