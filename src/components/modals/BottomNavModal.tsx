@@ -39,7 +39,7 @@ const jobCheckBoxArr: CheckBoxType[] = [
   { name: 'self-employment', label: '자영업' },
   { name: 'student', label: '학생' },
   { name: 'homemaker', label: '전업주부' },
-  { name: 'inoccupation', label: '무직' },
+  { name: 'out-of-work', label: '무직' },
   { name: 'etc', label: '기타' },
 ];
 const situationCheckBoxArr: CheckBoxType[] = [
@@ -47,7 +47,7 @@ const situationCheckBoxArr: CheckBoxType[] = [
   { name: 'move-housewarming', label: '이사/집들이' },
   { name: 'admission-graduation', label: '입학/졸업' },
   { name: 'leave', label: '퇴사/퇴직' },
-  { name: 'employment-jobchange', label: '취업/이직' },
+  { name: 'employment-job-change', label: '취업/이직' },
   { name: 'discharge', label: '전역' },
   { name: 'get-well-visit', label: '병문안' },
 ];
@@ -87,7 +87,7 @@ const BottomNavModal = ({
     situationCheckBoxArr,
   ];
   const BOTTOM_MODAL_El = document.querySelector('.bottom-nav-modal') as HTMLElement | null;
-  const modalBackgroundEl = document.querySelector('.bottom-nav-modal .modal-background');
+  const modalBackgroundEl = document.querySelector('.bottom-nav-modal .modal__background');
   /**
    * A function that detects changes in checkboxes , updates the state of filteringCondition , return it, and if the value of recovery is true, changes the checked attribute of checkboxes that are currently checked to false
    * @param recovery
@@ -133,7 +133,7 @@ const BottomNavModal = ({
   };
   const closeBottomNavModal = (event: Event) => {
     const target = event.target as HTMLElement | null;
-    if (!target?.closest('.modal-box') && BOTTOM_MODAL_El !== null) {
+    if (!target?.closest('.modal__box') && BOTTOM_MODAL_El !== null) {
       BOTTOM_MODAL_El.style.top = ' 105vh';
       setTimeout(() => {
         closeModal();
