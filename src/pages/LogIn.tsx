@@ -71,66 +71,70 @@ const LogIn = () => {
   };
   return (
     <div id="login">
-      <h1>LOG IN</h1>
-      <h2>로그인을 하시면 다양한 혜택을 누릴 수 있습니다.</h2>
-      <div className="email-pw-wrap">
-        <div className="email-line">
-          <input
-            value={email}
-            type="text"
-            placeholder="아이디를 입력해주세요"
-            onChange={event => onChange(event, 'email')}
-          />
-          <button type="button" title="btn-remove-email" onClick={onClickRemoveBtn}>
-            <FontAwesomeIcon icon={faCircleXmark} />
-          </button>
+      <div className="inner">
+        <h1 className="logo">LOG IN</h1>
+        <h2>로그인을 하시면 다양한 혜택을 누릴 수 있습니다.</h2>
+        <div className="login__content">
+          <div className="login__content__email">
+            <input
+              value={email}
+              type="text"
+              placeholder="이메일"
+              onChange={event => onChange(event, 'email')}
+            />
+            <button type="button" title="btn-remove-email" onClick={onClickRemoveBtn}>
+              <FontAwesomeIcon icon={faCircleXmark} />
+            </button>
+          </div>
+          <div className="login__content__pw">
+            <input
+              value={pw}
+              type={showPw ? 'text' : 'password'}
+              placeholder="비밀번호"
+              onChange={event => onChange(event, 'pw')}
+            />
+            <button
+              type="button"
+              className={showPw ? 'btn on' : 'btn'}
+              title="button that show pw as text"
+              onClick={() => setShowPw(prev => !prev)}
+            >
+              <FontAwesomeIcon icon={faEye} />
+            </button>
+          </div>
         </div>
-        <div className="pw-line">
-          <input
-            value={pw}
-            type={showPw ? 'text' : 'password'}
-            placeholder="비밀번호를 입력해주세요"
-            onChange={event => onChange(event, 'pw')}
-          />
-          <button
-            type="button"
-            className={showPw ? 'btn on' : 'btn'}
-            title="btn-show-prev"
-            onClick={() => setShowPw(prev => !prev)}
-          >
-            <FontAwesomeIcon icon={faEye} />
-          </button>
-        </div>
-      </div>
-      <div className="otherFn">
-        <div className="login-keep">
-          <input
-            type="checkbox"
-            id="keep"
-            name="autoLogIn"
-            onChange={event => onChangeKeep(event)}
-          />
-          <label htmlFor="keep" className="label">
-            로그인 유지
-          </label>
-          {keepLogin && (
-            <label htmlFor="keep" className="check">
-              <FontAwesomeIcon icon={faCheck} />
+        <div className="login__util">
+          <div className="login__util__keep">
+            <input
+              type="checkbox"
+              id="checkbox-keep"
+              name="autoLogIn"
+              onChange={event => onChangeKeep(event)}
+            />
+            <label htmlFor="checkbox-keep" className="label">
+              로그인 유지
             </label>
-          )}
+            {keepLogin && (
+              <label htmlFor="checkbox-keep" className="check">
+                <FontAwesomeIcon icon={faCheck} />
+              </label>
+            )}
+          </div>
+          <div className="login__util__find">
+            <Link to={'/비밀번호찾기'}>비밀번호 찾기</Link>
+          </div>
         </div>
-        <div className="find">
-          <Link to={'/비밀번호찾기'}>비밀번호 찾기</Link>
+        {error && <div className="error-msg">{errorMsg}</div>}
+        <button type="button" className="btn-login" onClick={onClickLogInBtn}>
+          로그인
+        </button>
+        <button type="button" className="btn-signup" onClick={onClickSignUpBtn}>
+          간편가입
+        </button>
+        <div className="banner">
+          <p>결제정보 입력 없이 1분만에 회원가입하세요!</p>
         </div>
       </div>
-      {error && <div className="error-msg">{errorMsg}</div>}
-      <button type="button" className="btn-login" onClick={onClickLogInBtn}>
-        로그인
-      </button>
-      <button type="button" className="btn-signup" onClick={onClickSignUpBtn}>
-        간편가입
-      </button>
-      <p>결제정보 입력 없이 1분만에 회원가입하세요!</p>
     </div>
   );
 };
