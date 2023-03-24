@@ -1,18 +1,38 @@
 @import './common.scss';
 
 #login {
+  width: 100vw;
+  height: 100vh;
+  a {
+    @include reset-a-style;
+  }
   button {
     @include reset-btn-style;
   }
-  .email-line,
-  .pw-line {
+  .inner {
+    padding: 16px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+  }
+  .logo {
+    @include sofia-h1-font;
+  }
+  h2 {
+    @include h2-font;
+  }
+  //login__content
+  .login__content__email,
+  .login__content__pw {
     position: relative;
-    width: 80%;
     height: 24px;
     input {
       width: 100%;
       height: 100%;
       box-sizing: border-box;
+      @include h2-font;
+      border: 0.6px solid $color-light-gray;
+      border-radius: 5px;
     }
     button {
       position: absolute;
@@ -24,17 +44,24 @@
       }
     }
   }
-  .pw-line {
+  .login__content__pw {
     .btn.on {
       svg {
         color: $color-black;
       }
     }
   }
-  .login-keep {
+  //login__util
+  .login__util {
+    display: flex;
+    justify-content: space-between;
+  }
+  // keep
+  .login__util__keep {
     position: relative;
     .label {
       margin-left: 16px;
+      @include bd2-font;
     }
     .check {
       position: absolute;
@@ -52,15 +79,62 @@
       height: 13px;
     }
   }
-  .login-keep .check,
-  #keep {
+  .login__util__keep .check,
+  #checkbox-keep {
     position: absolute;
     top: 0;
     left: 0;
   }
-  #keep {
+  #checkbox-keep {
     margin: 0;
     width: 14px;
     height: 14px;
+  }
+  // find
+  .login__util__find {
+    a {
+      @include bd2-font;
+      color: $color-light-gray;
+    }
+  }
+  //btn -login , btn -singup
+  .btn-login,
+  .btn-signup {
+    @include reset-a-style;
+    @include h2-font;
+    width: 100%;
+    padding: 14px 20px 10px;
+    border-radius: 5px;
+  }
+  .btn-login {
+    background: $color-primary;
+    color: $color-white;
+  }
+  .btn-signup {
+    color: $color-primary;
+    background-color: $color-white;
+    border: 1px solid $color-primary;
+  }
+  //banner
+  .banner {
+    margin-top: 32px;
+    padding: 14px;
+    box-sizing: border-box;
+    position: relative;
+    @include bd2-font;
+    background-color: #fff3f6;
+    color: $color-primary;
+    border-radius: 6px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      border-top: 10px solid transparent;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 10px solid #fff3f6;
+    }
   }
 }
