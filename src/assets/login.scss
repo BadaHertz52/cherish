@@ -4,10 +4,10 @@
   width: 100vw;
   height: 100vh;
   a {
-    @include reset-a-style;
+    @include clean-a-style;
   }
   button {
-    @include reset-btn-style;
+    @include clean-btn-style;
   }
   .inner {
     padding: 16px;
@@ -17,18 +17,27 @@
   }
   .logo {
     @include sofia-h1-font;
+    text-align: center;
   }
   h2 {
     @include h2-font;
+    text-align: center;
+    margin-top: 16px;
   }
   //login__content
-  .login__content__email,
-  .login__content__pw {
+  .login__data {
+    margin-top: 32px;
+  }
+  .login__data__email,
+  .login__data__pw {
     position: relative;
-    height: 24px;
+    height: 40px;
+    padding-bottom: 14px;
     input {
       width: 100%;
       height: 100%;
+      padding-left: 14px;
+      padding-right: 28px;
       box-sizing: border-box;
       @include h2-font;
       border: 0.6px solid $color-light-gray;
@@ -36,15 +45,18 @@
     }
     button {
       position: absolute;
-      top: calc((100% - 14px) / 2);
-      right: 7px;
+      //parent.height - button.height - parent.height
+      top: calc((100% - 14px - 14px) / 2);
+      right: 14px;
+      width: 14px;
+      height: 14px;
       svg {
         color: $color-light-gray;
         font-size: 14px;
       }
     }
   }
-  .login__content__pw {
+  .login__data__pw {
     .btn.on {
       svg {
         color: $color-black;
@@ -100,7 +112,7 @@
   //btn -login , btn -singup
   .btn-login,
   .btn-signup {
-    @include reset-a-style;
+    @include clean-a-style;
     @include h2-font;
     width: 100%;
     padding: 14px 20px 10px;
@@ -109,23 +121,36 @@
   .btn-login {
     background: $color-primary;
     color: $color-white;
+    margin-bottom: 16px;
   }
   .btn-signup {
     color: $color-primary;
     background-color: $color-white;
     border: 1px solid $color-primary;
   }
-  //banner
+  // error msg , banner
+  .error-msg,
   .banner {
-    margin-top: 32px;
-    padding: 14px;
     box-sizing: border-box;
     position: relative;
     @include bd2-font;
-    background-color: #fff3f6;
     color: $color-primary;
+  }
+  .error-msg {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    p {
+      padding: 4px 0;
+    }
+  }
+  .banner {
+    padding: 14px;
+    margin-top: 32px;
+    background-color: #fff3f6;
     border-radius: 6px;
-
     &::before {
       content: '';
       position: absolute;

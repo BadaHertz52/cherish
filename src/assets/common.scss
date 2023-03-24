@@ -74,13 +74,13 @@ $color-white: #ffffff;
   font-size: 12px;
   font-weight: 600;
 }
-@mixin reset-btn-style {
+@mixin clean-btn-style {
   background-color: #ffffff00;
   border: none;
   padding: 0;
 }
 
-@mixin reset-a-style {
+@mixin clean-a-style {
   &:link,
   &:active,
   &:visited {
