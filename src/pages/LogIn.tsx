@@ -105,15 +105,15 @@ const LogIn = () => {
           <div className="login__util__keep">
             <input
               type="checkbox"
-              id="checkbox-keep"
+              id="checkboxKeep"
               name="autoLogIn"
               onChange={event => onChangeKeep(event)}
             />
-            <label htmlFor="checkbox-keep" className="label">
+            <label htmlFor="checkboxKeep" className="label">
               로그인 유지
             </label>
             {keepLogin && (
-              <label htmlFor="checkbox-keep" className="check">
+              <label htmlFor="checkboxKeep" className="check">
                 <FontAwesomeIcon icon={faCheck} />
               </label>
             )}
