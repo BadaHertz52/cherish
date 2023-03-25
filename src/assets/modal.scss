@@ -44,24 +44,24 @@ body {
   font-size: 16px;
   color: $color-black;
 }
-.modal-background {
+.modal__background {
   position: relative;
 }
 .alert-modal,
 .confirm-modal {
-  .modal-background {
+  .modal__background {
     @include background;
   }
-  .modal-box {
+  .modal__box {
     @include modal-box;
   }
-  .modal-inner {
+  .modal__inner {
     @include modal-inner;
   }
 }
 .alert-modal {
   position: relative;
-  .modal-inner {
+  .modal__inner {
     min-height: inherit;
   }
   .btn-close {
@@ -90,10 +90,10 @@ body {
   position: absolute;
   top: 105vh;
   transition: top 1s;
-  .modal-background {
+  .modal__background {
     position: relative;
   }
-  .modal-box {
+  .modal__box {
     @include modal-box;
     top: 45vh;
     width: 100vw;
@@ -103,11 +103,9 @@ body {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   }
-  .modal-inner {
+  .modal__inner {
     width: inherit;
     height: inherit;
-  }
-  .modal-inner {
     padding: 32px 16px;
     box-sizing: border-box;
   }
@@ -190,7 +188,7 @@ body {
   button {
     @include reset-btn-style;
   }
-  .modal-box {
+  .modal__box {
     width: 100vw;
     background-color: $color-white;
   }
@@ -211,7 +209,7 @@ body {
       font-size: 20px;
     }
   }
-  .contents {
+  .container {
     overflow-y: scroll;
     height: calc(100vh - 52px);
   }
@@ -222,12 +220,12 @@ body {
   .not-img {
     position: relative;
   }
-  .inform,
+  .product-inform,
   .store {
     padding: 16px;
     padding-bottom: 0;
   }
-  .inform {
+  .product-inform {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -255,7 +253,7 @@ body {
       color: $color-primary;
     }
   }
-  .one-line-introduction {
+  .product-introduction {
     span {
       display: inline-block;
       width: 100%;
@@ -285,7 +283,7 @@ body {
     }
   }
   .site a:hover,
-  .stie-link.hover {
+  .stie__link.hover {
     font-weight: bolder;
   }
   .offline-store {
@@ -296,13 +294,13 @@ body {
 
 .toast-modal {
   position: absolute;
-  .modal-box {
+  .modal__box {
     background-color: #fcedba;
     border-radius: 10px;
     min-height: 65px;
     width: 200px;
   }
-  .modal-inner {
+  .modal__inner {
     @include modal-inner;
     min-height: inherit;
     box-sizing: border-box;
@@ -316,7 +314,7 @@ body {
 
 @media screen and (max-width: 320px) {
   .full-scre-modal {
-    .inform {
+    .product-inform {
       // 높이 :100vh - product-image height - .topbar height - a(사용자가 구매자 정보가 있는지 인지할 수 있을 정보)
       height: calc(100vh - 100vw - 52px - 32px);
     }

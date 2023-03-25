@@ -87,7 +87,7 @@ const BottomNavModal = ({
     situationCheckBoxArr,
   ];
   const BOTTOM_MODAL_El = document.querySelector('.bottom-nav-modal') as HTMLElement | null;
-  const modalBackgroundEl = document.querySelector('.bottom-nav-modal .modal-background');
+  const modalBackgroundEl = document.querySelector('.bottom-nav-modal .modal__background');
   /**
    * A function that detects changes in checkboxes , updates the state of filteringCondition , return it, and if the value of recovery is true, changes the checked attribute of checkboxes that are currently checked to false
    * @param recovery
@@ -133,7 +133,7 @@ const BottomNavModal = ({
   };
   const closeBottomNavModal = (event: Event) => {
     const target = event.target as HTMLElement | null;
-    if (!target?.closest('.modal-box') && BOTTOM_MODAL_El !== null) {
+    if (!target?.closest('.modal__box') && BOTTOM_MODAL_El !== null) {
       BOTTOM_MODAL_El.style.top = ' 105vh';
       setTimeout(() => {
         closeModal();

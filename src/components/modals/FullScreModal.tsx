@@ -60,7 +60,7 @@ const FullScreModal = ({ modalState, closeModal }: FullScreModalProps) => {
           </button>
           <h2>상세 페이지</h2>
         </div>
-        <div className="contents">
+        <div className="container">
           <img src={modalState.img} alt="product image" className="product-img" />
           <div className="not-img">
             <button
@@ -71,15 +71,15 @@ const FullScreModal = ({ modalState, closeModal }: FullScreModalProps) => {
             >
               <FontAwesomeIcon icon={faHeart} />
             </button>
-            <section className="inform">
+            <section className="product-inform">
               <div className="product-name">
                 <span>{modalState.name}</span>
               </div>
               <div className="product-price">
                 <span>{`${modalState.price}원`}</span>
               </div>
-              <div className="one-line-introduction">
-                <span>{modalState.onlineIntroduction}</span>
+              <div className="product-introduction">
+                <span>{modalState.introduction}</span>
               </div>
               <div className="tag">
                 {modalState.tag.map((v, i) => (
@@ -92,9 +92,9 @@ const FullScreModal = ({ modalState, closeModal }: FullScreModalProps) => {
                 <h3>온라인 구매처 정보</h3>
                 {modalState.store.online.map((v, i) => (
                   <div className="site" key={`site_${i}`}>
-                    <div className="site-name">{onlineShop[`${v.name}`]}</div>
+                    <div className="site__name">{onlineShop[`${v.name}`]}</div>
                     <a
-                      className="site-link"
+                      className="site__link"
                       href={v.url}
                       target="_blank"
                       onMouseMove={event => handleMove(event)}
