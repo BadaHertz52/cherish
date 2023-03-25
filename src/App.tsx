@@ -6,6 +6,7 @@ import Fourth from './pages/Fourth';
 import Main from './pages/Main';
 import ModalTest from './components/modals/ModalTest';
 import LogIn from './pages/LogIn';
+import Signup from './pages/SignUp';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         {/* modal 테스트를 위해 route 추가 , 추후 삭제 예정*/}
         <Route path="modaltest" element={<ModalTest />} />
         <Route path="/login" element={<LogIn />} />
+        <Route path="/singup" element={<Signup />} />
       </Routes>
     </div>
   );
