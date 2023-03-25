@@ -1,5 +1,5 @@
 import { createContext, useState } from 'react';
-import { SignUpStateType, SignUpProgressType } from '../components/signUp/signUpTypes';
+import { SignUpStateType } from '../components/signUp/signUpTypes';
 import SignUpTopBar from '../components/signUp/SingUpTopBar';
 import ProgressBar from '../components/signUp/ProgressBar';
 import Terms from '../components/signUp/Terms';
