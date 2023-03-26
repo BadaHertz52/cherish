@@ -4,3 +4,88 @@ $color-black: #121212;
 $color-light-gray: #9e9e9e;
 $color-light: #eeeeee;
 $color-white: #ffffff;
+
+@font-face {
+  font-family: 'sofia-pro-medium';
+  src: url('./fonts/Sofia\ Pro\ Medium.ttf');
+  font-style: normal;
+}
+@font-face {
+  font-family: 'sofia-pro-light';
+  src: url('./fonts/sofiapro-light.otf');
+  line-height: 160%;
+  font-style: normal;
+}
+//임시
+@mixin font-family {
+  font-family: AppleSDGothicNeo, 'Malgun Gothic', '맑은 고딕', dotum, '돋움', sans-serif;
+}
+@mixin sofia-h1-font {
+  font-family: 'sofia-pro-medium', AppleSDGothicNeo, 'Malgun Gothic', '맑은 고딕', dotum, '돋움',
+    sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 160%;
+}
+@mixin sofia-bd3-font {
+  font-family: 'sofia-pro-light', AppleSDGothicNeo, 'Malgun Gothic', '맑은 고딕', dotum, '돋움',
+    sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 160%;
+}
+
+@mixin h1-font {
+  @include font-family;
+  font-size: 16px;
+  line-height: 160%;
+  // extra bold
+  font-weight: 800;
+}
+@mixin h2-font {
+  @include font-family;
+  font-size: 14px;
+  //semi bold
+  font-weight: 600;
+  letter-spacing: -0.05em;
+}
+@mixin bd1-font {
+  @include font-family;
+  font-size: 13px;
+  //medium
+  font-weight: 500;
+  letter-spacing: -0.05em;
+}
+@mixin bd2-font {
+  @include font-family;
+  font-size: 12px;
+  //medium
+  font-weight: 500;
+  letter-spacing: -0.05em;
+}
+
+@mixin navigation-bold-font {
+  @include font-family;
+  font-size: 12px;
+  font-weight: 700;
+}
+@mixin navigation-font {
+  @include font-family;
+  font-size: 12px;
+  font-weight: 600;
+}
+@mixin clean-btn-style {
+  background-color: #ffffff00;
+  border: none;
+  padding: 0;
+}
+
+@mixin clean-a-style {
+  &:link,
+  &:active,
+  &:visited {
+    color: $color-black;
+    font-style: initial;
+    text-decoration: none;
+  }
+}

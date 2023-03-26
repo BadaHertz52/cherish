@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import BottomNavModalPortal from './BottomNavModalPortal';
 import { ConditionType, FilteringConditionType } from './modalTypes';
 
+import CheckBox from '../CheckBox';
 enum category {
   productType = 'productType',
   gender = 'gender',
@@ -52,15 +53,6 @@ const situationCheckBoxArr: CheckBoxType[] = [
   { name: 'get-well-visit', label: '병문안' },
 ];
 
-const CheckBox = ({ item }: CheckBoxProps) => {
-  return (
-    <div className="checkbox">
-      <input type="checkbox" id={item.name} name={item.name} />
-      <label htmlFor={item.name} className="check"></label>
-      <label htmlFor={item.name}> {item.label}</label>
-    </div>
-  );
-};
 type BottomNavModalProps = {
   selectedFilteringCondition: FilteringConditionType;
   openBottomNavModal: boolean;
@@ -194,7 +186,13 @@ const BottomNavModal = ({
           </div>
           <div className="checkbox-group">
             {checkBoxArr.map((v, i) => (
-              <CheckBox key={`checkbox_${i}`} item={v} />
+              <CheckBox
+                key={`checkbox_${i}`}
+                id={v.name}
+                name={v.name}
+                label={v.label}
+                onChange={null}
+              />
             ))}
           </div>
         </section>
