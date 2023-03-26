@@ -1,0 +1,39 @@
+@import './common.scss';
+.check-box {
+  position: relative;
+  &__inner {
+    // 상황에 맞게 조정가능
+    height: 14px;
+  }
+  input {
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    // 상황에 맞게 조정가능
+    width: 14px;
+    height: inherit;
+  }
+  .label {
+    margin-left: 16px;
+    @include bd2-font;
+    // 상황에 맞게 조정가능
+    line-height: 14px;
+    text-align: center;
+  }
+  .check {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $color-white;
+    color: $color-primary;
+    border: 1px solid $color-primary;
+    border-radius: 3px;
+    width: 13px;
+    height: 13px;
+  }
+}

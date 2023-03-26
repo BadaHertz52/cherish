@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ChangeEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../assets/login.scss';
+import CheckBox from '../components/CheckBox';
 
 export const XSSCheck = (str: string, level: undefined | number) => {
   if (level == undefined || level == 0) {
@@ -103,20 +104,12 @@ const LogIn = () => {
         </div>
         <div className="login__util">
           <div className="login__util__keep">
-            <input
-              type="checkbox"
+            <CheckBox
               id="checkboxKeep"
               name="autoLogIn"
-              onChange={event => onChangeKeep(event)}
+              label="로그인 유지"
+              onChange={onChangeKeep}
             />
-            <label htmlFor="checkboxKeep" className="label">
-              로그인 유지
-            </label>
-            {keepLogin && (
-              <label htmlFor="checkboxKeep" className="check">
-                <FontAwesomeIcon icon={faCheck} />
-              </label>
-            )}
           </div>
           <div className="login__util__find">
             <Link to={'/비밀번호찾기'}>비밀번호 찾기</Link>
