@@ -9,33 +9,17 @@ type CheckBoxProps = {
   onChange: null | ((event: ChangeEvent<HTMLInputElement>) => void);
 };
 const CheckBox = ({ id, name, label, onChange }: CheckBoxProps) => {
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [checked, setChecked] = useState<boolean>(
-    inputRef.current !== null ? inputRef.current.checked : false,
-  );
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     onChange !== null && onChange(event);
-    const target = event.target as HTMLInputElement;
-    setChecked(target.checked);
   };
   return (
     <div className="check-box">
       <div className="check-box__inner">
-        <input
-          type="checkbox"
-          id={id}
-          name={name}
-          ref={inputRef}
-          onChange={event => handleChange(event)}
-        />
+        <input type="checkbox" id={id} name={name} onChange={event => handleChange(event)} />
+        <label htmlFor={id} className="check"></label>
         <label htmlFor={id} className="label">
           {label}
         </label>
-        {checked && (
-          <label htmlFor="checkboxKeep" className="check">
-            <FontAwesomeIcon icon={faCheck} />
-          </label>
-        )}
       </div>
     </div>
   );

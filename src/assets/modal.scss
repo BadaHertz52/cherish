@@ -138,39 +138,13 @@ body {
         display: none;
       }
     }
-    .checkbox {
+    .check-box {
       margin-bottom: 16px;
     }
     .btn-submit {
       padding: 0;
       height: 32px;
     }
-  }
-
-  input[type='checkbox'] {
-    display: none;
-  }
-  input[type='checkbox'] + .check {
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background-color: $color-white;
-    position: relative;
-  }
-  input:checked + .check::after {
-    content: '✔';
-    font-size: 12px;
-    text-align: center;
-    width: 14px;
-    height: 14px;
-    color: $color-primary;
-    background-color: $color-white;
-    border-radius: 50%;
-    text-align: center;
-    position: absolute;
-    left: 0px;
-    top: 0px;
   }
 }
 .confirm-modal {

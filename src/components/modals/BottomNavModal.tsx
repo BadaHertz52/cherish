@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import CheckBox from '../CheckBox';
 import BottomNavModalPortal from './BottomNavModalPortal';
 import { ConditionType, FilteringConditionType } from './modalTypes';
 
@@ -14,9 +15,6 @@ type CheckBoxType = {
   label: string;
 };
 
-type CheckBoxProps = {
-  item: CheckBoxType;
-};
 // CheckBoxType 의 name은 추후 필터링 조건명에 따라 수정
 const productTypeCheckBoxArr: CheckBoxType[] = [
   { name: 'food', label: '식품' },
@@ -51,16 +49,6 @@ const situationCheckBoxArr: CheckBoxType[] = [
   { name: 'discharge', label: '전역' },
   { name: 'get-well-visit', label: '병문안' },
 ];
-
-const CheckBox = ({ item }: CheckBoxProps) => {
-  return (
-    <div className="checkbox">
-      <input type="checkbox" id={item.name} name={item.name} />
-      <label htmlFor={item.name} className="check"></label>
-      <label htmlFor={item.name}> {item.label}</label>
-    </div>
-  );
-};
 type BottomNavModalProps = {
   selectedFilteringCondition: FilteringConditionType;
   openBottomNavModal: boolean;
@@ -194,7 +182,13 @@ const BottomNavModal = ({
           </div>
           <div className="checkbox-group">
             {checkBoxArr.map((v, i) => (
-              <CheckBox key={`checkbox_${i}`} item={v} />
+              <CheckBox
+                key={`checkbox_${i}`}
+                id={v.name}
+                name={v.name}
+                label={v.label}
+                onChange={null}
+              />
             ))}
           </div>
         </section>
