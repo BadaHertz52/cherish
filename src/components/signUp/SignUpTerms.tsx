@@ -52,7 +52,7 @@ const SignUpTerms = () => {
       //btn 클릭 시 이동해야 할 페이지의 경로
       path: null,
       //btn 클릭 시 이동/창 닫기 외의 필요한 기능
-      otherFn: onClickNoBtn,
+      otherFn: null,
     };
   };
   const modalForTermsAndCondition: ConfirmModalType = {
@@ -138,10 +138,6 @@ const SignUpTerms = () => {
       targetInputEl.checked = true;
     }
     changeAgreement(name, true);
-    setOpenModal(false);
-  }
-  function onClickNoBtn() {
-    setOpenModal(false);
   }
   const handleCheckBoxOfTerm = (event: ChangeEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement | null;

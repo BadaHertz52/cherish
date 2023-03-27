@@ -11,11 +11,13 @@ const ConfirmModal = ({ modalState, closeModal }: ConfirmModalProps) => {
     if (modalState.yesBtn.otherFn !== null) {
       modalState.yesBtn.otherFn();
     }
+    closeModal();
   };
   const onClickNoBtn = () => {
     if (modalState.noBtn.otherFn !== null) {
       modalState.noBtn.otherFn();
     }
+    closeModal();
   };
   useEffect(() => {
     const modalEl = document.querySelector('.modal');
