@@ -36,9 +36,9 @@ const SignUp = () => {
         }}
       >
         <SignUpTopBar />
+        {signUpState.progress !== 'agreeToTerms' && <ProgressBar />}
         {/* step: 회원 가입 단계별 component */}
         {signUpState.progress === 'agreeToTerms' && <Terms />}
-        <ProgressBar />
       </SignUpContext.Provider>
     </div>
   );
