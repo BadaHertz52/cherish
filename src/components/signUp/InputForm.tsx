@@ -39,7 +39,6 @@ const InputForm = ({ id, data, setData }: InputFormProps) => {
    */
   const checkRegex = (text: string): TestResultType => {
     let result: TestResultType = 'pass';
-    console.log('text', text);
     switch (id) {
       case 'name':
         result = REGEX.name.test(text) ? 'pass' : 'invalidName';
