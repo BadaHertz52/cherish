@@ -55,9 +55,14 @@ const job = {
   etc: 'etc', //기타
 } as const;
 export type JobType = keyof typeof job;
+export type AgreementStateType = {
+  termsAndCondition: boolean; //이용약관
+  personalInformation: boolean; // 개인정보 수집 및 이용
+  marketing: boolean; // 마케팅 정보 활용 동의
+};
 export type SignUpStateType = {
   progress: SignUpProgressType;
-  agreeToTerms: boolean;
+  agreeToTerms: AgreementStateType;
   name: string | null;
   nickname: string | null;
   email: string | null;
@@ -91,3 +96,10 @@ export type InputDataType = {
   value: string;
   errorMsg: string | null;
 };
+
+const checkBoxName = {
+  termsAndCondition: 'termsAndCondition',
+  personalInformation: 'personalInformation',
+  marketing: 'marketing',
+} as const;
+export type TermsCheckBoxNameType = keyof typeof checkBoxName;

@@ -1,0 +1,27 @@
+@import '../common.scss';
+#signUpTerms {
+  width: 100%;
+  .top {
+    position: relative;
+    border-bottom: 1px solid $color-light;
+    padding-bottom: 48px;
+    .header,
+    p:first-child {
+      margin-bottom: 14px;
+    }
+    p {
+      @include h2-font;
+    }
+    .check-box {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+    }
+  }
+  .terms-group {
+    margin-top: 16px;
+    .check-box {
+      margin-bottom: 16px;
+    }
+  }
+}
