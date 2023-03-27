@@ -28,7 +28,7 @@ export const SignUpContext = createContext<SignUpContextType>(context);
 const SignUp = () => {
   const [signUpState, setSignUpState] = useState<SignUpStateType>(initialSingUpState);
   return (
-    <div id="signUp">
+    <form action="" method="post" id="signUp">
       <SignUpContext.Provider
         value={{
           signUpState: signUpState,
@@ -40,7 +40,7 @@ const SignUp = () => {
         {/* step: 회원 가입 단계별 component */}
         {signUpState.progress === 'agreeToTerms' && <Terms />}
       </SignUpContext.Provider>
-    </div>
+    </form>
   );
 };
 
