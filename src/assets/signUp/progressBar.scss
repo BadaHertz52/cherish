@@ -1,0 +1,21 @@
+@import '../common.scss';
+.progressBar {
+  width: calc(100% - 32px);
+  margin-top: 32px;
+  margin-left: 32px;
+  .bar {
+    height: 5px;
+    border-radius: 10px;
+  }
+  .out-box {
+    width: 50%;
+    background-color: $color-light;
+    position: relative;
+  }
+  .progress {
+    background-color: $color-primary;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}

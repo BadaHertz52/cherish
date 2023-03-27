@@ -8,6 +8,15 @@ const signUpProgress = {
   job = 'job',
 } as const ;
 export type SignUpProgressType = keyof typeof signUpProgress;
+// 약관 동의란에는 progressBar가 필요 없음
+export const progressArr: SignUpProgressType[] = [
+  'agreeToTerms',
+  'nameAndNickName',
+  'email',
+  'pw',
+  'genderAndBirth',
+  'job',
+];
 const inputFormId = {
   name = 'name',
   nickName = 'nickName',
