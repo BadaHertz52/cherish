@@ -1,0 +1,23 @@
+@import '../common.scss';
+#signUpTopBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+  border-bottom: 1px solid $color-light;
+  button,
+  .title {
+    height: 32px;
+    @include h1-font;
+  }
+  button {
+    @include clean-btn-style;
+    position: absolute;
+    top: calc((100% - 32px) / 2);
+    left: 32px;
+    width: 32px;
+  }
+}
