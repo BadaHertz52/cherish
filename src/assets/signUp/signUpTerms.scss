@@ -21,7 +21,15 @@
   .terms-group {
     margin-top: 16px;
     .check-box {
-      margin-bottom: 16px;
+      margin-bottom: 10px;
     }
+    button {
+      @include clean-btn-style;
+      @include bd2-font;
+      color: $color-light-gray;
+    }
+  }
+  .term {
+    margin-bottom: 16px;
   }
 }
