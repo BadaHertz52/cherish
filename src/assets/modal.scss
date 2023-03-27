@@ -148,6 +148,10 @@ body {
   }
 }
 .confirm-modal {
+  title {
+    @include h2-font;
+    display: block;
+  }
   .contents {
     padding: 16px 0;
   }
@@ -155,6 +159,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-around;
+  }
+  button {
+    @include clean-btn-style;
   }
 }
 
