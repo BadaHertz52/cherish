@@ -32,12 +32,12 @@ export type FilteringConditionType = {
   job: ConditionType;
   situation: ConditionType;
 };
-enum onlineStoreShop {
-  brand = '브랜드',
-  kakao = '카카오',
-  coupang = '쿠팡',
-  naver = '네이버',
-}
+const onlineStoreShop = {
+  brand: '브랜드',
+  kakao: '카카오',
+  coupang: '쿠팡',
+  naver: '네이버',
+} as const;
 type OnlineStoreType = {
   name: keyof typeof onlineStoreShop;
   url: string;
