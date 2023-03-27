@@ -23,12 +23,20 @@ const inputFormId = {
   email: 'email',
   pw: 'pw',
   confirmPw: 'confirmPw',
-} as const;
+};
 export type InputFormIdType = keyof typeof inputFormId;
-const sessionData = {
+//⚠️ sessionData property 명과 각 화원가입단계의 입력란이 input 인 경우애는 name  value 맞추기 (ex: name, email)
+export const sessionDataKey = {
   ...inputFormId,
   job: 'job',
-} as const;
+  gender: 'gender',
+  birth: 'birth',
+};
+export type SessionDataKeyType = keyof typeof sessionDataKey;
+export type SessionDataType = {
+  key: SessionDataKeyType;
+  value: string;
+};
 const gender = {
   male: 'male',
   female: 'female',

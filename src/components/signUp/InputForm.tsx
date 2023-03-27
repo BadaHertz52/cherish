@@ -82,6 +82,7 @@ const InputForm = ({ id, data, setData }: InputFormProps) => {
       <input
         type={type}
         id={`input-${id}`}
+        name={`data-${id}`}
         placeholder={placeholder[`${id}`]}
         value={data.value}
         onChange={event => onChange(event)}
