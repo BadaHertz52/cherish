@@ -2,10 +2,14 @@ import { createContext, Dispatch, SetStateAction, useState } from 'react';
 import { SignUpStateType } from '../components/signUp/signUpTypes';
 import SignUpTopBar from '../components/signUp/SingUpTopBar';
 import ProgressBar from '../components/signUp/ProgressBar';
-import Terms from '../components/signUp/Terms';
+import SignUpTerms from '../components/signUp/SignUpTerms';
 const initialSingUpState: SignUpStateType = {
   progress: 'agreeToTerms',
-  agreeToTerms: false,
+  agreeToTerms: {
+    termsAndCondition: false,
+    personalInformation: false,
+    marketing: false,
+  },
   name: null,
   nickname: null,
   email: null,
@@ -38,7 +42,7 @@ const SignUp = () => {
         <SignUpTopBar />
         {signUpState.progress !== 'agreeToTerms' && <ProgressBar />}
         {/* step: 회원 가입 단계별 component */}
-        {signUpState.progress === 'agreeToTerms' && <Terms />}
+        {signUpState.progress === 'agreeToTerms' && <SignUpTerms />}
       </SignUpContext.Provider>
     </form>
   );
