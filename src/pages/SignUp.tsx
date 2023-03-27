@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, Dispatch, SetStateAction, useState } from 'react';
 import { SignUpStateType } from '../components/signUp/signUpTypes';
 import SignUpTopBar from '../components/signUp/SingUpTopBar';
 import ProgressBar from '../components/signUp/ProgressBar';
@@ -15,10 +15,15 @@ const initialSingUpState: SignUpStateType = {
   birth: null,
   job: null,
 };
-export const SignUpContext = createContext({
+type SignUpContextType = {
+  signUpState: SignUpStateType;
+  setSignUpState: Dispatch<SetStateAction<SignUpStateType>>;
+};
+const context: SignUpContextType = {
   signUpState: initialSingUpState,
-  setSignUpState: (state: SignUpStateType) => {},
-});
+  setSignUpState: () => {},
+};
+export const SignUpContext = createContext<SignUpContextType>(context);
 
 const SignUp = () => {
   const [signUpState, setSignUpState] = useState<SignUpStateType>(initialSingUpState);

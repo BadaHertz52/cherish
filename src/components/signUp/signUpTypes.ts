@@ -1,6 +1,7 @@
+//⚠️ singUpProgress 순서는 꼭 회원가입 진행 단계 순서과 일치하게 할 것
 enum signUpProgress {
   agreeToTerms = 'agreeToTerms',
-  nameAndNickName = 'nameAndNickNaem', // name 이랑 nickname 같이
+  nameAndNickName = 'nameAndNickName', // name 이랑 nickname 같이
   email = 'email',
   pw = 'pw',
   genderAndBirth = 'genderAndBirth',
@@ -28,7 +29,7 @@ enum job {
   blueCollar = 'blue-collar', //노동 생산직
   selfEmployment = 'self-employment', //자영업자
   student = 'student', //삭생
-  homemaker = 'housemaker', // 가정주부
+  homemaker = 'homemaker', // 가정주부
   inoccupation = 'inoccupation', // 무직
   etc = 'etc', //기타
 }

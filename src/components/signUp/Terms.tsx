@@ -18,10 +18,13 @@ const Terms = () => {
   // NextBtn 비활성화 여부
   const [disableBtn, setDisableBtn] = useState<boolean>(true);
   const onClickNextBtn = () => {
-    setSignUpState({
-      ...signUpState,
-      progress: 'nameAndNickName',
-      agreeToTerms: true,
+    setSignUpState((prevState: SignUpStateType) => {
+      const newState: SignUpStateType = {
+        ...prevState,
+        progress: 'nameAndNickName',
+        agreeToTerms: true,
+      };
+      return newState;
     });
   };
   useEffect(() => {
