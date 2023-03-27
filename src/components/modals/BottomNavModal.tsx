@@ -3,12 +3,12 @@ import CheckBox from '../CheckBox';
 import BottomNavModalPortal from './BottomNavModalPortal';
 import { ConditionType, FilteringConditionType } from './modalTypes';
 
-enum category {
-  productType = 'productType',
-  gender = 'gender',
-  job = 'job',
-  situation = 'situation',
-}
+const category = {
+  productType: 'productType',
+  gender: 'gender',
+  job: 'job',
+  situation: 'situation',
+} as const;
 type CategoryType = keyof typeof category;
 type CheckBoxType = {
   name: string;

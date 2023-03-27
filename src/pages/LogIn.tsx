@@ -21,10 +21,10 @@ const LogIn = () => {
   const [showPw, setShowPw] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [keepLogin, setKeepLogin] = useState<boolean>(false);
-  enum inputTarget {
-    email = 'email',
-    pw = 'pw',
-  }
+  const inputTarget = {
+    email: 'email',
+    pw: 'pw',
+  } as const;
   type InputTargetType = keyof typeof inputTarget;
   const onChange = (event: ChangeEvent<HTMLInputElement>, target: InputTargetType) => {
     const value = XSSCheck(event.target.value, undefined);
