@@ -1,27 +1,32 @@
 //⚠️ singUpProgress 순서는 꼭 회원가입 진행 단계 순서과 일치하게 할 것
-enum signUpProgress {
+const signUpProgress = {
   agreeToTerms = 'agreeToTerms',
   nameAndNickName = 'nameAndNickName', // name 이랑 nickname 같이
   email = 'email',
   pw = 'pw',
   genderAndBirth = 'genderAndBirth',
   job = 'job',
-}
+} as const ;
 export type SignUpProgressType = keyof typeof signUpProgress;
-enum inputFormId {
+const inputFormId = {
   name = 'name',
   nickName = 'nickName',
   email = 'email',
   pw = 'pw',
   confirmPw = 'confirmPw',
-}
+} as const ;
 export type InputFormIdType = keyof typeof inputFormId;
-enum gender {
+const sessionData = {
+  ...inputFormId ,
+  job ="job",
+
+} as const ;
+const  gender  = {
   male = 'male',
   female = 'female',
-}
+} as const ;
 export type GenderType = keyof typeof gender;
-enum job {
+const  job  = {
   profession = 'profession', //전문직
   management = 'management', //경영 관리
   desk = 'desk', //사무직
@@ -32,7 +37,7 @@ enum job {
   homemaker = 'homemaker', // 가정주부
   inoccupation = 'inoccupation', // 무직
   etc = 'etc', //기타
-}
+} as const ;
 export type JobType = keyof typeof job;
 export type SignUpStateType = {
   progress: SignUpProgressType;
@@ -46,15 +51,15 @@ export type SignUpStateType = {
   birth: { year: number; month: number; date: number } | null;
   job: JobType | null;
 };
-enum error {
+const  errorType = {
   required = 'required',
   invalidName = 'invalidName',
   invalidNickName = 'invalidNickName',
   invalidEmail = 'invalidEmail',
   invalidPw = 'invalidPw',
   invalidConfirmPw = 'invalidConfirmPw',
-}
-export type ErrorType = keyof typeof error;
+} as const ;
+export type ErrorType = keyof typeof errorType;
 const pass = 'pass';
 export type TestResultType = ErrorType | typeof pass;
 //⚠️ ErrorType 과 ERROR_MSG의 property 명은 같아야함

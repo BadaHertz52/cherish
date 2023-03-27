@@ -20,13 +20,13 @@ import product_sampleImg from '../../assets/product_sample.jpg';
  * @returns
  */
 const ModalTest = () => {
-  enum modalType {
-    alert = 'alert',
-    bottom = 'bottom',
-    confirm = 'confirm',
-    full = 'full',
-    toast = 'toast',
-  }
+  const modalType = {
+    alert: 'alert',
+    bottom: 'bottom',
+    confirm: 'confirm',
+    full: 'full',
+    toast: 'toast',
+  } as const;
   type OpenTargetType = keyof typeof modalType;
   const [openTarget, setOpenTarget] = useState<OpenTargetType | null>('alert');
   const [openBottomNavModal, setOpenBottomNavModal] = useState<boolean>(
