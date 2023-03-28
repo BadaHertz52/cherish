@@ -4,6 +4,7 @@ import '../../assets/modal.scss';
 import ConfirmModal from './ConfirmModal';
 import BottomNavModal from './BottomNavModal';
 import {
+  AlertModalType,
   ConfirmModalType,
   FilteringConditionType,
   FullScreModalType,
@@ -32,9 +33,7 @@ const ModalTest = () => {
   const [openBottomNavModal, setOpenBottomNavModal] = useState<boolean>(
     openTarget === modalType.bottom,
   );
-  const alertModalState: ModalCommonType = {
-    contents: 'alert',
-  };
+  const alertModalState: AlertModalType = 'alert';
   const confirmModalState: ConfirmModalType = {
     title: 'title',
     contents: 'contents',
