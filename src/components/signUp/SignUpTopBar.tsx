@@ -20,7 +20,9 @@ const SignUpTopBar = () => {
       signUpState.progress === 'nameAndNickName' ||
       signUpState.progress === 'pw'
     ) {
-      const listOfInputEl = document.getElementsByTagName('input');
+      const listOfInputEl = document.querySelectorAll(
+        '.input-form input',
+      ) as NodeListOf<HTMLInputElement>;
       if (listOfInputEl[0] !== undefined) {
         const backUpDataArr: SessionDataType[] = [...listOfInputEl].map((el: HTMLInputElement) => ({
           key: el.name.replace('data-', '') as SessionDataKeyType,
