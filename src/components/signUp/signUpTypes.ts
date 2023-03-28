@@ -33,6 +33,7 @@ export const sessionDataKey = {
   birth: 'birth',
 };
 export type SessionDataKeyType = keyof typeof sessionDataKey;
+// sessionStore 의 item 은 SessionDataType[]의 형태로 나옴
 export type SessionDataType = {
   key: SessionDataKeyType;
   value: string;
@@ -96,7 +97,10 @@ export type InputDataType = {
   value: string;
   errorMsg: string | null;
 };
-
+export const initialInputData: InputDataType = {
+  value: '',
+  errorMsg: null,
+};
 const checkBoxName = {
   termsAndCondition: 'termsAndCondition',
   personalInformation: 'personalInformation',
