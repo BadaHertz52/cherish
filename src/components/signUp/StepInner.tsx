@@ -11,7 +11,6 @@ const StepInner = ({ children, disableBtn, onClickNextBtn }: StepInnerProps) => 
     <div className="step__inner">
       <div className="step__inner__header">Welcome!</div>
       {children}
-      {signUpState.progress !== 'agreeToTerms' && <ProgressBar />}
       <NextBtn disableBtn={disableBtn} onClickNextBtn={onClickNextBtn} />
     </div>
   );
