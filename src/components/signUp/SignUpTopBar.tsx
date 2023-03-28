@@ -21,11 +21,14 @@ const SignUpTopBar = () => {
       signUpState.progress === 'pw'
     ) {
       const listOfInputEl = document.getElementsByTagName('input');
-      const backUpDataArr: SessionDataType[] = [...listOfInputEl].map((el: HTMLInputElement) => ({
-        key: el.name.replace('data-', '') as SessionDataKeyType,
-        value: el.value,
-      }));
-      sessionStorage.setItem('signUpBackUpData', JSON.stringify(backUpDataArr));
+      if (listOfInputEl[0] !== undefined) {
+        const backUpDataArr: SessionDataType[] = [...listOfInputEl].map((el: HTMLInputElement) => ({
+          key: el.name.replace('data-', '') as SessionDataKeyType,
+          value: el.value,
+        }));
+        backUpDataArr[0] !== undefined &&
+          sessionStorage.setItem('signUpBackUpData', JSON.stringify(backUpDataArr));
+      }
     }
     if (signUpState.progress === 'agreeToTerms') {
       // 추후
