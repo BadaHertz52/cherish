@@ -7,7 +7,7 @@ import '../assets/signUp/signUp.scss';
 import NameAndNickName from '../components/signUp/NameAndNickName';
 import Email from '../components/signUp/Email';
 const initialSingUpState: SignUpStateType = {
-  progress: 'agreeToTerms',
+  progress: 'email',
   agreeToTerms: {
     termsAndCondition: false,
     personalInformation: false,
@@ -35,7 +35,7 @@ export const SignUpContext = createContext<SignUpContextType>(context);
 const SignUp = () => {
   const [signUpState, setSignUpState] = useState<SignUpStateType>(initialSingUpState);
   return (
-    <form action="" method="post" id="signUp">
+    <div id="signUp">
       <SignUpContext.Provider
         value={{
           signUpState: signUpState,
@@ -47,8 +47,9 @@ const SignUp = () => {
         {/* step: 회원 가입 단계별 component */}
         {signUpState.progress === 'agreeToTerms' && <SignUpTerms />}
         {signUpState.progress === 'nameAndNickName' && <NameAndNickName />}
+        {signUpState.progress === 'email' && <Email />}
       </SignUpContext.Provider>
-    </form>
+    </div>
   );
 };
 
