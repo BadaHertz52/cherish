@@ -2,8 +2,8 @@
 .step__inner {
   position: relative;
   width: 100vw;
-  // 100% -BottomNav.height -SignUpTopBar.height
-  height: calc(100vh - 80px - 64px);
+  // 100% -BottomNav.height -SignUpTopBar.height - progressBar.height
+  height: calc(100vh - 80px - 64px - 37px);
   padding: 16px;
   box-sizing: border-box;
   &__header {
@@ -29,5 +29,12 @@
         color: $color-light-gray;
       }
     }
+  }
+}
+
+#signUpTerms {
+  .step__inner {
+    // 100% -BottomNav.height -SignUpTopBar.height
+    height: calc(100vh - 80px - 64px);
   }
 }

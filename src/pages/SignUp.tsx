@@ -3,7 +3,9 @@ import { SignUpStateType } from '../components/signUp/signUpTypes';
 import SignUpTopBar from '../components/signUp/SignUpTopBar';
 import ProgressBar from '../components/signUp/ProgressBar';
 import SignUpTerms from '../components/signUp/SignUpTerms';
-import '../assets/signUp/signup.scss';
+import '../assets/signUp/signUp.scss';
+import NameAndNickName from '../components/signUp/NameAndNickName';
+import Email from '../components/signUp/Email';
 const initialSingUpState: SignUpStateType = {
   progress: 'agreeToTerms',
   agreeToTerms: {
@@ -44,6 +46,7 @@ const SignUp = () => {
         {signUpState.progress !== 'agreeToTerms' && <ProgressBar />}
         {/* step: 회원 가입 단계별 component */}
         {signUpState.progress === 'agreeToTerms' && <SignUpTerms />}
+        {signUpState.progress === 'nameAndNickName' && <NameAndNickName />}
       </SignUpContext.Provider>
     </form>
   );

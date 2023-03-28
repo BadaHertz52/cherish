@@ -7,6 +7,13 @@ type InputFormProps = {
   data: InputDataType;
   setData: Dispatch<SetStateAction<InputDataType>>;
 };
+/**
+ *
+ * @param id : input의 id, name , placeholder, label 을 정하는데 사용
+ * @param data: input의 value
+ * @param setData: input의 change event 시 해당 event의 value에 따라 data의 상태를 변경
+ * @returns
+ */
 const InputForm = ({ id, data, setData }: InputFormProps) => {
   const type = id !== 'confirmPw' && id !== 'pw' ? 'text' : 'password';
   // ⚠️InputFormIdType 과 placeholder, label 의 property명은 동일 해야함
