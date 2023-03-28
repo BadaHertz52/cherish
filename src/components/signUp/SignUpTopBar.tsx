@@ -22,7 +22,7 @@ const SignUpTopBar = () => {
     ) {
       const listOfInputEl = document.getElementsByTagName('input');
       const backUpDataArr: SessionDataType[] = [...listOfInputEl].map((el: HTMLInputElement) => ({
-        key: sessionDataKey[`${el.name as SessionDataKeyType}`] as SessionDataKeyType,
+        key: el.name.replace('data-', '') as SessionDataKeyType,
         value: el.value,
       }));
       sessionStorage.setItem('signUpBackUpData', JSON.stringify(backUpDataArr));
