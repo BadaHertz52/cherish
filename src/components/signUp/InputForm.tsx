@@ -87,7 +87,7 @@ const InputForm = ({ id, data, setData }: InputFormProps) => {
         value={data.value}
         onChange={event => onChange(event)}
       />
-      <div className="error-msg"></div>
+      {data.errorMsg !== null && <div className="error-msg">{data.errorMsg}</div>}
     </div>
   );
 };
