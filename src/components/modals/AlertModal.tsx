@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import ModalPortal from './ModalPortal';
-import { ModalCommonType } from './modalTypes';
+import { AlertModalType, ModalCommonType } from './modalTypes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 type AlertModalProps = {
-  modalState: ModalCommonType;
+  modalState: AlertModalType;
   closeModal: () => void;
 };
 const AlertModal = ({ modalState, closeModal }: AlertModalProps) => {
@@ -19,7 +19,7 @@ const AlertModal = ({ modalState, closeModal }: AlertModalProps) => {
         <FontAwesomeIcon icon={faXmark} />
       </button>
 
-      <section className="contents">{modalState.contents}</section>
+      <section className="contents">{modalState}</section>
     </ModalPortal>
   );
 };
