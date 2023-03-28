@@ -1,4 +1,4 @@
-import { CSSProperties, useContext, useEffect, useState } from 'react';
+import React, { CSSProperties, useContext, useEffect, useState } from 'react';
 import { SignUpContext } from '../../pages/SignUp';
 import { progressArr, SignUpProgressType } from './signUpTypes';
 const ProgressBar = () => {
@@ -22,4 +22,4 @@ const ProgressBar = () => {
   );
 };
 
-export default ProgressBar;
+export default React.memo(ProgressBar);

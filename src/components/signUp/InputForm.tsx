@@ -92,4 +92,4 @@ const InputForm = ({ id, data, setData }: InputFormProps) => {
   );
 };
 
-export default InputForm;
+export default React.memo(InputForm);

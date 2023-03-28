@@ -1,4 +1,4 @@
-import { ReactNode, useContext } from 'react';
+import React, { ReactNode, useContext } from 'react';
 import NextBtn, { NextBtnProps } from './NextBtn';
 import ProgressBar from './ProgressBar';
 import { SignUpContext } from '../../pages/SignUp';
@@ -17,4 +17,4 @@ const StepInner = ({ children, disableBtn, onClickNextBtn }: StepInnerProps) => 
   );
 };
 
-export default StepInner;
+export default React.memo(StepInner);

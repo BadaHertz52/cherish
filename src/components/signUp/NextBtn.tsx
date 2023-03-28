@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { SignUpContext } from '../../pages/SignUp';
 
 export type NextBtnProps = {
@@ -20,4 +20,4 @@ const NextBtn = ({ disableBtn, onClickNextBtn }: NextBtnProps) => {
   );
 };
 
-export default NextBtn;
+export default React.memo(NextBtn);

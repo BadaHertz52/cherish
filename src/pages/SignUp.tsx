@@ -1,4 +1,4 @@
-import { createContext, Dispatch, SetStateAction, useState } from 'react';
+import React, { createContext, Dispatch, SetStateAction, useState } from 'react';
 import { SignUpStateType } from '../components/signUp/signUpTypes';
 import SignUpTopBar from '../components/signUp/SignUpTopBar';
 import ProgressBar from '../components/signUp/ProgressBar';
@@ -49,4 +49,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default React.memo(SignUp);
