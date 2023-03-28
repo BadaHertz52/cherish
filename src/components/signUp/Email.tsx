@@ -59,7 +59,7 @@ const Email = () => {
   const onClickEmailBtn = async () => {
     overTime && setOverTime(false);
     // 가능한 이메일 인증 횟수를 충족한 경우
-    if (emailVerificationCount.current <= 1) {
+    if (emailVerificationCount.current <= 4) {
       // 백엔드에 이메일 보내기
       // await fetch('/member/email-code', {
       //   method:'POST',
@@ -92,6 +92,7 @@ const Email = () => {
     if (confirmAuthNumber.current) confirmAuthNumber.current = false;
   };
   const onClickAuthNumberBtn = async () => {
+    setOpenTimer(false);
     //백엔드에 이메인 인증 번호 확인
     const data = await (
       await fetch('/member/email-code', {
@@ -134,7 +135,7 @@ const Email = () => {
           <InputForm id={'email'} data={email} setData={setEmail} />
           <button
             className="btn-email"
-            disabled={email.value !== '' && email.errorMsg == null}
+            disabled={email.value !== '' && email.errorMsg == null ? false : true}
             type="button"
             onClick={onClickEmailBtn}
           >
@@ -157,7 +158,7 @@ const Email = () => {
             />
             <div>
               <button
-                disabled={email.value !== '' && email.errorMsg == null}
+                disabled={!openTimer}
                 className="btn-authNumber"
                 type="button"
                 onClick={onClickAuthNumberBtn}
