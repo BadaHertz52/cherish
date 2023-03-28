@@ -9,7 +9,6 @@ import {
   SessionDataType,
   SignUpStateType,
 } from './signUpTypes';
-import '../../assets/signUp/signUpTopBar.scss';
 const SignUpTopBar = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
   /**
@@ -51,9 +50,11 @@ const SignUpTopBar = () => {
   };
   return (
     <div id="signUpTopBar">
-      <button className="btn-prev" onClick={onClickPrevBtn} title="btn-prev" type="button">
-        <FontAwesomeIcon icon={faChevronLeft} />
-      </button>
+      {signUpState.progress !== 'agreeToTerms' && (
+        <button className="btn-prev" onClick={onClickPrevBtn} title="btn-prev" type="button">
+          <FontAwesomeIcon icon={faChevronLeft} />
+        </button>
+      )}
       <div className="title">간편 가입</div>
     </div>
   );

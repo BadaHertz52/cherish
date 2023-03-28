@@ -20,7 +20,7 @@ function App() {
         {/* modal 테스트를 위해 route 추가 , 추후 삭제 예정*/}
         <Route path="modaltest" element={<ModalTest />} />
         <Route path="/login" element={<LogIn />} />
-        <Route path="/singup" element={<Signup />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </div>
   );

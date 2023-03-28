@@ -1,7 +1,6 @@
 import { ReactNode, useContext } from 'react';
 import NextBtn, { NextBtnProps } from './NextBtn';
 import ProgressBar from './ProgressBar';
-import '../../assets/signUp/stepInner.scss';
 import { SignUpContext } from '../../pages/SignUp';
 type StepInnerProps = NextBtnProps & {
   children: ReactNode;

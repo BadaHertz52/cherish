@@ -1,8 +1,9 @@
 import { createContext, Dispatch, SetStateAction, useState } from 'react';
 import { SignUpStateType } from '../components/signUp/signUpTypes';
-import SignUpTopBar from '../components/signUp/SingUpTopBar';
+import SignUpTopBar from '../components/signUp/SignUpTopBar';
 import ProgressBar from '../components/signUp/ProgressBar';
 import SignUpTerms from '../components/signUp/SignUpTerms';
+import '../assets/signUp/signup.scss';
 const initialSingUpState: SignUpStateType = {
   progress: 'agreeToTerms',
   agreeToTerms: {

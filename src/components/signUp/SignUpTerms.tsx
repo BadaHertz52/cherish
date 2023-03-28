@@ -3,7 +3,6 @@ import { SignUpContext } from '../../pages/SignUp';
 import CheckBox from '../CheckBox';
 import { AgreementStateType, SignUpStateType, TermsCheckBoxNameType } from './signUpTypes';
 import StepInner from './StepInner';
-import '../../assets/signUp/signUpTerms.scss';
 import ConfirmModal from '../modals/ConfirmModal';
 import { ConfirmModalBtnType, ConfirmModalType } from '../modals/modalTypes';
 

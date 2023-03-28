@@ -1,7 +1,6 @@
 import { CSSProperties, useContext, useEffect, useState } from 'react';
 import { SignUpContext } from '../../pages/SignUp';
 import { progressArr, SignUpProgressType } from './signUpTypes';
-import '../../assets/signUp/progressBar.scss';
 const ProgressBar = () => {
   const { signUpState } = useContext(SignUpContext);
   const [progressStyle, setProgressStyle] = useState<CSSProperties | undefined>(undefined);
