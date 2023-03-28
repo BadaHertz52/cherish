@@ -38,15 +38,17 @@ const NameAndNickName = () => {
       const preState: SessionDataType[] = JSON.parse(item);
       const preNameState = preState.filter(i => i.key === 'name')[0];
       const preNickNameState = preState.filter(i => i.key === 'nickName')[0];
-      setName({
-        value: preNameState.value,
-        errorMsg: null,
-      });
-      setNickName({
-        value: preNickNameState.value,
-        errorMsg: null,
-      });
-      sessionStorage.removeItem('signUpBackUpData');
+      if (preNameState !== undefined && preNickNameState !== undefined) {
+        setName({
+          value: preNameState.value,
+          errorMsg: null,
+        });
+        setNickName({
+          value: preNickNameState.value,
+          errorMsg: null,
+        });
+        sessionStorage.removeItem('signUpBackUpData');
+      }
     }
     if (signUpState.name !== null && signUpState.nickname !== null) {
       setName({
