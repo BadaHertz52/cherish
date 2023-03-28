@@ -89,7 +89,7 @@ export const ERROR_MSG = {
   required: '필수 정보 입니다.',
   invalidName: '2~20자의 한글, 영어를 사용하세요',
   invalidNickName: '3~10자의 한글, 영어를 사용하세요',
-  invalidEmail: '유효하지 않은 이메일형식 압니다.',
+  invalidEmail: '유효하지 않은 이메일형식 아닙니다.',
   invalidPw: '8~20자의 소문자(영어), 숫자를 사용하세요',
   invalidConfirmPw: '비밀번호가 일치 하지 않습니다.',
 };

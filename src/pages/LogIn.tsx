@@ -66,7 +66,7 @@ const LogIn = () => {
     */
   };
   const onClickSignUpBtn = () => {
-    navigate('/singup');
+    navigate('/signup');
   };
   return (
     <div id="login">

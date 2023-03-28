@@ -6,7 +6,7 @@ import SignUpTerms from '../components/signUp/SignUpTerms';
 import '../assets/signUp/signUp.scss';
 import NameAndNickName from '../components/signUp/NameAndNickName';
 import Email from '../components/signUp/Email';
-const initialSingUpState: SignUpStateType = {
+export const initialSignUpState: SignUpStateType = {
   progress: 'email',
   agreeToTerms: {
     termsAndCondition: false,
@@ -27,13 +27,13 @@ type SignUpContextType = {
   setSignUpState: Dispatch<SetStateAction<SignUpStateType>>;
 };
 const context: SignUpContextType = {
-  signUpState: initialSingUpState,
+  signUpState: initialSignUpState,
   setSignUpState: () => {},
 };
 export const SignUpContext = createContext<SignUpContextType>(context);
 
 const SignUp = () => {
-  const [signUpState, setSignUpState] = useState<SignUpStateType>(initialSingUpState);
+  const [signUpState, setSignUpState] = useState<SignUpStateType>(initialSignUpState);
   return (
     <div id="signUp">
       <SignUpContext.Provider
