@@ -69,17 +69,18 @@ const InputForm = ({ id, data, setData }: InputFormProps) => {
   };
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const text = XSSCheck(event.target.value, undefined);
-    if (text === '' || text === undefined) {
+    //유효성 검사
+    const testResult = checkRegex(text);
+    setData({
+      value: text,
+      errorMsg: testResult === 'pass' ? null : ERROR_MSG[`${testResult}`],
+    });
+  };
+  const onBlur = () => {
+    if (data.value === '') {
       setData({
-        value: text,
+        ...data,
         errorMsg: ERROR_MSG.required,
-      });
-    } else {
-      //유효성 검사
-      const testResult = checkRegex(text);
-      setData({
-        value: text,
-        errorMsg: testResult === 'pass' ? null : ERROR_MSG[`${testResult}`],
       });
     }
   };
@@ -93,8 +94,9 @@ const InputForm = ({ id, data, setData }: InputFormProps) => {
         placeholder={placeholder[`${id}`]}
         value={data.value}
         onChange={event => onChange(event)}
+        onBlur={onBlur}
       />
-      {data.errorMsg !== null && <div className="error-msg">{data.errorMsg}</div>}
+      <div className="error-msg">{data.errorMsg !== null ? data.errorMsg : ''}</div>
     </div>
   );
 };
