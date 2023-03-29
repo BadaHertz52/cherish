@@ -1,22 +1,26 @@
-import React from "react";
-import Modal from "./Modal";
-type AlertModalProps ={
-  contents: string|null,
-  closeModal :()=>void
+import React, { useEffect } from 'react';
+import ModalPortal from './ModalPortal';
+import { AlertModalType, ModalCommonType } from './modalTypes';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+
+type AlertModalProps = {
+  modalState: AlertModalType;
+  closeModal: () => void;
 };
-const AlertModal=({contents ,closeModal}:AlertModalProps)=>{
-  return ( 
-    <Modal>
-      <button
-        type="button"
-        onClick={closeModal}
-      >
-        close
+const AlertModal = ({ modalState, closeModal }: AlertModalProps) => {
+  useEffect(() => {
+    const modalEl = document.querySelector('.modal');
+    modalEl?.classList.add('alert-modal');
+  }, []);
+  return (
+    <ModalPortal>
+      <button type="button" className="btn-close" title="close btn" onClick={closeModal}>
+        <FontAwesomeIcon icon={faXmark} />
       </button>
-      <div className="content">
-        {contents}
-      </div>
-    </Modal>
-  )
+
+      <section className="contents">{modalState}</section>
+    </ModalPortal>
+  );
 };
-export default React.memo(AlertModal)
+export default React.memo(AlertModal);

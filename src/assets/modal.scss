@@ -1,37 +1,309 @@
-//comon
-.background{
-  position:relative;
-  z-index:999;
-  height:100vh;
-  width:100vw;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  background-color:#06060676; 
-};
-.modal-inner{
-  position:relative;
-  background-color:#ffff;
+@import './common.scss';
+
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow-y: hidden;
+}
+@mixin background {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #06060676;
+}
+@mixin modal-box {
+  position: relative;
+  background-color: $color-white;
   width: 70vw;
   min-height: 80px;
-  border-radius:15px;
-  padding:12px;
-  box-sizing:border-box;
+  border-radius: 15px;
+  box-sizing: border-box;
 }
-.alert-modal{
+@mixin modal-inner {
+  padding: 16px 14px;
+  width: inherit;
+  height: inherit;
+  box-sizing: border-box;
+}
+@mixin modal-root {
+  z-index: 999;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+@mixin reset-btn-style {
+  background-color: $color-white;
+  border: none;
+}
+#modal-root {
+  @include modal-root;
+  font-size: 16px;
+  color: $color-black;
+}
+.modal__background {
   position: relative;
-  button{
-    position: absolute;
-    right:7px;
-    top:7px;
-    height: 1rem;
+}
+.alert-modal,
+.confirm-modal {
+  .modal__background {
+    @include background;
   }
-  .content{
-    margin-top: 1rem;
+  .modal__box {
+    @include modal-box;
+  }
+  .modal__inner {
+    @include modal-inner;
+  }
+}
+.alert-modal {
+  position: relative;
+  .modal__inner {
+    min-height: inherit;
+  }
+  .btn-close {
+    @include reset-btn-style;
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    height: 20px;
+    svg {
+      font-size: 18px;
+    }
+  }
+  .contents {
+    margin-top: 20px;
     box-sizing: border-box;
     width: 100%;
     height: 100%;
     text-align: center;
+  }
+}
+.bottom-nav-modal {
+  display: none;
+  &.on {
+    display: block;
+  }
+  position: absolute;
+  top: 105vh;
+  transition: top 1s;
+  .modal__background {
+    position: relative;
+  }
+  .modal__box {
+    @include modal-box;
+    top: 45vh;
+    width: 100vw;
+    height: calc(100vh - 45vh);
+    min-height: initial;
+    background-color: rgb(222, 221, 220);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .modal__inner {
+    width: inherit;
+    height: inherit;
+    padding: 32px 16px;
+    box-sizing: border-box;
+  }
+  form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    section {
+      width: 100%;
+      // 100% - (btn-submit.height)
+      height: calc(100% - 32px);
+    }
+    .category {
+      display: flex;
+      align-items: center;
+
+      button {
+        background-color: inherit;
+        border: none;
+      }
+    }
+    .checkbox-group {
+      margin-top: 16px;
+      // 100% - category.height - padding.top
+      height: calc(100% - 32px - 16px);
+      overflow-y: scroll;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+    .check-box {
+      margin-bottom: 16px;
+    }
+    .btn-submit {
+      padding: 0;
+      height: 32px;
+    }
+  }
+}
+.confirm-modal {
+  title {
+    @include h2-font;
+    display: block;
+  }
+  .contents {
+    padding: 16px 0;
+  }
+  .btn-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  button {
+    @include clean-btn-style;
+  }
+}
+
+.full-scre-modal {
+  button {
+    @include reset-btn-style;
+  }
+  .modal__box {
+    width: 100vw;
+    background-color: $color-white;
+  }
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+    font-size: 20px;
+    position: relative;
+    button {
+      position: absolute;
+      top: 16px;
+      left: 32px;
+    }
+    svg {
+      font-size: 20px;
+    }
+  }
+  .container {
+    overflow-y: scroll;
+    height: calc(100vh - 52px);
+  }
+  .product-img {
+    width: 100%;
+    aspect-ratio: 1/1;
+  }
+  .not-img {
+    position: relative;
+  }
+  .product-inform,
+  .store {
+    padding: 16px;
+    padding-bottom: 0;
+  }
+  .product-inform {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+  }
+  .product-inform {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    & > div {
+      padding-bottom: 16px;
+    }
+  }
+  .product-name {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .btn-save {
+    position: absolute;
+    top: -20px;
+    right: 40px;
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background-color: #06060600;
+    color: $color-light-gray;
+    &.on {
+      color: $color-primary;
+    }
+  }
+  .product-introduction {
+    span {
+      display: inline-block;
+      width: 100%;
+      line-height: 18px;
+    }
+  }
+  .tag {
+    span {
+      padding-right: 32px;
+    }
+  }
+  h3 {
+    font-size: 18px;
+    font-weight: bold;
+    padding-bottom: 16px;
+  }
+  .site {
+    width: 80vw;
+    padding-bottom: 18px;
+    display: flex;
+    justify-content: space-between;
+    a:link,
+    a:active,
+    a:visited {
+      text-decoration: none;
+      color: black;
+    }
+  }
+  .site a:hover,
+  .stie__link.hover {
+    font-weight: bolder;
+  }
+  .offline-store {
+    padding-top: 16px;
+    padding-bottom: 24px;
+  }
+}
+
+.toast-modal {
+  position: absolute;
+  .modal__box {
+    background-color: #fcedba;
+    border-radius: 10px;
+    min-height: 65px;
+    width: 200px;
+  }
+  .modal__inner {
+    @include modal-inner;
+    min-height: inherit;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 800;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .full-scre-modal {
+    .product-inform {
+      // 높이 :100vh - product-image height - .topbar height - a(사용자가 구매자 정보가 있는지 인지할 수 있을 정보)
+      height: calc(100vh - 100vw - 52px - 32px);
+    }
   }
 }

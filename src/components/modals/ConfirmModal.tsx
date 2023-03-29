@@ -1,39 +1,41 @@
-import React from "react";
-import Modal from "./Modal";
-import { modalStateType } from "./Modals";
+import React, { useEffect } from 'react';
+import ModalPortal from './ModalPortal';
+import { ConfirmModalType } from './modalTypes';
 
-type ConfirmModalProps ={
-  modalState:modalStateType,
-  closeModal:()=>void
+type ConfirmModalProps = {
+  modalState: ConfirmModalType;
+  closeModal: () => void;
 };
-const ConfirmModal=({modalState, closeModal}:ConfirmModalProps)=>{
-  return ( 
-    <Modal>
-      {modalState.title !== null &&
-        <div className="title">
-          {modalState.title}
-        </div>
-      }
-      <div className="contents">
-        {modalState.contents}
-      </div>
-      <div className="btns">
-        <button 
-          type ="button"
-          className="btn-yes"
-          onClick={closeModal}
-        >
+const ConfirmModal = ({ modalState, closeModal }: ConfirmModalProps) => {
+  const onClickYesBtn = () => {
+    if (modalState.yesBtn.otherFn !== null) {
+      modalState.yesBtn.otherFn();
+    }
+    closeModal();
+  };
+  const onClickNoBtn = () => {
+    if (modalState.noBtn.otherFn !== null) {
+      modalState.noBtn.otherFn();
+    }
+    closeModal();
+  };
+  useEffect(() => {
+    const modalEl = document.querySelector('.modal');
+    modalEl?.classList.add('confirm-modal');
+  }, []);
+  return (
+    <ModalPortal>
+      {modalState.title !== null && <title>{modalState.title}</title>}
+      <section className="contents">{modalState.contents}</section>
+      <section className="btn-group">
+        <button type="button" className="btn-yes" onClick={onClickYesBtn}>
           {modalState.yesBtn?.text}
         </button>
-        <button 
-          type ="button"
-          className="btn-no"
-          onClick={closeModal}
-        >
+        <button type="button" className="btn-no" onClick={onClickNoBtn}>
           {modalState.noBtn?.text}
         </button>
-      </div>
-    </Modal>
-  )
+      </section>
+    </ModalPortal>
+  );
 };
-export default React.memo(ConfirmModal)
+export default React.memo(ConfirmModal);
