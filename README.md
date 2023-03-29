@@ -1,4 +1,4 @@
-# front-react
+# cherish-gift.github.io
 
 ## Settings
 
@@ -6,13 +6,16 @@ Vite + React
 
 Use Yarn with berry
 
+### Prettier
+
+https://prettier.io/docs/en/install.html
+
 ## Development
 
 ```
 yarn install
 yarn run dev
 ```
-
 
 ## Build
 
