@@ -72,7 +72,7 @@ const LogIn = () => {
     <div id="login">
       <div className="inner">
         <h1 className="logo">LOG IN</h1>
-        <h2>로그인을 하시면 다양한 혜택을 누릴 수 있습니다.</h2>
+        <h2>로그인을 하시면 다양한 혜택을 누릴 수 있어요.</h2>
         <div className="login__data">
           <div className="login__data__email">
             <input
