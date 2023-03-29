@@ -20,7 +20,7 @@ const EmailAlertModalContents = () => {
 const Email = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
   const confirmAuthNumber = useRef<boolean>(false);
-  const emailVerificationCount = useRef<number>(0);
+  const sendingEmailCount = useRef<number>(0);
   const [authNumber, setAuthNumber] = useState<string | undefined>();
   const [email, setEmail] = useState<InputDataType>(initialInputData);
   const [disableBtn, setDisAbleBtn] = useState<boolean>(true);
@@ -58,28 +58,45 @@ const Email = () => {
   };
   const onClickEmailBtn = async () => {
     overTime && setOverTime(false);
-    // 가능한 이메일 인증 횟수를 충족한 경우
-    if (emailVerificationCount.current <= 4) {
+    const overSending: boolean = sendingEmailCount.current > 4;
+    // 1.가능한 이메일 인증 횟수를 충족한 경우
+    if (!overSending) {
       // 백엔드에 이메일 보내기
       // await fetch('/member/email-code', {
       //   method:'POST',
       //   body : JSON.stringify({email:email})
       // })
-      // 이메일 발송 성공 시 모달
-      setOpenTimer(true);
-      if (nextBtnElDomRect !== null && nextBtnElDomRect !== undefined) {
-        // modal의 height, width에 따라 top,left 값 변경
-        setOpenToastModal(true);
-        setToastModalState({
-          contents: '인증 이메일이 발송됐어요.',
-          // 48: NextBtn.height, 32:modal__inner.padding top +bottom
-          top: `${nextBtnElDomRect.top - 48 - 32}px`,
-          left: `calc((100vw - 200px) /2 )`,
+      const sameEmail: boolean = false;
+      const successSendingEmail: boolean = false;
+      // A. 기존 회원과 동일한 이메일 인 경우
+      if (sameEmail) {
+        setEmail((prev: InputDataType) => {
+          const newState: InputDataType = {
+            ...prev,
+            errorMsg: '이미 회원가입된 이메일이에요.',
+          };
+          return newState;
         });
-        emailVerificationCount.current += 1;
       }
-    } else {
-      // 할 수 있는 이메일 인증 횟수를 초과한 경우
+      // B. 이메일 발송 성공
+      if (successSendingEmail) {
+        // a-1 타이머 작동. 모달 오픈
+        setOpenTimer(true);
+        if (nextBtnElDomRect !== null && nextBtnElDomRect !== undefined) {
+          // modal의 height, width에 따라 top,left 값 변경
+          setOpenToastModal(true);
+          setToastModalState({
+            contents: '인증 이메일이 발송됐어요.',
+            // 48: NextBtn.height, 32:modal__inner.padding top +bottom
+            top: `${nextBtnElDomRect.top - 48 - 32}px`,
+            left: `calc((100vw - 200px) /2 )`,
+          });
+          sendingEmailCount.current += 1;
+        }
+      }
+    }
+    //  2. 할 수 있는 이메일 인증 횟수를 초과한 경우
+    if (overSending) {
       setOpenToastModal(false);
       setTimeout(() => {
         setOpenAlertModal(true);
@@ -169,17 +186,17 @@ const Email = () => {
             </div>
           </div>
           <div className="msg">
-            {overTime ? (
-              <p className="msg-over-time">인증 시간이 지났습니다.</p>
-            ) : (
-              !pass &&
-              authNumber !== undefined && (
+            {authNumber !== undefined &&
+              (overTime ? (
+                <p className="msg-over-time">인증 시간이 지났습니다.</p>
+              ) : !pass ? (
                 <div className="error-msg">
                   <p>인증번호가 일치하지 않아요.</p>
                   <p>인증번호를 다시 확인해주세요.</p>
                 </div>
-              )
-            )}
+              ) : (
+                <p>인증이 완료 되었어요.</p>
+              ))}
           </div>
         </section>
       </StepInner>

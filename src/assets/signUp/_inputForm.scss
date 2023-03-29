@@ -13,5 +13,8 @@
     margin-top: 14px;
     margin-bottom: 14px;
     color: $color-error;
+    &.email {
+      color: $color-light-gray;
+    }
   }
 }
