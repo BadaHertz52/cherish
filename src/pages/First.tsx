@@ -91,12 +91,6 @@ const first = () => {
       <h1>First</h1>
       <h1>First</h1>
       <h1>First</h1>
-      <h1>First</h1>
-      <h1>First</h1>
-      <h1>First</h1>
-      <h1>First</h1>
-      <h1>First</h1>
-      <h1>First</h1>
     </div>
   );
 };
