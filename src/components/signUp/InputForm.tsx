@@ -70,11 +70,30 @@ const InputForm = ({ id, data, setData }: InputFormProps) => {
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const text = XSSCheck(event.target.value, undefined);
     //유효성 검사
-    const testResult = checkRegex(text);
-    setData({
-      value: text,
-      errorMsg: testResult === 'pass' ? null : ERROR_MSG[`${testResult}`],
-    });
+    if (text === '') {
+      startWritingEmail.current = true;
+      setData({
+        value: text,
+        errorMsg: null,
+      });
+    } else {
+      startWritingEmail.current = false;
+      const testResult = checkRegex(text);
+      setData({
+        value: text,
+        errorMsg: testResult === 'pass' ? null : ERROR_MSG[`${testResult}`],
+      });
+    }
+  };
+  const onFocus = (event: FocusEvent<HTMLInputElement>) => {
+    const target = event.target;
+    if (id === 'email') {
+      if (target.value === '') {
+        startWritingEmail.current = true;
+      } else {
+        startWritingEmail.current = false;
+      }
+    }
   };
   const onBlur = () => {
     if (data.value === '') {
