@@ -1,6 +1,15 @@
-import React, { ChangeEvent, Dispatch, HTMLInputTypeAttribute, SetStateAction } from 'react';
+import React, {
+  ChangeEvent,
+  Dispatch,
+  FocusEvent,
+  HTMLInputTypeAttribute,
+  SetStateAction,
+  useRef,
+} from 'react';
 import { ERROR_MSG, InputDataType, InputFormIdType, TestResultType } from './signUpTypes';
 import { XSSCheck } from '../../pages/LogIn';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 type InputFormProps = {
   id: InputFormIdType;
@@ -16,6 +25,7 @@ type InputFormProps = {
  */
 const InputForm = ({ id, data, setData }: InputFormProps) => {
   const type = id !== 'confirmPw' && id !== 'pw' ? 'text' : 'password';
+  const startWritingEmail = useRef<boolean>(false);
   // ⚠️InputFormIdType 과 placeholder, label 의 property명은 동일 해야함
   const placeholder = {
     name: '이름',
@@ -113,9 +123,24 @@ const InputForm = ({ id, data, setData }: InputFormProps) => {
         placeholder={placeholder[`${id}`]}
         value={data.value}
         onChange={event => onChange(event)}
+        onFocus={event => onFocus(event)}
         onBlur={onBlur}
       />
-      <div className="error-msg">{data.errorMsg !== null ? data.errorMsg : ''}</div>
+      {(id == 'pw' || id == 'confirmPw') && (
+        <FontAwesomeIcon
+          className={`${data.value !== '' && data.errorMsg === null ? 'on' : ''}`}
+          icon={faCheck}
+        />
+      )}
+      <div
+        className={`error-msg ${startWritingEmail.current && data.errorMsg == null ? 'email' : ''}`}
+      >
+        {startWritingEmail.current && data.errorMsg == null
+          ? `'@'을 포함하여 작성해주세요.`
+          : data.errorMsg !== null
+          ? data.errorMsg
+          : ''}
+      </div>
     </div>
   );
 };
