@@ -6,11 +6,12 @@
   justify-content: center;
   width: 70%;
   label,
-  input,
-  .error-msg {
-    margin-bottom: 14px;
+  input {
+    padding-bottom: 14px;
   }
   .error-msg {
+    margin-top: 14px;
+    margin-bottom: 14px;
     color: $color-error;
   }
 }

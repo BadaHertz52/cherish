@@ -5,11 +5,8 @@
   #inputForm-email {
     width: 100%;
   }
-  input {
-    height: 32px;
-  }
   .email-form {
-    div:last-child {
+    & > div:last-child {
       margin-bottom: 14px;
       @include bd2-font;
       color: $color-light-gray;
