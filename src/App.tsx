@@ -7,7 +7,7 @@ import Main from './pages/Main';
 import ModalTest from './components/modals/ModalTest';
 import LogIn from './pages/LogIn';
 import Signup from './pages/SignUp';
-
+import './assets/main.scss';
 function App() {
   return (
     <div className="App">
