@@ -1,8 +1,4 @@
-import React, { ReactNode, ButtonHTMLAttributes, CSSProperties } from 'react';
-import axios from 'axios';
-
-//ButtonProps는 ButtonHTMLAttributes<HTMLButtonElement> 상속받았기 때문에
-// button 태그에 대한 모든 속성을 props 사용 가능. 이외의 속성은 따로 선언.
+import { ReactNode, ButtonHTMLAttributes, CSSProperties } from 'react';
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   children: ReactNode;
