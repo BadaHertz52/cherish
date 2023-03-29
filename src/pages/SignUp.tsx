@@ -7,7 +7,7 @@ import '../assets/signUp/signUp.scss';
 import NameAndNickName from '../components/signUp/NameAndNickName';
 import Email from '../components/signUp/Email';
 export const initialSignUpState: SignUpStateType = {
-  progress: 'email',
+  progress: 'pw',
   agreeToTerms: {
     termsAndCondition: false,
     personalInformation: false,

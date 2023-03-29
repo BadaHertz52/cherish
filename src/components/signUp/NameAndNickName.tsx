@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { SignUpContext } from '../../pages/SignUp';
 import InputForm from './InputForm';
 import { initialInputData, InputDataType, SessionDataType, SignUpStateType } from './signUpTypes';
@@ -19,18 +19,6 @@ const NameAndNickName = () => {
       };
       return newState;
     });
-  };
-  const handleBlur = () => {
-    if (
-      name.value !== '' &&
-      name.errorMsg !== null &&
-      nickName.value !== '' &&
-      nickName.errorMsg !== null
-    ) {
-      setDisableBtn(false);
-    } else {
-      setDisableBtn(true);
-    }
   };
   useEffect(() => {
     const item = sessionStorage.getItem('signUpBackUpData');

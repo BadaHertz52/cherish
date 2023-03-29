@@ -2,7 +2,7 @@ import { ChangeEvent, useContext, useEffect, useRef, useState } from 'react';
 import { XSSCheck } from '../../pages/LogIn';
 import { initialSignUpState, SignUpContext } from '../../pages/SignUp';
 import AlertModal from '../modals/AlertModal';
-import { ConfirmModalType, ModalCommonType, ToastModalType } from '../modals/modalTypes';
+import { ToastModalType } from '../modals/modalTypes';
 import ToastModal from '../modals/ToastModal';
 import InputForm from './InputForm';
 import { initialInputData, InputDataType, SessionDataType, SignUpStateType } from './signUpTypes';
@@ -19,23 +19,23 @@ const EmailAlertModalContents = () => {
 };
 const Email = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
-  const [email, setEmail] = useState<InputDataType>(initialInputData);
-  const [authNumber, setAuthNumber] = useState<string | undefined>();
   const confirmAuthNumber = useRef<boolean>(false);
-  const [pass, setPass] = useState<boolean>(false);
   const emailVerificationCount = useRef<number>(0);
+  const [authNumber, setAuthNumber] = useState<string | undefined>();
+  const [email, setEmail] = useState<InputDataType>(initialInputData);
   const [disableBtn, setDisAbleBtn] = useState<boolean>(true);
-  const nextBtnEl = document.querySelector('.next-btn');
-  const nextBtnElDomRect = nextBtnEl?.getClientRects()[0];
   const [openToastModal, setOpenToastModal] = useState<boolean>(false);
   const [openAlertModal, setOpenAlertModal] = useState<boolean>(false);
+  const [openTimer, setOpenTimer] = useState<boolean>(false);
+  const [overTime, setOverTime] = useState<boolean>(false);
+  const [pass, setPass] = useState<boolean>(false);
   const [toastModalState, setToastModalState] = useState<ToastModalType>({
     contents: '',
     top: '0',
     left: '0',
   });
-  const [openTimer, setOpenTimer] = useState<boolean>(false);
-  const [overTime, setOverTime] = useState<boolean>(false);
+  const nextBtnEl = document.querySelector('.next-btn');
+  const nextBtnElDomRect = nextBtnEl?.getClientRects()[0];
   const onClickCloseBtnInAlertModal = () => {
     if (sessionStorage.getItem('signUpBackUpData') !== null) {
       sessionStorage.removeItem('signUpBackUpData');
