@@ -71,7 +71,7 @@ const Email = () => {
         // modal의 height, width에 따라 top,left 값 변경
         setOpenToastModal(true);
         setToastModalState({
-          contents: '인증 이메일이 발송됐습니다.',
+          contents: '인증 이메일이 발송됐어요.',
           // 48: NextBtn.height, 32:modal__inner.padding top +bottom
           top: `${nextBtnElDomRect.top - 48 - 32}px`,
           left: `calc((100vw - 200px) /2 )`,
