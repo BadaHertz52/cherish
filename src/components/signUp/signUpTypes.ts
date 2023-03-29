@@ -86,12 +86,12 @@ const pass = 'pass';
 export type TestResultType = ErrorType | typeof pass;
 //⚠️ ErrorType 과 ERROR_MSG의 property 명은 같아야함
 export const ERROR_MSG = {
-  required: '필수 정보 입니다.',
+  required: '필수 입력 항목이에요.',
   invalidName: '2~20자의 한글, 영어를 사용하세요',
   invalidNickName: '3~10자의 한글, 영어를 사용하세요',
-  invalidEmail: '유효하지 않은 이메일형식 아닙니다.',
+  invalidEmail: '유효하지 않은 이메일형식 이에요.',
   invalidPw: '8~20자의 소문자(영어), 숫자를 사용하세요',
-  invalidConfirmPw: '비밀번호가 일치 하지 않습니다.',
+  invalidConfirmPw: '비밀번호가 일치 하지 않아요.',
 };
 export type InputDataType = {
   value: string;
