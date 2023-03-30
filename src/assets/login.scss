@@ -48,19 +48,11 @@
       //parent.height - button.height - parent.height
       top: calc((100% - 14px - 14px) / 2);
       right: 14px;
-      width: 14px;
-      height: 14px;
-      svg {
-        color: $color-light-gray;
-        font-size: 14px;
-      }
     }
   }
-  .login__data__pw {
-    .btn.on {
-      svg {
-        color: $color-black;
-      }
+  .login__data__email {
+    button {
+      color: $color-light-gray;
     }
   }
   //login__util
