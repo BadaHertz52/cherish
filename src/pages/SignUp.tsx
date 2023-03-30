@@ -18,7 +18,6 @@ export const initialSignUpState: SignUpStateType = {
   nickname: null,
   email: null,
   pw: null,
-  confirmPw: null,
   gender: null,
   birth: null,
   job: null,

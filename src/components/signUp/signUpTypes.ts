@@ -67,8 +67,7 @@ export type SignUpStateType = {
   name: string | null;
   nickname: string | null;
   email: string | null;
-  pw: number | null;
-  confirmPw: number | null;
+  pw: string | null;
   gender: GenderType | null;
   birth: { year: number; month: number; date: number } | null;
   job: JobType | null;
