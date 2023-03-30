@@ -13,38 +13,41 @@
     }
   }
   .btn-email {
-    height: 32px;
+    width: 100%;
+    height: 48px;
     margin-bottom: 14px;
   }
   .authNumber-form {
     @include bd1-font;
     &__contents {
+      position: relative;
       display: flex;
-      height: 32px;
-      & > div:last-child {
+      height: 48px;
+      input {
+        width: 70%;
+      }
+      .btn-authNumber {
+        width: 30%;
+        height: 100%;
+        margin-left: 10px;
+        margin-right: 5px;
+        background-color: $color-primary;
+        color: $color-light;
+        &:disabled {
+          background-color: $color-light;
+          color: $color-light-gray;
+        }
+      }
+      #timer {
+        position: absolute;
+        top: 0;
+        left: calc(70% - 48px);
+        height: 100%;
         display: flex;
+        justify-content: center;
         align-items: center;
-        width: calc(100% - 162px);
-        button {
-          width: 50%;
-          height: 100%;
-          margin-left: 10px;
-          margin-right: 5px;
-          background-color: $color-primary;
-          color: $color-light;
-          &:disabled {
-            background-color: $color-light;
-            color: $color-light-gray;
-          }
-        }
-        #timer {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100%;
-          width: calc(50% - 20px);
-          @include h2-font;
-        }
+        @include h2-font;
+        color: $color-light-gray;
       }
     }
     label {

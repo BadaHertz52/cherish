@@ -198,17 +198,15 @@ const Email = () => {
               onChange={onChangeAuthNumber}
               placeholder="인증번호(6자리)"
             />
-            <div>
-              <button
-                disabled={!(openTimer && authNumber !== undefined)}
-                className="btn-authNumber"
-                type="button"
-                onClick={onClickAuthNumberBtn}
-              >
-                확인
-              </button>
-              {openTimer && <Timer setOpenTimer={setOpenTimer} setOverTime={setOverTime} />}
-            </div>
+            {openTimer && <Timer setOpenTimer={setOpenTimer} setOverTime={setOverTime} />}
+            <button
+              disabled={!(openTimer && authNumber !== undefined)}
+              className="btn-authNumber"
+              type="button"
+              onClick={onClickAuthNumberBtn}
+            >
+              확인
+            </button>
           </div>
           <div className="msg">
             {overTime ? (
