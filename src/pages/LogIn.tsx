@@ -1,4 +1,4 @@
-import { faCheck, faCircleXmark, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark, faEye } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ChangeEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -44,26 +44,33 @@ const LogIn = () => {
   const onClickLogInBtn = async () => {
     const data = { email: email, pw: pw };
     // data 서버에 전송
-    /*
+
     try {
-      const result =await(await fetch('/', {
-        method:"POST",
-        headers :{},
-        body :JSON.stringify(data)
-      })).json();
-      //result 값에 따라 login / 오류 메세지 
-      if(login === success){
-        navigate('/main');
-        if(keepLogin){
-          //로그인 유지 
-        }
+      const response = await fetch('', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw new Error('Server response was not ok');
       }
-      else{setError(true)}
-      
-    } catch (error) {
-      // error message 
+      const result = await response.json();
+      return result;
+      //result 값에 따라 login / 오류 메세지
+      // if(login === success){
+      //   navigate('/main');
+      //   if(keepLogin){
+      //     //로그인 유지
+      //   }
+      // }
+      // else{setError(true)}
+    } catch (e) {
+      // error message
+      console.error('Error sending POST request:', e);
+      throw error;
     }
-    */
   };
   const onClickSignUpBtn = () => {
     navigate('/signup');
