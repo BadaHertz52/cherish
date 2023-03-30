@@ -50,6 +50,11 @@
       right: 14px;
     }
   }
+  .login__data__email {
+    button {
+      color: $color-light-gray;
+    }
+  }
   //login__util
   .login__util {
     display: flex;
