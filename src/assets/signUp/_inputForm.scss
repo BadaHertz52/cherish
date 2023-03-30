@@ -7,10 +7,9 @@
   width: 100%;
   label,
   input {
-    padding-bottom: 14px;
+    margin-bottom: 14px;
   }
   .error-msg {
-    margin-top: 14px;
     margin-bottom: 14px;
     color: $color-error;
     &.email {
