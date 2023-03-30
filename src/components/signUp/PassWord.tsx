@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { SignUpContext } from '../../pages/SignUp';
 import InputForm from './InputForm';
-import { ERROR_MSG, InputDataType } from './signUpTypes';
+import { ERROR_MSG, InputDataType, SignUpStateType } from './signUpTypes';
 import StepInner from './StepInner';
 
 const PassWord = () => {
@@ -9,7 +9,16 @@ const PassWord = () => {
   const [disableBtn, setDisableBtn] = useState<boolean>(true);
   const [pw, setPw] = useState<InputDataType>({ value: '', errorMsg: null });
   const [confirmPw, setConfirmPw] = useState<InputDataType>({ value: '', errorMsg: null });
-  const onClickNextBtn = () => {};
+  const onClickNextBtn = () => {
+    setSignUpState((prev: SignUpStateType) => {
+      const newState: SignUpStateType = {
+        ...prev,
+        progress: 'genderAndBirth',
+        pw: pw.value,
+      };
+      return newState;
+    });
+  };
 
   useEffect(() => {
     if (confirmPw.value !== '' && pw.value !== '') {
@@ -21,6 +30,11 @@ const PassWord = () => {
           };
           return newState;
         });
+      }
+      if (pw.value === confirmPw.value && pw.errorMsg === null && confirmPw.errorMsg === null) {
+        setDisableBtn(false);
+      } else {
+        setDisableBtn(true);
       }
     }
   }, [pw, confirmPw]);
