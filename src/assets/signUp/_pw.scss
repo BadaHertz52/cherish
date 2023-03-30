@@ -1,6 +1,35 @@
 @import '../common.scss';
 #passWord {
+  .input-form {
+    position: relative;
+    .fa-check {
+      position: absolute;
+      right: 10px;
+      font-size: 14px;
+      color: $color-light-gray;
+      &.on {
+        color: $color-primary;
+      }
+    }
+  }
   .btn-show-pw {
+    position: absolute;
+    right: 38px;
+    font-size: 14px;
     background-color: rgba(240, 248, 255, 0);
+  }
+}
+#inputForm-pw {
+  .btn-show-pw,
+  .fa-check {
+    //label.height + input 50%
+    top: calc(27px + 16px);
+  }
+}
+#inputForm-confirmPw {
+  .btn-show-pw,
+  .fa-check {
+    //input 50%
+    top: calc(16px);
   }
 }
