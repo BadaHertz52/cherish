@@ -1,0 +1,14 @@
+@import './common.scss';
+.btn-show-pw {
+  width: 14px;
+  height: 14px;
+  svg {
+    color: $color-light-gray;
+    font-size: 14px;
+  }
+  &.on {
+    svg {
+      color: $color-black;
+    }
+  }
+}
