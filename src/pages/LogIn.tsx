@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ChangeEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../assets/login.scss';
+import BtnShowPw from '../components/BtnShowPw';
 import CheckBox from '../components/CheckBox';
 
 export const XSSCheck = (str: string, level: undefined | number) => {
@@ -99,14 +100,7 @@ const LogIn = () => {
               placeholder="비밀번호"
               onChange={event => onChange(event, 'pw')}
             />
-            <button
-              type="button"
-              className={showPw ? 'btn on' : 'btn'}
-              title="button that show pw as text"
-              onClick={() => setShowPw(prev => !prev)}
-            >
-              <FontAwesomeIcon icon={faEye} />
-            </button>
+            <BtnShowPw showPw={showPw} setShowPw={setShowPw} />
           </div>
         </div>
         <div className="login__util">

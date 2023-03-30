@@ -5,11 +5,13 @@ import React, {
   HTMLInputTypeAttribute,
   SetStateAction,
   useRef,
+  useState,
 } from 'react';
 import { ERROR_MSG, InputDataType, InputFormIdType, TestResultType } from './signUpTypes';
 import { XSSCheck } from '../../pages/LogIn';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faEye } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import BtnShowPw from '../BtnShowPw';
 
 type InputFormProps = {
   id: InputFormIdType;
@@ -24,7 +26,7 @@ type InputFormProps = {
  * @returns
  */
 const InputForm = ({ id, data, setData }: InputFormProps) => {
-  const type = id !== 'confirmPw' && id !== 'pw' ? 'text' : 'password';
+  const [showPw, setShowPw] = useState<boolean>(false);
   const startWritingEmail = useRef<boolean>(false);
   // ⚠️InputFormIdType 과 placeholder, label 의 property명은 동일 해야함
   const placeholder = {
@@ -117,7 +119,7 @@ const InputForm = ({ id, data, setData }: InputFormProps) => {
     <div id={`inputForm-${id}`} className="input-form">
       {id !== 'confirmPw' && <label htmlFor={`input-${id}`}>{label[`${id}`]}</label>}
       <input
-        type={type}
+        type={showPw || (id !== 'pw' && id !== 'confirmPw') ? 'text' : 'password'}
         id={`input-${id}`}
         name={`data-${id}`}
         placeholder={placeholder[`${id}`]}
@@ -127,10 +129,13 @@ const InputForm = ({ id, data, setData }: InputFormProps) => {
         onBlur={onBlur}
       />
       {(id == 'pw' || id == 'confirmPw') && (
-        <FontAwesomeIcon
-          className={`${data.value !== '' && data.errorMsg === null ? 'on' : ''}`}
-          icon={faCheck}
-        />
+        <>
+          <BtnShowPw showPw={showPw} setShowPw={setShowPw} />
+          <FontAwesomeIcon
+            className={`${data.value !== '' && data.errorMsg === null ? 'on' : ''}`}
+            icon={faCheck}
+          />
+        </>
       )}
       <div
         className={`error-msg ${startWritingEmail.current && data.errorMsg == null ? 'email' : ''}`}
