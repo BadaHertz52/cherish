@@ -12,9 +12,8 @@ const PassWord = () => {
   const onClickNextBtn = () => {};
 
   useEffect(() => {
-    if (confirmPw.value !== '') {
-      const pwEl = document.querySelector('#input-pw') as HTMLInputElement | null;
-      if (pwEl?.value !== confirmPw.value && confirmPw.errorMsg === null) {
+    if (confirmPw.value !== '' && pw.value !== '') {
+      if (pw.value !== confirmPw.value && confirmPw.errorMsg === null) {
         setConfirmPw((prev: InputDataType) => {
           const newState: InputDataType = {
             ...prev,
@@ -24,7 +23,7 @@ const PassWord = () => {
         });
       }
     }
-  }, [pw]);
+  }, [pw, confirmPw]);
   return (
     <div id="passWord">
       <StepInner disableBtn={disableBtn} onClickNextBtn={onClickNextBtn}>
