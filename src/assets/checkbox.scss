@@ -13,12 +13,12 @@
     z-index: 1;
     font-family: 'Font Awesome 5 free';
     display: inline-block;
-    content: '\f0c8';
+    content: '\f111';
     color: $color-light-gray;
     font-size: 16px;
   }
   input:checked + label.check:before {
-    content: '\f14a';
+    content: '\f058';
     font-size: 16px;
     color: $color-primary;
   }
@@ -28,5 +28,14 @@
     // 상황에 맞게 조정가능
     line-height: 14px;
     text-align: center;
+  }
+}
+
+#log-in .check-box {
+  label.check:before {
+    content: '\f0c8';
+  }
+  input:checked + label.check:before {
+    content: '\f14a';
   }
 }
