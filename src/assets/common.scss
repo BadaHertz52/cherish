@@ -6,30 +6,42 @@ $color-light: #eeeeee;
 $color-white: #ffffff;
 $color-error: #ff3939;
 @font-face {
-  font-family: 'sofia-pro';
-  src: url('./fonts/Sofia\ Pro\ Medium.ttf');
+  font-family: 'sofia-pro-bold';
+  src: url('./fonts/Sofia\ Pro\ Bold.ttf');
   font-style: normal;
 }
-@mixin sofia-font-family {
-  font-family: 'sofia-pro', 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont,
-    system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR',
-    'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+@font-face {
+  font-family: 'sofia-pro-light';
+  src: url('./fonts/sofiapro-light.otf');
+  font-style: normal;
 }
-
+@mixin sofia-bold-font-family {
+  font-family: 'sofia-pro-bold', 'Pretendard Variable', Pretendard, -apple-system,
+    BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
+    'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    sans-serif;
+}
+@mixin sofia-light-font-family {
+  font-family: 'sofia-pro-light', 'Pretendard Variable', Pretendard, -apple-system,
+    BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
+    'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    sans-serif;
+}
 @mixin sofia-h1-font {
-  @include sofia-font-family;
+  @include sofia-bold-font-family;
   font-size: 20px;
   font-weight: 500;
   line-height: 160%;
 }
 @mixin sofia-h2-font {
-  @include sofia-font-family;
+  @include sofia-bold-font-family;
   font-size: 15px;
   font-weight: 700;
   line-height: 160%;
+  letter-spacing: -0.05%;
 }
 @mixin sofia-h2-light-font {
-  @include sofia-font-family;
+  @include sofia-light-font-family;
   font-size: 12px;
   font-weight: 300;
   line-height: 160%;
@@ -44,7 +56,7 @@ $color-error: #ff3939;
   font-size: 16px;
   font-weight: 800;
   line-height: 160%;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.05%;
 }
 @mixin h3-font {
   font-size: 15px;
@@ -54,25 +66,25 @@ $color-error: #ff3939;
 @mixin bd1-font {
   font-size: 14px;
   font-weight: 600;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.05%;
   line-height: 160%;
 }
 @mixin bd2-font {
   font-size: 13px;
   font-weight: 500;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.05%;
   line-height: 160%;
 }
 @mixin bd3-font {
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.05%;
   line-height: 150%;
 }
 
 @mixin navigation-bold-font {
   font-size: 12px;
-  font-weight: 700;
+  font-weight: bold;
   line-height: 160%;
 }
 @mixin navigation-font {
