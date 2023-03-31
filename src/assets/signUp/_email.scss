@@ -5,11 +5,18 @@
   #inputForm-email {
     width: 100%;
   }
-  .email-form {
-    & > div:last-child {
+  .alert {
+    @include bd2-font;
+    color: $color-light-gray;
+  }
+  .email-from {
+    .alert {
       margin-bottom: 14px;
-      @include bd2-font;
-      color: $color-light-gray;
+    }
+  }
+  .authNumber-form {
+    .alert {
+      margin-top: 14px;
     }
   }
   .btn-email {
