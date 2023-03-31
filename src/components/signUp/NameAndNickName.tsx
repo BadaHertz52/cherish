@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { SignUpContext } from '../../pages/SignUp';
 import InputForm from './InputForm';
+import { getPrevData } from './SignUpTopBar';
 import { initialInputData, InputDataType, SessionDataType, SignUpStateType } from './signUpTypes';
 import StepInner from './StepInner';
 
@@ -21,23 +22,9 @@ const NameAndNickName = () => {
     });
   };
   useEffect(() => {
-    const item = sessionStorage.getItem('signUpBackUpData');
-    if (item !== null) {
-      const preState: SessionDataType[] = JSON.parse(item);
-      const preNameState = preState.filter(i => i.key === 'name')[0];
-      const preNickNameState = preState.filter(i => i.key === 'nickName')[0];
-      if (preNameState !== undefined && preNickNameState !== undefined) {
-        setName({
-          value: preNameState.value,
-          errorMsg: null,
-        });
-        setNickName({
-          value: preNickNameState.value,
-          errorMsg: null,
-        });
-        sessionStorage.removeItem('signUpBackUpData');
-      }
-    }
+    // sessionStorage
+    getPrevData('name', setName, false);
+    getPrevData('nickName', setNickName, true);
     if (signUpState.name !== null && signUpState.nickname !== null) {
       setName({
         value: signUpState.name,

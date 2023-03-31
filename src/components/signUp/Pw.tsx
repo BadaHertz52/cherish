@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { SignUpContext } from '../../pages/SignUp';
 import InputForm from './InputForm';
+import { getPrevData } from './SignUpTopBar';
 import { ERROR_MSG, InputDataType, SignUpStateType } from './signUpTypes';
 import StepInner from './StepInner';
 
@@ -19,7 +20,7 @@ const Pw = () => {
       return newState;
     });
   };
-
+  //pw, confirmPw 의 변화에 따라 disableBtn 상태 변경
   useEffect(() => {
     if (confirmPw.value !== '' && pw.value !== '') {
       if (pw.value !== confirmPw.value && confirmPw.errorMsg === null) {
@@ -38,6 +39,11 @@ const Pw = () => {
       }
     }
   }, [pw, confirmPw]);
+  //sessiongStorage, signUpState 내용 가져오기
+  useEffect(() => {
+    getPrevData('pw', setPw, false);
+    getPrevData('confirmPw', setConfirmPw, true);
+  }, []);
   return (
     <div id="pw">
       <StepInner disableBtn={disableBtn} onClickNextBtn={onClickNextBtn}>

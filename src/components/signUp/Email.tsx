@@ -9,6 +9,7 @@ import { initialInputData, InputDataType, SessionDataType, SignUpStateType } fro
 import StepInner from './StepInner';
 import '../../assets/signUp/emailModal.scss';
 import Timer from './Timer';
+import { getPrevData } from './SignUpTopBar';
 const EmailAlertModalContents = () => {
   return (
     <>
@@ -141,18 +142,7 @@ const Email = () => {
     }
   };
   useEffect(() => {
-    const item = sessionStorage.getItem('signUpBackUpData');
-    if (item !== null) {
-      const preState: SessionDataType[] = JSON.parse(item);
-      const preEmailState = preState.filter(i => i.key === 'email')[0];
-      if (preEmailState !== undefined) {
-        setEmail({
-          value: preEmailState.value,
-          errorMsg: null,
-        });
-        sessionStorage.removeItem('signUpBackUpData');
-      }
-    }
+    getPrevData('email', setEmail, true);
     if (signUpState.email !== null) {
       setEmail({
         value: signUpState.email,

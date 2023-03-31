@@ -1,14 +1,42 @@
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useContext } from 'react';
+import { Dispatch, SetStateAction, useContext } from 'react';
 import { SignUpContext } from '../../pages/SignUp';
 import {
+  InputDataType,
   progressArr,
   sessionDataKey,
   SessionDataKeyType,
   SessionDataType,
   SignUpStateType,
 } from './signUpTypes';
+/**
+ *  sessionStorage에 target에 대한 정보가 있을 경우, setState로 target에 대한 상태를 업데이트한다.
+ * @param target
+ * @param setState
+ * @param removeItem; sessionStorage 에서 해당 item을 삭제하는 지 여부
+ */
+export const getPrevData = (
+  target: SessionDataKeyType,
+  setState: Dispatch<SetStateAction<InputDataType>>,
+  removeItem: boolean,
+) => {
+  const item = sessionStorage.getItem('signUpBackUpData');
+  if (item !== null) {
+    const prevData: SessionDataType[] = JSON.parse(item);
+    const prevState = prevData.filter(i => i.key === target)[0];
+    console.log('prevstate', prevState);
+    if (prevState !== undefined) {
+      setState({
+        value: prevState.value,
+        errorMsg: null,
+      });
+      if (removeItem) {
+        sessionStorage.removeItem('signUpBackUpData');
+      }
+    }
+  }
+};
 const SignUpTopBar = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
   /**
@@ -25,7 +53,7 @@ const SignUpTopBar = () => {
       ) as NodeListOf<HTMLInputElement>;
       if (listOfInputEl[0] !== undefined) {
         const backUpDataArr: SessionDataType[] = [...listOfInputEl].map((el: HTMLInputElement) => ({
-          key: el.name.replace('data-', '') as SessionDataKeyType,
+          key: el.id.replace('input-', '') as SessionDataKeyType,
           value: el.value,
         }));
         backUpDataArr[0] !== undefined &&
