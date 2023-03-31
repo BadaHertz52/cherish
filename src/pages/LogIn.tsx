@@ -2,7 +2,7 @@ import { faCircleXmark, faEye } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ChangeEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import '../assets/login.scss';
+import '../assets/logIn.scss';
 import BtnShowPw from '../components/BtnShowPw';
 import CheckBox from '../components/CheckBox';
 
@@ -77,12 +77,12 @@ const LogIn = () => {
     navigate('/signup');
   };
   return (
-    <div id="login">
+    <div id="log-in">
       <div className="inner">
         <h1 className="logo">LOG IN</h1>
         <h2>로그인을 하시면 다양한 혜택을 누릴 수 있어요.</h2>
-        <div className="login__data">
-          <div className="login__data__email">
+        <div className="log-in__data">
+          <div className="log-in__data__email">
             <input
               value={email}
               type="text"
@@ -93,7 +93,7 @@ const LogIn = () => {
               <FontAwesomeIcon icon={faCircleXmark} />
             </button>
           </div>
-          <div className="login__data__pw">
+          <div className="log-in__data__pw">
             <input
               value={pw}
               type={showPw ? 'text' : 'password'}
@@ -103,8 +103,8 @@ const LogIn = () => {
             <BtnShowPw showPw={showPw} setShowPw={setShowPw} />
           </div>
         </div>
-        <div className="login__util">
-          <div className="login__util__keep">
+        <div className="log-in__util">
+          <div className="log-in__util__keep">
             <CheckBox
               id="checkboxKeep"
               name="autoLogIn"
@@ -112,7 +112,7 @@ const LogIn = () => {
               onChange={onChangeKeep}
             />
           </div>
-          <div className="login__util__find">
+          <div className="log-in__util__find">
             <Link to={'/비밀번호찾기'}>비밀번호 찾기</Link>
           </div>
         </div>
@@ -124,10 +124,10 @@ const LogIn = () => {
             </>
           )}
         </div>
-        <button type="button" className="btn-login" onClick={onClickLogInBtn}>
+        <button type="button" className="btn-log-in" onClick={onClickLogInBtn}>
           로그인
         </button>
-        <button type="button" className="btn-signup" onClick={onClickSignUpBtn}>
+        <button type="button" className="btn-sign-up" onClick={onClickSignUpBtn}>
           간편가입
         </button>
         <div className="banner">결제정보 입력 없이 1분만에 회원가입하세요!</div>
