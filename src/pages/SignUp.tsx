@@ -7,8 +7,9 @@ import '../assets/signUp/signUp.scss';
 import NameAndNickName from '../components/signUp/NameAndNickName';
 import Email from '../components/signUp/Email';
 import Pw from '../components/signUp/Pw';
+import GenderAndBirth from '../components/signUp/GenderAndBirth';
 export const initialSignUpState: SignUpStateType = {
-  progress: 'pw',
+  progress: 'genderAndBirth',
   agreeToTerms: {
     termsAndCondition: false,
     personalInformation: false,
@@ -49,6 +50,7 @@ const SignUp = () => {
         {signUpState.progress === 'nameAndNickName' && <NameAndNickName />}
         {signUpState.progress === 'email' && <Email />}
         {signUpState.progress === 'pw' && <Pw />}
+        {signUpState.progress === 'genderAndBirth' && <GenderAndBirth />}
       </SignUpContext.Provider>
     </div>
   );
