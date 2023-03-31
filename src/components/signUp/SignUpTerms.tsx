@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useEffect, useState } from 'react';
+import { ChangeEvent, useContext, useEffect, useRef, useState } from 'react';
 import { SignUpContext } from '../../pages/SignUp';
 import CheckBox from '../CheckBox';
 import { AgreementStateType, SignUpStateType, TermsCheckBoxNameType } from './signUpTypes';
@@ -13,12 +13,24 @@ type SignUpTermProps = {
   onClickBtn: () => void;
 };
 const SignUpTerm = ({ id, label, onChange, onClickBtn }: SignUpTermProps) => {
+  const termRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const labelEl = termRef.current?.querySelector('.label');
+    if (labelEl !== null && label !== undefined) {
+      labelEl?.addEventListener('click', onClickBtn);
+    }
+  }, [termRef.current]);
   return (
-    <div className="term">
+    <div className="term" ref={termRef}>
       <CheckBox id={id} name={id} label={label} onChange={onChange} />
-      <button className="btn-open-modal" onClick={onClickBtn} type="button">
-        내용보기
-      </button>
+      <div className="term__contents">
+        <div className="label" onClick={onClickBtn}>
+          {label}
+        </div>
+        <button className="btn-open-modal" onClick={onClickBtn} type="button">
+          내용보기
+        </button>
+      </div>
     </div>
   );
 };

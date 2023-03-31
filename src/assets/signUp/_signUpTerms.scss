@@ -21,9 +21,20 @@
       @include clean-btn-style;
       @include bd2-font;
       color: $color-light-gray;
+      text-align: left;
+      text-decoration: underline;
     }
   }
   .term {
+    display: flex;
     margin-bottom: 16px;
+  }
+  .term__contents {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    .label {
+      cursor: default;
+    }
   }
 }

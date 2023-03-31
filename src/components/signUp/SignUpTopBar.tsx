@@ -68,25 +68,27 @@ const SignUpTopBar = () => {
     }
   };
   const onClickPrevBtn = () => {
-    // 현재 페이지 작성 내용 저장
-    saveData();
-    //이전 단계로 이동
-    const currentStepIndex = progressArr.indexOf(signUpState.progress);
-    setSignUpState((prevState: SignUpStateType) => {
-      const newState: SignUpStateType = {
-        ...prevState,
-        progress: progressArr[currentStepIndex - 1],
-      };
-      return newState;
-    });
+    if (signUpState.progress !== 'agreeToTerms') {
+      // 현재 페이지 작성 내용 저장
+      saveData();
+      //이전 단계로 이동
+      const currentStepIndex = progressArr.indexOf(signUpState.progress);
+      setSignUpState((prevState: SignUpStateType) => {
+        const newState: SignUpStateType = {
+          ...prevState,
+          progress: progressArr[currentStepIndex - 1],
+        };
+        return newState;
+      });
+    } else {
+      // 간편 가입 이전 페이지 이동
+    }
   };
   return (
     <div id="sign-up__top-bar">
-      {signUpState.progress !== 'agreeToTerms' && (
-        <button className="btn-prev" onClick={onClickPrevBtn} title="btn-prev" type="button">
-          <FontAwesomeIcon icon={faChevronLeft} />
-        </button>
-      )}
+      <button className="btn-prev" onClick={onClickPrevBtn} title="btn-prev" type="button">
+        <FontAwesomeIcon icon={faChevronLeft} />
+      </button>
       <div className="title">간편 가입</div>
     </div>
   );

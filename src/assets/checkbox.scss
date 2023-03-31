@@ -11,15 +11,15 @@
     display: inline-block;
     content: '\f111';
     color: $color-light-gray;
-    font-size: 16px;
+    font-size: 22px;
   }
   input:checked + label.check:before {
     content: '\f058';
-    font-size: 16px;
+    font-size: 22px;
     color: $color-primary;
   }
   .label {
-    margin-left: 16px;
+    margin-left: 10px;
     @include bd2-font;
     // 상황에 맞게 조정가능
     line-height: 14px;
@@ -41,8 +41,19 @@
     height: 30px;
     label {
       display: inline-block;
-      width: 22px;
       height: 22px;
+    }
+    .check {
+      width: 22px;
+    }
+  }
+}
+#sign-up__terms {
+  .term {
+    .check-box {
+      .label {
+        display: none;
+      }
     }
   }
 }
