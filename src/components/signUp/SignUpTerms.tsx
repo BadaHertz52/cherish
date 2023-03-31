@@ -23,7 +23,7 @@ const SignUpTerm = ({ id, label, onChange, onClickBtn }: SignUpTermProps) => {
   );
 };
 const SignUpTerms = () => {
-  const { signUpState, setSignUpState } = useContext(SignUpContext);
+  const { setSignUpState } = useContext(SignUpContext);
 
   const initialAgreement: AgreementStateType = {
     termsAndCondition: false,
