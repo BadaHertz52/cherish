@@ -43,8 +43,6 @@ const Email = () => {
   });
   const nextBtnEl = document.querySelector('.next-btn');
   const nextBtnElDomRect = nextBtnEl?.getClientRects()[0];
-  const inputEmailEl = document.querySelector('#input-email') as HTMLInputElement | null;
-
   const onClickCloseBtnInAlertModal = () => {
     if (sessionStorage.getItem('signUpBackUpData') !== null) {
       sessionStorage.removeItem('signUpBackUpData');
