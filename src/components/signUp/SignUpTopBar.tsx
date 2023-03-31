@@ -54,7 +54,7 @@ const SignUpTopBar = () => {
     });
   };
   return (
-    <div id="signUpTopBar">
+    <div id="sign-up__top-bar">
       {signUpState.progress !== 'agreeToTerms' && (
         <button className="btn-prev" onClick={onClickPrevBtn} title="btn-prev" type="button">
           <FontAwesomeIcon icon={faChevronLeft} />

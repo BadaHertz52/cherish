@@ -6,7 +6,7 @@ import SignUpTerms from '../components/signUp/SignUpTerms';
 import '../assets/signUp/signUp.scss';
 import NameAndNickName from '../components/signUp/NameAndNickName';
 import Email from '../components/signUp/Email';
-import PassWord from '../components/signUp/PassWord';
+import SignUpPw from '../components/signUp/SignUpPw';
 export const initialSignUpState: SignUpStateType = {
   progress: 'pw',
   agreeToTerms: {
@@ -35,7 +35,7 @@ export const SignUpContext = createContext<SignUpContextType>(context);
 const SignUp = () => {
   const [signUpState, setSignUpState] = useState<SignUpStateType>(initialSignUpState);
   return (
-    <div id="signUp">
+    <div id="sign-up">
       <SignUpContext.Provider
         value={{
           signUpState: signUpState,
@@ -48,7 +48,7 @@ const SignUp = () => {
         {signUpState.progress === 'agreeToTerms' && <SignUpTerms />}
         {signUpState.progress === 'nameAndNickName' && <NameAndNickName />}
         {signUpState.progress === 'email' && <Email />}
-        {signUpState.progress === 'pw' && <PassWord />}
+        {signUpState.progress === 'pw' && <SignUpPw />}
       </SignUpContext.Provider>
     </div>
   );

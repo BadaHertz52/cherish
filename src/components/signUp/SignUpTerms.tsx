@@ -178,7 +178,7 @@ const SignUpTerms = () => {
     }
   }, [agreement]);
   return (
-    <div id="signUpTerms" className="step">
+    <div id="sign-up__terms" className="step">
       <StepInner disableBtn={disableBtn} onClickNextBtn={onClickNextBtn}>
         <div className="top">
           <div className="header">
