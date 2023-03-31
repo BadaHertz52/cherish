@@ -48,8 +48,8 @@ const InputForm = ({ id, data, setData }: InputFormProps) => {
     //3~10자 (한글, 영문, 숫자)
     nickName: new RegExp('^[ㄱ-ㅎ가-힣a-zA-Z0-9]{3,10}$'),
     email: new RegExp('[a-z0-9]+@[a-z]+.[a-z]{2,3}'),
-    //8~20자 (소문자 영문 + 숫자)
-    pw: new RegExp('^[a-z0-9]{8,20}$'),
+    //8~20자 (영문 + 숫자 + 특수기호(!@^))
+    pw: new RegExp('^[a-zA-Z0-9!@^]{8,20}$'),
   };
   /**
    * name, nickName, email,pw의 유효성을 검사하는 함수
