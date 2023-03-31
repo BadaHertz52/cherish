@@ -6,7 +6,7 @@ type StepInnerProps = NextBtnProps & {
 const StepInner = ({ children, disableBtn, onClickNextBtn }: StepInnerProps) => {
   return (
     <div className="step__inner">
-      <div className="step__inner__header">Welcome!</div>
+      <div className="step__inner__header">환영해요!</div>
       {children}
       <NextBtn disableBtn={disableBtn} onClickNextBtn={onClickNextBtn} />
     </div>
