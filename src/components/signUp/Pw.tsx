@@ -4,7 +4,7 @@ import InputForm from './InputForm';
 import { ERROR_MSG, InputDataType, SignUpStateType } from './signUpTypes';
 import StepInner from './StepInner';
 
-const SignUpPw = () => {
+const Pw = () => {
   const { setSignUpState } = useContext(SignUpContext);
   const [disableBtn, setDisableBtn] = useState<boolean>(true);
   const [pw, setPw] = useState<InputDataType>({ value: '', errorMsg: null });
@@ -39,7 +39,7 @@ const SignUpPw = () => {
     }
   }, [pw, confirmPw]);
   return (
-    <div id="sign-up__pw">
+    <div id="pw">
       <StepInner disableBtn={disableBtn} onClickNextBtn={onClickNextBtn}>
         <InputForm id="pw" data={pw} setData={setPw} />
         <InputForm id="confirmPw" data={confirmPw} setData={setConfirmPw} />
@@ -48,4 +48,4 @@ const SignUpPw = () => {
   );
 };
 
-export default SignUpPw;
+export default Pw;
