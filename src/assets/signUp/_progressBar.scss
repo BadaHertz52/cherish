@@ -11,12 +11,14 @@
     width: 50%;
     background-color: $color-light;
     position: relative;
+    overflow-x: hidden;
   }
   .progress {
     position: absolute;
     top: 0;
-    left: 0;
-    width: 20%;
+    left: -100%;
+    width: 100%;
     background-color: $color-primary;
+    transition: left 1s;
   }
 }
