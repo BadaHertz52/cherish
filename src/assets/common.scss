@@ -6,68 +6,79 @@ $color-light: #eeeeee;
 $color-white: #ffffff;
 $color-error: #ff3939;
 @font-face {
-  font-family: 'sofia-pro-medium';
+  font-family: 'sofia-pro';
   src: url('./fonts/Sofia\ Pro\ Medium.ttf');
   font-style: normal;
 }
-@font-face {
-  font-family: 'sofia-pro-light';
-  src: url('./fonts/sofiapro-light.otf');
-  line-height: 160%;
-  font-style: normal;
+@mixin sofia-font-family {
+  font-family: 'sofia-pro', 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR',
+    'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
 }
 
 @mixin sofia-h1-font {
-  font-family: 'sofia-pro-medium', 'Pretendard Variable', Pretendard, -apple-system,
-    BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
-    'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-    sans-serif !important;
+  @include sofia-font-family;
   font-size: 20px;
   font-weight: 500;
   line-height: 160%;
 }
-@mixin sofia-bd3-font {
-  font-family: 'sofia-pro-light', 'Pretendard Variable', Pretendard, -apple-system,
-    BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo',
-    'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-    sans-serif !important;
+@mixin sofia-h2-font {
+  @include sofia-font-family;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 160%;
+}
+@mixin sofia-h2-light-font {
+  @include sofia-font-family;
   font-size: 12px;
   font-weight: 300;
   line-height: 160%;
 }
-
+// 아래의 font 들은 "Pretendard"를 사용하므로 따로 font-family 지정할 필요 없음
 @mixin h1-font {
-  font-size: 16px;
-  line-height: 160%;
-  // extra bold
+  font-size: 18px;
   font-weight: 800;
+  line-height: 160%;
 }
 @mixin h2-font {
-  font-size: 14px;
-  //semi bold
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 160%;
   letter-spacing: -0.05em;
+}
+@mixin h3-font {
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 160%;
 }
 @mixin bd1-font {
-  font-size: 13px;
-  //medium
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 600;
   letter-spacing: -0.05em;
+  line-height: 160%;
 }
 @mixin bd2-font {
-  font-size: 12px;
-  //medium
+  font-size: 13px;
   font-weight: 500;
   letter-spacing: -0.05em;
+  line-height: 160%;
+}
+@mixin bd3-font {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  line-height: 150%;
 }
 
 @mixin navigation-bold-font {
   font-size: 12px;
   font-weight: 700;
+  line-height: 160%;
 }
 @mixin navigation-font {
   font-size: 12px;
   font-weight: 600;
+  line-height: 160%;
 }
 @mixin clean-btn-style {
   background-color: #ffffff00;
