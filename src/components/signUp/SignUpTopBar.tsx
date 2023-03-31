@@ -25,7 +25,6 @@ export const getPrevData = (
   if (item !== null) {
     const prevData: SessionDataType[] = JSON.parse(item);
     const prevState = prevData.filter(i => i.key === target)[0];
-    console.log('prevstate', prevState);
     if (prevState !== undefined) {
       setState({
         value: prevState.value,
