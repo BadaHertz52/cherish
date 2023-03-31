@@ -2,10 +2,6 @@
 
 .check-box {
   position: relative;
-  &__inner {
-    // 상황에 맞게 조정가능
-    height: 14px;
-  }
   input[type='checkbox'] {
     display: none;
   }
@@ -37,5 +33,16 @@
   }
   input:checked + label.check:before {
     content: '\f14a';
+  }
+}
+
+#sign-up {
+  .check-box {
+    height: 30px;
+    label {
+      display: inline-block;
+      width: 22px;
+      height: 22px;
+    }
   }
 }
