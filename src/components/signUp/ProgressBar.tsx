@@ -1,22 +1,16 @@
-import React, { CSSProperties, useContext, useEffect, useState } from 'react';
-import { SignUpContext } from '../../pages/SignUp';
-import { progressArr, SignUpProgressType } from './signUpTypes';
-const ProgressBar = () => {
-  const { signUpState } = useContext(SignUpContext);
-  const [progressStyle, setProgressStyle] = useState<CSSProperties | undefined>(undefined);
-  useEffect(() => {
-    // 현재 진행 중인 회원가입의 단계
-    const currentStepIndex = progressArr.indexOf(signUpState.progress);
-    setProgressStyle({
-      width: '20%',
-      left: `${20 * (currentStepIndex - 1)}%`,
-    });
-  }, [signUpState]);
+import React from 'react';
+import { SignUpProgressType } from './signUpTypes';
 
+export const moveProgressBar = (progress: SignUpProgressType) => {
+  const progressEl = document.querySelector('.progress');
+  if (progressEl !== null) {
+  }
+};
+const ProgressBar = () => {
   return (
     <div className="progressBar">
       <div className="out-box bar">
-        <div className="progress bar" style={progressStyle} role="progressbar"></div>
+        <div className="progress bar" role="progressbar"></div>
       </div>
     </div>
   );
