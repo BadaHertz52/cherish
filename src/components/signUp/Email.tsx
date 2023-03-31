@@ -115,13 +115,6 @@ const Email = () => {
       }, 100);
     }
   };
-  const onChangeEmail = () => {
-    if (pass) {
-      setPass(false);
-      setDisAbleBtn(true);
-      confirmAuthNumber.current = false;
-    }
-  };
   const onChangeAuthNumber = (event: ChangeEvent<HTMLInputElement>) => {
     const text = XSSCheck(event.target.value, undefined);
     setAuthNumber(text);
@@ -152,13 +145,14 @@ const Email = () => {
       confirmAuthNumber.current = true;
       setDisAbleBtn(false);
     }
-    inputEmailEl?.addEventListener('change', onChangeEmail);
-
-    return () => {
-      inputEmailEl?.removeEventListener('change', onChangeEmail);
-    };
   }, []);
-
+  useEffect(() => {
+    if (pass && signUpState.email !== null && signUpState.email !== email.value) {
+      setPass(false);
+      setDisAbleBtn(true);
+      confirmAuthNumber.current = false;
+    }
+  }, [pass, email.value]);
   return (
     <div id="email">
       <StepInner disableBtn={disableBtn} onClickNextBtn={onClickNextBtn}>
