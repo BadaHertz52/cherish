@@ -23,18 +23,25 @@ const Email = () => {
   /**
    * 인증 번호에 대한 검사를 시작했는지 여부
    */
-  const confirmAuthNumber = useRef<boolean>(false);
+  const [checkAuthNumber, setCheckAuthNumber] = useState<boolean>(false);
   /**
    * 이메일 인증 횟수
    */
   const sendingEmailCount = useRef<number>(0);
   const [authNumber, setAuthNumber] = useState<string | undefined>();
   const [email, setEmail] = useState<InputDataType>(initialInputData);
+  const verifiedEmail = useRef<string | undefined>();
   const [disableBtn, setDisAbleBtn] = useState<boolean>(true);
   const [openToastModal, setOpenToastModal] = useState<boolean>(false);
   const [openAlertModal, setOpenAlertModal] = useState<boolean>(false);
+  /**
+   * 이메일 인증 시간 오버
+   */
   const [openTimer, setOpenTimer] = useState<boolean>(false);
   const [overTime, setOverTime] = useState<boolean>(false);
+  /**
+   * 이메일 인증 pass
+   */
   const [pass, setPass] = useState<boolean>(false);
   const [toastModalState, setToastModalState] = useState<ToastModalType>({
     contents: '',
@@ -43,6 +50,8 @@ const Email = () => {
   });
   const nextBtnEl = document.querySelector('.next-btn');
   const nextBtnElDomRect = nextBtnEl?.getClientRects()[0];
+  const successSendingEmail = useRef<boolean>(false);
+
   const onClickCloseBtnInAlertModal = () => {
     if (sessionStorage.getItem('signUpBackUpData') !== null) {
       sessionStorage.removeItem('signUpBackUpData');
@@ -86,9 +95,10 @@ const Email = () => {
       // A-2 유효한 메일
       if (!sameEmail) {
         // a 서버에 이메일 인증 보내기
-        const successSendingEmail: boolean = false; // 인증 번호 이메일 전송 성공
+        // 인증 번호 이메일 전송 성공
         //  a-1 이메일 발송 성공
-        if (successSendingEmail) {
+        if ('이메일 발송 성공') {
+          successSendingEmail.current = true;
           // ㄱ. 타이머 작동. 모달 오픈
           setOpenTimer(true);
           if (nextBtnElDomRect !== null && nextBtnElDomRect !== undefined) {
@@ -116,17 +126,19 @@ const Email = () => {
   const onChangeAuthNumber = (event: ChangeEvent<HTMLInputElement>) => {
     const text = XSSCheck(event.target.value, undefined);
     setAuthNumber(text);
-    if (confirmAuthNumber.current) confirmAuthNumber.current = false;
+    if (checkAuthNumber) setCheckAuthNumber(false);
   };
   const onClickAuthNumberBtn = async () => {
     //백엔드에 이메인 인증 번호 확인
-    const result = ''; //서버에서 받은 데이터
-    confirmAuthNumber.current = true;
+    const result = '111111'; //서버에서 받은 데이터
+    setCheckAuthNumber(true);
     //data는  string type으로
     if (result === authNumber) {
+      console.log(' pass');
       setPass(true);
       setDisAbleBtn(false);
       setOpenTimer(false);
+      verifiedEmail.current = email.value;
     } else {
       setPass(false);
     }
@@ -140,72 +152,86 @@ const Email = () => {
       });
       // 이미 인증이 완료 된 경우에 다음 버튼 클릭 가능
       setPass(true);
-      confirmAuthNumber.current = true;
+      setCheckAuthNumber(true);
+      verifiedEmail.current = signUpState.email;
       setDisAbleBtn(false);
     }
   }, []);
   useEffect(() => {
-    if (pass && signUpState.email !== null && signUpState.email !== email.value) {
-      setPass(false);
-      setDisAbleBtn(true);
-      confirmAuthNumber.current = false;
+    const inputEle = document.querySelector('#input-email') as HTMLInputElement | null;
+    if (inputEle !== null) {
+      inputEle.disabled = !disableBtn;
     }
-  }, [pass, email.value]);
+  }, [disableBtn]);
   return (
     <div id="email">
       <StepInner disableBtn={disableBtn} onClickNextBtn={onClickNextBtn}>
         <section className="email-form">
           <InputForm id={'email'} data={email} setData={setEmail} />
-          <button
-            className="btn-email"
-            disabled={email.value !== '' && email.errorMsg == null ? false : true}
-            type="button"
-            onClick={onClickEmailBtn}
-          >
-            이메일 인증하기
-          </button>
-          <div>
-            이메일이 수신되지 않는 경우, 입력하신 이메일이 정확한지 확인해 주세요. 또는 스펨메일함과
-            메일함 용량을 확인해 주세요.
-          </div>
+          {!successSendingEmail.current && (
+            <>
+              <button
+                className="btn-email"
+                disabled={
+                  email.value !== '' && email.errorMsg == null && signUpState.email == null
+                    ? false
+                    : signUpState.email === email.value
+                    ? true
+                    : false
+                }
+                type="button"
+                onClick={onClickEmailBtn}
+              >
+                이메일 인증하기
+              </button>
+              <div className="alert">이메일은 회원가입 후 변경하실 수 없어요.</div>
+            </>
+          )}
         </section>
-        <section className="authNumber-form">
-          <label htmlFor="authNumber">인증 번호</label>
-          <div className="authNumber-form__contents">
-            <input
-              id="authNumber"
-              name="authNumber"
-              value={authNumber}
-              onChange={onChangeAuthNumber}
-              placeholder="인증번호(6자리)"
-            />
-            {openTimer && <Timer setOpenTimer={setOpenTimer} setOverTime={setOverTime} />}
-            <button
-              disabled={!(openTimer && authNumber !== undefined)}
-              className="btn-authNumber"
-              type="button"
-              onClick={onClickAuthNumberBtn}
-            >
-              확인
-            </button>
-          </div>
-          <div className="msg">
-            {overTime ? (
-              <p className="msg-over-time">인증 시간이 지났습니다.</p>
-            ) : (
-              authNumber !== undefined &&
-              confirmAuthNumber.current &&
-              (!pass ? (
-                <div className="error-msg">
-                  <p>인증번호가 일치하지 않아요.</p>
-                  <p>인증번호를 다시 확인해주세요.</p>
+        {successSendingEmail.current && (
+          <section className="authNumber-form">
+            <label htmlFor="authNumber">인증 번호</label>
+            <div className="authNumber-form__contents">
+              <input
+                id="authNumber"
+                name="authNumber"
+                value={authNumber}
+                onChange={onChangeAuthNumber}
+                placeholder="인증번호(6자리)"
+              />
+              {openTimer && <Timer setOpenTimer={setOpenTimer} setOverTime={setOverTime} />}
+              <button
+                disabled={!(openTimer && authNumber !== undefined)}
+                className="btn-authNumber"
+                type="button"
+                onClick={onClickAuthNumberBtn}
+              >
+                확인
+              </button>
+            </div>
+
+            <div className="msg">
+              {overTime && <p className="msg-over-time">인증 시간이 지났습니다.</p>}
+              {!overTime &&
+                authNumber !== undefined &&
+                checkAuthNumber &&
+                (pass ? (
+                  <p>인증이 완료 되었어요.</p>
+                ) : (
+                  <div className="error-msg">
+                    <p>인증번호가 일치하지 않아요.</p>
+                    <p>인증번호를 다시 확인해주세요.</p>
+                  </div>
+                ))}
+              {!checkAuthNumber && !overTime && (
+                <div className="alert">
+                  이메일이 수신되지 않는 경우, 입력하신 이메일이 정확한지 확인해 주세요. 또는
+                  스펨메일함과 메일함 용량을 확인해 주세요.
                 </div>
-              ) : (
-                <p>인증이 완료 되었어요.</p>
-              ))
-            )}
-          </div>
-        </section>
+              )}
+            </div>
+          </section>
+        )}
       </StepInner>
       {openToastModal && (
         <ToastModal modalState={toastModalState} closeModal={() => setOpenToastModal(false)} />
