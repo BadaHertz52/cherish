@@ -2,10 +2,6 @@
 
 .check-box {
   position: relative;
-  &__inner {
-    // 상황에 맞게 조정가능
-    height: 14px;
-  }
   input[type='checkbox'] {
     display: none;
   }
@@ -13,17 +9,17 @@
     z-index: 1;
     font-family: 'Font Awesome 5 free';
     display: inline-block;
-    content: '\f0c8';
+    content: '\f058';
     color: $color-light-gray;
-    font-size: 16px;
+    font-size: 22px;
   }
   input:checked + label.check:before {
-    content: '\f14a';
-    font-size: 16px;
+    content: '\f058';
+    font-size: 22px;
     color: $color-primary;
   }
   .label {
-    margin-left: 16px;
+    margin-left: 10px;
     @include bd2-font;
     // 상황에 맞게 조정가능
     line-height: 14px;
