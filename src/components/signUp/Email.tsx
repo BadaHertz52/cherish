@@ -134,7 +134,6 @@ const Email = () => {
     setCheckAuthNumber(true);
     //data는  string type으로
     if (result === authNumber) {
-      console.log(' pass');
       setPass(true);
       setDisAbleBtn(false);
       setOpenTimer(false);
@@ -175,9 +174,7 @@ const Email = () => {
                 disabled={
                   email.value !== '' && email.errorMsg == null && signUpState.email == null
                     ? false
-                    : signUpState.email === email.value
-                    ? true
-                    : false
+                    : true
                 }
                 type="button"
                 onClick={onClickEmailBtn}
