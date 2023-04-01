@@ -1,12 +1,4 @@
-import React, {
-  ChangeEvent,
-  Dispatch,
-  FocusEvent,
-  HTMLInputTypeAttribute,
-  SetStateAction,
-  useRef,
-  useState,
-} from 'react';
+import React, { ChangeEvent, Dispatch, FocusEvent, SetStateAction, useRef, useState } from 'react';
 import { ERROR_MSG, InputDataType, InputFormIdType, TestResultType } from './signUpTypes';
 import { XSSCheck } from '../../pages/LogIn';
 import { faCheck, faEye } from '@fortawesome/free-solid-svg-icons';
@@ -27,7 +19,6 @@ type InputFormProps = {
  */
 const InputForm = ({ id, data, setData }: InputFormProps) => {
   const [showPw, setShowPw] = useState<boolean>(false);
-  const startWritingEmail = useRef<boolean>(false);
   // ⚠️InputFormIdType 과 placeholder, label 의 property명은 동일 해야함
   const placeholder = {
     name: '이름',
@@ -83,28 +74,16 @@ const InputForm = ({ id, data, setData }: InputFormProps) => {
     const text = XSSCheck(event.target.value, undefined);
     //유효성 검사
     if (text === '') {
-      startWritingEmail.current = true;
       setData({
         value: text,
         errorMsg: null,
       });
     } else {
-      startWritingEmail.current = false;
       const testResult = checkRegex(text);
       setData({
         value: text,
         errorMsg: testResult === 'pass' ? null : ERROR_MSG[`${testResult}`],
       });
-    }
-  };
-  const onFocus = (event: FocusEvent<HTMLInputElement>) => {
-    const target = event.target;
-    if (id === 'email') {
-      if (target.value === '') {
-        startWritingEmail.current = true;
-      } else {
-        startWritingEmail.current = false;
-      }
     }
   };
   const onBlur = () => {
@@ -125,7 +104,6 @@ const InputForm = ({ id, data, setData }: InputFormProps) => {
         placeholder={placeholder[`${id}`]}
         value={data.value}
         onChange={event => onChange(event)}
-        onFocus={event => onFocus(event)}
         onBlur={onBlur}
       />
       {(id == 'pw' || id == 'confirmPw') && (
@@ -139,14 +117,14 @@ const InputForm = ({ id, data, setData }: InputFormProps) => {
           </div>
         </>
       )}
-      <div
-        className={`error-msg ${startWritingEmail.current && data.errorMsg == null ? 'email' : ''}`}
-      >
-        {startWritingEmail.current && data.errorMsg == null
-          ? `'@'을 포함하여 작성해주세요.`
-          : data.errorMsg !== null
-          ? data.errorMsg
-          : ''}
+      <div className={`error-msg ${id == 'email' && data.value === '' ? 'email' : ''}`}>
+        {id === 'email' &&
+          (data.value === ''
+            ? `'@'을 포함하여 작성해주세요.`
+            : data.errorMsg !== null
+            ? data.errorMsg
+            : '')}
+        {id !== 'email' && (data.errorMsg !== null ? data.errorMsg : '')}
       </div>
     </div>
   );
