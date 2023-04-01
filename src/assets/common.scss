@@ -38,7 +38,7 @@ $color-error: #ff3939;
   font-size: 15px;
   font-weight: 700;
   line-height: 160%;
-  letter-spacing: -0.05%;
+  letter-spacing: -0.05em;
 }
 @mixin sofia-h2-light-font {
   @include sofia-light-font-family;
@@ -56,7 +56,7 @@ $color-error: #ff3939;
   font-size: 16px;
   font-weight: 800;
   line-height: 160%;
-  letter-spacing: -0.05%;
+  letter-spacing: -0.05em;
 }
 @mixin h3-font {
   font-size: 15px;
@@ -66,19 +66,19 @@ $color-error: #ff3939;
 @mixin bd1-font {
   font-size: 14px;
   font-weight: 600;
-  letter-spacing: -0.05%;
+  letter-spacing: -0.05em;
   line-height: 160%;
 }
 @mixin bd2-font {
   font-size: 13px;
   font-weight: 500;
-  letter-spacing: -0.05%;
+  letter-spacing: -0.05em;
   line-height: 160%;
 }
 @mixin bd3-font {
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: -0.05%;
+  letter-spacing: -0.05em;
   line-height: 150%;
 }
 
@@ -97,7 +97,6 @@ $color-error: #ff3939;
   border: none;
   padding: 0;
 }
-
 @mixin clean-a-style {
   &:link,
   &:active,
