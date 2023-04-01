@@ -14,12 +14,9 @@
   }
   button {
     @include clean-btn-style;
-    border-radius: 5px;
-    background-color: $color-primary;
-    color: $color-light;
+    @include btn-selected-full-style;
     &:disabled {
-      background-color: $color-light;
-      color: $color-light-gray;
+      @include btn-disabled-style;
     }
   }
   input {

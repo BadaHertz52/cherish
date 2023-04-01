@@ -107,3 +107,19 @@ $color-error: #ff3939;
     text-decoration: none;
   }
 }
+@mixin btn-selected-border-style {
+  border-radius: 5px;
+  border: 0.6px solid $color-primary;
+  color: $color-primary;
+  background-color: $color-white;
+}
+@mixin btn-selected-full-style {
+  border-radius: 5px;
+  background-color: $color-primary;
+  color: $color-white;
+}
+@mixin btn-disabled-style {
+  border-radius: 5px;
+  background-color: $color-light;
+  color: $color-light-gray;
+}
