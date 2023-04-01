@@ -2,14 +2,14 @@ import { useContext, useEffect, useState } from 'react';
 import { SignUpContext } from '../../pages/SignUp';
 import InputForm from './InputForm';
 import { getPrevData } from './SignUpTopBar';
-import { ERROR_MSG, InputDataType, SignUpStateType } from './signUpTypes';
+import { ERROR_MSG, InputDataType, SignUpStateType, initialInputData } from './signUpTypes';
 import StepInner from './StepInner';
 
 const Pw = () => {
   const { setSignUpState } = useContext(SignUpContext);
   const [disableBtn, setDisableBtn] = useState<boolean>(true);
-  const [pw, setPw] = useState<InputDataType>({ value: '', errorMsg: null });
-  const [confirmPw, setConfirmPw] = useState<InputDataType>({ value: '', errorMsg: null });
+  const [pw, setPw] = useState<InputDataType>(initialInputData);
+  const [confirmPw, setConfirmPw] = useState<InputDataType>(initialInputData);
   const onClickNextBtn = () => {
     setSignUpState((prev: SignUpStateType) => {
       const newState: SignUpStateType = {
