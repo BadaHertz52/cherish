@@ -1,13 +1,14 @@
-import { MouseEvent, useContext, useState } from 'react';
+import { MouseEvent, useContext, useEffect, useState } from 'react';
 import StepInner from './StepInner';
 import { ERROR_MSG, InputDataType, initialInputData } from './signUpTypes';
 import { SignUpContext } from '../../pages/SignUp';
 import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import DatePickerContainer from './DatePickerContainer';
+import { getPrevData } from './SignUpTopBar';
 
 const GenderAndBirth = () => {
-  const { setSignUpState } = useContext(SignUpContext);
+  const { signUpState, setSignUpState } = useContext(SignUpContext);
   const [disableBtn, setDisableBtn] = useState<boolean>(true);
   const [birth, setBirth] = useState<InputDataType>({
     ...initialInputData,
@@ -30,6 +31,28 @@ const GenderAndBirth = () => {
   const onClickBirthBtn = () => {
     setOpenDatePicker((prev: boolean) => !prev);
   };
+  useEffect(() => {
+    getPrevData('gender', setGender, false);
+    if (signUpState.gender) {
+      setGender({
+        value: signUpState.gender,
+        errorMsg: null,
+      });
+    }
+    // birth
+  }, []);
+  useEffect(() => {
+    if (
+      gender.value !== '' &&
+      gender.errorMsg === null &&
+      birth.value !== '' &&
+      birth.errorMsg == null
+    ) {
+      setDisableBtn(false);
+    } else {
+      setDisableBtn(true);
+    }
+  }, [gender, birth]);
   return (
     <div id="gender-and-birth">
       <StepInner disableBtn={disableBtn} onClickNextBtn={onClickNextBtn}>
