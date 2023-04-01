@@ -2,6 +2,9 @@ import { MouseEvent, useContext, useState } from 'react';
 import StepInner from './StepInner';
 import { ERROR_MSG, InputDataType, initialInputData } from './signUpTypes';
 import { SignUpContext } from '../../pages/SignUp';
+import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import DatePickerContainer from './DatePickerContainer';
 
 const GenderAndBirth = () => {
   const { setSignUpState } = useContext(SignUpContext);
@@ -14,7 +17,7 @@ const GenderAndBirth = () => {
     ...initialInputData,
     errorMsg: ERROR_MSG.required,
   });
-  const [openBirthModal, setOpenBirthModal] = useState<boolean>(false);
+  const [openDatePicker, setOpenDatePicker] = useState<boolean>(true);
   const onClickNextBtn = () => {};
   const onClickGenderBtn = (event: MouseEvent<HTMLButtonElement>) => {
     const target = event.currentTarget;
@@ -24,7 +27,9 @@ const GenderAndBirth = () => {
       errorMsg: null,
     });
   };
-  const onClickBirthBtn = () => {};
+  const onClickBirthBtn = () => {
+    setOpenDatePicker((prev: boolean) => !prev);
+  };
   return (
     <div id="gender-and-birth">
       <StepInner disableBtn={disableBtn} onClickNextBtn={onClickNextBtn}>
@@ -49,6 +54,7 @@ const GenderAndBirth = () => {
               남성
             </button>
           </div>
+          <div className="msg">{gender.value === '' && ERROR_MSG.required}</div>
         </section>
         <section className="birth">
           <h3>생년월일</h3>
@@ -57,8 +63,11 @@ const GenderAndBirth = () => {
             type="button"
             onClick={onClickBirthBtn}
           >
-            {birth.value === '' ? '생년월일' : birth.value}
+            <div className="birth__data">{birth.value === '' ? '생년월일' : birth.value}</div>
+            <FontAwesomeIcon icon={openDatePicker ? faSortUp : faSortDown} />
           </button>
+          {openDatePicker && <DatePickerContainer />}
+          <div className="msg">{birth.value === '' && ERROR_MSG.required}</div>
         </section>
       </StepInner>
     </div>
