@@ -9,6 +9,9 @@
   input {
     margin-bottom: 14px;
   }
+  label {
+    @include bd1-font;
+  }
   .error-msg {
     margin-bottom: 14px;
     color: $color-error;

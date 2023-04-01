@@ -194,8 +194,9 @@ const SignUpTerms = () => {
       <StepInner disableBtn={disableBtn} onClickNextBtn={onClickNextBtn}>
         <div className="top">
           <div className="header">
-            <p>아래 약관에 동의하시면</p>
-            <p>정성스러운 선물을 추천해드려요</p>
+            <h2>환영해요!</h2>
+            <h3>아래 약관에 동의하시면</h3>
+            <h3>정성스러운 선물을 추천해드려요</h3>
           </div>
           <CheckBox
             id="checkBox-whole-agree"

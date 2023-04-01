@@ -33,12 +33,11 @@ const GenderAndBirth = () => {
   return (
     <div id="gender-and-birth">
       <StepInner disableBtn={disableBtn} onClickNextBtn={onClickNextBtn}>
-        <h2>선물 큐레이션을 위한 정보를 입력하세요.</h2>
         <section className="gender">
-          <h3>성별</h3>
+          <h4>성별</h4>
           <div className="btn-group">
             <button
-              className="btn-female"
+              className={`btn-gender ${gender.value === 'female' ? 'on' : ''}`}
               name="female"
               type="button"
               onClick={event => onClickGenderBtn(event)}
@@ -46,7 +45,7 @@ const GenderAndBirth = () => {
               여성
             </button>
             <button
-              className="btn-male"
+              className={`btn-gender ${gender.value === 'male' ? 'on' : ''}`}
               name="male"
               type="button"
               onClick={event => onClickGenderBtn(event)}
@@ -57,7 +56,7 @@ const GenderAndBirth = () => {
           <div className="msg">{gender.value === '' && ERROR_MSG.required}</div>
         </section>
         <section className="birth">
-          <h3>생년월일</h3>
+          <h4>생년월일</h4>
           <button
             className={`btn-open-modal-birth ${birth.value === '' ? 'none-data' : ''}`}
             type="button"

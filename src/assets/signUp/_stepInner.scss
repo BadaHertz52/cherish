@@ -5,11 +5,13 @@
   // 100% -BottomNav.height -SignUpTopBar.height - progressBar.height
   height: calc(100vh - 80px - 64px - 37px);
   overflow-y: auto;
-  padding: 16px;
+  padding-top: 27px;
+  padding-left: 19px;
+  padding-right: 19px;
   padding-bottom: 5px;
   box-sizing: border-box;
   &__header {
-    @include h1-font;
+    @include h3-font;
     margin-bottom: 16px;
   }
   button {
@@ -19,8 +21,11 @@
       @include btn-disabled-style;
     }
   }
+  button,
   input {
     height: 48px;
+  }
+  input {
     padding-left: 10px;
     border: 1px solid $color-light-gray;
     border-radius: 5px;
