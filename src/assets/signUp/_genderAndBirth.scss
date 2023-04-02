@@ -11,8 +11,8 @@
   .btn-gender {
     width: calc((100% - 16px) / 2);
     background-color: $color-white;
-    border: 0.6px solid $color-light-gray;
-    color: $color-light-gray;
+    border: 0.6px solid $color-light-black;
+    color: $color-light-black;
     &.on {
       @include btn-selected-border-style;
     }

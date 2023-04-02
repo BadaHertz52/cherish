@@ -45,7 +45,7 @@
       padding-left: 20px;
       padding-right: calc(15px + 18px);
       box-sizing: border-box;
-      border: 0.6px solid $color-light-gray;
+      border: 0.6px solid $color-light-black;
       border-radius: 5px;
     }
     button {
@@ -58,7 +58,7 @@
   }
   .log-in__data__email {
     button {
-      color: $color-light-gray;
+      color: $color-light-black;
     }
   }
   //log-in__util
@@ -88,7 +88,7 @@
   .log-in__util__find {
     a {
       @include bd2-font;
-      color: $color-light-gray;
+      color: $color-light-black;
     }
   }
   //btn -log-in , btn -singup

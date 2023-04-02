@@ -7,7 +7,7 @@
   }
   .alert {
     @include bd2-font;
-    color: $color-light-gray;
+    color: $color-light-black;
   }
   .email-from {
     .alert {
@@ -48,7 +48,7 @@
         justify-content: center;
         align-items: center;
         @include h2-font;
-        color: $color-light-gray;
+        color: $color-light-black;
       }
     }
     label {
