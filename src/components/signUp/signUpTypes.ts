@@ -48,14 +48,30 @@ const job = {
   management: 'management', //경영 관리
   desk: 'desk', //사무직
   service: 'service', // 서비스직
-  blueCollar: 'blue-collar', //노동 생산직
-  selfEmployment: 'self-employment', //자영업자
+  'blue-collar': 'blue-collar', //노동 생산직
+  'self-employment': 'self-employment', //자영업자
   student: 'student', //삭생
   homemaker: 'homemaker', // 가정주부
   inoccupation: 'inoccupation', // 무직
   etc: 'etc', //기타
 } as const;
 export type JobType = keyof typeof job;
+type JobCheckBoxType = {
+  name: JobType;
+  label: string;
+};
+export const jobCheckBoxArr: JobCheckBoxType[] = [
+  { name: 'profession', label: '전문직' },
+  { name: 'management', label: '경영/관리직' },
+  { name: 'desk', label: '사무직' },
+  { name: 'service', label: '판매/서비스직' },
+  { name: 'blue-collar', label: '노동/생산직' },
+  { name: 'self-employment', label: '자영업' },
+  { name: 'student', label: '학생' },
+  { name: 'homemaker', label: '전업주부' },
+  { name: 'inoccupation', label: '무직' },
+  { name: 'etc', label: '기타' },
+];
 export type AgreementStateType = {
   termsAndCondition: boolean; //이용약관
   personalInformation: boolean; // 개인정보 수집 및 이용
