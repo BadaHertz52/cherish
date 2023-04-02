@@ -17,7 +17,7 @@
   label.check:before {
     font-family: 'Font Awesome 5 free';
     content: '\f058';
-    color: $color-light-gray;
+    color: $color-light-black;
   }
   input:checked + label.check:before {
     content: '\f058';

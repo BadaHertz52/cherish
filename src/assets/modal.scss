@@ -173,7 +173,7 @@ $background-color: rgba(117, 117, 117, 0.4);
         @include bd1-font;
         margin-right: 17px;
         padding-bottom: 10px;
-        color: $color-light-gray;
+        color: $color-light-black;
         &.on {
           color: $color-black;
           border-bottom: 2px solid $color-primary;
@@ -200,7 +200,7 @@ $background-color: rgba(117, 117, 117, 0.4);
       }
       .label {
         @include bd1-font;
-        color: $color-light-gray;
+        color: $color-light-black;
         &.on {
           color: $color-black;
         }
@@ -318,7 +318,7 @@ $background-color: rgba(117, 117, 117, 0.4);
     height: 18px;
     padding: 0;
     background-color: #06060600;
-    color: $color-light-gray;
+    color: $color-light-black;
     &.on {
       color: $color-primary;
     }
