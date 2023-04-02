@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import ModalPortal from './ModalPortal';
-import { AlertModalType, ModalCommonType } from './modalTypes';
+import { AlertModalType } from './modalTypes';
 
 type AlertModalProps = {
   modalState: AlertModalType;

@@ -1,8 +1,9 @@
 $color-primary: #ff6b8f;
 $color-middle: #ff86a3;
 $color-black: #121212;
+$color-dark-gray: #595959;
 $color-light-gray: #9e9e9e;
-$color-light: #eeeeee;
+$color-light: #fff3f6;
 $color-white: #ffffff;
 $color-error: #ff3939;
 @font-face {
@@ -46,36 +47,46 @@ $color-error: #ff3939;
   font-weight: 300;
   line-height: 160%;
 }
-// 아래의 font 들은 "Pretendard"를 사용하므로 따로 font-family 지정할 필요 없음
+@mixin pretendard-font-family {
+  font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+    Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic',
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+}
 @mixin h1-font {
+  @include pretendard-font-family;
   font-size: 18px;
   font-weight: 800;
   line-height: 160%;
 }
 @mixin h2-font {
+  @include pretendard-font-family;
   font-size: 16px;
   font-weight: 800;
   line-height: 160%;
   letter-spacing: -0.05em;
 }
 @mixin h3-font {
+  @include pretendard-font-family;
   font-size: 15px;
   font-weight: 700;
   line-height: 160%;
 }
 @mixin bd1-font {
+  @include pretendard-font-family;
   font-size: 14px;
   font-weight: 600;
   letter-spacing: -0.05em;
   line-height: 160%;
 }
 @mixin bd2-font {
+  @include pretendard-font-family;
   font-size: 13px;
   font-weight: 500;
   letter-spacing: -0.05em;
   line-height: 160%;
 }
 @mixin bd3-font {
+  @include pretendard-font-family;
   font-size: 11px;
   font-weight: 400;
   letter-spacing: -0.05em;
@@ -83,11 +94,13 @@ $color-error: #ff3939;
 }
 
 @mixin navigation-bold-font {
+  @include pretendard-font-family;
   font-size: 12px;
   font-weight: 700;
   line-height: 160%;
 }
 @mixin navigation-font {
+  @include pretendard-font-family;
   font-size: 12px;
   font-weight: 600;
   line-height: 160%;
