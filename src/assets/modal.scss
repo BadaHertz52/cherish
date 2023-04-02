@@ -7,6 +7,7 @@ body {
 button {
   @include clean-btn-style;
 }
+$background-color: rgba(117, 117, 117, 0.4);
 @mixin background {
   position: relative;
   height: 100vh;
@@ -14,7 +15,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(117, 117, 117, 0.4);
+  background-color: $background-color;
 }
 @mixin modal-box {
   position: relative;
@@ -253,6 +254,9 @@ button {
   button {
     @include reset-btn-style;
   }
+  h2 {
+    @include h2-font;
+  }
   .modal__background {
     @include background;
   }
@@ -301,17 +305,17 @@ button {
       padding-bottom: 16px;
     }
   }
-  .product-name {
-    font-size: 20px;
-    font-weight: bold;
+  .product-name,
+  .product-introduction {
+    margin-bottom: 3px;
   }
   .btn-save {
     position: absolute;
-    top: -20px;
-    right: 40px;
-    font-size: 40px;
-    width: 40px;
-    height: 40px;
+    top: 0px;
+    right: 4.4px;
+    font-size: 16px;
+    width: 16px;
+    height: 18px;
     padding: 0;
     background-color: #06060600;
     color: $color-light-gray;
@@ -321,40 +325,89 @@ button {
   }
   .product-introduction {
     span {
+      @include bd2-font;
       display: inline-block;
       width: 100%;
       line-height: 18px;
     }
   }
-  .tag {
+  .product-price {
+    margin-bottom: 8px;
     span {
-      padding-right: 32px;
+      @include sofia-h2-font;
     }
   }
-  h3 {
-    font-size: 18px;
-    font-weight: bold;
-    padding-bottom: 16px;
+  .tag-group {
+    display: flex;
+    width: 100%;
+  }
+  .tag {
+    padding: 1.5px 11px;
+    margin-right: 10px;
+    background-color: $color-light;
+    color: $color-primary;
+    border: 0.8px solid #ff6b8f;
+    border-radius: 30px;
+    span {
+      @include bd2-font;
+    }
+  }
+  .division {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: calc(50% - 8px);
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+    }
+    &::before {
+      left: 0;
+      border-left: 8px solid $background-color;
+      border-right: 8px solid transparent;
+    }
+    &::after {
+      right: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid $background-color;
+    }
+    .bar {
+      width: calc(100% - 36px);
+      border-bottom: 1px dashed $color-dark-gray;
+    }
+  }
+  .store {
+    h2 {
+      margin-bottom: 11px;
+    }
   }
   .site {
-    width: 80vw;
-    padding-bottom: 18px;
     display: flex;
     justify-content: space-between;
+    padding-bottom: 9px;
     a:link,
     a:active,
     a:visited {
       text-decoration: none;
-      color: black;
+    }
+    &__name {
+      @include bd1-font;
+    }
+    a {
+      svg {
+        color: $color-dark-gray;
+      }
     }
   }
   .site a:hover,
-  .stie__link.hover {
-    font-weight: bolder;
-  }
-  .offline-store {
-    padding-top: 16px;
-    padding-bottom: 24px;
+  .site__link.hover {
+    svg {
+      color: $color-primary;
+    }
   }
 }
 
@@ -376,14 +429,5 @@ button {
   }
   .contents {
     @include navigation-font;
-  }
-}
-
-@media screen and (max-width: 320px) {
-  .full-scre-modal {
-    .product-inform {
-      // 높이 :100vh - product-image height - .topbar height - a(사용자가 구매자 정보가 있는지 인지할 수 있을 정보)
-      height: calc(100vh - 100vw - 52px - 32px);
-    }
   }
 }

@@ -86,11 +86,10 @@ const ModalTest = () => {
         { name: 'coupang', url: '/' },
         { name: 'kakao', url: '/' },
       ],
-      offline: '서울특별시 종로구',
     },
     introduction:
       'test test test test test test test test test test test test test test test test test test test test ',
-    tag: ['tag1', 'tag2', 'tag3', 'tag4'],
+    tag: ['tag1', 'tag2', 'tag3'],
   };
   const [toastModalState, setToastModalState] = useState<ToastModalType>();
   /**

@@ -2,17 +2,17 @@ import React, { MouseEvent, TouchEvent, useEffect, useRef, useState } from 'reac
 import ModalPortal from './ModalPortal';
 import { FullScreModalType } from './modalTypes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight, faBookmark, faXmark } from '@fortawesome/free-solid-svg-icons';
 type FullScreModalProps = {
   modalState: FullScreModalType;
   closeModal: () => void;
 };
 const FullScreModal = ({ modalState, closeModal }: FullScreModalProps) => {
   const onlineShop = {
-    brand: '브랜드',
-    kakao: '카카오',
-    coupang: '쿠팡',
-    naver: '네이버',
+    brand: 'Brand',
+    kakao: 'Kakao',
+    coupang: 'Coupang',
+    naver: 'Naver',
   };
   // 상품 저장 여부
   const [saved, setSaved] = useState<boolean>(modalState.saved);
@@ -54,12 +54,9 @@ const FullScreModal = ({ modalState, closeModal }: FullScreModalProps) => {
   return (
     <ModalPortal>
       <div className="full-scre-modal-outbox" ref={outBoxRef} style={{ display: 'none' }}>
-        <div className="topbar">
-          <button type="button" title="previous" onClick={closeModal} className="btn-close">
-            <FontAwesomeIcon icon={faChevronLeft} />
-          </button>
-          <h2>상세 페이지</h2>
-        </div>
+        <button type="button" title="previous" onClick={closeModal} className="btn-close">
+          <FontAwesomeIcon icon={faXmark} />
+        </button>
         <div className="container">
           <img src={modalState.img} alt="product image" className="product-img" />
           <div className="not-img">
@@ -69,45 +66,45 @@ const FullScreModal = ({ modalState, closeModal }: FullScreModalProps) => {
               className={`btn-save ${saved ? 'on' : ''}`}
               onClick={onClickSaveBtn}
             >
-              <FontAwesomeIcon icon={faHeart} />
+              <FontAwesomeIcon icon={faBookmark} />
             </button>
             <section className="product-inform">
-              <div className="product-name">
-                <span>{modalState.name}</span>
-              </div>
-              <div className="product-price">
-                <span>{`${modalState.price}원`}</span>
-              </div>
+              <h2 className="product-name">{modalState.name}</h2>
               <div className="product-introduction">
                 <span>{modalState.introduction}</span>
               </div>
-              <div className="tag">
+              <div className="product-price">
+                <span>{modalState.price}</span>
+              </div>
+              <div className="tag-group">
                 {modalState.tag.map((v, i) => (
-                  <span key={`${modalState.name}_tag${i}`}>#{v}</span>
+                  <div className="tag">
+                    <span key={`${modalState.name}_tag${i}`}>#{v}</span>
+                  </div>
                 ))}
               </div>
             </section>
+            <div className="division">
+              <div className="bar"></div>
+            </div>
             <section className="store">
               <div className="online-store">
-                <h3>온라인 구매처 정보</h3>
-                {modalState.store.online.map((v, i) => (
+                <h2>온라인 구매처</h2>
+                {modalState.store.online.sort().map((v, i) => (
                   <div className="site" key={`site_${i}`}>
                     <div className="site__name">{onlineShop[`${v.name}`]}</div>
                     <a
                       className="site__link"
                       href={v.url}
                       target="_blank"
+                      title="상품 보러 가기"
                       onMouseMove={event => handleMove(event)}
                       onTouchMove={event => handleMove(event)}
                     >
-                      상품 보러 가기
+                      <FontAwesomeIcon icon={faAngleRight} />
                     </a>
                   </div>
                 ))}
-              </div>
-              <div className="offline-store">
-                <h3>오프라인 구매처 정보</h3>
-                <span>{modalState.store.offline}</span>
               </div>
             </section>
           </div>
