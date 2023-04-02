@@ -159,7 +159,7 @@ const BottomNavModal = ({
       BOTTOM_MODAL_El?.classList.add('on');
       setTimeout(() => {
         if (modalBoxEl !== null && modalBoxEl !== undefined) {
-          modalBoxEl.style.top = `50vh`;
+          modalBoxEl.style.top = `52vh`;
         }
       }, 50);
       modalBackgroundEl?.addEventListener('click', event => closeBottomNavModal(event));
