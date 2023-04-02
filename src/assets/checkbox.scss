@@ -2,8 +2,17 @@
 
 .check-box {
   position: relative;
+  &__inner {
+    // 상황에 맞게 조정가능
+    height: 14px;
+    display: flex;
+    align-items: center;
+  }
   input[type='checkbox'] {
     display: none;
+  }
+  label {
+    display: block;
   }
   label.check:before {
     z-index: 1;
@@ -11,15 +20,15 @@
     display: inline-block;
     content: '\f058';
     color: $color-light-gray;
-    font-size: 22px;
+    font-size: 16px;
   }
   input:checked + label.check:before {
     content: '\f058';
-    font-size: 22px;
+    font-size: 16px;
     color: $color-primary;
   }
   .label {
-    margin-left: 10px;
+    margin-left: 16px;
     @include bd2-font;
     // 상황에 맞게 조정가능
     line-height: 14px;
@@ -33,27 +42,5 @@
   }
   input:checked + label.check:before {
     content: '\f14a';
-  }
-}
-
-#sign-up {
-  .check-box {
-    height: 30px;
-    label {
-      display: inline-block;
-      height: 22px;
-    }
-    .check {
-      width: 22px;
-    }
-  }
-}
-#sign-up__terms {
-  .term {
-    .check-box {
-      .label {
-        display: none;
-      }
-    }
   }
 }
