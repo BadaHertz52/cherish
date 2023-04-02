@@ -5,17 +5,22 @@
   input[type='checkbox'] {
     display: none;
   }
-  label.check:before {
-    z-index: 1;
-    font-family: 'Font Awesome 5 free';
+  .label.check {
     display: inline-block;
+    width: 22px;
+    height: 22px;
+    text-align: center;
+    z-index: 1;
+    font-weight: lighter;
+    font-size: 18px;
+  }
+  label.check:before {
+    font-family: 'Font Awesome 5 free';
     content: '\f058';
     color: $color-light-gray;
-    font-size: 22px;
   }
   input:checked + label.check:before {
     content: '\f058';
-    font-size: 22px;
     color: $color-primary;
   }
   .label {
