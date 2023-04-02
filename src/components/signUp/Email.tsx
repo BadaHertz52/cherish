@@ -7,7 +7,6 @@ import ToastModal from '../modals/ToastModal';
 import InputForm from './InputForm';
 import { initialInputData, InputDataType, SessionDataType, SignUpStateType } from './signUpTypes';
 import StepInner from './StepInner';
-import '../../assets/signUp/emailModal.scss';
 import Timer from './Timer';
 import { getPrevData } from './SignUpTopBar';
 const EmailAlertModalContents = () => {
