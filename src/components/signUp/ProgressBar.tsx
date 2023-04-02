@@ -6,7 +6,7 @@ export const moveProgressBar = (progress: SignUpProgressType, forward: boolean) 
   const progressIndex = progressArr.indexOf(progress);
   if (progressEl !== null) {
     const number: number = forward ? progressIndex + 1 : progressIndex;
-    if (progressIndex === progressArr.length - 1) {
+    if (progressIndex === progressArr.length - 1 && forward) {
       progressEl.style.left = '0';
     } else {
       const left = `-${((progressArr.length - number) / progressArr.length) * 100}%`;
