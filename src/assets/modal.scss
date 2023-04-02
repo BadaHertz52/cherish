@@ -66,6 +66,7 @@ button {
     position: relative;
   }
   .contents {
+    @include bd1-font;
     width: 100%;
     overflow-y: scroll;
     -ms-overflow-style: none; /* IE and Edge */
@@ -152,7 +153,6 @@ button {
       }
     }
     .category {
-      @include bd1-font;
       position: relative;
       margin-bottom: 22px;
       .btn-group {
@@ -169,6 +169,7 @@ button {
         border-bottom: 1px solid #e7e7e7;
       }
       &-btn {
+        @include bd1-font;
         margin-right: 17px;
         padding-bottom: 10px;
         color: $color-light-gray;
@@ -217,7 +218,6 @@ button {
 }
 // confirm-modal 의 height는 .modal__inner을 통해 조절
 .confirm-modal {
-  @include bd1-font;
   .modal__inner {
     height: 168px;
   }
@@ -226,6 +226,7 @@ button {
     display: block;
   }
   .contents {
+    @include bd1-font;
     padding-bottom: 34px;
     text-align: center;
   }
@@ -238,6 +239,7 @@ button {
     width: calc(100% - 46px);
   }
   button {
+    @include bd1-font;
     width: 115px;
     height: 39px;
   }
