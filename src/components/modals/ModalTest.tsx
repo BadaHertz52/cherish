@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, ReactNode } from 'react';
 import AlertModal from './AlertModal';
 import '../../assets/modal.scss';
 import ConfirmModal from './ConfirmModal';
@@ -8,7 +8,6 @@ import {
   ConfirmModalType,
   FilteringConditionType,
   FullScreModalType,
-  ModalCommonType,
   ToastModalType,
 } from './modalTypes';
 import ToastModal from './ToastModal';
@@ -33,7 +32,27 @@ const ModalTest = () => {
   const [openBottomNavModal, setOpenBottomNavModal] = useState<boolean>(
     openTarget === modalType.bottom,
   );
-  const alertModalState: AlertModalType = 'alert';
+  const AlertTextContainer = () => {
+    return (
+      <div className="alert-modal__text-container">
+        <h4> 23년 2월 24일 본인인증 서비스 작업 안내</h4>
+        <p className="day">2024.02.20</p>
+        <p>안녕하세요.</p>
+        <div className="text">
+          본 이용약관은 크로키닷컴 주식회사(이하 "회사"라 합니다)가 운영하는 “지그재그(ZIGZAG)”
+          서비스 (이하 "지그재그"라 합니다)와 그 외 다양한 인터넷 웹사이트 및
+          응용프로그램(어플리케이션, 앱)인 “지그재그 외 플랫폼” 서비스를 통해서 제공되는 전자상거래
+          관련 서비스 및 기타 서비스(이하 “서비스”라 합니다)를 이용하는 자(이하 “이용자”라 합니다)
+          사이의 권리, 의무, 기타 필요한 사항을 정함으로써 상호 이익을 도모하는 것을 그 목적으로
+          합니다.
+        </div>
+      </div>
+    );
+  };
+  const alertState01: AlertModalType = <div className="center">alert</div>;
+  const alertState02: AlertModalType = <AlertTextContainer />;
+  const [alertModalState, setAlertModalState] = useState<ReactNode>(alertState01);
+  const [alertShort, setAlertShort] = useState<boolean>(true);
   const confirmModalState: ConfirmModalType = {
     title: 'title',
     contents: 'contents',
@@ -102,8 +121,25 @@ const ModalTest = () => {
   return (
     <div id="modal-test">
       <div className="btn-group">
-        <button type="button" onClick={() => setOpenTarget('alert')}>
+        <button
+          type="button"
+          onClick={() => {
+            setOpenTarget('alert');
+            setAlertModalState(alertState01);
+            setAlertShort(true);
+          }}
+        >
           open alert modal
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setOpenTarget('alert');
+            setAlertModalState(alertState02);
+            setAlertShort(false);
+          }}
+        >
+          open alert modal_2
         </button>
         <button type="button" onClick={() => setOpenTarget('confirm')}>
           open confirm modal
@@ -120,7 +156,11 @@ const ModalTest = () => {
       </div>
       <div id="toast-modal-target">여기에 toast modal 열기</div>
       {openTarget === modalType.alert && (
-        <AlertModal modalState={alertModalState} closeModal={() => setOpenTarget(null)} />
+        <AlertModal
+          modalState={alertModalState}
+          short={alertShort}
+          closeModal={() => setOpenTarget(null)}
+        />
       )}
       {openTarget == modalType.confirm && (
         <ConfirmModal modalState={confirmModalState} closeModal={() => setOpenTarget(null)} />
