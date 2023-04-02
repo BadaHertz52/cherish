@@ -30,13 +30,13 @@ $color-error: #ff3939;
 @mixin sofia-h1-font {
   @include sofia-bold-font-family;
   font-size: 20px;
-  font-weight: 500;
+  font-weight: 800;
   line-height: 160%;
 }
 @mixin sofia-h2-font {
   @include sofia-bold-font-family;
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 800;
   line-height: 160%;
   letter-spacing: -0.05em;
 }
@@ -60,7 +60,7 @@ $color-error: #ff3939;
 }
 @mixin h3-font {
   font-size: 15px;
-  font-weight: bold;
+  font-weight: 700;
   line-height: 160%;
 }
 @mixin bd1-font {
@@ -77,14 +77,14 @@ $color-error: #ff3939;
 }
 @mixin bd3-font {
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: -0.05em;
   line-height: 150%;
 }
 
 @mixin navigation-bold-font {
   font-size: 12px;
-  font-weight: bold;
+  font-weight: 700;
   line-height: 160%;
 }
 @mixin navigation-font {
@@ -97,7 +97,6 @@ $color-error: #ff3939;
   border: none;
   padding: 0;
 }
-
 @mixin clean-a-style {
   &:link,
   &:active,
@@ -106,4 +105,20 @@ $color-error: #ff3939;
     font-style: initial;
     text-decoration: none;
   }
+}
+@mixin btn-selected-border-style {
+  border-radius: 5px;
+  border: 0.6px solid $color-primary;
+  color: $color-primary;
+  background-color: $color-white;
+}
+@mixin btn-selected-full-style {
+  border-radius: 5px;
+  background-color: $color-primary;
+  color: $color-white;
+}
+@mixin btn-disabled-style {
+  border-radius: 5px;
+  background-color: $color-light;
+  color: $color-light-gray;
 }
