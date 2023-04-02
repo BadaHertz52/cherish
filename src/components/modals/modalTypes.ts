@@ -15,6 +15,9 @@ export type ConfirmModalBtnType = {
 export type ModalCommonType = {
   contents: string;
 };
+/**
+ * text-align :center 가 필요하면 해당 element의 className 에 'center'을 추가
+ */
 export type AlertModalType = ReactNode;
 export type ConfirmModalType = ModalCommonType & {
   title: string | null;
