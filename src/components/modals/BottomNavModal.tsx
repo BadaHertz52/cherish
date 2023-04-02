@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import CheckBox from '../CheckBox';
+import { ChangeEvent, useEffect, useState } from 'react';
 import BottomNavModalPortal from './BottomNavModalPortal';
 import { ConditionType, FilteringConditionType } from './modalTypes';
 
+import CheckBox from '../CheckBox';
 const category = {
   productType: 'productType',
   gender: 'gender',
@@ -15,6 +15,9 @@ type CheckBoxType = {
   label: string;
 };
 
+type CheckBoxProps = {
+  item: CheckBoxType;
+};
 // CheckBoxType 의 name은 추후 필터링 조건명에 따라 수정
 const productTypeCheckBoxArr: CheckBoxType[] = [
   { name: 'food', label: '식품' },
@@ -37,7 +40,7 @@ const jobCheckBoxArr: CheckBoxType[] = [
   { name: 'self-employment', label: '자영업' },
   { name: 'student', label: '학생' },
   { name: 'homemaker', label: '전업주부' },
-  { name: 'inoccupation', label: '무직' },
+  { name: 'out-of-work', label: '무직' },
   { name: 'etc', label: '기타' },
 ];
 const situationCheckBoxArr: CheckBoxType[] = [
@@ -45,10 +48,11 @@ const situationCheckBoxArr: CheckBoxType[] = [
   { name: 'move-housewarming', label: '이사/집들이' },
   { name: 'admission-graduation', label: '입학/졸업' },
   { name: 'leave', label: '퇴사/퇴직' },
-  { name: 'employment-jobchange', label: '취업/이직' },
+  { name: 'employment-job-change', label: '취업/이직' },
   { name: 'discharge', label: '전역' },
   { name: 'get-well-visit', label: '병문안' },
 ];
+
 type BottomNavModalProps = {
   selectedFilteringCondition: FilteringConditionType;
   openBottomNavModal: boolean;
@@ -76,6 +80,25 @@ const BottomNavModal = ({
   ];
   const BOTTOM_MODAL_El = document.querySelector('.bottom-nav-modal') as HTMLElement | null;
   const modalBackgroundEl = document.querySelector('.bottom-nav-modal .modal__background');
+  const modalBoxEl = BOTTOM_MODAL_El?.querySelector('.modal__box') as
+    | HTMLElement
+    | null
+    | undefined;
+  const changeLabelClass = (el: HTMLInputElement) => {
+    const parentEl = el.parentElement;
+    const targetLabelEl = parentEl?.lastElementChild;
+    if (targetLabelEl !== null && targetLabelEl !== undefined) {
+      if (el.checked) {
+        targetLabelEl.classList.add('on');
+      } else {
+        targetLabelEl.classList.remove('on');
+      }
+    }
+  };
+  const onChangeCheckBox = (event: ChangeEvent<HTMLInputElement>) => {
+    const target = event.currentTarget;
+    changeLabelClass(target);
+  };
   /**
    * A function that detects changes in checkboxes , updates the state of filteringCondition , return it, and if the value of recovery is true, changes the checked attribute of checkboxes that are currently checked to false
    * @param recovery
@@ -96,6 +119,7 @@ const BottomNavModal = ({
       // checked를 풀지 않으면 카테고리 이동시, 해당 카테고리에서 선택되지 않은 box가 선택되는 오류 일어남
       selectedList.forEach(el => {
         el.checked = false;
+        changeLabelClass(el);
       });
     }
     setFilteringCondition(newFilteringCondition);
@@ -122,21 +146,22 @@ const BottomNavModal = ({
   const closeBottomNavModal = (event: Event) => {
     const target = event.target as HTMLElement | null;
     if (!target?.closest('.modal__box') && BOTTOM_MODAL_El !== null) {
-      BOTTOM_MODAL_El.style.top = ' 105vh';
+      if (modalBoxEl !== null && modalBoxEl !== undefined) {
+        modalBoxEl.style.top = '105vh';
+      }
       setTimeout(() => {
         closeModal();
-      }, 1010);
+      }, 1000);
     }
   };
   useEffect(() => {
     if (openBottomNavModal) {
       BOTTOM_MODAL_El?.classList.add('on');
       setTimeout(() => {
-        if (BOTTOM_MODAL_El !== null) {
-          // top의 값: 추후에 bottomNavModal 디자인이 완성되면 수정
-          BOTTOM_MODAL_El.style.top = '0';
+        if (modalBoxEl !== null && modalBoxEl !== undefined) {
+          modalBoxEl.style.top = `52vh`;
         }
-      }, 200);
+      }, 50);
       modalBackgroundEl?.addEventListener('click', event => closeBottomNavModal(event));
     } else {
       BOTTOM_MODAL_El?.classList.remove('on');
@@ -159,6 +184,7 @@ const BottomNavModal = ({
       checkBoxEl.forEach(el => {
         if (targetCondition.includes(el.name)) {
           el.checked = true;
+          changeLabelClass(el);
         }
       });
     }
@@ -169,16 +195,19 @@ const BottomNavModal = ({
       <form>
         <section>
           <div className="category">
-            {categoryArr.map((v, i) => (
-              <button
-                key={`categoryBtn_${i}`}
-                type="button"
-                className="category-btn"
-                onClick={() => category !== v && onClickCategoryBtn(v, i)}
-              >
-                {categoryBtnTextArr[i]}
-              </button>
-            ))}
+            <div className="btn-group">
+              {categoryArr.map((v, i) => (
+                <button
+                  key={`categoryBtn_${i}`}
+                  type="button"
+                  className={`category-btn ${category === v ? 'on' : ''}`}
+                  onClick={() => category !== v && onClickCategoryBtn(v, i)}
+                >
+                  {categoryBtnTextArr[i]}
+                </button>
+              ))}
+            </div>
+            <div className="bar"></div>
           </div>
           <div className="checkbox-group">
             {checkBoxArr.map((v, i) => (
@@ -187,7 +216,7 @@ const BottomNavModal = ({
                 id={v.name}
                 name={v.name}
                 label={v.label}
-                onChange={null}
+                onChange={event => onChangeCheckBox(event)}
               />
             ))}
           </div>

@@ -1,11 +1,10 @@
 @font-face {
-  font-family: "sofia-pro-medium";
-  src: url("./fonts/Sofia Pro Medium.ttf");
+  font-family: "sofia-pro-bold";
+  src: url("./fonts/Sofia Pro Bold.ttf");
   font-style: normal;
 }
 @font-face {
   font-family: "sofia-pro-light";
   src: url("./fonts/sofiapro-light.otf");
-  line-height: 160%;
   font-style: normal;
 }/*# sourceMappingURL=common.css.map */
