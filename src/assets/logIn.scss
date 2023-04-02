@@ -2,7 +2,9 @@
 
 #log-in {
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 94px);
+  display: flex;
+  align-items: center;
   a {
     @include clean-a-style;
   }
@@ -10,44 +12,48 @@
     @include clean-btn-style;
   }
   .inner {
-    padding: 16px;
+    padding-left: 21px;
+    padding-right: 21px;
     box-sizing: border-box;
     width: 100%;
-    height: 100%;
   }
   .logo {
     @include sofia-h1-font;
     text-align: center;
   }
-  h2 {
-    @include h2-font;
+  h1 {
+    @include sofia-h1-font;
+    margin-bottom: 11px;
+  }
+  h3 {
+    @include bd1-font;
     text-align: center;
-    margin-top: 16px;
   }
   //log-in__content
   .log-in__data {
-    margin-top: 32px;
+    margin-top: 34px;
   }
   .log-in__data__email,
   .log-in__data__pw {
     position: relative;
     height: 40px;
-    padding-bottom: 14px;
+    margin-bottom: 16px;
     input {
+      @include bd1-font;
       width: 100%;
       height: 100%;
-      padding-left: 14px;
-      padding-right: 28px;
+      padding-left: 20px;
+      padding-right: calc(15px + 18px);
       box-sizing: border-box;
-      @include h2-font;
       border: 0.6px solid $color-light-gray;
       border-radius: 5px;
     }
     button {
+      width: 18px;
+      height: 18px;
       position: absolute;
-      //parent.height - button.height - parent.height
-      top: calc((100% - 14px - 14px) / 2);
-      right: 14px;
+      top: calc((100% - 18px) / 2);
+      right: 15px;
     }
   }
   .log-in__data__email {
@@ -62,6 +68,23 @@
   }
   // keep
   // find
+  .log-in__util__keep {
+    .check,
+    .label {
+      height: 16px;
+    }
+    .check-box {
+      .label {
+        @include navigation-font;
+        display: flex;
+        align-items: center;
+        margin-left: 10px;
+      }
+    }
+    .check {
+      width: 16px;
+    }
+  }
   .log-in__util__find {
     a {
       @include bd2-font;
@@ -104,9 +127,10 @@
   }
   .banner {
     padding: 14px;
-    margin-top: 32px;
+    margin-top: 30px;
     background-color: #fff3f6;
     border-radius: 6px;
+    text-align: center;
     &::before {
       content: '';
       position: absolute;

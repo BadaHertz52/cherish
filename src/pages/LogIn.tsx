@@ -1,4 +1,4 @@
-import { faCircleXmark, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ChangeEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -80,7 +80,7 @@ const LogIn = () => {
     <div id="log-in">
       <div className="inner">
         <h1 className="logo">LOG IN</h1>
-        <h2>로그인을 하시면 다양한 혜택을 누릴 수 있어요.</h2>
+        <h3>지금부터 체리슈와 선물을 고르러 가요!</h3>
         <div className="log-in__data">
           <div className="log-in__data__email">
             <input
@@ -108,7 +108,7 @@ const LogIn = () => {
             <CheckBox
               id="checkboxKeep"
               name="autoLogIn"
-              label="로그인 유지"
+              label="자동 로그인"
               onChange={onChangeKeep}
             />
           </div>
