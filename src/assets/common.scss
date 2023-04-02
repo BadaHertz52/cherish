@@ -132,6 +132,6 @@ $color-error: #ff3939;
 }
 @mixin btn-disabled-style {
   border-radius: 5px;
-  background-color: $color-light;
+  background-color: #eeeeee;
   color: $color-light-gray;
 }
