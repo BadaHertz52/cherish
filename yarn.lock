@@ -1065,6 +1065,7 @@ __metadata:
     prettier: ^2.8.4
     react: ^18.2.0
     react-dom: ^18.2.0
+    react-mobile-picker: ^0.2.1
     react-router-dom: ^6.8.2
     reset-css: ^5.0.1
     sass: ^1.59.2
@@ -1753,7 +1754,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.8.1":
+"prop-types@npm:^15.6.0, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -1780,6 +1781,18 @@ __metadata:
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: f7a19ac3496de32ca9ae12aa030f00f14a3d45374f1ceca0af707c831b2a6098ef0d6bdae51bd437b0a306d7f01d4677fcc8de7c0d331eb47ad0f46130e53c5f
+  languageName: node
+  linkType: hard
+
+"react-mobile-picker@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "react-mobile-picker@npm:0.2.1"
+  dependencies:
+    prop-types: ^15.6.0
+  peerDependencies:
+    react: ">=0.14.0 <18.0.0"
+    react-dom: ">=0.14.0 <18.0.0"
+  checksum: c98c57c8538a93229c59a68415a0ff47545f2562494f6a539a60252573a0050eb7bfa83421e2ead01fb663b512ccab33a59f614e482f1ea56bf69834a16f12c6
   languageName: node
   linkType: hard
 

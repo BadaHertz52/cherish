@@ -13,15 +13,15 @@ import {
 import { SignUpContext } from '../../pages/SignUp';
 import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import DatePickerContainer from './DatePickerContainer';
 import { getPrevData } from './SignUpTopBar';
+import DatePicker from './DatePicker';
 
 const GenderAndBirth = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
   const [disableBtn, setDisableBtn] = useState<boolean>(false);
   const [birth, setBirth] = useState<BirthStateType>({
-    value: { year: 2010, month: 4, date: 3 },
-    errorMsg: null,
+    value: null,
+    errorMsg: ERROR_MSG.required,
   });
 
   const [gender, setGender] = useState<GenderStateType>({
@@ -52,6 +52,17 @@ const GenderAndBirth = () => {
   };
   const onClickBirthBtn = () => {
     setOpenDatePicker((prev: boolean) => !prev);
+  };
+  const onSelectDatePicker = (data: Date) => {
+    setBirth({
+      value: {
+        year: data.getFullYear(),
+        month: data.getMonth() + 1,
+        date: data.getDate(),
+      },
+      errorMsg: null,
+    });
+    setOpenDatePicker(false);
   };
   useEffect(() => {
     getPrevData('gender', null, setGender, null, false);
@@ -114,7 +125,7 @@ const GenderAndBirth = () => {
             </div>
             <FontAwesomeIcon icon={openDatePicker ? faSortUp : faSortDown} />
           </button>
-          {openDatePicker && <DatePickerContainer />}
+          {openDatePicker && <DatePicker />}
           <div className="msg">{birth.value === null && ERROR_MSG.required}</div>
         </section>
       </StepInner>
