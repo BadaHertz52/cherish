@@ -1,20 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import ModalPortal from './ModalPortal';
-import { AlertModalType } from './modalTypes';
 
 type AlertModalProps = {
-  modalState: AlertModalType;
+  children: ReactNode;
+  center: boolean;
   short: boolean;
   closeModal: () => void;
 };
-const AlertModal = ({ modalState, short, closeModal }: AlertModalProps) => {
+const AlertModal = ({ children, center, short, closeModal }: AlertModalProps) => {
   useEffect(() => {
     const modalEl = document.querySelector('.modal');
     modalEl?.classList.add('alert-modal');
   }, []);
   return (
     <ModalPortal>
-      <section className={`contents ${short ? 'short' : 'long'}`}>{modalState}</section>
+      <section className={`contents ${short ? 'short' : 'long'}`}>
+        <div className={`alert-modal__text-container ${center ? 'center' : ''}`}>{children}</div>
+      </section>
       <button type="button" className="btn-close" title="close btn" onClick={closeModal}>
         닫기
       </button>
