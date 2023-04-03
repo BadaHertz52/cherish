@@ -1,12 +1,5 @@
 @import './common.scss';
-body {
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-}
-button {
-  @include clean-btn-style;
-}
+
 $background-color: rgba(117, 117, 117, 0.4);
 @mixin background {
   position: relative;
@@ -112,6 +105,9 @@ $background-color: rgba(117, 117, 117, 0.4);
 .bottom-nav-modal {
   display: none;
   position: relative;
+  button {
+    @include clean-btn-style;
+  }
   &.on {
     display: block;
   }
