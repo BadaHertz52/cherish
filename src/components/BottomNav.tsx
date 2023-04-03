@@ -3,6 +3,7 @@ import './FontAwesome';
 import '../BottomNav.css';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome, faCompass, faPlus, faMedal } from '@fortawesome/free-solid-svg-icons';
 import throttle from 'lodash/throttle';
 
 const BottomNav = () => {
@@ -10,10 +11,12 @@ const BottomNav = () => {
   const [activeNav, setActiveNav] = React.useState(0);
 
   // 각 페이지별 상태를 나타내는 변수
-  const HomeTag = 1;
-  const CurationTag = 2;
-  const CategoryTag = 3;
-  const SaveTag = 4;
+  const tags = [
+    { id: 1, icon: faHome, title: '홈', link: '/first' },
+    { id: 2, icon: faCompass, title: '큐레이션', link: '/second' },
+    { id: 3, icon: faPlus, title: '카테고리', link: '/third' },
+    { id: 4, icon: faMedal, title: '저장목록', link: '/fourth' },
+  ];
 
   // 스크롤 감지를 관리하는 state
   const [hide, setHide] = useState(false);
@@ -39,66 +42,26 @@ const BottomNav = () => {
     /* 하단 네비게이션 최상위 태그 */
     <nav className={hide ? 'wrapper-hidden' : 'wrapper'}>
       {/* 네비게이션을 구성하고 있는 하나의 버튼 */}
-      <Link
-        to="/first"
-        className="nav-link"
-        onClick={() => {
-          setActiveNav(HomeTag);
-        }}
-      >
-        <div>
-          <FontAwesomeIcon
-            icon="home"
-            className={activeNav === 1 ? 'nav-item active' : 'nav-item'}
-          />
-          <div className={activeNav === 1 ? 'nav-title active' : 'nav-title'}>홈</div>
-        </div>
-      </Link>
-      <Link
-        to="/second"
-        className="nav-link"
-        onClick={() => {
-          setActiveNav(CurationTag);
-        }}
-      >
-        <div>
-          <FontAwesomeIcon
-            icon="compass"
-            className={activeNav === 2 ? 'nav-item active' : 'nav-item'}
-          />
-          <div className={activeNav === 2 ? 'nav-title active' : 'nav-title'}>큐레이션</div>
-        </div>
-      </Link>
-      <Link
-        to="/third"
-        className="nav-link"
-        onClick={() => {
-          setActiveNav(CategoryTag);
-        }}
-      >
-        <div>
-          <FontAwesomeIcon
-            icon="plus"
-            className={activeNav === 3 ? 'nav-item active' : 'nav-item'}
-          />
-          <div className={activeNav === 3 ? 'nav-title active' : 'nav-title'}>카테고리</div>
-        </div>
-      </Link>
-      <Link
-        to="/fourth"
-        className="nav-link"
-        onClick={() => {
-          setActiveNav(SaveTag);
-        }}
-      >
-        <div>
-          <FontAwesomeIcon
-            icon="medal"
-            className={activeNav === 4 ? 'nav-item active' : 'nav-item'}
-          />
-          <div className={activeNav === 4 ? 'nav-title active' : 'nav-title'}>저장목록</div>
-        </div>
-      </Link>
+      {tags.map(tag => (
+        <Link
+          key={tag.id}
+          to={tag.link}
+          className="nav-link"
+          onClick={() => {
+            setActiveNav(tag.id);
+          }}
+        >
+          <div>
+            <FontAwesomeIcon
+              icon={tag.icon}
+              className={activeNav === tag.id ? 'nav-item active' : 'nav-item'}
+            />
+            <div className={activeNav === tag.id ? 'nav-title active' : 'nav-title'}>
+              {tag.title}
+            </div>
+          </div>
+        </Link>
+      ))}
     </nav>
   );
 };

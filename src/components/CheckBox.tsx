@@ -1,6 +1,4 @@
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent } from 'react';
 import '../assets/checkbox.scss';
 type CheckBoxProps = {
   id: string;
@@ -18,7 +16,7 @@ const CheckBox = ({ id, name, label, onChange }: CheckBoxProps) => {
         <input type="checkbox" id={id} name={name} onChange={event => handleChange(event)} />
         <label htmlFor={id} className="check"></label>
         <label htmlFor={id} className="label">
-          {label}
+          <span>{label}</span>
         </label>
       </div>
     </div>

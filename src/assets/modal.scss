@@ -248,6 +248,9 @@ $background-color: rgba(117, 117, 117, 0.4);
   .btn-no {
     @include btn-selected-full-style;
   }
+  button {
+    @include clean-btn-style;
+  }
 }
 
 .full-scre-modal {
@@ -277,7 +280,7 @@ $background-color: rgba(117, 117, 117, 0.4);
     width: 18px;
     height: 18px;
     background-color: #eeee;
-    color: $color-dark-gray;
+    color: $color-dark-black;
     border-radius: 50%;
     font-size: 12px;
   }
