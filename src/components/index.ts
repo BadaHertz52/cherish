@@ -1,4 +1,5 @@
+import BottomNav from './BottomNav';
 import ItemCard from './ItemCard';
 import SearchBox from './SearchBox';
 
-export { ItemCard, SearchBox };
+export { BottomNav, ItemCard, SearchBox };

@@ -1,5 +1,5 @@
 import '../assets/styles/Home.scss';
-import ItemCard from '../components/ItemCard';
+import { ItemCard } from '../components';
 import type { Item } from '../components/ItemCard';
 
 interface Category {
@@ -98,7 +98,6 @@ const categoryList: Array<Category> = [
 const Home = () => {
   return (
     <>
-      {/* logo cherishu on left and search icon and profile icon on right */}
       <div className="header">
         <div className="logo-text">Cherishu</div>
         <div className="icons">
@@ -111,10 +110,17 @@ const Home = () => {
         <div className="category-header">요즘 핫한 선물 추천</div>
         {[...categoryList].map(category => (
           <div className="category">
-            <div className="category-title">{category.title}</div>
+            <div className="category-title">
+              {category.title}
+              <div className="right-arrow">
+                <img src="/icons/right-arrow.png" />
+              </div>
+            </div>
             <div className="category-list">
               {category.items.map(item => (
-                <ItemCard key={item.id} {...item} />
+                <div className="category-item">
+                  <ItemCard key={item.id} {...item} />
+                </div>
               ))}
             </div>
           </div>

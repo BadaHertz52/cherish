@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import Second from './pages/Second';
 import Third from './pages/Third';
 import Fourth from './pages/Fourth';
-import BottomNav from './components/BottomNav';
+import { BottomNav } from './components';
 import './assets/styles/App.scss';
 import Home from './pages/Home';
 import ModalTest from './components/modals/ModalTest';

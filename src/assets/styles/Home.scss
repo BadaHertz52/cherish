@@ -1,22 +1,20 @@
-// create style for Home.tsx header div
+@import '../common.scss';
 .header {
   display: flex;
-  font-family: 'Sofia Pro';
 
-  margin-top: 11px;
   margin-left: 27px;
   margin-bottom: 11px;
   margin-right: 26px;
 
   .logo-text {
+    @include sofia-h1-font;
     font-size: 17px;
-    font-weight: 800;
     flex: 1;
     margin-top: 11px;
   }
 
   .icons {
-    margin-top: 9px;
+    margin-top: 18px;
     img {
       // space between img tags
       margin-left: 20px;
@@ -37,7 +35,7 @@
 }
 
 .category-header {
-  font-family: 'Apple SD Gothic Neo';
+  @include h1-font;
   font-size: 16px;
   font-weight: 800;
   line-height: 26px;
@@ -50,12 +48,23 @@
 }
 
 .category-title {
+  display: flex;
+  @include bd2-font;
   margin-bottom: 10px;
+}
+
+.right-arrow {
+  text-align: right;
+  flex-grow: 1;
 }
 
 .category-list {
   display: flex;
-  flex-direction: row;
-  overflow-x: scroll;
+  // overflow-x: scroll;
   margin-bottom: 40px;
+  overflow: auto;
+}
+
+.category-item {
+  margin-right: 10px;
 }

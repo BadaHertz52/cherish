@@ -1,10 +1,10 @@
+@import '../../assets/common.scss';
 // write css for ItemCard component here
 .item-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 152px;
-  height: 218px;
-  overflow: hidden;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
@@ -22,42 +22,25 @@
 }
 
 .item-card__info__company {
-  font-size: 0.8rem;
-  color: #a0a0a0;
+  @include sofia-h2-light-font;
 }
 
 .item-card__info__name {
-  font-size: 1rem;
-  font-weight: 500;
-  color: #4a4a4a;
+  @include bd1-font;
+
+  /* text-clip */
+  white-space: nowrap;
+  text-overflow: clip;
 }
 
 .item-card__info__price {
-  font-size: 1rem;
-  font-weight: 500;
-  color: #ff6b6b;
-}
-
-.item-card__name {
-  font-size: 1.2rem;
-  font-weight: 500;
-}
-
-.item-card__price {
-  font-size: 1.2rem;
-  font-weight: 500;
-  color: #ff6b6b;
-}
-
-.item-card:hover {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  @include sofia-h2-font;
 }
 
 .item-card__bookmark {
-  // this should be located between item-card__image and item-card__name
-  position: relative;
-  top: -10px;
-  right: 10px;
+  position: absolute;
+  top: 0px;
+  right: 8px;
   text-align: right;
   cursor: pointer;
 
