@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { SignUpContext } from '../../pages/SignUp';
 import InputForm from './InputForm';
-import { getPrevInputData } from './SignUpTopBar';
+import { getPrevData } from './SignUpTopBar';
 import { initialInputData, InputDataType, SessionDataType, SignUpStateType } from './signUpTypes';
 import StepInner from './StepInner';
 
@@ -23,8 +23,8 @@ const NameAndNickName = () => {
   };
   useEffect(() => {
     // sessionStorage
-    getPrevInputData('name', setName, false);
-    getPrevInputData('nickName', setNickName, true);
+    getPrevData('name', setName, null, null, false);
+    getPrevData('nickName', setNickName, null, null, true);
     if (signUpState.name !== null && signUpState.nickname !== null) {
       setName({
         value: signUpState.name,

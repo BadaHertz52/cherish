@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { SignUpContext } from '../../pages/SignUp';
 import InputForm from './InputForm';
-import { getPrevInputData } from './SignUpTopBar';
+import { getPrevData } from './SignUpTopBar';
 import { ERROR_MSG, InputDataType, SignUpStateType, initialInputData } from './signUpTypes';
 import StepInner from './StepInner';
 
@@ -41,8 +41,8 @@ const Pw = () => {
   }, [pw, confirmPw]);
   //sessiongStorage, signUpState 내용 가져오기
   useEffect(() => {
-    getPrevInputData('pw', setPw, false);
-    getPrevInputData('confirmPw', setConfirmPw, true);
+    getPrevData('pw', setPw, null, null, false);
+    getPrevData('confirmPw', setConfirmPw, null, null, true);
   }, []);
   return (
     <div id="pw">

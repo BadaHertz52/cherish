@@ -1,28 +1,50 @@
 import { MouseEvent, useContext, useEffect, useState } from 'react';
 import StepInner from './StepInner';
-import { ERROR_MSG, InputDataType, initialInputData } from './signUpTypes';
+import {
+  BirthStateType,
+  ERROR_MSG,
+  GenderStateType,
+  GenderType,
+  InputDataType,
+  SignUpStateType,
+  genderType,
+  initialInputData,
+} from './signUpTypes';
 import { SignUpContext } from '../../pages/SignUp';
 import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import DatePickerContainer from './DatePickerContainer';
-import { getPrevInputData } from './SignUpTopBar';
+import { getPrevData } from './SignUpTopBar';
 
 const GenderAndBirth = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
-  const [disableBtn, setDisableBtn] = useState<boolean>(true);
-  const [birth, setBirth] = useState<InputDataType>({
-    ...initialInputData,
-    errorMsg: ERROR_MSG.required,
+  const [disableBtn, setDisableBtn] = useState<boolean>(false);
+  const [birth, setBirth] = useState<BirthStateType>({
+    value: { year: 2010, month: 4, date: 3 },
+    errorMsg: null,
   });
-  const [gender, setGender] = useState<InputDataType>({
-    ...initialInputData,
+
+  const [gender, setGender] = useState<GenderStateType>({
+    value: null,
     errorMsg: ERROR_MSG.required,
   });
   const [openDatePicker, setOpenDatePicker] = useState<boolean>(true);
-  const onClickNextBtn = () => {};
+  const onClickNextBtn = () => {
+    if (gender.value !== null && birth.value !== null) {
+      setSignUpState((prev: SignUpStateType) => {
+        const newState: SignUpStateType = {
+          ...prev,
+          progress: 'job',
+          gender: gender.value,
+          birth: birth.value,
+        };
+        return newState;
+      });
+    }
+  };
   const onClickGenderBtn = (event: MouseEvent<HTMLButtonElement>) => {
     const target = event.currentTarget;
-    const name = target.name;
+    const name = target.name as GenderType;
     setGender({
       value: name,
       errorMsg: null,
@@ -32,7 +54,7 @@ const GenderAndBirth = () => {
     setOpenDatePicker((prev: boolean) => !prev);
   };
   useEffect(() => {
-    getPrevInputData('gender', setGender, false);
+    getPrevData('gender', null, setGender, null, false);
     if (signUpState.gender) {
       setGender({
         value: signUpState.gender,
@@ -43,9 +65,9 @@ const GenderAndBirth = () => {
   }, []);
   useEffect(() => {
     if (
-      gender.value !== '' &&
+      gender.value !== null &&
       gender.errorMsg === null &&
-      birth.value !== '' &&
+      birth.value !== null &&
       birth.errorMsg == null
     ) {
       setDisableBtn(false);
@@ -76,20 +98,24 @@ const GenderAndBirth = () => {
               남성
             </button>
           </div>
-          <div className="msg">{gender.value === '' && ERROR_MSG.required}</div>
+          <div className="msg">{gender.value === null && ERROR_MSG.required}</div>
         </section>
         <section className="birth">
           <h4>생년월일</h4>
           <button
-            className={`btn-open-modal-birth ${birth.value === '' ? 'none-data' : ''}`}
+            className={`btn-open-modal-birth ${birth.value === null ? 'none-data' : ''}`}
             type="button"
             onClick={onClickBirthBtn}
           >
-            <div className="birth__data">{birth.value === '' ? '생년월일' : birth.value}</div>
+            <div className="birth__data">
+              {birth.value === null
+                ? '생년월일'
+                : `${birth.value.year}/${birth.value.month}/${birth.value.date}`}
+            </div>
             <FontAwesomeIcon icon={openDatePicker ? faSortUp : faSortDown} />
           </button>
           {openDatePicker && <DatePickerContainer />}
-          <div className="msg">{birth.value === '' && ERROR_MSG.required}</div>
+          <div className="msg">{birth.value === null && ERROR_MSG.required}</div>
         </section>
       </StepInner>
     </div>

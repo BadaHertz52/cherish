@@ -51,11 +51,11 @@ export type SessionDataType = {
   key: SessionDataKeyType;
   value: string;
 };
-const gender = {
+export const genderType = {
   male: 'male',
   female: 'female',
 } as const;
-export type GenderType = keyof typeof gender;
+export type GenderType = keyof typeof genderType;
 const job = {
   profession: 'profession', //전문직
   management: 'management', //경영 관리
@@ -118,10 +118,22 @@ export const ERROR_MSG = {
   invalidConfirmPw: '비밀번호가 일치하지 않아요.',
 };
 export type InputDataType = {
-  value: string;
+  value: string | GenderType;
   errorMsg: string | null;
 };
 export const initialInputData: InputDataType = {
   value: '',
   errorMsg: null,
+};
+export type GenderStateType = {
+  value: GenderType | null;
+  errorMsg: string | null;
+};
+export type BirthStateType = {
+  value: {
+    year: number;
+    month: number;
+    date: number;
+  } | null;
+  errorMsg: string | null;
 };

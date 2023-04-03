@@ -8,7 +8,7 @@ import {
   initialInputData,
   jobCheckBoxArr,
 } from './signUpTypes';
-import { getPrevInputData } from './SignUpTopBar';
+import { getPrevData } from './SignUpTopBar';
 import { SignUpContext } from '../../pages/SignUp';
 import { JobType } from './signUpTypes';
 
@@ -34,19 +34,6 @@ const JobInfo = () => {
       }
     });
   };
-  useEffect(() => {
-    getPrevInputData('job', setJob, true);
-    if (signUpState.job !== null) {
-      setJob({ value: signUpState.job, errorMsg: null });
-    }
-  }, []);
-  useEffect(() => {
-    if (job.value !== '') {
-      setDisAbleBtn(false);
-    } else {
-      setDisAbleBtn(true);
-    }
-  }, [job]);
   const onClickNextBtn = () => {
     const newState: SignUpStateType = {
       ...signUpState,
@@ -56,6 +43,22 @@ const JobInfo = () => {
     // 서버에 간편가입
     // 간편 가입 성공 시 1.1 로 이동
   };
+  useEffect(() => {
+    getPrevData('job', setJob, null, null, true);
+  }, []);
+  useEffect(() => {
+    if (job.value !== '') {
+      setDisAbleBtn(false);
+      const targetCheckBoxEl = document.querySelector(
+        `#job-info-${job.value}`,
+      ) as HTMLInputElement | null;
+      if (targetCheckBoxEl !== null) {
+        targetCheckBoxEl.checked = true;
+      }
+    } else {
+      setDisAbleBtn(true);
+    }
+  }, [job]);
   return (
     <div id="job-info">
       <StepInner disableBtn={disableBtn} onClickNextBtn={onClickNextBtn}>

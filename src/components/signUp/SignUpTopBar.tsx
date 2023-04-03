@@ -3,6 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dispatch, SetStateAction, useContext } from 'react';
 import { SignUpContext } from '../../pages/SignUp';
 import {
+  BirthStateType,
+  GenderStateType,
+  GenderType,
   InputDataType,
   progressArr,
   SessionDataKeyType,
@@ -15,9 +18,11 @@ import {
  * @param setState
  * @param removeItem; sessionStorage 에서 해당 item을 삭제하는 지 여부
  */
-export const getPrevInputData = (
+export const getPrevData = (
   target: SessionDataKeyType,
-  setState: Dispatch<SetStateAction<InputDataType>>,
+  setInputDataState: Dispatch<SetStateAction<InputDataType>> | null,
+  setGenderState: Dispatch<SetStateAction<GenderStateType>> | null,
+  setBirthState: Dispatch<SetStateAction<BirthStateType>> | null,
   removeItem: boolean,
 ) => {
   const item = sessionStorage.getItem('signUpBackUpData');
@@ -25,11 +30,22 @@ export const getPrevInputData = (
     const prevData: SessionDataType[] = JSON.parse(item);
     const prevState = prevData.filter(i => i.key === target)[0];
     if (prevState !== undefined) {
-      setState({
-        value: prevState.value,
-        errorMsg: null,
-      });
+      if (setInputDataState !== null) {
+        setInputDataState({
+          value: prevState.value,
+          errorMsg: null,
+        });
+      }
+      if (setGenderState !== null) {
+        setGenderState({
+          value: prevState.value as GenderType,
+          errorMsg: null,
+        });
+      }
+      if (setBirthState !== null) {
+      }
       if (removeItem) {
+        console.log('remove');
         sessionStorage.removeItem('signUpBackUpData');
       }
     }
@@ -63,7 +79,17 @@ const SignUpTopBar = () => {
     if (signUpState.progress === 'genderAndBirth') {
     }
     if (signUpState.progress === 'job') {
-      //추후
+      const listOfCheckBoxEl = document.querySelectorAll(
+        '.check-box-group input',
+      ) as NodeListOf<HTMLInputElement>;
+      const checkedEl = [...listOfCheckBoxEl].filter(el => el.checked)[0];
+      const backUpData: SessionDataType[] = [
+        {
+          key: 'job',
+          value: checkedEl.name,
+        },
+      ];
+      setItem(backUpData);
     }
   };
   const onClickPrevBtn = () => {

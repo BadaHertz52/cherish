@@ -8,7 +8,7 @@ import InputForm from './InputForm';
 import { initialInputData, InputDataType, SessionDataType, SignUpStateType } from './signUpTypes';
 import StepInner from './StepInner';
 import Timer from './Timer';
-import { getPrevInputData } from './SignUpTopBar';
+import { getPrevData } from './SignUpTopBar';
 const EmailAlertModalContents = () => {
   return (
     <>
@@ -142,7 +142,7 @@ const Email = () => {
     }
   };
   useEffect(() => {
-    getPrevData('email', setEmail, true);
+    getPrevData('email', setEmail, null, null, true);
     if (signUpState.email !== null) {
       setEmail({
         value: signUpState.email,
