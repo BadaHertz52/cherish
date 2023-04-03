@@ -8,7 +8,7 @@ import InputForm from './InputForm';
 import { initialInputData, InputDataType, SessionDataType, SignUpStateType } from './signUpTypes';
 import StepInner from './StepInner';
 import Timer from './Timer';
-import { getPrevData } from './SignUpTopBar';
+import { getPrevInputData } from './SignUpTopBar';
 const EmailAlertModalContents = () => {
   return (
     <>

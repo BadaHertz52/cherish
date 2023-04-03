@@ -5,7 +5,6 @@ import { SignUpContext } from '../../pages/SignUp';
 import {
   InputDataType,
   progressArr,
-  sessionDataKey,
   SessionDataKeyType,
   SessionDataType,
   SignUpStateType,
@@ -16,7 +15,7 @@ import {
  * @param setState
  * @param removeItem; sessionStorage 에서 해당 item을 삭제하는 지 여부
  */
-export const getPrevData = (
+export const getPrevInputData = (
   target: SessionDataKeyType,
   setState: Dispatch<SetStateAction<InputDataType>>,
   removeItem: boolean,
@@ -38,6 +37,9 @@ export const getPrevData = (
 };
 const SignUpTopBar = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
+  const setItem = (item: SessionDataType[]) => {
+    sessionStorage.setItem('signUpBackUpData', JSON.stringify(item));
+  };
   /**
    * 현재 페이지에서 작성한 내용을 sessionStorage 에 저장
    */
@@ -55,14 +57,11 @@ const SignUpTopBar = () => {
           key: el.id.replace('input-', '') as SessionDataKeyType,
           value: el.value,
         }));
-        backUpDataArr[0] !== undefined &&
-          sessionStorage.setItem('signUpBackUpData', JSON.stringify(backUpDataArr));
+        backUpDataArr[0] !== undefined && setItem(backUpDataArr);
       }
     }
-    if (signUpState.progress === 'agreeToTerms') {
-      // 추후
+    if (signUpState.progress === 'genderAndBirth') {
     }
-
     if (signUpState.progress === 'job') {
       //추후
     }

@@ -8,7 +8,7 @@ import {
   initialInputData,
   jobCheckBoxArr,
 } from './signUpTypes';
-import { getPrevData } from './SignUpTopBar';
+import { getPrevInputData } from './SignUpTopBar';
 import { SignUpContext } from '../../pages/SignUp';
 import { JobType } from './signUpTypes';
 
@@ -35,7 +35,7 @@ const JobInfo = () => {
     });
   };
   useEffect(() => {
-    getPrevData('job', setJob, true);
+    getPrevInputData('job', setJob, true);
     if (signUpState.job !== null) {
       setJob({ value: signUpState.job, errorMsg: null });
     }

@@ -5,7 +5,7 @@ import { SignUpContext } from '../../pages/SignUp';
 import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import DatePickerContainer from './DatePickerContainer';
-import { getPrevData } from './SignUpTopBar';
+import { getPrevInputData } from './SignUpTopBar';
 
 const GenderAndBirth = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
@@ -32,7 +32,7 @@ const GenderAndBirth = () => {
     setOpenDatePicker((prev: boolean) => !prev);
   };
   useEffect(() => {
-    getPrevData('gender', setGender, false);
+    getPrevInputData('gender', setGender, false);
     if (signUpState.gender) {
       setGender({
         value: signUpState.gender,
