@@ -15,6 +15,7 @@ export type ConfirmModalBtnType = {
 export type ModalCommonType = {
   contents: string;
 };
+export type AlertModalType = ReactNode;
 export type ConfirmModalType = ModalCommonType & {
   title: string | null;
   yesBtn: ConfirmModalBtnType;
