@@ -1,4 +1,4 @@
-# front-react
+# cherish-gift.github.io
 
 ## Settings
 
