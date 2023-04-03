@@ -1,7 +1,7 @@
 import Adapter from 'enzyme-adapter-react-16';
 import { configure, shallow } from 'enzyme';
 import { describe, it, expect } from 'vitest';
-import ItemCard from './ItemCard';
+import ItemCard from '.';
 
 configure({ adapter: new Adapter() });
 
@@ -9,6 +9,7 @@ configure({ adapter: new Adapter() });
 describe('Testing ItemCard component', () => {
   it('should have an image, company, name, price, and bookmarked', () => {
     const item = {
+      id: 1,
       company: 'company',
       name: 'name',
       price: 1000,
@@ -25,6 +26,7 @@ describe('Testing ItemCard component', () => {
 
   it('should have a bookmarked image that is off if bookmarked is false', () => {
     const item = {
+      id: 1,
       company: 'company',
       name: 'name',
       price: 1000,
@@ -37,6 +39,7 @@ describe('Testing ItemCard component', () => {
 
   it('should have a bookmarked image that is on if bookmarked is true', () => {
     const item = {
+      id: 1,
       company: 'company',
       name: 'name',
       price: 1000,
@@ -49,6 +52,7 @@ describe('Testing ItemCard component', () => {
 
   it('should have a price that is formatted with comma', () => {
     const item = {
+      id: 1,
       company: 'company',
       name: 'name',
       price: 10000000,

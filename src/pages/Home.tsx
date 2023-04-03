@@ -1,5 +1,6 @@
 import '../assets/styles/Home.scss';
-import ItemCard, { Item } from '../components/ItemCard';
+import ItemCard from '../components/ItemCard';
+import type { Item } from '../components/ItemCard';
 
 interface Category {
   title: string;
@@ -62,6 +63,28 @@ const categoryList: Array<Category> = [
       },
       {
         id: 6,
+        name: '졸업 축하 선물 2222',
+        image: 'https://cdn.imweb.me/thumbnail/20220311/31e8480978fc8.jpg',
+        company: 'Aesop',
+        price: 39900,
+        bookmarked: false,
+      },
+    ],
+  },
+  {
+    title: '선생님 존경하는거 아시죠? BB',
+    items: [
+      {
+        id: 6,
+        name: '졸업 축하 선물',
+        image:
+          'https://image.jtbcplus.kr/data/contents/jam_photo/202201/03/1667c94e-1ef9-4949-8951-41a7b28212b7.jpg',
+        company: 'Aesop',
+        price: 49999,
+        bookmarked: false,
+      },
+      {
+        id: 7,
         name: '졸업 축하 선물 2222',
         image: 'https://cdn.imweb.me/thumbnail/20220311/31e8480978fc8.jpg',
         company: 'Aesop',

@@ -1,6 +1,7 @@
 import './ItemCard.scss';
 
-interface Item {
+export interface Item {
+  id: number;
   company: string;
   name: string;
   price: number;
