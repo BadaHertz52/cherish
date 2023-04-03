@@ -13,6 +13,7 @@ export const initialSignUpState: SignUpStateType = {
   progress: 'genderAndBirth',
   agreeToTerms: {
     termsAndCondition: false,
+    ageCondition: false,
     personalInformation: false,
     marketing: false,
   },
