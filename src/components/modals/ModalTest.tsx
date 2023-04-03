@@ -49,10 +49,7 @@ const ModalTest = () => {
       </div>
     );
   };
-  const alertState01: AlertModalType = <div className="center">alert</div>;
-  const alertState02: AlertModalType = <AlertTextContainer />;
-  const [alertModalState, setAlertModalState] = useState<ReactNode>(alertState01);
-  const [alertShort, setAlertShort] = useState<boolean>(true);
+  const [alertModalChildren, setAlertModalChildren] = useState<string>('alert01');
   const confirmModalState: ConfirmModalType = {
     title: 'title',
     contents: 'contents',
@@ -124,8 +121,7 @@ const ModalTest = () => {
           type="button"
           onClick={() => {
             setOpenTarget('alert');
-            setAlertModalState(alertState01);
-            setAlertShort(true);
+            setAlertModalChildren('alert01');
           }}
         >
           open alert modal
@@ -134,8 +130,7 @@ const ModalTest = () => {
           type="button"
           onClick={() => {
             setOpenTarget('alert');
-            setAlertModalState(alertState02);
-            setAlertShort(false);
+            setAlertModalChildren('alert02');
           }}
         >
           open alert modal_2
@@ -154,13 +149,16 @@ const ModalTest = () => {
         </button>
       </div>
       <div id="toast-modal-target">여기에 toast modal 열기</div>
-      {openTarget === modalType.alert && (
-        <AlertModal
-          modalState={alertModalState}
-          short={alertShort}
-          closeModal={() => setOpenTarget(null)}
-        />
-      )}
+      {openTarget === modalType.alert &&
+        (alertModalChildren === 'alert01' ? (
+          <AlertModal center={true} short={true} closeModal={() => setOpenTarget(null)}>
+            alert
+          </AlertModal>
+        ) : (
+          <AlertModal center={false} short={false} closeModal={() => setOpenTarget(null)}>
+            <AlertTextContainer />
+          </AlertModal>
+        ))}
       {openTarget == modalType.confirm && (
         <ConfirmModal modalState={confirmModalState} closeModal={() => setOpenTarget(null)} />
       )}
