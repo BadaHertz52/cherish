@@ -248,9 +248,6 @@ $background-color: rgba(117, 117, 117, 0.4);
   .btn-no {
     @include btn-selected-full-style;
   }
-  button {
-    @include clean-btn-style;
-  }
 }
 
 .full-scre-modal {
