@@ -16,6 +16,9 @@
     margin-top: 16px;
     .check-box {
       margin-bottom: 10px;
+      .label {
+        display: none;
+      }
     }
     button {
       @include clean-btn-style;

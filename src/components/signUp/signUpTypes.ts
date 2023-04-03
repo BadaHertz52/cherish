@@ -25,6 +25,19 @@ const inputFormId = {
   confirmPw: 'confirmPw',
 };
 export type InputFormIdType = keyof typeof inputFormId;
+export type AgreementStateType = {
+  termsAndCondition: boolean; //이용약관
+  personalInformation: boolean; // 개인정보 수집 및 이용
+  ageCondition: boolean;
+  marketing: boolean; // 마케팅 정보 활용 동의
+};
+const termsCheckBoxName = {
+  termsAndCondition: 'termsAndCondition',
+  personalInformation: 'personalInformation',
+  ageCondition: 'ageCondition',
+  marketing: 'marketing',
+} as const;
+export type TermsCheckBoxNameType = keyof typeof termsCheckBoxName;
 //⚠️ sessionData property 명과 각 화원가입단계의 입력란이 input 인 경우애는 name  value 맞추기 (ex: name, email)
 export const sessionDataKey = {
   ...inputFormId,
@@ -72,11 +85,7 @@ export const jobCheckBoxArr: JobCheckBoxType[] = [
   { name: 'inoccupation', label: '무직' },
   { name: 'etc', label: '기타' },
 ];
-export type AgreementStateType = {
-  termsAndCondition: boolean; //이용약관
-  personalInformation: boolean; // 개인정보 수집 및 이용
-  marketing: boolean; // 마케팅 정보 활용 동의
-};
+
 export type SignUpStateType = {
   progress: SignUpProgressType;
   agreeToTerms: AgreementStateType;
@@ -116,9 +125,3 @@ export const initialInputData: InputDataType = {
   value: '',
   errorMsg: null,
 };
-const checkBoxName = {
-  termsAndCondition: 'termsAndCondition',
-  personalInformation: 'personalInformation',
-  marketing: 'marketing',
-} as const;
-export type TermsCheckBoxNameType = keyof typeof checkBoxName;

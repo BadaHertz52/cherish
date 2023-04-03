@@ -1,7 +1,12 @@
 import { ChangeEvent, useContext, useEffect, useRef, useState } from 'react';
 import { SignUpContext } from '../../pages/SignUp';
 import CheckBox from '../CheckBox';
-import { AgreementStateType, SignUpStateType, TermsCheckBoxNameType } from './signUpTypes';
+import {
+  AgreementStateType,
+  SessionDataType,
+  SignUpStateType,
+  TermsCheckBoxNameType,
+} from './signUpTypes';
 import StepInner from './StepInner';
 import ConfirmModal from '../modals/ConfirmModal';
 import { ConfirmModalBtnType, ConfirmModalType } from '../modals/modalTypes';
@@ -35,37 +40,14 @@ const SignUpTerm = ({ id, label, onChange, onClickBtn }: SignUpTermProps) => {
   );
 };
 const SignUpTerms = () => {
-  const { setSignUpState } = useContext(SignUpContext);
-
-  const initialAgreement: AgreementStateType = {
-    termsAndCondition: false,
-    personalInformation: false,
-    marketing: false,
-  };
-  const [agreement, setAgreement] = useState<AgreementStateType>(initialAgreement);
+  const { signUpState, setSignUpState } = useContext(SignUpContext);
+  const [agreement, setAgreement] = useState<AgreementStateType>(signUpState.agreeToTerms);
 
   // NextBtn 비활성화 여부
   const [disableBtn, setDisableBtn] = useState<boolean>(true);
-  const makeYestBtnValue = (name: TermsCheckBoxNameType): ConfirmModalBtnType => {
-    return {
-      //btn 의 text node
-      text: '동의하기',
-      //btn 클릭 시 이동해야 할 페이지의 경로
-      path: null,
-      //btn 클릭 시 이동/창 닫기 외의 필요한 기능
-      otherFn: () => onClickYesBtn(name),
-    };
-  };
-  const makeNoBtnValue = (name: TermsCheckBoxNameType): ConfirmModalBtnType => {
-    return {
-      //btn 의 text node
-      text: '닫기',
-      //btn 클릭 시 이동해야 할 페이지의 경로
-      path: null,
-      //btn 클릭 시 이동/창 닫기 외의 필요한 기능
-      otherFn: null,
-    };
-  };
+  const WHOLE_AGREEMENT_CHECK_BOX_EL = document.querySelector(
+    `#whole-agree`,
+  ) as HTMLInputElement | null;
   const modalForTermsAndCondition: ConfirmModalType = {
     title: '이용약관(필수)',
     contents: 'contents',
@@ -78,6 +60,12 @@ const SignUpTerms = () => {
     yesBtn: makeYestBtnValue('personalInformation'),
     noBtn: makeNoBtnValue('personalInformation'),
   };
+  const modalForAgeCondition: ConfirmModalType = {
+    title: '14세 이상 이용 동의(필수)',
+    contents: 'contents',
+    yesBtn: makeYestBtnValue('personalInformation'),
+    noBtn: makeNoBtnValue('personalInformation'),
+  };
   const modalForMarketing: ConfirmModalType = {
     title: '마케팅 정보 활용 동의(선택)',
     contents: 'contents',
@@ -86,6 +74,26 @@ const SignUpTerms = () => {
   };
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [modalState, setModalState] = useState<ConfirmModalType>(modalForTermsAndCondition);
+  function makeYestBtnValue(name: TermsCheckBoxNameType): ConfirmModalBtnType {
+    return {
+      //btn 의 text node
+      text: '동의하기',
+      //btn 클릭 시 이동해야 할 페이지의 경로
+      path: null,
+      //btn 클릭 시 이동/창 닫기 외의 필요한 기능
+      otherFn: () => onClickYesBtn(name),
+    };
+  }
+  function makeNoBtnValue(name: TermsCheckBoxNameType): ConfirmModalBtnType {
+    return {
+      //btn 의 text node
+      text: '닫기',
+      //btn 클릭 시 이동해야 할 페이지의 경로
+      path: null,
+      //btn 클릭 시 이동/창 닫기 외의 필요한 기능
+      otherFn: null,
+    };
+  }
   const onClickNextBtn = () => {
     setSignUpState((prevState: SignUpStateType) => {
       const newState: SignUpStateType = {
@@ -103,6 +111,7 @@ const SignUpTerms = () => {
       setAgreement({
         termsAndCondition: checked,
         personalInformation: checked,
+        ageCondition: checked,
         marketing: checked,
       });
       const listOfInput = document.querySelectorAll('input');
@@ -156,11 +165,8 @@ const SignUpTerms = () => {
       const name = target.name as TermsCheckBoxNameType;
       const checked = target.checked;
       if (!checked) {
-        const wholeAgreeInput = document.querySelector(
-          `#checkBox-whole-agree`,
-        ) as HTMLInputElement | null;
-        if (wholeAgreeInput !== null && wholeAgreeInput.checked) {
-          wholeAgreeInput.checked = false;
+        if (WHOLE_AGREEMENT_CHECK_BOX_EL !== null && WHOLE_AGREEMENT_CHECK_BOX_EL.checked) {
+          WHOLE_AGREEMENT_CHECK_BOX_EL.checked = false;
         }
       }
       changeAgreement(name, checked);
@@ -175,6 +181,9 @@ const SignUpTerms = () => {
       case 'personalInformation':
         setModalState(modalForPersonalInformation);
         break;
+      case 'ageCondition':
+        setModalState(modalForAgeCondition);
+        break;
       case 'marketing':
         setModalState(modalForMarketing);
         break;
@@ -183,8 +192,34 @@ const SignUpTerms = () => {
     }
   };
   useEffect(() => {
-    if (agreement.termsAndCondition && agreement.personalInformation) {
+    const valueOfTermsAndCondition = signUpState.agreeToTerms.termsAndCondition;
+    const valueOfPersonalInformation = signUpState.agreeToTerms.personalInformation;
+    const valueOfAgeCondition = signUpState.agreeToTerms.ageCondition;
+    const valueOfMarketing = signUpState.agreeToTerms.marketing;
+    const listOfTermsCheckBoxEl = document.querySelectorAll(
+      '.terms-group input',
+    ) as NodeListOf<HTMLInputElement>;
+    if (
+      valueOfTermsAndCondition &&
+      valueOfPersonalInformation &&
+      valueOfAgeCondition &&
+      valueOfMarketing
+    ) {
+      if (WHOLE_AGREEMENT_CHECK_BOX_EL !== null) {
+        WHOLE_AGREEMENT_CHECK_BOX_EL.checked = true;
+      }
+    }
+    listOfTermsCheckBoxEl.forEach(el => {
+      const name = el.name as TermsCheckBoxNameType;
+      el.checked = signUpState.agreeToTerms[`${name}`];
+    });
+  }, []);
+  useEffect(() => {
+    if (agreement.termsAndCondition && agreement.personalInformation && agreement.ageCondition) {
       setDisableBtn(false);
+      if (agreement.marketing && WHOLE_AGREEMENT_CHECK_BOX_EL !== null) {
+        WHOLE_AGREEMENT_CHECK_BOX_EL.checked = true;
+      }
     } else {
       setDisableBtn(true);
     }
@@ -199,8 +234,8 @@ const SignUpTerms = () => {
             <h3>정성스러운 선물을 추천해드려요</h3>
           </div>
           <CheckBox
-            id="checkBox-whole-agree"
-            name="checkBox-whole-agree"
+            id="whole-agree"
+            name="whole-agree"
             label="전체 동의"
             onChange={handleWholeAgree}
           />
@@ -217,6 +252,12 @@ const SignUpTerms = () => {
             label="개인정보 수집 및 이용(필수)"
             onChange={handleCheckBoxOfTerm}
             onClickBtn={() => onClickToShowTerm('personalInformation')}
+          />
+          <SignUpTerm
+            id="ageCondition"
+            label="14세 이상 이용 동의(필수)"
+            onChange={handleCheckBoxOfTerm}
+            onClickBtn={() => onClickToShowTerm('ageCondition')}
           />
           <SignUpTerm
             id="marketing"
