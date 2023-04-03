@@ -1,10 +1,13 @@
 @import './common.scss';
-
 body {
   width: 100vw;
   height: 100vh;
-  overflow-y: hidden;
+  overflow: hidden;
 }
+button {
+  @include clean-btn-style;
+}
+$background-color: rgba(117, 117, 117, 0.4);
 @mixin background {
   position: relative;
   height: 100vh;
@@ -12,22 +15,18 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  background-color: #06060676;
+  background-color: $background-color;
 }
 @mixin modal-box {
   position: relative;
   background-color: $color-white;
-  width: 70vw;
-  min-height: 80px;
-  border-radius: 15px;
+  border-radius: 10px;
   box-sizing: border-box;
+  box-shadow: 0px 0px 14px rgba(166, 166, 166, 0.25);
 }
 @mixin modal-inner {
-  padding: 16px 14px;
-  width: inherit;
-  height: inherit;
-  box-sizing: border-box;
+  padding: 30px 23px;
+  box-sizing: inherit;
 }
 @mixin modal-root {
   z-index: 999;
@@ -39,7 +38,8 @@ body {
   background-color: $color-white;
   border: none;
 }
-#modal-root {
+#modal-root,
+#bottom-nav-modal-root {
   @include modal-root;
   font-size: 16px;
   color: $color-black;
@@ -54,83 +54,139 @@ body {
   }
   .modal__box {
     @include modal-box;
+    width: 283px;
   }
   .modal__inner {
     @include modal-inner;
   }
 }
+// alert-modal의 height는 .contents를 통해 변경
 .alert-modal {
   position: relative;
   .modal__inner {
-    min-height: inherit;
+    position: relative;
+  }
+  .contents {
+    @include bd1-font;
+    width: 100%;
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    &.short {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: calc(163px - 60px);
+    }
+    &.long {
+      height: calc(411px - 60px);
+    }
   }
   .btn-close {
     @include reset-btn-style;
+    @include h3-font;
     position: absolute;
-    right: 12px;
-    top: 12px;
-    height: 20px;
-    svg {
-      font-size: 18px;
-    }
+    bottom: 15px;
+    right: 20px;
+    color: $color-primary;
   }
-  .contents {
-    margin-top: 20px;
-    box-sizing: border-box;
-    width: 100%;
-    height: 100%;
+
+  .center {
     text-align: center;
   }
+  &__text-container {
+    @include bd3-font;
+    h4 {
+      @include bd2-font;
+      font-weight: bold;
+    }
+    .text {
+      overflow-wrap: break-word;
+    }
+  }
 }
+
 .bottom-nav-modal {
   display: none;
+  position: relative;
   &.on {
     display: block;
   }
-  position: absolute;
-  top: 105vh;
-  transition: top 1s;
   .modal__background {
-    position: relative;
+    @include background;
   }
   .modal__box {
     @include modal-box;
-    top: 45vh;
+    position: absolute;
+    top: 105vh;
+    transition: top 1s;
     width: 100vw;
-    height: calc(100vh - 45vh);
+    height: 48vh;
     min-height: initial;
-    background-color: rgb(222, 221, 220);
+    background-color: $color-white;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   }
   .modal__inner {
     width: inherit;
     height: inherit;
-    padding: 32px 16px;
+    padding: 31.4px 22px;
+    padding-bottom: 22px;
     box-sizing: border-box;
   }
   form {
-    width: 100%;
-    height: 100%;
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    width: 100%;
+    height: 100%;
     section {
-      width: 100%;
-      // 100% - (btn-submit.height)
-      height: calc(100% - 32px);
+      height: calc(100% - 48px - 22px);
+      overflow-y: scroll;
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
     .category {
-      display: flex;
-      align-items: center;
-
-      button {
-        background-color: inherit;
-        border: none;
+      position: relative;
+      margin-bottom: 22px;
+      .btn-group {
+        display: flex;
+        align-items: center;
+      }
+      .bar {
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        border-bottom: 1px solid #e7e7e7;
+      }
+      &-btn {
+        @include bd1-font;
+        margin-right: 17px;
+        padding-bottom: 10px;
+        color: $color-light-black;
+        &.on {
+          color: $color-black;
+          border-bottom: 2px solid $color-primary;
+          z-index: 1;
+        }
       }
     }
     .checkbox-group {
-      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(2, 136px);
+      grid-template-rows: repeat(5, 30px);
+      grid-gap: 6px;
+      width: 100%;
       // 100% - category.height - padding.top
       height: calc(100% - 32px - 16px);
       overflow-y: scroll;
@@ -139,29 +195,58 @@ body {
       }
     }
     .check-box {
-      margin-bottom: 16px;
+      &__inner {
+        width: 100%;
+      }
+      .label {
+        @include bd1-font;
+        color: $color-light-black;
+        &.on {
+          color: $color-black;
+        }
+      }
     }
     .btn-submit {
+      @include btn-selected-full-style;
+      @include bd1-font;
+      height: 48px;
       padding: 0;
-      height: 32px;
     }
   }
 }
+// confirm-modal 의 height는 .modal__inner을 통해 조절
 .confirm-modal {
+  .modal__inner {
+    height: 168px;
+  }
   title {
     @include h2-font;
     display: block;
   }
   .contents {
-    padding: 16px 0;
+    @include bd1-font;
+    padding-bottom: 34px;
+    text-align: center;
   }
   .btn-group {
+    position: absolute;
+    bottom: 23px;
+    left: 23px;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    width: calc(100% - 46px);
   }
   button {
-    @include clean-btn-style;
+    @include bd1-font;
+    width: 115px;
+    height: 39px;
+  }
+  .btn-yes {
+    @include btn-selected-border-style;
+    margin-right: 10px;
+  }
+  .btn-no {
+    @include btn-selected-full-style;
   }
 }
 
@@ -169,34 +254,38 @@ body {
   button {
     @include reset-btn-style;
   }
-  .modal__box {
-    width: 100vw;
-    background-color: $color-white;
+  h2 {
+    @include h2-font;
   }
-  .topbar {
+  .modal__background {
+    @include background;
+  }
+  .modal__box {
+    position: relative;
+    width: calc(100vw - 40px);
+    height: calc(100vh - 200px);
+    background-color: $color-white;
+    border-radius: 10px;
+  }
+  .btn-close {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 16px;
-    box-sizing: border-box;
-    font-size: 20px;
-    position: relative;
-    button {
-      position: absolute;
-      top: 16px;
-      left: 32px;
-    }
-    svg {
-      font-size: 20px;
-    }
-  }
-  .container {
-    overflow-y: scroll;
-    height: calc(100vh - 52px);
+    position: absolute;
+    top: 10px;
+    right: 16px;
+    width: 18px;
+    height: 18px;
+    background-color: #eeee;
+    color: $color-dark-gray;
+    border-radius: 50%;
+    font-size: 12px;
   }
   .product-img {
     width: 100%;
-    aspect-ratio: 1/1;
+    height: calc(100vw * (2 / 3));
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
   }
   .not-img {
     position: relative;
@@ -205,12 +294,6 @@ body {
   .store {
     padding: 16px;
     padding-bottom: 0;
-  }
-  .product-inform {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    box-sizing: border-box;
   }
   .product-inform {
     box-sizing: border-box;
@@ -222,88 +305,129 @@ body {
       padding-bottom: 16px;
     }
   }
-  .product-name {
-    font-size: 20px;
-    font-weight: bold;
+  .product-name,
+  .product-introduction {
+    margin-bottom: 3px;
   }
   .btn-save {
     position: absolute;
-    top: -20px;
-    right: 40px;
-    font-size: 40px;
-    width: 40px;
-    height: 40px;
+    top: 0px;
+    right: 4.4px;
+    font-size: 16px;
+    width: 16px;
+    height: 18px;
     padding: 0;
     background-color: #06060600;
-    color: $color-light-gray;
+    color: $color-light-black;
     &.on {
       color: $color-primary;
     }
   }
   .product-introduction {
     span {
+      @include bd2-font;
       display: inline-block;
       width: 100%;
       line-height: 18px;
     }
   }
-  .tag {
+  .product-price {
+    margin-bottom: 8px;
     span {
-      padding-right: 32px;
+      @include sofia-h2-font;
     }
   }
-  h3 {
-    font-size: 18px;
-    font-weight: bold;
-    padding-bottom: 16px;
+  .tag-group {
+    display: flex;
+    width: 100%;
+  }
+  .tag {
+    padding: 1.5px 11px;
+    margin-right: 10px;
+    background-color: $color-light;
+    color: $color-primary;
+    border: 0.8px solid #ff6b8f;
+    border-radius: 30px;
+    span {
+      @include bd2-font;
+    }
+  }
+  .division {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: calc(50% - 8px);
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+    }
+    &::before {
+      left: 0;
+      border-left: 8px solid $background-color;
+      border-right: 8px solid transparent;
+    }
+    &::after {
+      right: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid $background-color;
+    }
+    .bar {
+      width: calc(100% - 36px);
+      border-bottom: 1px dashed $color-dark-gray;
+    }
+  }
+  .store {
+    h2 {
+      margin-bottom: 11px;
+    }
   }
   .site {
-    width: 80vw;
-    padding-bottom: 18px;
     display: flex;
     justify-content: space-between;
+    padding-bottom: 9px;
     a:link,
     a:active,
     a:visited {
       text-decoration: none;
-      color: black;
+    }
+    &__name {
+      @include bd1-font;
+    }
+    a {
+      svg {
+        color: $color-dark-gray;
+      }
     }
   }
   .site a:hover,
-  .stie__link.hover {
-    font-weight: bolder;
-  }
-  .offline-store {
-    padding-top: 16px;
-    padding-bottom: 24px;
+  .site__link.hover {
+    svg {
+      color: $color-primary;
+    }
   }
 }
 
 .toast-modal {
   position: absolute;
   .modal__box {
-    background-color: #fcedba;
-    border-radius: 10px;
-    min-height: 65px;
+    background-color: $color-light;
+    border-radius: 6px;
+    height: 39px;
     width: 200px;
+    color: $color-primary;
   }
   .modal__inner {
-    @include modal-inner;
-    min-height: inherit;
-    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
-    font-weight: 800;
+    height: 100%;
+    width: 100%;
   }
-}
-
-@media screen and (max-width: 320px) {
-  .full-scre-modal {
-    .product-inform {
-      // 높이 :100vh - product-image height - .topbar height - a(사용자가 구매자 정보가 있는지 인지할 수 있을 정보)
-      height: calc(100vh - 100vw - 52px - 32px);
-    }
+  .contents {
+    @include navigation-font;
   }
 }

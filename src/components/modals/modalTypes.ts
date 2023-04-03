@@ -57,7 +57,6 @@ export type FullScreModalType = {
   price: number;
   store: {
     online: OnlineStoreType[];
-    offline: string | null;
   };
   introduction: string;
   //기획팀이 상품데이터 전달 때 같이 전달할 예정

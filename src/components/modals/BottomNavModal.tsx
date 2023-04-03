@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import BottomNavModalPortal from './BottomNavModalPortal';
 import { ConditionType, FilteringConditionType } from './modalTypes';
 
@@ -80,6 +80,25 @@ const BottomNavModal = ({
   ];
   const BOTTOM_MODAL_El = document.querySelector('.bottom-nav-modal') as HTMLElement | null;
   const modalBackgroundEl = document.querySelector('.bottom-nav-modal .modal__background');
+  const modalBoxEl = BOTTOM_MODAL_El?.querySelector('.modal__box') as
+    | HTMLElement
+    | null
+    | undefined;
+  const changeLabelClass = (el: HTMLInputElement) => {
+    const parentEl = el.parentElement;
+    const targetLabelEl = parentEl?.lastElementChild;
+    if (targetLabelEl !== null && targetLabelEl !== undefined) {
+      if (el.checked) {
+        targetLabelEl.classList.add('on');
+      } else {
+        targetLabelEl.classList.remove('on');
+      }
+    }
+  };
+  const onChangeCheckBox = (event: ChangeEvent<HTMLInputElement>) => {
+    const target = event.currentTarget;
+    changeLabelClass(target);
+  };
   /**
    * A function that detects changes in checkboxes , updates the state of filteringCondition , return it, and if the value of recovery is true, changes the checked attribute of checkboxes that are currently checked to false
    * @param recovery
@@ -100,6 +119,7 @@ const BottomNavModal = ({
       // checked를 풀지 않으면 카테고리 이동시, 해당 카테고리에서 선택되지 않은 box가 선택되는 오류 일어남
       selectedList.forEach(el => {
         el.checked = false;
+        changeLabelClass(el);
       });
     }
     setFilteringCondition(newFilteringCondition);
@@ -126,21 +146,22 @@ const BottomNavModal = ({
   const closeBottomNavModal = (event: Event) => {
     const target = event.target as HTMLElement | null;
     if (!target?.closest('.modal__box') && BOTTOM_MODAL_El !== null) {
-      BOTTOM_MODAL_El.style.top = ' 105vh';
+      if (modalBoxEl !== null && modalBoxEl !== undefined) {
+        modalBoxEl.style.top = '105vh';
+      }
       setTimeout(() => {
         closeModal();
-      }, 1010);
+      }, 1000);
     }
   };
   useEffect(() => {
     if (openBottomNavModal) {
       BOTTOM_MODAL_El?.classList.add('on');
       setTimeout(() => {
-        if (BOTTOM_MODAL_El !== null) {
-          // top의 값: 추후에 bottomNavModal 디자인이 완성되면 수정
-          BOTTOM_MODAL_El.style.top = '0';
+        if (modalBoxEl !== null && modalBoxEl !== undefined) {
+          modalBoxEl.style.top = `52vh`;
         }
-      }, 200);
+      }, 50);
       modalBackgroundEl?.addEventListener('click', event => closeBottomNavModal(event));
     } else {
       BOTTOM_MODAL_El?.classList.remove('on');
@@ -163,6 +184,7 @@ const BottomNavModal = ({
       checkBoxEl.forEach(el => {
         if (targetCondition.includes(el.name)) {
           el.checked = true;
+          changeLabelClass(el);
         }
       });
     }
@@ -173,16 +195,19 @@ const BottomNavModal = ({
       <form>
         <section>
           <div className="category">
-            {categoryArr.map((v, i) => (
-              <button
-                key={`categoryBtn_${i}`}
-                type="button"
-                className="category-btn"
-                onClick={() => category !== v && onClickCategoryBtn(v, i)}
-              >
-                {categoryBtnTextArr[i]}
-              </button>
-            ))}
+            <div className="btn-group">
+              {categoryArr.map((v, i) => (
+                <button
+                  key={`categoryBtn_${i}`}
+                  type="button"
+                  className={`category-btn ${category === v ? 'on' : ''}`}
+                  onClick={() => category !== v && onClickCategoryBtn(v, i)}
+                >
+                  {categoryBtnTextArr[i]}
+                </button>
+              ))}
+            </div>
+            <div className="bar"></div>
           </div>
           <div className="checkbox-group">
             {checkBoxArr.map((v, i) => (
@@ -191,7 +216,7 @@ const BottomNavModal = ({
                 id={v.name}
                 name={v.name}
                 label={v.label}
-                onChange={null}
+                onChange={event => onChangeCheckBox(event)}
               />
             ))}
           </div>
