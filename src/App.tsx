@@ -1,12 +1,11 @@
 import { Route, Routes } from 'react-router-dom';
 import First from './pages/First';
-import Second from './pages/Second';
+import Curation from './pages/Curation/index';
 import Third from './pages/Third';
 import Fourth from './pages/Fourth';
 import Button from './pages/Button';
 import Main from './pages/Main';
 import ModalTest from './components/modals/ModalTest';
-import Button from './pages/Button';
 import './assets/main.scss';
 function App() {
   return (
@@ -14,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/first" element={<First />} />
-        <Route path="/second" element={<Second />} />
+        <Route path="/curation" element={<Curation />} />
         <Route path="/third" element={<Third />} />
         <Route path="/fourth" element={<Fourth />} />
         {/* modal 테스트를 위해 route 추가 , 추후 삭제 예정*/}
