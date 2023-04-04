@@ -1,8 +1,9 @@
 import React, { MouseEvent, TouchEvent, useEffect, useRef, useState } from 'react';
-import ModalPortal from './ModalPortal';
-import { FullScreModalType } from './modalTypes';
+import ModalPortal from '../ModalPortal';
+import { FullScreModalType } from '../modalTypes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faBookmark, faXmark } from '@fortawesome/free-solid-svg-icons';
+import './style.scss';
 type FullScreModalProps = {
   modalState: FullScreModalType;
   closeModal: () => void;
