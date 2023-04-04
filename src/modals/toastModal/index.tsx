@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import ModalPortal from './ModalPortal';
-import { ToastModalType } from './modalTypes';
-
+import ModalPortal from '../ModalPortal';
+import { ToastModalType } from '../modalTypes';
+import './style.scss';
 type ToastModalProps = {
   modalState: ToastModalType;
   closeModal: () => void;

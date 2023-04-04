@@ -2,7 +2,7 @@ import { faEye } from '@fortawesome/free-regular-svg-icons';
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { Dispatch, SetStateAction } from 'react';
-import '../assets/btnShowPw.scss';
+import './style.scss';
 type BtnShowPwProps = {
   showPw: boolean;
   setShowPw: Dispatch<SetStateAction<boolean>>;

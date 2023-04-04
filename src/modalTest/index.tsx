@@ -1,18 +1,17 @@
-import React, { useState, useEffect, ReactNode } from 'react';
-import AlertModal from './AlertModal';
-import '../../assets/modal.scss';
-import ConfirmModal from './ConfirmModal';
-import BottomNavModal from './BottomNavModal';
+import React, { useState, useEffect } from 'react';
+import AlertModal from '../modals/alertModal';
+import ConfirmModal from '../modals/confirmModal';
+import BottomNavModal from '../modals/bottomModal';
 import {
   ConfirmModalType,
   FilteringConditionType,
   FullScreModalType,
   ToastModalType,
-} from './modalTypes';
-import ToastModal from './ToastModal';
-import '../../assets/modalTest.scss';
-import FullScreModal from './FullScreModal';
-import product_sampleImg from '../../assets/product_sample.jpg';
+} from '../modals/modalTypes';
+import ToastModal from '../modals/toastModal';
+import FullScreModal from '../modals/fullModal';
+import product_sampleImg from './product_sample.jpg';
+import './style.scss';
 
 /**
  * 모달 창 기능을 보기 위한 코드로 , 실제 사용에는 필요 없습니다. 추후 삭제 예정
