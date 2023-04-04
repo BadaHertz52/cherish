@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import ModalPortal from './ModalPortal';
-import { ConfirmModalType } from './modalTypes';
-
+import ModalPortal from '../ModalPortal';
+import { ConfirmModalType } from '../modalTypes';
+import './style.scss';
 type ConfirmModalProps = {
   modalState: ConfirmModalType;
   closeModal: () => void;

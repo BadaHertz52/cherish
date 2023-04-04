@@ -1,8 +1,9 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import BottomNavModalPortal from './BottomNavModalPortal';
-import { ConditionType, FilteringConditionType } from './modalTypes';
+import BottomNavModalPortal from './ModalPortal';
+import { ConditionType, FilteringConditionType } from '../modalTypes';
+import CheckBox from '../../checkbox';
+import './style.scss';
 
-import CheckBox from '../CheckBox';
 const category = {
   productType: 'productType',
   gender: 'gender',
@@ -15,9 +16,6 @@ type CheckBoxType = {
   label: string;
 };
 
-type CheckBoxProps = {
-  item: CheckBoxType;
-};
 // CheckBoxType 의 name은 추후 필터링 조건명에 따라 수정
 const productTypeCheckBoxArr: CheckBoxType[] = [
   { name: 'food', label: '식품' },

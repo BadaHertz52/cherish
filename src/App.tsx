@@ -5,8 +5,8 @@ import Third from './pages/Third';
 import Fourth from './pages/Fourth';
 import Button from './pages/Button';
 import Main from './pages/Main';
-import ModalTest from './components/modals/ModalTest';
-import LogIn from './pages/LogIn';
+import ModalTest from './modalTest';
+import LogIn from './logIn';
 import './assets/main.scss';
 function App() {
   return (

@@ -2,9 +2,9 @@ import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ChangeEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import '../assets/logIn.scss';
-import BtnShowPw from '../components/BtnShowPw';
-import CheckBox from '../components/CheckBox';
+import './style.scss';
+import BtnShowPw from '../btnShowPw';
+import CheckBox from '../checkbox';
 
 export const XSSCheck = (str: string, level: undefined | number) => {
   if (level == undefined || level == 0) {
