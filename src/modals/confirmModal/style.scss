@@ -9,7 +9,7 @@
   }
   .modal__inner {
     @include modal-inner;
-    height: 168px;
+    min-height: calc(100vw * 0.77 * 0.58);
   }
   // confirm-modal 의 height는 .modal__inner을 통해 조절
   title {
@@ -27,11 +27,14 @@
     left: 23px;
     display: flex;
     align-items: center;
-    width: calc(100% - 46px);
+    justify-content: space-between;
+    //100% - padding.left -padding.right
+    width: calc(100% - 42px);
   }
   button {
     @include bd1-font;
-    width: 115px;
+    //100& - 버튼 간격
+    width: calc((100% - 4%) / 2);
     height: 39px;
   }
   .btn-yes {

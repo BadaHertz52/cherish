@@ -17,7 +17,7 @@ $background-color: rgba(117, 117, 117, 0.4);
   box-shadow: 0px 0px 14px rgba(166, 166, 166, 0.25);
 }
 @mixin modal-inner {
-  padding: 30px 23px;
+  padding: 23px;
   box-sizing: inherit;
 }
 @mixin modal-root {

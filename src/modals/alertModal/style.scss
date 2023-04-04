@@ -5,14 +5,12 @@
     @include background;
   }
   .modal__inner {
+    @include modal-inner;
     position: relative;
   }
   .modal__box {
     @include modal-box;
-    width: 283px;
-  }
-  .modal__inner {
-    @include modal-inner;
+    width: calc(100vw * 0.77);
   }
   // alert-modal의 height는 .contents를 통해 변경
   .contents {
@@ -28,10 +26,10 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      height: calc(163px - 60px);
+      height: calc(100vw * 0.77 * 0.58 - 60px);
     }
     &.long {
-      height: calc(411px - 60px);
+      height: calc(50vh - 60px);
     }
   }
   .btn-close {

@@ -6,7 +6,7 @@
     background-color: $color-light;
     border-radius: 6px;
     height: 39px;
-    width: 200px;
+    width: calc(100vw * 0.6);
     color: $color-primary;
   }
   .modal__inner {
