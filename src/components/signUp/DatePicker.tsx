@@ -1,71 +1,93 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Dispatch, SetStateAction } from 'react';
 import Picker from 'react-mobile-picker';
-
-const DatePicker = () => {
-  const getArr = (startNumber: number, lastNumber: number) => {
-    let arr = [];
-    for (let i = startNumber; i <= lastNumber; i++) {
-      arr.push(i.toString());
-    }
-    return arr;
-  };
-  const getDateArr = (year: string, month: string) => {
-    const lastDate = new Date(Number(year), Number(month), 0).getDate();
-    return getArr(1, lastDate);
-  };
-
-  const yearArr = getArr(1920, 2010);
-  const monthArr = getArr(1, 12);
-  const initialDayArr = getDateArr('1', '31');
-  const [year, setYear] = useState<string>('2010');
-  const [month, setMonth] = useState<string>('1');
+import { BirthDateType, BirthStateType } from './signUpTypes';
+import { StringMatching } from '@vitest/expect';
+type DatePickerProps = {
+  birth: BirthStateType;
+  setBirth: Dispatch<SetStateAction<BirthStateType>>;
+};
+const DatePicker = ({ birth, setBirth }: DatePickerProps) => {
+  const arrYear = getArr(1920, 2010);
+  const arrMonth = getArr(1, 12);
+  const arrDateThirtyOne = getDateArr('1', '31');
+  const arrDateThirty = getDateArr('1', '30');
   type OptionGroupType = {
     year: string[];
     month: string[];
     date: string[];
   };
   const [optionGroups, setOptionGroups] = useState<OptionGroupType>({
-    year: yearArr,
-    month: monthArr,
-    date: initialDayArr,
+    year: arrYear,
+    month: arrMonth,
+    date: arrDateThirtyOne,
   });
-  const changeOptionGroups = (year: string, month: string) => {
-    console.log(year, month);
-    setOptionGroups(prev => ({
-      ...prev,
-      date: getDateArr(year, month),
-    }));
-  };
-  const initialValueGroups = {
+
+  const initialData: BirthDateType = {
     year: '2010',
     month: '1',
     date: '1',
   };
-  const [value, setValue] = useState(initialValueGroups);
+  const [birthDate, setBirthDate] = useState<BirthDateType>(
+    birth.value !== null ? birth.value : initialData,
+  );
+  function getArr(startNumber: number, lastNumber: number) {
+    let arr = [];
+    for (let i = startNumber; i <= lastNumber; i++) {
+      arr.push(i.toString());
+    }
+    return arr;
+  }
+  function getDateArr(year: string, month: string) {
+    const lastDate = new Date(Number(year), Number(month), 0).getDate();
+    return getArr(1, lastDate);
+  }
+  const changeOptionGroups = (year: string, month: string) => {
+    const thirtyTarget = ['4', '6', '9', '11'];
+    setOptionGroups(prev => ({
+      ...prev,
+      date:
+        month === '2'
+          ? getDateArr(year, month)
+          : thirtyTarget.includes(month)
+          ? arrDateThirty
+          : arrDateThirtyOne,
+    }));
+  };
+  const changeBirth = (target: string, value: string) => {
+    setBirthDate(prev => ({
+      ...prev,
+      [`${target}`]: value,
+    }));
+    setBirth({
+      value: {
+        ...birthDate,
+        [`${target}`]: value,
+      },
+      errorMsg: null,
+    });
+  };
   const onChange = (name: string, value: string) => {
     switch (name) {
       case 'year':
-        setYear(value);
-        changeOptionGroups(value, month);
-        setValue(prev => ({
-          ...prev,
-          year: value,
-        }));
+        changeOptionGroups(value, birthDate.month);
         break;
       case 'month':
-        setMonth(value);
-        changeOptionGroups(year, value);
-        setValue(prev => ({
-          ...prev,
-          month: value,
-        }));
+        changeOptionGroups(birthDate.year, value);
+        break;
       default:
         break;
     }
+    changeBirth(name, value);
   };
+  useEffect(() => {
+    setBirth({
+      value: initialData,
+      errorMsg: null,
+    });
+  }, []);
   return (
     <div id="date-picker">
-      <Picker valueGroups={value} optionGroups={optionGroups} onChange={onChange} />
+      <Picker valueGroups={birthDate} optionGroups={optionGroups} onChange={onChange} />
     </div>
   );
 };

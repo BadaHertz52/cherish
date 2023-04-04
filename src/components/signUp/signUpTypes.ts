@@ -94,7 +94,7 @@ export type SignUpStateType = {
   email: string | null;
   pw: string | null;
   gender: GenderType | null;
-  birth: { year: number; month: number; date: number } | null;
+  birth: { year: string; month: string; date: string } | null;
   job: JobType | null;
 };
 const errorType = {
@@ -129,11 +129,12 @@ export type GenderStateType = {
   value: GenderType | null;
   errorMsg: string | null;
 };
+export type BirthDateType = {
+  year: string;
+  month: string;
+  date: string;
+};
 export type BirthStateType = {
-  value: {
-    year: number;
-    month: number;
-    date: number;
-  } | null;
+  value: BirthDateType | null;
   errorMsg: string | null;
 };

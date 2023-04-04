@@ -28,7 +28,7 @@ const GenderAndBirth = () => {
     value: null,
     errorMsg: ERROR_MSG.required,
   });
-  const [openDatePicker, setOpenDatePicker] = useState<boolean>(true);
+  const [openDatePicker, setOpenDatePicker] = useState<boolean>(false);
   const onClickNextBtn = () => {
     if (gender.value !== null && birth.value !== null) {
       setSignUpState((prev: SignUpStateType) => {
@@ -125,7 +125,7 @@ const GenderAndBirth = () => {
             </div>
             <FontAwesomeIcon icon={openDatePicker ? faSortUp : faSortDown} />
           </button>
-          {openDatePicker && <DatePicker />}
+          {openDatePicker && <DatePicker birth={birth} setBirth={setBirth} />}
           <div className="msg">{birth.value === null && ERROR_MSG.required}</div>
         </section>
       </StepInner>
