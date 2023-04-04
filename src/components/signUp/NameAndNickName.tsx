@@ -23,8 +23,8 @@ const NameAndNickName = () => {
   };
   useEffect(() => {
     // sessionStorage
-    getPrevData('name', setName, null, null, false);
-    getPrevData('nickName', setNickName, null, null, true);
+    getPrevData('name', setName, null, null);
+    getPrevData('nickName', setNickName, null, null);
     if (signUpState.name !== null && signUpState.nickname !== null) {
       setName({
         value: signUpState.name,

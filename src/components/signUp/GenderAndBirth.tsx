@@ -65,7 +65,7 @@ const GenderAndBirth = () => {
     setOpenDatePicker(false);
   };
   useEffect(() => {
-    getPrevData('gender', null, setGender, null, false);
+    getPrevData('gender', null, setGender, null);
     if (signUpState.gender) {
       setGender({
         value: signUpState.gender,

@@ -44,7 +44,7 @@ const JobInfo = () => {
     // 간편 가입 성공 시 1.1 로 이동
   };
   useEffect(() => {
-    getPrevData('job', setJob, null, null, true);
+    getPrevData('job', setJob, null, null);
   }, []);
   useEffect(() => {
     if (job.value !== '') {

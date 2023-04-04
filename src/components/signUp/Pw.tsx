@@ -41,8 +41,8 @@ const Pw = () => {
   }, [pw, confirmPw]);
   //sessiongStorage, signUpState 내용 가져오기
   useEffect(() => {
-    getPrevData('pw', setPw, null, null, false);
-    getPrevData('confirmPw', setConfirmPw, null, null, true);
+    getPrevData('pw', setPw, null, null);
+    getPrevData('confirmPw', setConfirmPw, null, null);
   }, []);
   return (
     <div id="pw">

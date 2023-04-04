@@ -23,7 +23,6 @@ export const getPrevData = (
   setInputDataState: Dispatch<SetStateAction<InputDataType>> | null,
   setGenderState: Dispatch<SetStateAction<GenderStateType>> | null,
   setBirthState: Dispatch<SetStateAction<BirthStateType>> | null,
-  removeItem: boolean,
 ) => {
   const item = sessionStorage.getItem('signUpBackUpData');
   if (item !== null) {
@@ -44,9 +43,6 @@ export const getPrevData = (
       }
       if (setBirthState !== null) {
       }
-      if (removeItem) {
-        console.log('remove');
-        sessionStorage.removeItem('signUpBackUpData');
       }
     }
   }
