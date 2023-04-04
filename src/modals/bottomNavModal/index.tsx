@@ -181,7 +181,7 @@ const BottomNavModal = ({
       changeLabelClass(el);
     });
   };
-  const onTouchMoveOnResetBtn = (event: TouchEvent<HTMLElement>) => {
+  const onTouchResetBtn = (event: TouchEvent<HTMLElement>) => {
     const target = event.currentTarget;
     target.classList.toggle('on');
   };
@@ -231,7 +231,8 @@ const BottomNavModal = ({
               className="btn-reset"
               title={'reset checkbox'}
               onClick={onClickResetBtn}
-              onTouchMove={event => onTouchMoveOnResetBtn(event)}
+              onTouchStart={event => onTouchResetBtn(event)}
+              onTouchEnd={event => onTouchResetBtn(event)}
             >
               <FontAwesomeIcon icon={faRotateRight} />
               <span>초기화</span>
