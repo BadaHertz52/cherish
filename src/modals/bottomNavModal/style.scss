@@ -17,7 +17,7 @@
     top: 105vh;
     transition: top 1s;
     width: 100vw;
-    height: 48vh;
+    height: 46vh;
     min-height: initial;
     background-color: $color-white;
     border-bottom-left-radius: 0;
@@ -27,12 +27,11 @@
     position: relative;
     width: inherit;
     height: inherit;
-    padding: 31.4px 22px;
-    padding-bottom: 22px;
+    padding: calc(100vh * 0.045) calc(100vw * 0.07);
     box-sizing: border-box;
 
     section {
-      height: calc(100% - 64px);
+      height: calc(100% - 64px - 48px);
       overflow-y: scroll;
       -ms-overflow-style: none; /* IE and Edge */
       scrollbar-width: none; /* Firefox */
@@ -66,10 +65,24 @@
           z-index: 1;
         }
       }
+      .btn-reset {
+        @include bd1-font;
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: $color-dark-gray;
+        span {
+          margin-left: 11px;
+        }
+        &:hover,
+        &.on {
+          color: $color-primary;
+        }
+      }
     }
     .checkbox-group {
       display: grid;
-      grid-template-columns: repeat(2, 136px);
+      grid-template-columns: repeat(2, 50%);
       grid-template-rows: repeat(5, 30px);
       grid-gap: 6px;
       width: 100%;
