@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react';
-import '../assets/checkbox.scss';
+import './style.scss';
 type CheckBoxProps = {
   id: string;
   name: string;
