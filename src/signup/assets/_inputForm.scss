@@ -1,0 +1,22 @@
+@import '../../common.scss';
+.input-form {
+  @include bd1-font;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  label,
+  input {
+    margin-bottom: 14px;
+  }
+  label {
+    @include bd1-font;
+  }
+  .error-msg {
+    margin-bottom: 14px;
+    color: $color-error;
+    &.email {
+      color: $color-light-black;
+    }
+  }
+}

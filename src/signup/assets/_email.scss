@@ -1,0 +1,66 @@
+@import '../../common.scss';
+#email {
+  .email-from,
+  .authNumber-form,
+  #inputForm-email {
+    width: 100%;
+  }
+  .alert {
+    @include bd2-font;
+    color: $color-light-black;
+  }
+  .email-from {
+    .alert {
+      margin-bottom: 14px;
+    }
+  }
+  .authNumber-form {
+    .alert {
+      margin-top: 14px;
+    }
+  }
+  .btn-email {
+    width: 100%;
+    height: 48px;
+    margin-bottom: 14px;
+  }
+  .authNumber-form {
+    @include bd1-font;
+    &__contents {
+      position: relative;
+      display: flex;
+      height: 48px;
+      input {
+        width: 70%;
+      }
+      .btn-authNumber {
+        width: 30%;
+        height: 100%;
+        margin-left: 10px;
+        margin-right: 5px;
+      }
+      #timer {
+        position: absolute;
+        top: 0;
+        left: calc(70% - 48px);
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        @include h2-font;
+        color: $color-light-black;
+      }
+    }
+    label {
+      display: block;
+      margin-bottom: 14px;
+    }
+    .msg {
+      @include bd2-font;
+      color: $color-error;
+      p {
+        margin-top: 8px;
+      }
+    }
+  }
+}
