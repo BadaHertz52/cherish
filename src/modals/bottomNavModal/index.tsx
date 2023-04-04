@@ -161,7 +161,27 @@ const BottomNavModal = ({
   };
   const onClickResetBtn = () => {
     setFilteringCondition(selectedFilteringCondition);
+    setTargetCondition(selectedFilteringCondition[`${category}`]);
+    changeChecked();
   };
+  /**
+   * targetCondition의 변화에 따라, checkBox의 checked와 label의 class를 변경
+   */
+  const changeChecked = () => {
+    listOfCheckBox.forEach(el => {
+      if (targetCondition !== null) {
+        if (targetCondition.includes(el.name as ConditionName)) {
+          el.checked = true;
+        } else {
+          el.checked = false;
+        }
+      } else {
+        el.checked = false;
+      }
+      changeLabelClass(el);
+    });
+  };
+
   useEffect(() => {
     if (openBottomNavModal) {
       BOTTOM_MODAL_El?.classList.add('on');
@@ -185,17 +205,9 @@ const BottomNavModal = ({
   }, [category, filteringCondition]);
 
   useEffect(() => {
-    if (targetCondition !== null) {
-      // targetCondition 의 값을 이용해, 사용자가 이미 선택한 필터링 조건인 경우 checked 표시함
-      listOfCheckBox.forEach(el => {
-        if (targetCondition.includes(el.name as ConditionName)) {
-          el.checked = true;
-          changeLabelClass(el);
-        }
-      });
-    }
+    // targetCondition 의 값을 이용해, 사용자가 이미 선택한 필터링 조건인 경우 checked 표시함
+    changeChecked();
   }, [targetCondition]);
-
   return (
     <BottomNavModalPortal>
       <section>
