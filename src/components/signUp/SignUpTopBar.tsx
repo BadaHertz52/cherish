@@ -42,7 +42,15 @@ export const getPrevData = (
         });
       }
       if (setBirthState !== null) {
-      }
+        const arr = prevState.value.split('/');
+        setBirthState({
+          value: {
+            year: arr[0],
+            month: arr[1],
+            date: arr[2],
+          },
+          errorMsg: null,
+        });
       }
     }
   }
@@ -73,6 +81,32 @@ const SignUpTopBar = () => {
       }
     }
     if (signUpState.progress === 'genderAndBirth') {
+      let backUpData: SessionDataType[] = [];
+      //gender
+      const targetBtnEl = document.querySelector('.btn-gender.on') as HTMLButtonElement | null;
+      if (targetBtnEl !== null) {
+        backUpData.push({
+          key: 'gender',
+          value: targetBtnEl.name,
+        });
+      }
+      //birth
+      const btnOpenDatePickerEl = document.querySelector('.btn-open-date-picker');
+      const birthDataEl = btnOpenDatePickerEl?.firstElementChild;
+      if (
+        !btnOpenDatePickerEl?.classList.contains('none-data') &&
+        birthDataEl !== null &&
+        birthDataEl !== undefined
+      ) {
+        backUpData.push({
+          key: 'birth',
+          value: birthDataEl.textContent as string,
+        });
+      }
+      // save
+      if (backUpData[0] !== undefined) {
+        setItem(backUpData);
+      }
     }
     if (signUpState.progress === 'job') {
       const listOfCheckBoxEl = document.querySelectorAll(

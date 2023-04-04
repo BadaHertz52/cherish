@@ -53,19 +53,9 @@ const GenderAndBirth = () => {
   const onClickBirthBtn = () => {
     setOpenDatePicker((prev: boolean) => !prev);
   };
-  const onSelectDatePicker = (data: Date) => {
-    setBirth({
-      value: {
-        year: data.getFullYear(),
-        month: data.getMonth() + 1,
-        date: data.getDate(),
-      },
-      errorMsg: null,
-    });
-    setOpenDatePicker(false);
-  };
   useEffect(() => {
     getPrevData('gender', null, setGender, null);
+    getPrevData('birth', null, null, setBirth);
     if (signUpState.gender) {
       setGender({
         value: signUpState.gender,
@@ -114,7 +104,7 @@ const GenderAndBirth = () => {
         <section className="birth">
           <h4>생년월일</h4>
           <button
-            className={`btn-open-modal-birth ${birth.value === null ? 'none-data' : ''}`}
+            className={`btn-open-date-picker ${birth.value === null ? 'none-data' : ''}`}
             type="button"
             onClick={onClickBirthBtn}
           >
