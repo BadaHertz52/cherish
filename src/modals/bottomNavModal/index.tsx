@@ -59,7 +59,7 @@ const situationCheckBoxArr: CheckBoxType[] = [
 type BottomNavModalProps = {
   selectedFilteringCondition: FilteringConditionType;
   openBottomNavModal: boolean;
-  sendData: (filteringCondition: FilteringConditionType) => {};
+  sendData: (filteringCondition: FilteringConditionType) => void;
   closeModal: () => void;
 };
 const BottomNavModal = ({
