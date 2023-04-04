@@ -1,10 +1,12 @@
-@import './common.scss';
+@import '../common.scss';
 
 #log-in {
   width: 100vw;
+  //100vh - bottomNav.height
   height: calc(100vh - 94px);
   display: flex;
   align-items: center;
+  justify-content: center;
   a {
     @include clean-a-style;
   }
@@ -12,10 +14,7 @@
     @include clean-btn-style;
   }
   .inner {
-    padding-left: 21px;
-    padding-right: 21px;
-    box-sizing: border-box;
-    width: 100%;
+    width: 88vw;
   }
   .logo {
     @include sofia-h1-font;
@@ -34,10 +33,16 @@
     margin-top: 34px;
   }
   .log-in__data__email,
+  .log-in__data__pw,
+  .btn-log-in,
+  .btn-sign-up,
+  .error-msg {
+    height: 6vh;
+  }
+  .log-in__data__email,
   .log-in__data__pw {
     position: relative;
-    height: 40px;
-    margin-bottom: 16px;
+    margin-bottom: 2vh;
     input {
       @include bd1-font;
       width: 100%;
@@ -49,10 +54,10 @@
       border-radius: 5px;
     }
     button {
-      width: 18px;
-      height: 18px;
+      width: calc(6vh * 0.3);
+      height: calc(6vh * 0.3);
       position: absolute;
-      top: calc((100% - 18px) / 2);
+      top: calc((100% - (6vh * 0.3)) / 2);
       right: 15px;
     }
   }
@@ -85,19 +90,20 @@
       width: 16px;
     }
   }
-  .log-in__util__find {
-    a {
-      @include bd2-font;
-      color: $color-light-black;
+  .link-find-pw {
+    @include bd2-font;
+    color: $color-light-black;
+    &:hover,
+    &.on {
+      color: $color-primary;
     }
   }
-  //btn -log-in , btn -singup
+
+  //btn -log-in , btn -sign-up
   .btn-log-in,
   .btn-sign-up {
-    @include clean-a-style;
     @include h2-font;
     width: 100%;
-    padding: 14px 20px 10px;
     border-radius: 5px;
   }
   .btn-log-in {
@@ -117,7 +123,6 @@
   }
   .error-msg {
     width: 100%;
-    height: 70px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -126,7 +131,10 @@
     }
   }
   .banner {
-    padding: 14px;
+    height: 5.5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-top: 30px;
     background-color: #fff3f6;
     border-radius: 6px;

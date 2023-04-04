@@ -1,5 +1,3 @@
-import { ReactNode } from 'react';
-
 /**
  * confirm modal의 yes/no 버튼 type
  */
@@ -27,7 +25,35 @@ export type ToastModalType = ModalCommonType & {
   top: string; // unit: px
   left: string;
 };
-export type ConditionType = string[] | null;
+const conditionName = {
+  food: 'food',
+  beauty: 'beauty',
+  living: 'living',
+  digital: 'digital',
+  productEtc: 'productEtc',
+  male: 'male',
+  female: 'female',
+  irrelevant: 'irrelevant', //무관
+  profession: 'profession',
+  management: 'management',
+  desk: 'desk',
+  service: 'service',
+  blueCollar: 'blueCollar',
+  selfEmployment: 'selfEmployment',
+  student: 'student',
+  homemaker: 'homemaker',
+  outOfWork: ' outOfWork', //무직
+  jobEtc: 'jobEtc',
+  birthday: 'birthday',
+  moveHousewarming: 'moveHousewarming',
+  admissionAndGraduation: 'admissionAndGraduation',
+  leave: 'leave',
+  employmentAndJobChange: 'employmentAndJobChange',
+  discharge: 'discharge', //전역
+  getWellVisit: 'getWellVisit', //병문안
+} as const;
+export type ConditionName = keyof typeof conditionName;
+export type ConditionType = ConditionName[] | null;
 export type FilteringConditionType = {
   productType: ConditionType;
   gender: ConditionType;

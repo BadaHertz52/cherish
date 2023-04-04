@@ -1,18 +1,17 @@
-import React, { useState, useEffect, ReactNode } from 'react';
-import AlertModal from './AlertModal';
-import '../../assets/modal.scss';
-import ConfirmModal from './ConfirmModal';
-import BottomNavModal from './BottomNavModal';
+import React, { useState, useEffect } from 'react';
+import AlertModal from '../modals/alertModal';
+import ConfirmModal from '../modals/confirmModal';
+import BottomNavModal from '../modals/bottomNavModal';
 import {
   ConfirmModalType,
   FilteringConditionType,
   FullScreModalType,
   ToastModalType,
-} from './modalTypes';
-import ToastModal from './ToastModal';
-import '../../assets/modalTest.scss';
-import FullScreModal from './FullScreModal';
-import product_sampleImg from '../../assets/product_sample.jpg';
+} from '../modals/modalTypes';
+import ToastModal from '../modals/toastModal';
+import FullScreModal from '../modals/fullModal';
+import product_sampleImg from './product_sample.jpg';
+import './style.scss';
 
 /**
  * 모달 창 기능을 보기 위한 코드로 , 실제 사용에는 필요 없습니다. 추후 삭제 예정
@@ -65,7 +64,7 @@ const ModalTest = () => {
   };
   //사용자가 선택한 필터링 조건
   const selectedFilteringCondition: FilteringConditionType = {
-    productType: null,
+    productType: ['food'],
     gender: null,
     job: null,
     situation: null,
@@ -88,6 +87,10 @@ const ModalTest = () => {
     tag: ['tag1', 'tag2', 'tag3'],
   };
   const [toastModalState, setToastModalState] = useState<ToastModalType>();
+  const sendData = (filteringCondition: FilteringConditionType) => {
+    // 실제로 사용시에는 서버에 새로운 필터링 조건을 보고 서버로 부터 받은 새로운 검색 결과를 화면에 띄우는 작업을 진행하면 됨
+    console.log('filteringCondition', filteringCondition);
+  };
   /**
    * 모달 창 기능 테스트를 위한 함수로 , 테스트 이후 실제 사용 단계에서 삭제
    */
@@ -170,6 +173,7 @@ const ModalTest = () => {
       <BottomNavModal
         selectedFilteringCondition={selectedFilteringCondition}
         openBottomNavModal={openBottomNavModal}
+        sendData={sendData}
         closeModal={() => setOpenTarget(null)}
       />
     </div>

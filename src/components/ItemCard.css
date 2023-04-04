@@ -1,0 +1,63 @@
+.item-card {
+  display: flex;
+  flex-direction: column;
+  width: 152px;
+  height: 212px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.item-card__image img {
+  width: 152px;
+  height: 136px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.item-card__info {
+  padding: 0;
+}
+
+.item-card__info__company {
+  font-size: 0.8rem;
+  color: #a0a0a0;
+}
+
+.item-card__info__name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #4a4a4a;
+}
+
+.item-card__info__price {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #ff6b6b;
+}
+
+.item-card__name {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.item-card__price {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #ff6b6b;
+}
+
+.item-card:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.item-card__bookmark {
+  position: relative;
+  top: -10px;
+  right: 10px;
+  text-align: right;
+  cursor: pointer;
+}
+.item-card__bookmark img {
+  width: 12px;
+}/*# sourceMappingURL=ItemCard.css.map */

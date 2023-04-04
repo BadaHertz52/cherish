@@ -11,12 +11,12 @@ $color-white: #ffffff;
 $color-error: #ff3939;
 @font-face {
   font-family: 'sofia-pro-bold';
-  src: url('./fonts/Sofia\ Pro\ Bold.ttf');
+  src: url('./assets/fonts/Sofia\ Pro\ Bold.ttf');
   font-style: normal;
 }
 @font-face {
   font-family: 'sofia-pro-light';
-  src: url('./fonts/sofiapro-light.otf');
+  src: url('./aseests/fonts/sofiapro-light.otf');
   font-style: normal;
 }
 @mixin sofia-bold-font-family {

@@ -1,8 +1,12 @@
-import { ChangeEvent, useEffect, useState } from 'react';
-import BottomNavModalPortal from './BottomNavModalPortal';
-import { ConditionType, FilteringConditionType } from './modalTypes';
+import { ChangeEvent, useEffect, useState, TouchEvent } from 'react';
+import BottomNavModalPortal from './ModalPortal';
+import { ConditionType, FilteringConditionType } from '../modalTypes';
+import CheckBox from '../../checkbox';
+import './style.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRotateRight } from '@fortawesome/free-solid-svg-icons';
+import { ConditionName } from '../modalTypes';
 
-import CheckBox from '../CheckBox';
 const category = {
   productType: 'productType',
   gender: 'gender',
@@ -11,20 +15,17 @@ const category = {
 } as const;
 type CategoryType = keyof typeof category;
 type CheckBoxType = {
-  name: string;
+  name: ConditionName;
   label: string;
 };
 
-type CheckBoxProps = {
-  item: CheckBoxType;
-};
 // CheckBoxType 의 name은 추후 필터링 조건명에 따라 수정
 const productTypeCheckBoxArr: CheckBoxType[] = [
   { name: 'food', label: '식품' },
   { name: 'beauty', label: '뷰티' },
   { name: 'living', label: '리빙/주방' },
   { name: 'digital', label: '디지털/가전' },
-  { name: 'etc', label: '기타' },
+  { name: 'productEtc', label: '기타' },
 ];
 const genderCheckBoxArr: CheckBoxType[] = [
   { name: 'male', label: '남' },
@@ -36,31 +37,35 @@ const jobCheckBoxArr: CheckBoxType[] = [
   { name: 'management', label: '경영/관리직' },
   { name: 'desk', label: '사무직' },
   { name: 'service', label: '판매/서비스직' },
-  { name: 'blue-collar', label: '노동/생산직' },
-  { name: 'self-employment', label: '자영업' },
+  { name: 'blueCollar', label: '노동/생산직' },
+  { name: 'selfEmployment', label: '자영업' },
   { name: 'student', label: '학생' },
   { name: 'homemaker', label: '전업주부' },
-  { name: 'out-of-work', label: '무직' },
-  { name: 'etc', label: '기타' },
+  { name: 'outOfWork', label: '무직' },
+  { name: 'jobEtc', label: '기타' },
 ];
 const situationCheckBoxArr: CheckBoxType[] = [
   { name: 'birthday', label: '생일' },
-  { name: 'move-housewarming', label: '이사/집들이' },
-  { name: 'admission-graduation', label: '입학/졸업' },
+  { name: 'moveHousewarming', label: '이사/집들이' },
+  { name: 'admissionAndGraduation', label: '입학/졸업' },
   { name: 'leave', label: '퇴사/퇴직' },
-  { name: 'employment-job-change', label: '취업/이직' },
+  { name: 'employmentAndJobChange', label: '취업/이직' },
   { name: 'discharge', label: '전역' },
-  { name: 'get-well-visit', label: '병문안' },
+  { name: 'getWellVisit', label: '병문안' },
 ];
-
+/**
+ * sendData:서버에 새로운 필터링 조건 보내고 서버에서 받은 새로운 필터링 결과를 검색 결과 페이지에 보여주는 기능
+ */
 type BottomNavModalProps = {
   selectedFilteringCondition: FilteringConditionType;
   openBottomNavModal: boolean;
+  sendData: (filteringCondition: FilteringConditionType) => void;
   closeModal: () => void;
 };
 const BottomNavModal = ({
   selectedFilteringCondition,
   openBottomNavModal,
+  sendData,
   closeModal,
 }: BottomNavModalProps) => {
   const [category, setCategory] = useState<CategoryType>('productType');
@@ -84,6 +89,8 @@ const BottomNavModal = ({
     | HTMLElement
     | null
     | undefined;
+  const listOfCheckBox: NodeListOf<HTMLInputElement> =
+    document.querySelectorAll('input[type="checkbox"]');
   const changeLabelClass = (el: HTMLInputElement) => {
     const parentEl = el.parentElement;
     const targetLabelEl = parentEl?.lastElementChild;
@@ -108,7 +115,7 @@ const BottomNavModal = ({
     const selectedList: NodeListOf<HTMLInputElement> = document.querySelectorAll(
       'input[type="checkbox"]:checked',
     );
-    const nameArr = [...selectedList].map(el => el.name);
+    const nameArr = [...selectedList].map(el => el.name) as ConditionName[];
     const newCondition = nameArr[0] === undefined ? null : nameArr;
     let newFilteringCondition: FilteringConditionType = {
       ...filteringCondition,
@@ -138,9 +145,7 @@ const BottomNavModal = ({
   };
   const onClickSubmitBtn = () => {
     const newFilteringCondition = updateFilteringCondition(false);
-    // 추가 해야하는 기능
-    // 1. 새로운 필터링 조건들을 사용헤 검색
-    //  2. 1.의 결과를 화면에 보여줌
+    sendData(newFilteringCondition);
     closeModal();
   };
   const closeBottomNavModal = (event: Event) => {
@@ -154,12 +159,38 @@ const BottomNavModal = ({
       }, 1000);
     }
   };
+  const onClickResetBtn = () => {
+    setFilteringCondition(selectedFilteringCondition);
+    setTargetCondition(selectedFilteringCondition[`${category}`]);
+    changeChecked();
+  };
+  /**
+   * targetCondition의 변화에 따라, checkBox의 checked와 label의 class를 변경
+   */
+  const changeChecked = () => {
+    listOfCheckBox.forEach(el => {
+      if (targetCondition !== null) {
+        if (targetCondition.includes(el.name as ConditionName)) {
+          el.checked = true;
+        } else {
+          el.checked = false;
+        }
+      } else {
+        el.checked = false;
+      }
+      changeLabelClass(el);
+    });
+  };
+  const onTouchResetBtn = (event: TouchEvent<HTMLElement>) => {
+    const target = event.currentTarget;
+    target.classList.toggle('on');
+  };
   useEffect(() => {
     if (openBottomNavModal) {
       BOTTOM_MODAL_El?.classList.add('on');
       setTimeout(() => {
         if (modalBoxEl !== null && modalBoxEl !== undefined) {
-          modalBoxEl.style.top = `52vh`;
+          modalBoxEl.style.top = `54vh`;
         }
       }, 50);
       modalBackgroundEl?.addEventListener('click', event => closeBottomNavModal(event));
@@ -177,54 +208,53 @@ const BottomNavModal = ({
   }, [category, filteringCondition]);
 
   useEffect(() => {
-    if (targetCondition !== null) {
-      const checkBoxEl: NodeListOf<HTMLInputElement> =
-        document.querySelectorAll('input[type="checkbox"]');
-      // targetCondition 의 값을 이용해, 사용자가 이미 선택한 필터링 조건인 경우 checked 표시함
-      checkBoxEl.forEach(el => {
-        if (targetCondition.includes(el.name)) {
-          el.checked = true;
-          changeLabelClass(el);
-        }
-      });
-    }
+    // targetCondition 의 값을 이용해, 사용자가 이미 선택한 필터링 조건인 경우 checked 표시함
+    changeChecked();
   }, [targetCondition]);
-
   return (
     <BottomNavModalPortal>
-      <form>
-        <section>
-          <div className="category">
-            <div className="btn-group">
-              {categoryArr.map((v, i) => (
-                <button
-                  key={`categoryBtn_${i}`}
-                  type="button"
-                  className={`category-btn ${category === v ? 'on' : ''}`}
-                  onClick={() => category !== v && onClickCategoryBtn(v, i)}
-                >
-                  {categoryBtnTextArr[i]}
-                </button>
-              ))}
-            </div>
-            <div className="bar"></div>
-          </div>
-          <div className="checkbox-group">
-            {checkBoxArr.map((v, i) => (
-              <CheckBox
-                key={`checkbox_${i}`}
-                id={v.name}
-                name={v.name}
-                label={v.label}
-                onChange={event => onChangeCheckBox(event)}
-              />
+      <section>
+        <div className="category">
+          <div className="btn-group">
+            {categoryArr.map((v, i) => (
+              <button
+                key={`categoryBtn_${i}`}
+                type="button"
+                className={`category-btn ${category === v ? 'on' : ''}`}
+                onClick={() => category !== v && onClickCategoryBtn(v, i)}
+              >
+                {categoryBtnTextArr[i]}
+              </button>
             ))}
+            <button
+              type="button"
+              className="btn-reset"
+              title={'reset checkbox'}
+              onClick={onClickResetBtn}
+              onTouchStart={event => onTouchResetBtn(event)}
+              onTouchEnd={event => onTouchResetBtn(event)}
+            >
+              <FontAwesomeIcon icon={faRotateRight} />
+              <span>초기화</span>
+            </button>
           </div>
-        </section>
-        <button type="submit" className="btn-submit" onClick={onClickSubmitBtn}>
-          필터링 하기
-        </button>
-      </form>
+          <div className="bar"></div>
+        </div>
+        <div className="checkbox-group">
+          {checkBoxArr.map((v, i) => (
+            <CheckBox
+              key={`checkbox_${i}`}
+              id={v.name}
+              name={v.name}
+              label={v.label}
+              onChange={event => onChangeCheckBox(event)}
+            />
+          ))}
+        </div>
+      </section>
+      <button type="button" className="btn-submit" onClick={onClickSubmitBtn}>
+        필터링 하기
+      </button>
     </BottomNavModalPortal>
   );
 };

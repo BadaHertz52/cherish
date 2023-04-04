@@ -5,8 +5,8 @@ import Third from './pages/Third';
 import Fourth from './pages/Fourth';
 import Button from './pages/Button';
 import Main from './pages/Main';
-import ModalTest from './components/modals/ModalTest';
-import Button from './pages/Button';
+import ModalTest from './modalTest';
+import LogIn from './logIn';
 import './assets/main.scss';
 function App() {
   return (
@@ -19,6 +19,7 @@ function App() {
         <Route path="/fourth" element={<Fourth />} />
         {/* modal 테스트를 위해 route 추가 , 추후 삭제 예정*/}
         <Route path="modaltest" element={<ModalTest />} />
+        <Route path="login" element={<LogIn />} />
       </Routes>
     </div>
   );
