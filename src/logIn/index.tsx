@@ -1,3 +1,4 @@
+import { TouchEvent } from 'react';
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ChangeEvent, useState } from 'react';
@@ -27,6 +28,10 @@ const LogIn = () => {
     pw: 'pw',
   } as const;
   type InputTargetType = keyof typeof inputTarget;
+  const onTouchLink = (event: TouchEvent<HTMLElement>) => {
+    const target = event.currentTarget;
+    target.classList.toggle('on');
+  };
   const onChange = (event: ChangeEvent<HTMLInputElement>, target: InputTargetType) => {
     const value = XSSCheck(event.target.value, undefined);
     if (target === 'email') {
@@ -86,7 +91,7 @@ const LogIn = () => {
             <input
               value={email}
               type="text"
-              placeholder="이메일"
+              placeholder="이메일을 입력해주세요"
               onChange={event => onChange(event, 'email')}
             />
             <button type="button" title="btn-remove-email" onClick={onClickRemoveBtn}>
@@ -97,7 +102,7 @@ const LogIn = () => {
             <input
               value={pw}
               type={showPw ? 'text' : 'password'}
-              placeholder="비밀번호"
+              placeholder="비밀번호을 입력해주세요"
               onChange={event => onChange(event, 'pw')}
             />
             <BtnShowPw showPw={showPw} setShowPw={setShowPw} />
@@ -108,12 +113,19 @@ const LogIn = () => {
             <CheckBox
               id="checkboxKeep"
               name="autoLogIn"
-              label="자동 로그인"
+              label="자동 로그인 하기"
               onChange={onChangeKeep}
             />
           </div>
           <div className="log-in__util__find">
-            <Link to={'/비밀번호찾기'}>비밀번호 찾기</Link>
+            <Link
+              to={'/비밀번호찾기'}
+              className="link-find-pw"
+              onTouchStart={event => onTouchLink(event)}
+              onTouchEnd={event => onTouchLink(event)}
+            >
+              비밀번호 찾기
+            </Link>
           </div>
         </div>
         <div className="error-msg">
@@ -130,7 +142,9 @@ const LogIn = () => {
         <button type="button" className="btn-sign-up" onClick={onClickSignUpBtn}>
           간편가입
         </button>
-        <div className="banner">결제정보 입력 없이 1분만에 회원가입하세요!</div>
+        <div className="banner">
+          <div>결제정보 입력 없이 1분만에 회원가입하세요!</div>
+        </div>
       </div>
     </div>
   );
