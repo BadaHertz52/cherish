@@ -64,7 +64,7 @@ const ModalTest = () => {
   };
   //사용자가 선택한 필터링 조건
   const selectedFilteringCondition: FilteringConditionType = {
-    productType: null,
+    productType: ['food'],
     gender: null,
     job: null,
     situation: null,
