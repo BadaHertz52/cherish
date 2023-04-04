@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState, TouchEvent } from 'react';
 import BottomNavModalPortal from './ModalPortal';
 import { ConditionType, FilteringConditionType } from '../modalTypes';
 import CheckBox from '../../checkbox';
@@ -181,13 +181,16 @@ const BottomNavModal = ({
       changeLabelClass(el);
     });
   };
-
+  const onTouchMoveOnResetBtn = (event: TouchEvent<HTMLElement>) => {
+    const target = event.currentTarget;
+    target.classList.toggle('on');
+  };
   useEffect(() => {
     if (openBottomNavModal) {
       BOTTOM_MODAL_El?.classList.add('on');
       setTimeout(() => {
         if (modalBoxEl !== null && modalBoxEl !== undefined) {
-          modalBoxEl.style.top = `52vh`;
+          modalBoxEl.style.top = `54vh`;
         }
       }, 50);
       modalBackgroundEl?.addEventListener('click', event => closeBottomNavModal(event));
@@ -228,8 +231,10 @@ const BottomNavModal = ({
               className="btn-reset"
               title={'reset checkbox'}
               onClick={onClickResetBtn}
+              onTouchMove={event => onTouchMoveOnResetBtn(event)}
             >
               <FontAwesomeIcon icon={faRotateRight} />
+              <span>초기화</span>
             </button>
           </div>
           <div className="bar"></div>
