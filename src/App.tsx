@@ -2,16 +2,19 @@ import { Route, Routes } from 'react-router-dom';
 import Second from './pages/Second';
 import Third from './pages/Third';
 import Fourth from './pages/Fourth';
-import BottomNav from './components/BottomNav';
+import { BottomNav } from './components';
 import './assets/styles/App.scss';
 import ModalTest from './examples/modalTest';
 import LogIn from './logIn';
 import './assets/main.scss';
 import SignUp from './signup';
+import Home from './pages/Home';
+
 function App() {
   return (
     <div className="App">
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route path="/second" element={<Second />} />
         <Route path="/third" element={<Third />} />
         <Route path="/fourth" element={<Fourth />} />

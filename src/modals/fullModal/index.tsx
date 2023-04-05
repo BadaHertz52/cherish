@@ -58,7 +58,7 @@ const FullScreModal = ({ modalState, closeModal }: FullScreModalProps) => {
         <button type="button" title="previous" onClick={closeModal} className="btn-close">
           <FontAwesomeIcon icon={faXmark} />
         </button>
-        <div className="container">
+        <div className="full-scre__container">
           <img src={modalState.img} alt="product image" className="product-img" />
           <div className="not-img">
             <button
