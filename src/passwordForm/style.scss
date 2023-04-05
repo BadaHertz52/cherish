@@ -1,0 +1,41 @@
+@import '../common.scss';
+.pw-form {
+  .input-form {
+    position: relative;
+    .pw__check-icon,
+    .btn-show-pw {
+      @include clean-btn-style;
+      position: absolute;
+      font-size: 14px;
+      height: 23px;
+      width: 23px;
+      display: flex;
+      align-items: center;
+    }
+    .btn-show-pw {
+      right: 36px;
+    }
+    .pw__check-icon {
+      right: 10px;
+      color: $color-light-black;
+      &.on {
+        color: $color-primary;
+      }
+    }
+  }
+}
+
+#inputForm-pw {
+  .btn-show-pw,
+  .pw__check-icon {
+    //label.height + label.margin.bottom + input 50%
+    top: calc(22.39px + 1.3vh + (48px - 23px) / 2);
+  }
+}
+#inputForm-confirmPw {
+  .btn-show-pw,
+  .pw__check-icon {
+    //input 50%
+    top: calc((48px - 23px) / 2);
+  }
+}
