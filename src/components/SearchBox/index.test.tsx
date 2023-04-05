@@ -1,7 +1,7 @@
 import Adapter from 'enzyme-adapter-react-16';
 import { configure, shallow } from 'enzyme';
 import { describe, it, expect, vi } from 'vitest';
-import SearchBox from './SearchBox';
+import SearchBox from '.';
 
 configure({ adapter: new Adapter() });
 

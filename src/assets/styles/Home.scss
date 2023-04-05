@@ -1,0 +1,70 @@
+@import '../common.scss';
+.header {
+  display: flex;
+
+  margin-left: 27px;
+  margin-bottom: 11px;
+  margin-right: 26px;
+
+  .logo-text {
+    @include sofia-h1-font;
+    font-size: 17px;
+    flex: 1;
+    margin-top: 11px;
+  }
+
+  .icons {
+    margin-top: 18px;
+    img {
+      // space between img tags
+      margin-left: 20px;
+    }
+  }
+}
+
+.container {
+  margin: 20px;
+}
+
+.main-image {
+  height: 198px;
+  left: 0px;
+  top: 92px;
+
+  background: #d9d9d9;
+}
+
+.category-header {
+  @include h1-font;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 26px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.category {
+  margin-top: 10px;
+}
+
+.category-title {
+  display: flex;
+  @include bd2-font;
+  margin-bottom: 10px;
+}
+
+.right-arrow {
+  text-align: right;
+  flex-grow: 1;
+}
+
+.category-list {
+  display: flex;
+  // overflow-x: scroll;
+  margin-bottom: 40px;
+  overflow: auto;
+}
+
+.category-item {
+  margin-right: 10px;
+}
