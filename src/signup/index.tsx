@@ -10,7 +10,7 @@ import Pw from './components/Pw';
 import GenderAndBirth from './components/GenderAndBirth';
 import JobInfo from './components/JobInfo';
 export const initialSignUpState: SignUpStateType = {
-  progress: 'genderAndBirth',
+  progress: 'agreeToTerms',
   agreeToTerms: {
     termsOfUse: false,
     ageCondition: false,

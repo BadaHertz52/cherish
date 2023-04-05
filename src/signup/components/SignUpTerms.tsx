@@ -3,7 +3,6 @@ import { SignUpContext } from '..';
 import CheckBox from '../../checkbox';
 import {
   AgreementStateType,
-  SessionDataType,
   SignUpStateType,
   TermsCheckBoxNameType,
   TermsContentsNameType,
@@ -11,6 +10,9 @@ import {
 import StepInner from './StepInner';
 import ConfirmModal, { ConfirmModalProps } from '../../modals/confirmModal';
 import { ConfirmModalBtnType } from '../../modals/modalTypes';
+import TermsOfUse from './temrs/TermsOfUse';
+import PersonalInformation from './temrs/PersonalInformation';
+import Marketing from './temrs/Marketing';
 
 type SignUpTermProps = {
   id: TermsCheckBoxNameType;
@@ -57,19 +59,19 @@ const SignUpTerms = () => {
   ) as HTMLInputElement | null;
   const modalForTermsOfUse: Omit<ConfirmModalProps, 'closeModal'> = {
     title: '이용약관(필수)',
-    children: 'contents',
+    children: <TermsOfUse />,
     yesBtn: makeYestBtnValue('termsOfUse'),
     noBtn: makeNoBtnValue('termsOfUse'),
   };
   const modalForPersonalInformation: Omit<ConfirmModalProps, 'closeModal'> = {
     title: '개인정보 수집 및 이용(필수)',
-    children: 'contents',
+    children: <PersonalInformation />,
     yesBtn: makeYestBtnValue('personalInformation'),
     noBtn: makeNoBtnValue('personalInformation'),
   };
   const modalForMarketing: Omit<ConfirmModalProps, 'closeModal'> = {
     title: '마케팅 정보 활용 동의(선택)',
-    children: 'contents',
+    children: <Marketing />,
     yesBtn: makeYestBtnValue('marketing'),
     noBtn: makeNoBtnValue('marketing'),
   };
