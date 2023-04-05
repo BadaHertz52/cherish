@@ -1,4 +1,4 @@
-@import '../modalCommon.scss';
+@import '@/modals/modalCommon.scss';
 .confirm-modal {
   .modal__background {
     @include background;
