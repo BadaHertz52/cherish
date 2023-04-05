@@ -107,9 +107,9 @@ const EmailVerification = ({
             setOpenToastModal(true);
             setToastModalState({
               contents: '인증 이메일이 발송됐어요.',
-              // 48: NextBtn.height, 32:modal__inner.padding top +bottom
-              top: `${nextBtnElDomRect.top - 48 - 32}px`,
-              left: `calc((100vw - 200px) /2 )`,
+              //  39:toastModal.height
+              top: `${nextBtnElDomRect.top - 39 - 16}px`,
+              left: `20vw`,
             });
             sendingEmailCount.current += 1;
           }
@@ -165,7 +165,7 @@ const EmailVerification = ({
     }
   }, [disableBtn]);
   return (
-    <div id="email">
+    <div className="email-verification">
       <section className="email-form">
         <InputForm id={'email'} data={email} setData={setEmail} />
         {!successSendingEmail.current && (

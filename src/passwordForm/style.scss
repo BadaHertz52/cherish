@@ -28,14 +28,14 @@
 #inputForm-pw {
   .btn-show-pw,
   .pw__check-icon {
-    //label.height + input 50%
-    top: calc(22.4px + 14px + 16px);
+    //label.height + label.margin.bottom + input 50%
+    top: calc(22.39px + 1.3vh + (48px - 23px) / 2);
   }
 }
 #inputForm-confirmPw {
   .btn-show-pw,
   .pw__check-icon {
     //input 50%
-    top: calc(16px);
+    top: calc((48px - 23px) / 2);
   }
 }

@@ -1,0 +1,18 @@
+@import '../../common.scss';
+#date-picker {
+  position: relative;
+  width: 100%;
+  height: calc(36px * 3);
+  overflow-y: hidden;
+  margin-top: 3.8vh;
+  .picker-container {
+    position: absolute;
+    top: calc(-1 * (36px * 1.5));
+  }
+  .picker-inner {
+    -webkit-mask-box-image: none;
+  }
+  .picker-item {
+    @include sofia-h1-font;
+  }
+}

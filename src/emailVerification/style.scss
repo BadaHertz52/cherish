@@ -9,14 +9,10 @@
     @include bd2-font;
     color: $color-light-black;
   }
-  .email-from {
-    .alert {
-      margin-bottom: 14px;
-    }
-  }
+  .email-from,
   .authNumber-form {
     .alert {
-      margin-top: 14px;
+      margin-top: 1.25vh;
     }
   }
   .btn-email {
@@ -39,17 +35,6 @@
         margin-left: 10px;
         margin-right: 5px;
       }
-      #timer {
-        position: absolute;
-        top: 0;
-        left: calc(70% - 48px);
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        @include h2-font;
-        color: $color-light-black;
-      }
     }
     label {
       display: block;
@@ -63,4 +48,15 @@
       }
     }
   }
+}
+#timer {
+  position: absolute;
+  top: 0;
+  left: calc(70% - 48px);
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include h2-font;
+  color: $color-primary;
 }

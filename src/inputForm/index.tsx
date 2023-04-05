@@ -114,11 +114,10 @@ const InputForm = ({ id, data, setData }: InputFormProps) => {
       {(id == 'pw' || id == 'confirmPw') && (
         <>
           <BtnShowPw showPw={showPw} setShowPw={setShowPw} />
-          <div className="pw__check-icon">
-            <FontAwesomeIcon
-              className={`${data.value !== '' && data.errorMsg === null ? 'on' : ''}`}
-              icon={faCheck}
-            />
+          <div
+            className={`pw__check-icon ${data.value !== '' && data.errorMsg === null ? 'on' : ''}`}
+          >
+            <FontAwesomeIcon icon={faCheck} />
           </div>
         </>
       )}
