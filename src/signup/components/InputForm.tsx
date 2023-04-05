@@ -70,7 +70,7 @@ const InputForm = ({ id, data, setData }: InputFormProps) => {
     }
     return result;
   };
-  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const text = XSSCheck(event.target.value, undefined);
     //유효성 검사
     if (text === '') {
@@ -86,7 +86,7 @@ const InputForm = ({ id, data, setData }: InputFormProps) => {
       });
     }
   };
-  const onBlur = () => {
+  const handleBlur = () => {
     if (data.value === '') {
       setData({
         ...data,
@@ -103,8 +103,8 @@ const InputForm = ({ id, data, setData }: InputFormProps) => {
         name={`data-${id}`}
         placeholder={placeholder[`${id}`]}
         value={data.value}
-        onChange={event => onChange(event)}
-        onBlur={onBlur}
+        onChange={event => handleChange(event)}
+        onBlur={handleBlur}
       />
       {(id == 'pw' || id == 'confirmPw') && (
         <>

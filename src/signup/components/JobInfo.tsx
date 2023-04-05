@@ -19,7 +19,7 @@ const JobInfo = () => {
   const checkedCheckBoxEl = document.querySelectorAll(
     '.check-box input',
   ) as NodeListOf<HTMLInputElement>;
-  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const target = event.currentTarget;
     checkedCheckBoxEl.forEach(el => {
       if (el.id === target.id) {
@@ -65,7 +65,12 @@ const JobInfo = () => {
         <h3>직업</h3>
         <section className="check-box-group">
           {jobCheckBoxArr.map(i => (
-            <CheckBox id={`job-info-${i.name}`} name={i.name} label={i.label} onChange={onChange} />
+            <CheckBox
+              id={`job-info-${i.name}`}
+              name={i.name}
+              label={i.label}
+              onChange={handleChange}
+            />
           ))}
         </section>
         <div className="msg">{job.value === '' && ERROR_MSG.required}</div>
