@@ -19,12 +19,22 @@ const JobInfo = () => {
   const checkedCheckBoxEl = document.querySelectorAll(
     '.check-box input',
   ) as NodeListOf<HTMLInputElement>;
+  const changeLabelClass = (el: HTMLInputElement) => {
+    const parentEl = el.parentElement;
+    const targetLabelEl = parentEl?.lastElementChild;
+    if (targetLabelEl !== null && targetLabelEl !== undefined) {
+      if (el.checked) {
+        targetLabelEl.classList.add('on');
+      } else {
+        targetLabelEl.classList.remove('on');
+      }
+    }
+  };
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const target = event.currentTarget;
     checkedCheckBoxEl.forEach(el => {
       if (el.id === target.id) {
         el.checked = true;
-
         setJob({
           value: el.name,
           errorMsg: null,
@@ -32,6 +42,7 @@ const JobInfo = () => {
       } else {
         if (el.checked === true) el.checked = false;
       }
+      changeLabelClass(el);
     });
   };
   const onClickNextBtn = () => {
