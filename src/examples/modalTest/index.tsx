@@ -4,7 +4,6 @@ import ConfirmModal from '../../modals/confirmModal';
 import BottomNavModal from '../../modals/bottomNavModal';
 import {
   ConfirmModalBtnType,
-  ConfirmModalType,
   FilteringConditionType,
   FullScreModalType,
   ToastModalType,
