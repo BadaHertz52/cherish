@@ -13,11 +13,7 @@ export type ConfirmModalBtnType = {
 export type ModalCommonType = {
   contents: string;
 };
-export type ConfirmModalType = ModalCommonType & {
-  title: string | null;
-  yesBtn: ConfirmModalBtnType;
-  noBtn: ConfirmModalBtnType;
-};
+
 /**
  * the unit for top and left is px
  */

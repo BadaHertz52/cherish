@@ -6,13 +6,13 @@ import SignUpTerms from './components/SignUpTerms';
 import './style.scss';
 import NameAndNickName from './components/NameAndNickName';
 import Email from './components/Email';
-import Pw from './components/Pw';
+import SignUpPw from './components/SignUpPw';
 import GenderAndBirth from './components/GenderAndBirth';
 import JobInfo from './components/JobInfo';
 export const initialSignUpState: SignUpStateType = {
-  progress: 'genderAndBirth',
+  progress: 'agreeToTerms',
   agreeToTerms: {
-    termsAndCondition: false,
+    termsOfUse: false,
     ageCondition: false,
     personalInformation: false,
     marketing: false,
@@ -51,7 +51,7 @@ const SignUp = () => {
         {signUpState.progress === 'agreeToTerms' && <SignUpTerms />}
         {signUpState.progress === 'nameAndNickName' && <NameAndNickName />}
         {signUpState.progress === 'email' && <Email />}
-        {signUpState.progress === 'pw' && <Pw />}
+        {signUpState.progress === 'pw' && <SignUpPw />}
         {signUpState.progress === 'genderAndBirth' && <GenderAndBirth />}
         {signUpState.progress === 'job' && <JobInfo />}
       </SignUpContext.Provider>

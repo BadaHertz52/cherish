@@ -1,13 +1,19 @@
-@import '../../common.scss';
-#pw {
+@import '../common.scss';
+.pw-form {
   .input-form {
     position: relative;
     .pw__check-icon,
     .btn-show-pw {
+      @include clean-btn-style;
       position: absolute;
       font-size: 14px;
       height: 23px;
       width: 23px;
+      display: flex;
+      align-items: center;
+    }
+    .btn-show-pw {
+      right: 36px;
     }
     .pw__check-icon {
       right: 10px;
@@ -17,22 +23,19 @@
       }
     }
   }
-  .btn-show-pw {
-    right: 38px;
-    background-color: rgba(240, 248, 255, 0);
-  }
 }
+
 #inputForm-pw {
   .btn-show-pw,
   .pw__check-icon {
-    //label.height + input 50%
-    top: calc(22.4px + 14px + 16px);
+    //label.height + label.margin.bottom + input 50%
+    top: calc(22.39px + 1.3vh + (48px - 23px) / 2);
   }
 }
 #inputForm-confirmPw {
   .btn-show-pw,
   .pw__check-icon {
     //input 50%
-    top: calc(16px);
+    top: calc((48px - 23px) / 2);
   }
 }

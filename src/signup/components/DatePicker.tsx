@@ -1,7 +1,7 @@
-import React, { useState, useEffect, Dispatch, SetStateAction } from 'react';
+import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 import Picker from 'react-mobile-picker';
 import { BirthDateType, BirthStateType } from './signUpTypes';
-import { StringMatching } from '@vitest/expect';
+import '../assets/datePicker.scss';
 type DatePickerProps = {
   birth: BirthStateType;
   setBirth: Dispatch<SetStateAction<BirthStateType>>;
@@ -24,8 +24,8 @@ const DatePicker = ({ birth, setBirth }: DatePickerProps) => {
 
   const initialData: BirthDateType = {
     year: '2010',
-    month: '1',
-    date: '1',
+    month: '01',
+    date: '01',
   };
   const [birthDate, setBirthDate] = useState<BirthDateType>(
     birth.value !== null ? birth.value : initialData,
@@ -33,7 +33,7 @@ const DatePicker = ({ birth, setBirth }: DatePickerProps) => {
   function getArr(startNumber: number, lastNumber: number) {
     let arr = [];
     for (let i = startNumber; i <= lastNumber; i++) {
-      arr.push(i.toString());
+      arr.push(i < 10 ? `0${i}` : i.toString());
     }
     return arr;
   }
@@ -66,7 +66,7 @@ const DatePicker = ({ birth, setBirth }: DatePickerProps) => {
       errorMsg: null,
     });
   };
-  const onChange = (name: string, value: string) => {
+  const handleChange = (name: string, value: string) => {
     switch (name) {
       case 'year':
         changeOptionGroups(value, birthDate.month);
@@ -87,7 +87,7 @@ const DatePicker = ({ birth, setBirth }: DatePickerProps) => {
   }, []);
   return (
     <div id="date-picker">
-      <Picker valueGroups={birthDate} optionGroups={optionGroups} onChange={onChange} />
+      <Picker valueGroups={birthDate} optionGroups={optionGroups} onChange={handleChange} />
     </div>
   );
 };

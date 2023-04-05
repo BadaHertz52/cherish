@@ -26,16 +26,20 @@ const inputFormId = {
 };
 export type InputFormIdType = keyof typeof inputFormId;
 export type AgreementStateType = {
-  termsAndCondition: boolean; //이용약관
+  termsOfUse: boolean; //이용약관
   personalInformation: boolean; // 개인정보 수집 및 이용
   ageCondition: boolean;
   marketing: boolean; // 마케팅 정보 활용 동의
 };
-const termsCheckBoxName = {
-  termsAndCondition: 'termsAndCondition',
+const termsContentsName = {
+  termsOfUse: 'termsOfUse',
   personalInformation: 'personalInformation',
-  ageCondition: 'ageCondition',
   marketing: 'marketing',
+} as const;
+export type TermsContentsNameType = keyof typeof termsContentsName;
+const termsCheckBoxName = {
+  ...termsContentsName,
+  ageCondition: 'ageCondition',
 } as const;
 export type TermsCheckBoxNameType = keyof typeof termsCheckBoxName;
 //⚠️ sessionData property 명과 각 화원가입단계의 입력란이 input 인 경우애는 name  value 맞추기 (ex: name, email)

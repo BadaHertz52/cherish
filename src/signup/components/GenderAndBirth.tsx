@@ -107,8 +107,8 @@ const GenderAndBirth = () => {
           >
             <div className="birth__data">
               {birth.value === null
-                ? '생년월일'
-                : `${birth.value.year}/${birth.value.month}/${birth.value.date}`}
+                ? ''
+                : `${birth.value.year}. ${birth.value.month}. ${birth.value.date}`}
             </div>
             <FontAwesomeIcon icon={openDatePicker ? faSortUp : faSortDown} />
           </button>

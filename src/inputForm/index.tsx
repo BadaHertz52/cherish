@@ -1,10 +1,15 @@
 import React, { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
-import { ERROR_MSG, InputDataType, InputFormIdType, TestResultType } from './signUpTypes';
+import {
+  ERROR_MSG,
+  InputDataType,
+  InputFormIdType,
+  TestResultType,
+} from '../signup/components/signUpTypes';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import BtnShowPw from '../../btnShowPw';
-import { XSSCheck } from '../../logIn';
-
+import BtnShowPw from '../btnShowPw';
+import { XSSCheck } from '../logIn';
+import './style.scss';
 type InputFormProps = {
   id: InputFormIdType;
   data: InputDataType;
@@ -70,7 +75,7 @@ const InputForm = ({ id, data, setData }: InputFormProps) => {
     }
     return result;
   };
-  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const text = XSSCheck(event.target.value, undefined);
     //유효성 검사
     if (text === '') {
@@ -86,7 +91,7 @@ const InputForm = ({ id, data, setData }: InputFormProps) => {
       });
     }
   };
-  const onBlur = () => {
+  const handleBlur = () => {
     if (data.value === '') {
       setData({
         ...data,
@@ -103,17 +108,16 @@ const InputForm = ({ id, data, setData }: InputFormProps) => {
         name={`data-${id}`}
         placeholder={placeholder[`${id}`]}
         value={data.value}
-        onChange={event => onChange(event)}
-        onBlur={onBlur}
+        onChange={event => handleChange(event)}
+        onBlur={handleBlur}
       />
       {(id == 'pw' || id == 'confirmPw') && (
         <>
           <BtnShowPw showPw={showPw} setShowPw={setShowPw} />
-          <div className="pw__check-icon">
-            <FontAwesomeIcon
-              className={`${data.value !== '' && data.errorMsg === null ? 'on' : ''}`}
-              icon={faCheck}
-            />
+          <div
+            className={`pw__check-icon ${data.value !== '' && data.errorMsg === null ? 'on' : ''}`}
+          >
+            <FontAwesomeIcon icon={faCheck} />
           </div>
         </>
       )}

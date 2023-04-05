@@ -14,17 +14,27 @@ import { SignUpContext } from '..';
 
 const JobInfo = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
-  const [disableBtn, setDisAbleBtn] = useState<boolean>(true);
+  const [disableBtn, setDisableBtn] = useState<boolean>(true);
   const [job, setJob] = useState<InputDataType>(initialInputData);
   const checkedCheckBoxEl = document.querySelectorAll(
     '.check-box input',
   ) as NodeListOf<HTMLInputElement>;
-  const onChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const changeLabelClass = (el: HTMLInputElement) => {
+    const parentEl = el.parentElement;
+    const targetLabelEl = parentEl?.lastElementChild;
+    if (targetLabelEl !== null && targetLabelEl !== undefined) {
+      if (el.checked) {
+        targetLabelEl.classList.add('on');
+      } else {
+        targetLabelEl.classList.remove('on');
+      }
+    }
+  };
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const target = event.currentTarget;
     checkedCheckBoxEl.forEach(el => {
       if (el.id === target.id) {
         el.checked = true;
-
         setJob({
           value: el.name,
           errorMsg: null,
@@ -32,6 +42,7 @@ const JobInfo = () => {
       } else {
         if (el.checked === true) el.checked = false;
       }
+      changeLabelClass(el);
     });
   };
   const onClickNextBtn = () => {
@@ -48,7 +59,7 @@ const JobInfo = () => {
   }, []);
   useEffect(() => {
     if (job.value !== '') {
-      setDisAbleBtn(false);
+      setDisableBtn(false);
       const targetCheckBoxEl = document.querySelector(
         `#job-info-${job.value}`,
       ) as HTMLInputElement | null;
@@ -56,7 +67,7 @@ const JobInfo = () => {
         targetCheckBoxEl.checked = true;
       }
     } else {
-      setDisAbleBtn(true);
+      setDisableBtn(true);
     }
   }, [job]);
   return (
@@ -65,7 +76,12 @@ const JobInfo = () => {
         <h3>직업</h3>
         <section className="check-box-group">
           {jobCheckBoxArr.map(i => (
-            <CheckBox id={`job-info-${i.name}`} name={i.name} label={i.label} onChange={onChange} />
+            <CheckBox
+              id={`job-info-${i.name}`}
+              name={i.name}
+              label={i.label}
+              onChange={handleChange}
+            />
           ))}
         </section>
         <div className="msg">{job.value === '' && ERROR_MSG.required}</div>

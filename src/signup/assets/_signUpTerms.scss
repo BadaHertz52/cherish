@@ -1,9 +1,10 @@
-@import '../../common.scss';
+@import '@/common.scss';
 #sign-up__terms {
   width: 100%;
   .top {
     position: relative;
-    border-bottom: 1px solid $color-light;
+    padding-bottom: 2vh;
+    border-bottom: 0.6px dashed $color-dark-gray;
     .header,
     p:first-child {
       margin-bottom: 14px;
@@ -11,6 +12,26 @@
     p {
       @include h2-font;
     }
+    .header {
+      display: flex;
+      flex-direction: column;
+      h2 {
+        @include h2-font;
+        margin-bottom: 1vh;
+      }
+      h3 {
+        @include h3-font;
+      }
+      margin-bottom: 16px;
+    }
+    .check-box {
+      margin-top: 3.75vh;
+    }
+  }
+
+  .btn-open-modal {
+    @include bd3-font;
+    color: $color-light-black;
   }
   .terms-group {
     margin-top: 16px;
@@ -30,7 +51,11 @@
   }
   .term {
     display: flex;
-    margin-bottom: 16px;
+    margin-bottom: 2vh;
+    height: 5vh;
+    .check {
+      margin-top: 8px;
+    }
   }
   .term__contents {
     display: flex;

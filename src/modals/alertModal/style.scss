@@ -1,4 +1,4 @@
-@import '../modalCommon.scss';
+@import '@/modals/modalCommon.scss';
 .alert-modal {
   position: relative;
   .modal__background {
@@ -10,7 +10,7 @@
   }
   .modal__box {
     @include modal-box;
-    width: calc(100vw * 0.77);
+    width: 77vw;
   }
   // alert-modal의 height는 .contents를 통해 변경
   .contents {
@@ -26,7 +26,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      height: calc(100vw * 0.77 * 0.58 - 60px);
+      height: calc((77vw * 0.57) - 46px);
     }
     &.long {
       height: calc(50vh - 60px);
