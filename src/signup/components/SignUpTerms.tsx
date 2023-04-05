@@ -6,35 +6,41 @@ import {
   SessionDataType,
   SignUpStateType,
   TermsCheckBoxNameType,
+  TermsContentsNameType,
 } from './signUpTypes';
 import StepInner from './StepInner';
-import ConfirmModal from '../../modals/confirmModal';
-import { ConfirmModalBtnType, ConfirmModalType } from '../../modals/modalTypes';
+import ConfirmModal, { ConfirmModalProps } from '../../modals/confirmModal';
+import { ConfirmModalBtnType } from '../../modals/modalTypes';
 
 type SignUpTermProps = {
   id: TermsCheckBoxNameType;
   label: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  onClickBtn: () => void;
+  onClickBtn: (() => void) | null;
 };
 const SignUpTerm = ({ id, label, onChange, onClickBtn }: SignUpTermProps) => {
   const termRef = useRef<HTMLDivElement>(null);
+  const handleClick = () => {
+    if (onClickBtn !== null) onClickBtn();
+  };
   useEffect(() => {
     const labelEl = termRef.current?.querySelector('.label');
     if (labelEl !== null && label !== undefined) {
-      labelEl?.addEventListener('click', onClickBtn);
+      labelEl?.addEventListener('click', handleClick);
     }
   }, [termRef.current]);
   return (
     <div className="term" ref={termRef}>
       <CheckBox id={id} name={id} label={label} onChange={onChange} />
       <div className="term__contents">
-        <div className="label" onClick={onClickBtn}>
+        <div className="label" onClick={handleClick}>
           {label}
         </div>
-        <button className="btn-open-modal" onClick={onClickBtn} type="button">
-          내용보기
-        </button>
+        {onClickBtn !== null && (
+          <button className="btn-open-modal" onClick={handleClick} type="button">
+            내용보기
+          </button>
+        )}
       </div>
     </div>
   );
@@ -42,39 +48,37 @@ const SignUpTerm = ({ id, label, onChange, onClickBtn }: SignUpTermProps) => {
 const SignUpTerms = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
   const [agreement, setAgreement] = useState<AgreementStateType>(signUpState.agreeToTerms);
-
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [openTargetTerms, setOpenTargetTerms] = useState<TermsContentsNameType>('termsOfUse');
   // NextBtn 비활성화 여부
   const [disableBtn, setDisableBtn] = useState<boolean>(true);
   const WHOLE_AGREEMENT_CHECK_BOX_EL = document.querySelector(
     `#whole-agree`,
   ) as HTMLInputElement | null;
-  const modalFortermsOfUse: ConfirmModalType = {
+  const modalForTermsOfUse: Omit<ConfirmModalProps, 'closeModal'> = {
     title: '이용약관(필수)',
-    contents: 'contents',
+    children: 'contents',
     yesBtn: makeYestBtnValue('termsOfUse'),
     noBtn: makeNoBtnValue('termsOfUse'),
   };
-  const modalForPersonalInformation: ConfirmModalType = {
+  const modalForPersonalInformation: Omit<ConfirmModalProps, 'closeModal'> = {
     title: '개인정보 수집 및 이용(필수)',
-    contents: 'contents',
+    children: 'contents',
     yesBtn: makeYestBtnValue('personalInformation'),
     noBtn: makeNoBtnValue('personalInformation'),
   };
-  const modalForAgeCondition: ConfirmModalType = {
-    title: '만 14세 이상 이용 동의(필수)',
-    contents: 'contents',
-    yesBtn: makeYestBtnValue('personalInformation'),
-    noBtn: makeNoBtnValue('personalInformation'),
-  };
-  const modalForMarketing: ConfirmModalType = {
+  const modalForMarketing: Omit<ConfirmModalProps, 'closeModal'> = {
     title: '마케팅 정보 활용 동의(선택)',
-    contents: 'contents',
+    children: 'contents',
     yesBtn: makeYestBtnValue('marketing'),
     noBtn: makeNoBtnValue('marketing'),
   };
-  const [openModal, setOpenModal] = useState<boolean>(false);
-  const [modalState, setModalState] = useState<ConfirmModalType>(modalFortermsOfUse);
-  function makeYestBtnValue(name: TermsCheckBoxNameType): ConfirmModalBtnType {
+  const terms = {
+    termsOfUse: modalForTermsOfUse,
+    personalInformation: modalForPersonalInformation,
+    marketing: modalForMarketing,
+  };
+  function makeYestBtnValue(name: TermsContentsNameType): ConfirmModalBtnType {
     return {
       //btn 의 text node
       text: '동의하기',
@@ -84,7 +88,7 @@ const SignUpTerms = () => {
       otherFn: () => onClickYesBtn(name),
     };
   }
-  function makeNoBtnValue(name: TermsCheckBoxNameType): ConfirmModalBtnType {
+  function makeNoBtnValue(name: TermsContentsNameType): ConfirmModalBtnType {
     return {
       //btn 의 text node
       text: '닫기',
@@ -172,27 +176,13 @@ const SignUpTerms = () => {
       changeAgreement(name, checked);
     }
   };
-  const onClickToShowTerm = (name: TermsCheckBoxNameType) => {
+  const onClickToShowTerm = (name: TermsContentsNameType) => {
     setOpenModal(true);
-    switch (name) {
-      case 'termsOfUse':
-        setModalState(modalFortermsOfUse);
-        break;
-      case 'personalInformation':
-        setModalState(modalForPersonalInformation);
-        break;
-      case 'ageCondition':
-        setModalState(modalForAgeCondition);
-        break;
-      case 'marketing':
-        setModalState(modalForMarketing);
-        break;
-      default:
-        break;
-    }
+    setOpenTargetTerms(name);
   };
+
   useEffect(() => {
-    const valueOftermsOfUse = signUpState.agreeToTerms.termsOfUse;
+    const valueOfTermsOfUse = signUpState.agreeToTerms.termsOfUse;
     const valueOfPersonalInformation = signUpState.agreeToTerms.personalInformation;
     const valueOfAgeCondition = signUpState.agreeToTerms.ageCondition;
     const valueOfMarketing = signUpState.agreeToTerms.marketing;
@@ -200,7 +190,7 @@ const SignUpTerms = () => {
       '.terms-group input',
     ) as NodeListOf<HTMLInputElement>;
     if (
-      valueOftermsOfUse &&
+      valueOfTermsOfUse &&
       valueOfPersonalInformation &&
       valueOfAgeCondition &&
       valueOfMarketing
@@ -257,7 +247,7 @@ const SignUpTerms = () => {
             id="ageCondition"
             label="14세 이상 이용 동의(필수)"
             onChange={handleCheckBoxOfTerm}
-            onClickBtn={() => onClickToShowTerm('ageCondition')}
+            onClickBtn={null}
           />
           <SignUpTerm
             id="marketing"
@@ -267,7 +257,16 @@ const SignUpTerms = () => {
           />
         </section>
       </StepInner>
-      {openModal && <ConfirmModal modalState={modalState} closeModal={() => setOpenModal(false)} />}
+      {openModal && (
+        <ConfirmModal
+          title={terms[`${openTargetTerms}`].title}
+          yesBtn={terms[`${openTargetTerms}`].yesBtn}
+          noBtn={terms[`${openTargetTerms}`].noBtn}
+          closeModal={() => setOpenModal(false)}
+        >
+          {terms[`${openTargetTerms}`].children}
+        </ConfirmModal>
+      )}
     </div>
   );
 };
