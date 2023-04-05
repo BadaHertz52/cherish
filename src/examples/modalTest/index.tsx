@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import AlertModal from '../modals/alertModal';
-import ConfirmModal from '../modals/confirmModal';
-import BottomNavModal from '../modals/bottomNavModal';
+import AlertModal from '../../modals/alertModal';
+import ConfirmModal from '../../modals/confirmModal';
+import BottomNavModal from '../../modals/bottomNavModal';
 import {
   ConfirmModalBtnType,
   ConfirmModalType,
   FilteringConditionType,
   FullScreModalType,
   ToastModalType,
-} from '../modals/modalTypes';
-import ToastModal from '../modals/toastModal';
-import FullScreModal from '../modals/fullModal';
+} from '../../modals/modalTypes';
+import ToastModal from '../../modals/toastModal';
+import FullScreModal from '../../modals/fullModal';
 import product_sampleImg from './product_sample.jpg';
 import './style.scss';
 
