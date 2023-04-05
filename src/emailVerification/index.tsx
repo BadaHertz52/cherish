@@ -3,7 +3,7 @@ import { XSSCheck } from '../logIn/index';
 import AlertModal from '../modals/alertModal';
 import { ToastModalType } from '../modals/modalTypes';
 import ToastModal from '../modals/toastModal';
-import InputForm from '../signup/components/InputForm';
+import InputForm from '../inputForm';
 import { InputDataType } from '../signup/components/signUpTypes';
 import Timer from '../signup/components/Timer';
 import './style.scss';
