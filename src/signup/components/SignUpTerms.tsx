@@ -10,9 +10,9 @@ import {
 import StepInner from './StepInner';
 import ConfirmModal, { ConfirmModalProps } from '../../modals/confirmModal';
 import { ConfirmModalBtnType } from '../../modals/modalTypes';
-import TermsOfUse from './temrs/TermsOfUse';
-import PersonalInformation from './temrs/PersonalInformation';
-import Marketing from './temrs/Marketing';
+import TermsOfUse from './terms/TermsOfUse';
+import PersonalInformation from './terms/PersonalInformation';
+import Marketing from './terms/Marketing';
 
 type SignUpTermProps = {
   id: TermsCheckBoxNameType;
