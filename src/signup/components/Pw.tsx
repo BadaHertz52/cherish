@@ -39,7 +39,7 @@ const Pw = () => {
       }
     }
   }, [pw, confirmPw]);
-  //sessiongStorage, signUpState 내용 가져오기
+  //sessionStorage, signUpState 내용 가져오기
   useEffect(() => {
     getPrevData('pw', setPw, null, null);
     getPrevData('confirmPw', setConfirmPw, null, null);

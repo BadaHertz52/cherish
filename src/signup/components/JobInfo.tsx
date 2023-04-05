@@ -14,7 +14,7 @@ import { SignUpContext } from '..';
 
 const JobInfo = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
-  const [disableBtn, setDisAbleBtn] = useState<boolean>(true);
+  const [disableBtn, setDisableBtn] = useState<boolean>(true);
   const [job, setJob] = useState<InputDataType>(initialInputData);
   const checkedCheckBoxEl = document.querySelectorAll(
     '.check-box input',
@@ -48,7 +48,7 @@ const JobInfo = () => {
   }, []);
   useEffect(() => {
     if (job.value !== '') {
-      setDisAbleBtn(false);
+      setDisableBtn(false);
       const targetCheckBoxEl = document.querySelector(
         `#job-info-${job.value}`,
       ) as HTMLInputElement | null;
@@ -56,7 +56,7 @@ const JobInfo = () => {
         targetCheckBoxEl.checked = true;
       }
     } else {
-      setDisAbleBtn(true);
+      setDisableBtn(true);
     }
   }, [job]);
   return (
