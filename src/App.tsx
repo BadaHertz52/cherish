@@ -4,7 +4,7 @@ import Second from './pages/Second';
 import Third from './pages/Third';
 import Fourth from './pages/Fourth';
 import Main from './pages/Main';
-import ModalTest from './modalTest';
+import ModalTest from './examples/modalTest';
 import './assets/main.scss';
 function App() {
   return (

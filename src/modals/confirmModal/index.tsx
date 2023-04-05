@@ -1,21 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import ModalPortal from '../ModalPortal';
-import { ConfirmModalType } from '../modalTypes';
+import { ConfirmModalBtnType } from '../modalTypes';
 import './style.scss';
-type ConfirmModalProps = {
-  modalState: ConfirmModalType;
+export type ConfirmModalProps = {
+  title: string;
+  children: ReactNode;
+  yesBtn: ConfirmModalBtnType;
+  noBtn: ConfirmModalBtnType;
   closeModal: () => void;
 };
-const ConfirmModal = ({ modalState, closeModal }: ConfirmModalProps) => {
+const ConfirmModal = ({ title, children, yesBtn, noBtn, closeModal }: ConfirmModalProps) => {
   const onClickYesBtn = () => {
-    if (modalState.yesBtn.otherFn !== null) {
-      modalState.yesBtn.otherFn();
+    if (yesBtn.otherFn !== null) {
+      yesBtn.otherFn();
     }
     closeModal();
   };
   const onClickNoBtn = () => {
-    if (modalState.noBtn.otherFn !== null) {
-      modalState.noBtn.otherFn();
+    if (noBtn.otherFn !== null) {
+      noBtn.otherFn();
     }
     closeModal();
   };
@@ -25,14 +28,14 @@ const ConfirmModal = ({ modalState, closeModal }: ConfirmModalProps) => {
   }, []);
   return (
     <ModalPortal>
-      {modalState.title !== null && <title>{modalState.title}</title>}
-      <section className="contents">{modalState.contents}</section>
+      {title !== null && <h2 className="title">{title}</h2>}
+      <section className="contents">{children}</section>
       <section className="btn-group">
         <button type="button" className="btn-yes" onClick={onClickYesBtn}>
-          {modalState.yesBtn?.text}
+          {yesBtn?.text}
         </button>
         <button type="button" className="btn-no" onClick={onClickNoBtn}>
-          {modalState.noBtn?.text}
+          {noBtn?.text}
         </button>
       </section>
     </ModalPortal>
