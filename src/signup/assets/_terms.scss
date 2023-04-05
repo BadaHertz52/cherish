@@ -6,7 +6,7 @@
 .modal__contents__term {
   width: 100%;
   //confirmModal.maxHeight - modalInner.padding*2 - title.height - modalContent.paddingBottom - button.height
-  height: calc((80vh - 44px - 26px - 34px - 4vh) * 0.8);
+  max-height: calc((80vh - 44px - 26px - 34px - 4vh) * 0.8);
   margin-top: 10px;
   overflow-y: scroll;
   -ms-overflow-style: none; /* IE and Edge */

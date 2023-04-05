@@ -1,4 +1,4 @@
-@import '../../common.scss';
+@import '@/common.scss';
 #sign-up__terms {
   width: 100%;
   .top {
@@ -13,6 +13,8 @@
       @include h2-font;
     }
     .header {
+      display: flex;
+      flex-direction: column;
       h2 {
         @include h2-font;
         margin-bottom: 1vh;
