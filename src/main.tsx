@@ -1,15 +1,18 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import * as ReactDOMClient from 'react-dom/client';
 import App from './App';
-import BottomNav from './components/BottomNav';
 import { BrowserRouter } from 'react-router-dom';
 import 'reset-css';
-ReactDOM.render(
+
+const container = document.getElementById('root') as HTMLElement;
+
+// Create a root.
+const root = ReactDOMClient.createRoot(container);
+
+root.render(
   <React.StrictMode>
     <BrowserRouter>
       <App />
-      <BottomNav />
     </BrowserRouter>
   </React.StrictMode>,
-  document.getElementById('root'),
 );
