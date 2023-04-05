@@ -2,7 +2,7 @@ import React, { ReactNode, useEffect } from 'react';
 import ModalPortal from '../ModalPortal';
 import { ConfirmModalBtnType } from '../modalTypes';
 import './style.scss';
-type ConfirmModalProps = {
+export type ConfirmModalProps = {
   title: string;
   children: ReactNode;
   yesBtn: ConfirmModalBtnType;
