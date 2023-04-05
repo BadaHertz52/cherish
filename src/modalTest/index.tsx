@@ -3,6 +3,7 @@ import AlertModal from '../modals/alertModal';
 import ConfirmModal from '../modals/confirmModal';
 import BottomNavModal from '../modals/bottomNavModal';
 import {
+  ConfirmModalBtnType,
   ConfirmModalType,
   FilteringConditionType,
   FullScreModalType,
@@ -48,20 +49,17 @@ const ModalTest = () => {
     );
   };
   const [alertModalChildren, setAlertModalChildren] = useState<string>('alert01');
-  const confirmModalState: ConfirmModalType = {
-    title: 'title',
-    contents: 'contents',
-    yesBtn: {
-      text: 'yes',
-      path: null,
-      otherFn: null,
-    },
-    noBtn: {
-      text: 'no',
-      path: null,
-      otherFn: null,
-    },
+  const confirmYesBtn: ConfirmModalBtnType = {
+    text: 'yes',
+    path: null,
+    otherFn: null,
   };
+  const confirmNoBtn: ConfirmModalBtnType = {
+    text: 'no',
+    path: null,
+    otherFn: null,
+  };
+
   //사용자가 선택한 필터링 조건
   const selectedFilteringCondition: FilteringConditionType = {
     productType: ['food'],
@@ -162,7 +160,14 @@ const ModalTest = () => {
           </AlertModal>
         ))}
       {openTarget == modalType.confirm && (
-        <ConfirmModal modalState={confirmModalState} closeModal={() => setOpenTarget(null)} />
+        <ConfirmModal
+          title="title"
+          yesBtn={confirmYesBtn}
+          noBtn={confirmNoBtn}
+          closeModal={() => setOpenTarget(null)}
+        >
+          "confirmModal"
+        </ConfirmModal>
       )}
       {openTarget === modalType.toast && toastModalState !== undefined && (
         <ToastModal modalState={toastModalState} closeModal={() => setOpenTarget(null)} />

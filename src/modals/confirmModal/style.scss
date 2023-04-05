@@ -12,7 +12,7 @@
     min-height: calc(100vw * 0.77 * 0.58);
   }
   // confirm-modal 의 height는 .modal__inner을 통해 조절
-  title {
+  .title {
     @include h2-font;
     display: block;
   }
