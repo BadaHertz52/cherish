@@ -12,7 +12,7 @@ import JobInfo from './components/JobInfo';
 export const initialSignUpState: SignUpStateType = {
   progress: 'genderAndBirth',
   agreeToTerms: {
-    termsAndCondition: false,
+    termsOfUse: false,
     ageCondition: false,
     personalInformation: false,
     marketing: false,

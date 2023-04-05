@@ -48,11 +48,11 @@ const SignUpTerms = () => {
   const WHOLE_AGREEMENT_CHECK_BOX_EL = document.querySelector(
     `#whole-agree`,
   ) as HTMLInputElement | null;
-  const modalForTermsAndCondition: ConfirmModalType = {
+  const modalFortermsOfUse: ConfirmModalType = {
     title: '이용약관(필수)',
     contents: 'contents',
-    yesBtn: makeYestBtnValue('termsAndCondition'),
-    noBtn: makeNoBtnValue('termsAndCondition'),
+    yesBtn: makeYestBtnValue('termsOfUse'),
+    noBtn: makeNoBtnValue('termsOfUse'),
   };
   const modalForPersonalInformation: ConfirmModalType = {
     title: '개인정보 수집 및 이용(필수)',
@@ -61,7 +61,7 @@ const SignUpTerms = () => {
     noBtn: makeNoBtnValue('personalInformation'),
   };
   const modalForAgeCondition: ConfirmModalType = {
-    title: '14세 이상 이용 동의(필수)',
+    title: '만 14세 이상 이용 동의(필수)',
     contents: 'contents',
     yesBtn: makeYestBtnValue('personalInformation'),
     noBtn: makeNoBtnValue('personalInformation'),
@@ -73,7 +73,7 @@ const SignUpTerms = () => {
     noBtn: makeNoBtnValue('marketing'),
   };
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [modalState, setModalState] = useState<ConfirmModalType>(modalForTermsAndCondition);
+  const [modalState, setModalState] = useState<ConfirmModalType>(modalFortermsOfUse);
   function makeYestBtnValue(name: TermsCheckBoxNameType): ConfirmModalBtnType {
     return {
       //btn 의 text node
@@ -109,7 +109,7 @@ const SignUpTerms = () => {
     if (target !== null) {
       const checked = target.checked;
       setAgreement({
-        termsAndCondition: checked,
+        termsOfUse: checked,
         personalInformation: checked,
         ageCondition: checked,
         marketing: checked,
@@ -120,11 +120,11 @@ const SignUpTerms = () => {
   };
   function changeAgreement(name: TermsCheckBoxNameType, checked: boolean) {
     switch (name) {
-      case 'termsAndCondition':
+      case 'termsOfUse':
         setAgreement((prev: AgreementStateType) => {
           const newState: AgreementStateType = {
             ...prev,
-            termsAndCondition: checked,
+            termsOfUse: checked,
           };
           return newState;
         });
@@ -175,8 +175,8 @@ const SignUpTerms = () => {
   const onClickToShowTerm = (name: TermsCheckBoxNameType) => {
     setOpenModal(true);
     switch (name) {
-      case 'termsAndCondition':
-        setModalState(modalForTermsAndCondition);
+      case 'termsOfUse':
+        setModalState(modalFortermsOfUse);
         break;
       case 'personalInformation':
         setModalState(modalForPersonalInformation);
@@ -192,7 +192,7 @@ const SignUpTerms = () => {
     }
   };
   useEffect(() => {
-    const valueOfTermsAndCondition = signUpState.agreeToTerms.termsAndCondition;
+    const valueOftermsOfUse = signUpState.agreeToTerms.termsOfUse;
     const valueOfPersonalInformation = signUpState.agreeToTerms.personalInformation;
     const valueOfAgeCondition = signUpState.agreeToTerms.ageCondition;
     const valueOfMarketing = signUpState.agreeToTerms.marketing;
@@ -200,7 +200,7 @@ const SignUpTerms = () => {
       '.terms-group input',
     ) as NodeListOf<HTMLInputElement>;
     if (
-      valueOfTermsAndCondition &&
+      valueOftermsOfUse &&
       valueOfPersonalInformation &&
       valueOfAgeCondition &&
       valueOfMarketing
@@ -215,7 +215,7 @@ const SignUpTerms = () => {
     });
   }, []);
   useEffect(() => {
-    if (agreement.termsAndCondition && agreement.personalInformation && agreement.ageCondition) {
+    if (agreement.termsOfUse && agreement.personalInformation && agreement.ageCondition) {
       setDisableBtn(false);
       if (agreement.marketing && WHOLE_AGREEMENT_CHECK_BOX_EL !== null) {
         WHOLE_AGREEMENT_CHECK_BOX_EL.checked = true;
@@ -242,10 +242,10 @@ const SignUpTerms = () => {
         </div>
         <section className="terms-group">
           <SignUpTerm
-            id="termsAndCondition"
+            id="termsOfUse"
             label="이용약관(필수)"
             onChange={handleCheckBoxOfTerm}
-            onClickBtn={() => onClickToShowTerm('termsAndCondition')}
+            onClickBtn={() => onClickToShowTerm('termsOfUse')}
           />
           <SignUpTerm
             id="personalInformation"
