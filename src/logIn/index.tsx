@@ -28,11 +28,11 @@ const LogIn = () => {
     pw: 'pw',
   } as const;
   type InputTargetType = keyof typeof inputTarget;
-  const onTouchLink = (event: TouchEvent<HTMLElement>) => {
+  const handleTouchOfLink = (event: TouchEvent<HTMLElement>) => {
     const target = event.currentTarget;
     target.classList.toggle('on');
   };
-  const onChange = (event: ChangeEvent<HTMLInputElement>, target: InputTargetType) => {
+  const handleChangeOfValue = (event: ChangeEvent<HTMLInputElement>, target: InputTargetType) => {
     const value = XSSCheck(event.target.value, undefined);
     if (target === 'email') {
       setEmail(value);
@@ -40,14 +40,14 @@ const LogIn = () => {
       setPw(value);
     }
   };
-  const onClickRemoveBtn = () => {
+  const handleClickRemoveBtn = () => {
     setEmail('');
   };
-  const onChangeKeep = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeOfKeep = (event: ChangeEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement | null;
     target !== null && setKeepLogin(target.checked);
   };
-  const onClickLogInBtn = async () => {
+  const handleClickLogInBtn = async () => {
     const data = { email: email, pw: pw };
     // data 서버에 전송
 
@@ -92,9 +92,9 @@ const LogIn = () => {
               value={email}
               type="text"
               placeholder="이메일을 입력해주세요"
-              onChange={event => onChange(event, 'email')}
+              onChange={event => handleChangeOfValue(event, 'email')}
             />
-            <button type="button" title="btn-remove-email" onClick={onClickRemoveBtn}>
+            <button type="button" title="btn-remove-email" onClick={handleClickRemoveBtn}>
               <FontAwesomeIcon icon={faCircleXmark} />
             </button>
           </div>
@@ -103,7 +103,7 @@ const LogIn = () => {
               value={pw}
               type={showPw ? 'text' : 'password'}
               placeholder="비밀번호을 입력해주세요"
-              onChange={event => onChange(event, 'pw')}
+              onChange={event => handleChangeOfValue(event, 'pw')}
             />
             <BtnShowPw showPw={showPw} setShowPw={setShowPw} />
           </div>
@@ -114,15 +114,15 @@ const LogIn = () => {
               id="checkboxKeep"
               name="autoLogIn"
               label="자동 로그인 하기"
-              onChange={onChangeKeep}
+              onChange={handleChangeOfKeep}
             />
           </div>
           <div className="log-in__util__find">
             <Link
               to={'/비밀번호찾기'}
               className="link-find-pw"
-              onTouchStart={event => onTouchLink(event)}
-              onTouchEnd={event => onTouchLink(event)}
+              onTouchStart={event => handleTouchOfLink(event)}
+              onTouchEnd={event => handleTouchOfLink(event)}
             >
               비밀번호 찾기
             </Link>
@@ -136,7 +136,7 @@ const LogIn = () => {
             </>
           )}
         </div>
-        <button type="button" className="btn-log-in" onClick={onClickLogInBtn}>
+        <button type="button" className="btn-log-in" onClick={handleClickLogInBtn}>
           로그인
         </button>
         <button type="button" className="btn-sign-up" onClick={onClickSignUpBtn}>
