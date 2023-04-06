@@ -5,11 +5,12 @@
   }
   .modal__box {
     @include modal-box;
-    width: 77vw;
+    width: 77%;
+    max-width: calc(560px * 0.6);
   }
   .modal__inner {
     @include modal-inner;
-    min-height: calc(77vw * 0.57);
+    min-height: 168px;
     max-height: 80vh;
     box-sizing: border-box;
     display: flex;
@@ -37,8 +38,8 @@
   button {
     @include bd1-font;
     //100& - 버튼 간격
-    width: 28vw;
-    height: 9vw;
+    width: 115px;
+    height: 39px;
   }
   .btn-yes {
     @include btn-selected-border-style;
