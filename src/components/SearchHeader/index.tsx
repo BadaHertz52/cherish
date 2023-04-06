@@ -1,8 +1,23 @@
 import styles from './style.module.scss';
 import BackButtonSvg from '@/assets/svgs/back-button.svg';
 import SearchSvg from '@/assets/svgs/search.svg';
+import { useState } from 'react';
 
-const SearchHeader = () => {
+type SearchHeaderProps = {
+  handleSearch: (keyword: string) => void;
+};
+
+const SearchHeader = ({ handleSearch }: SearchHeaderProps) => {
+  const [keyword, setKeyword] = useState('');
+
+  const handleClickSearch = () => {
+    handleSearch(keyword);
+  };
+
+  const handleKeywordChange = ({ target }: { target: HTMLInputElement }) => {
+    setKeyword(target.value);
+  };
+
   return (
     <>
       <div className={styles.searchHeader}>
@@ -10,8 +25,12 @@ const SearchHeader = () => {
           <BackButtonSvg />
         </div>
         <div className={styles.inputBox}>
-          <input placeholder="검색어를 입력해주세요" />
-          <div className={styles.searchButton}>
+          <input
+            placeholder="검색어를 입력해주세요"
+            value={keyword}
+            onChange={handleKeywordChange}
+          />
+          <div className={styles.searchButton} onClick={handleClickSearch}>
             <SearchSvg />
           </div>
         </div>

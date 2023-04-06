@@ -2,15 +2,22 @@ import styles from './style.module.scss';
 import { SearchKeywordSection, SearchHeader, ItemCard } from '@/components';
 
 const SearchPage = () => {
+  const handleSearch = (keyword: string) => {
+    // TODO: Search API 붙이기
+  };
+
   return (
     <div className={styles.searchPage}>
-      <SearchHeader />
+      <SearchHeader handleSearch={handleSearch} />
       <section className={styles.contents}>
         <h2>최근 검색어</h2>
-        <SearchKeywordSection items={['졸업식', '엄마', '40대']} />
+        <SearchKeywordSection items={['졸업식', '엄마', '40대']} handleSearch={handleSearch} />
 
         <h2>추천 검색어</h2>
-        <SearchKeywordSection items={['화이트데이', '스몰럭셔리', '가정의 달']} />
+        <SearchKeywordSection
+          items={['화이트데이', '스몰럭셔리', '가정의 달']}
+          handleSearch={handleSearch}
+        />
 
         <h2>최근 본 상품</h2>
         <div className={styles.productSection}>
