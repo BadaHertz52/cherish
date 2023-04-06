@@ -1,11 +1,12 @@
+@import '@/common.scss';
+
 .searchPage {
   .contents {
     padding: 22px 20px;
 
     > h2 {
-      line-height: 22.4px;
-      font-size: 14px;
-      font-weight: 600;
+      @include bd1-font;
+      color: #121212;
       margin-bottom: 10px;
     }
 
