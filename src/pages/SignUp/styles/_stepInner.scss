@@ -5,7 +5,7 @@
   // 100%  -bottomNav.height-SignUpTopBar.height - progreebar -padding.top
   height: calc(100vh - 80px - 149px - 5px - 3.3vh);
   overflow-y: auto;
-  padding-top: 3.3vh;
+  padding-top: 30px;
   padding-left: 21px;
   padding-right: 21px;
   box-sizing: border-box;
@@ -14,7 +14,7 @@
     margin-bottom: 2vh;
   }
   &__body {
-    // -heaer.height -nextBtn max height
+    // -header.height -nextBtn max height
     height: calc(100% - 44px - 66px);
   }
 }
