@@ -14,7 +14,7 @@ const AlertModal = ({ children, center, short, closeModal }: AlertModalProps) =>
   }, []);
   return (
     <ModalPortal>
-      <section className={`contents ${short ? 'short' : 'long'}`}>
+      <section className={`alert-modal__contents ${short ? 'short' : 'long'}`}>
         <div className={`alert-modal__text-container ${center ? 'center' : ''}`}>{children}</div>
       </section>
       <button type="button" className="btn-close" title="close btn" onClick={closeModal}>

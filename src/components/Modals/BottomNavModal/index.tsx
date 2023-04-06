@@ -1,38 +1,37 @@
 import { ChangeEvent, useEffect, useState, TouchEvent } from 'react';
-import BottomNavModalPortal from './ModalPortal';
-import { ConditionType, FilteringConditionType } from '../modalTypes';
-import CheckBox from '../../checkbox';
-import './style.scss';
+import { ConditionType, FilteringConditionType } from '@/components/Modals/modalTypes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRotateRight } from '@fortawesome/free-solid-svg-icons';
-import { ConditionName } from '../modalTypes';
-
-const category = {
+import { ConditionName } from '@/components/Modals/modalTypes';
+import Checkbox from '@/components/CheckBox';
+import BottomNavModalPortal from '../BottomNavModalPortal';
+import './style.scss';
+const CATEGORY = {
   productType: 'productType',
   gender: 'gender',
   job: 'job',
   situation: 'situation',
 } as const;
-type CategoryType = keyof typeof category;
+type CategoryType = keyof typeof CATEGORY;
 type CheckBoxType = {
   name: ConditionName;
   label: string;
 };
 
 // CheckBoxType 의 name은 추후 필터링 조건명에 따라 수정
-const productTypeCheckBoxArr: CheckBoxType[] = [
+const PRODUCT_TYPE_CHECK_BOX_ARR: CheckBoxType[] = [
   { name: 'food', label: '식품' },
   { name: 'beauty', label: '뷰티' },
   { name: 'living', label: '리빙/주방' },
   { name: 'digital', label: '디지털/가전' },
   { name: 'productEtc', label: '기타' },
 ];
-const genderCheckBoxArr: CheckBoxType[] = [
+const GENDER_CHECK_BOX_ARR: CheckBoxType[] = [
   { name: 'male', label: '남' },
   { name: 'female', label: '여' },
   { name: 'irrelevant', label: '무관' },
 ];
-const jobCheckBoxArr: CheckBoxType[] = [
+const JOB_CHECK_BOX_ARR: CheckBoxType[] = [
   { name: 'profession', label: '전문직' },
   { name: 'management', label: '경영/관리직' },
   { name: 'desk', label: '사무직' },
@@ -44,7 +43,7 @@ const jobCheckBoxArr: CheckBoxType[] = [
   { name: 'outOfWork', label: '무직' },
   { name: 'jobEtc', label: '기타' },
 ];
-const situationCheckBoxArr: CheckBoxType[] = [
+const SITUATION_CHECK_BOX_ARR: CheckBoxType[] = [
   { name: 'birthday', label: '생일' },
   { name: 'moveHousewarming', label: '이사/집들이' },
   { name: 'admissionAndGraduation', label: '입학/졸업' },
@@ -69,7 +68,7 @@ const BottomNavModal = ({
   closeModal,
 }: BottomNavModalProps) => {
   const [category, setCategory] = useState<CategoryType>('productType');
-  const [checkBoxArr, setCheckBoxArr] = useState<CheckBoxType[]>(productTypeCheckBoxArr);
+  const [checkBoxArr, setCheckBoxArr] = useState<CheckBoxType[]>(PRODUCT_TYPE_CHECK_BOX_ARR);
   const [filteringCondition, setFilteringCondition] = useState<FilteringConditionType>(
     selectedFilteringCondition,
   );
@@ -78,17 +77,14 @@ const BottomNavModal = ({
   const categoryArr: CategoryType[] = ['productType', 'gender', 'job', 'situation'];
   const categoryBtnTextArr = ['상품유형', '성별', '직업', '상황'];
   const arrOfCheckBoxArr = [
-    productTypeCheckBoxArr,
-    genderCheckBoxArr,
-    jobCheckBoxArr,
-    situationCheckBoxArr,
+    PRODUCT_TYPE_CHECK_BOX_ARR,
+    GENDER_CHECK_BOX_ARR,
+    JOB_CHECK_BOX_ARR,
+    SITUATION_CHECK_BOX_ARR,
   ];
   const BOTTOM_MODAL_El = document.querySelector('.bottom-nav-modal') as HTMLElement | null;
-  const modalBackgroundEl = document.querySelector('.bottom-nav-modal .modal__background');
-  const modalBoxEl = BOTTOM_MODAL_El?.querySelector('.modal__box') as
-    | HTMLElement
-    | null
-    | undefined;
+  const MODAL_BACKGROUND_EL = document.querySelector('.bottom-nav-modal .modal__background');
+  const MODAL_EL = BOTTOM_MODAL_El?.querySelector('.modal__box') as HTMLElement | null | undefined;
   const listOfCheckBox: NodeListOf<HTMLInputElement> =
     document.querySelectorAll('input[type="checkbox"]');
   const changeLabelClass = (el: HTMLInputElement) => {
@@ -151,8 +147,8 @@ const BottomNavModal = ({
   const closeBottomNavModal = (event: Event) => {
     const target = event.target as HTMLElement | null;
     if (!target?.closest('.modal__box') && BOTTOM_MODAL_El !== null) {
-      if (modalBoxEl !== null && modalBoxEl !== undefined) {
-        modalBoxEl.style.top = '105vh';
+      if (MODAL_EL !== null && MODAL_EL !== undefined) {
+        MODAL_EL.style.top = '105vh';
       }
       setTimeout(() => {
         closeModal();
@@ -189,14 +185,14 @@ const BottomNavModal = ({
     if (openBottomNavModal) {
       BOTTOM_MODAL_El?.classList.add('on');
       setTimeout(() => {
-        if (modalBoxEl !== null && modalBoxEl !== undefined) {
-          modalBoxEl.style.top = `54vh`;
+        if (MODAL_EL !== null && MODAL_EL !== undefined) {
+          MODAL_EL.style.top = `54vh`;
         }
       }, 50);
-      modalBackgroundEl?.addEventListener('click', event => closeBottomNavModal(event));
+      MODAL_BACKGROUND_EL?.addEventListener('click', event => closeBottomNavModal(event));
     } else {
       BOTTOM_MODAL_El?.classList.remove('on');
-      modalBackgroundEl?.removeEventListener('click', closeBottomNavModal);
+      MODAL_BACKGROUND_EL?.removeEventListener('click', closeBottomNavModal);
     }
   }, [openBottomNavModal]);
 
@@ -242,7 +238,7 @@ const BottomNavModal = ({
         </div>
         <div className="checkbox-group">
           {checkBoxArr.map((v, i) => (
-            <CheckBox
+            <Checkbox
               key={`checkbox_${i}`}
               id={v.name}
               name={v.name}

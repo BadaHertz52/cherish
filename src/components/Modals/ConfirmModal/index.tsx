@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect } from 'react';
 import ModalPortal from '../ModalPortal';
-import { ConfirmModalBtnType } from '../modalTypes';
+import { ConfirmModalBtnType } from '@/components/Modals/modalTypes';
 import './style.scss';
 export type ConfirmModalProps = {
   title: string;
@@ -28,9 +28,9 @@ const ConfirmModal = ({ title, children, yesBtn, noBtn, closeModal }: ConfirmMod
   }, []);
   return (
     <ModalPortal>
-      {title !== null && <h2 className="title">{title}</h2>}
-      <section className="contents">{children}</section>
-      <section className="btn-group">
+      {title !== null && <h2 className="confirm-modal__title">{title}</h2>}
+      <section className="confirm-modal__contents">{children}</section>
+      <section className="confirm-modal__btn-group">
         <button type="button" className="btn-yes" onClick={onClickYesBtn}>
           {yesBtn?.text}
         </button>

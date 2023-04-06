@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import ModalPortal from '../ModalPortal';
-import { ToastModalType } from '../modalTypes';
+import { ToastModalType } from '@/components/Modals/modalTypes';
 import './style.scss';
 type ToastModalProps = {
   modalState: ToastModalType;
@@ -20,7 +20,7 @@ const ToastModal = ({ modalState, closeModal }: ToastModalProps) => {
   }, []);
   return (
     <ModalPortal>
-      <div className="contents">{modalState.contents}</div>
+      <div className="toast-modal__contents">{modalState.contents}</div>
     </ModalPortal>
   );
 };

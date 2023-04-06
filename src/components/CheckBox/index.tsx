@@ -15,7 +15,7 @@ const CheckBox = ({ id, name, label, onChange }: CheckBoxProps) => {
       <div className="check-box__inner">
         <input type="checkbox" id={id} name={name} onChange={event => handleChange(event)} />
         <label htmlFor={id} className="check"></label>
-        <label htmlFor={id} className="label">
+        <label htmlFor={id} className="check-box__label">
           <span>{label}</span>
         </label>
       </div>

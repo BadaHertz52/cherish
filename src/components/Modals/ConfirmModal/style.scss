@@ -1,4 +1,4 @@
-@import '@/modals/modalCommon.scss';
+@import '../modalCommon.scss';
 .confirm-modal {
   .modal__background {
     @include background;
@@ -17,17 +17,17 @@
     justify-content: space-between;
   }
   // confirm-modal 의 height는 .modal__inner을 통해 조절
-  .title {
+  &__title {
     @include h2-font;
     display: block;
     height: fit-content;
   }
-  .contents {
+  &__contents {
     @include bd1-font;
     padding-bottom: 34px;
     text-align: center;
   }
-  .btn-group {
+  &__btn-group {
     display: flex;
     align-items: center;
     justify-content: space-around;

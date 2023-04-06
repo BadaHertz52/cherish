@@ -1,8 +1,8 @@
-@import '@/modals/modalCommon.scss';
+@import '../modalCommon.scss';
 
 .full-scre-modal {
   button {
-    @include reset-btn-style;
+    @include clean-btn-style;
   }
   h2 {
     @include h2-font;

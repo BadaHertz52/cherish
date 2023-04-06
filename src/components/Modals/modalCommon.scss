@@ -1,4 +1,4 @@
-@import '@/common.scss';
+@import '@/assets/styles/common.scss';
 $background-color: rgba(117, 117, 117, 0.4);
 @mixin background {
   position: relative;
@@ -25,10 +25,6 @@ $background-color: rgba(117, 117, 117, 0.4);
   position: absolute;
   top: 0;
   left: 0;
-}
-@mixin reset-btn-style {
-  background-color: $color-white;
-  border: none;
 }
 #modal-root,
 #bottom-nav-modal-root {

@@ -1,6 +1,6 @@
 import React, { MouseEvent, TouchEvent, useEffect, useRef, useState } from 'react';
 import ModalPortal from '../ModalPortal';
-import { FullScreModalType } from '../modalTypes';
+import { FullScreModalType } from '@/components/Modals/modalTypes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faBookmark, faXmark } from '@fortawesome/free-solid-svg-icons';
 import './style.scss';
@@ -9,7 +9,7 @@ type FullScreModalProps = {
   closeModal: () => void;
 };
 const FullScreModal = ({ modalState, closeModal }: FullScreModalProps) => {
-  const onlineShop = {
+  const ONLINE_SHOP = {
     brand: 'Brand',
     kakao: 'Kakao',
     coupang: 'Coupang',
@@ -93,7 +93,7 @@ const FullScreModal = ({ modalState, closeModal }: FullScreModalProps) => {
                 <h2>온라인 구매처</h2>
                 {modalState.store.online.sort().map((v, i) => (
                   <div className="site" key={`site_${i}`}>
-                    <div className="site__name">{onlineShop[`${v.name}`]}</div>
+                    <div className="site__name">{ONLINE_SHOP[`${v.name}`]}</div>
                     <a
                       className="site__link"
                       href={v.url}

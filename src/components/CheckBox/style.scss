@@ -1,4 +1,4 @@
-@import '@/common.scss';
+@import '@/assets/styles/common.scss';
 
 .check-box {
   position: relative;
@@ -27,12 +27,15 @@
     font-size: 16px;
     color: $color-primary;
   }
-  .label {
+  &__label {
     margin-left: 16px;
     @include bd2-font;
     // 상황에 맞게 조정가능
     line-height: 14px;
     text-align: center;
+    &.on {
+      font-weight: bold;
+    }
   }
 }
 

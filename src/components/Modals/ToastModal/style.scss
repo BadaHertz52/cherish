@@ -1,4 +1,4 @@
-@import '@/modals/modalCommon.scss';
+@import '../modalCommon.scss';
 
 .toast-modal {
   position: absolute;
@@ -16,7 +16,7 @@
     height: 100%;
     width: 100%;
   }
-  .contents {
+  .toast-modal__.contents {
     @include navigation-font;
   }
 }
