@@ -1,0 +1,43 @@
+@import '@/assets/styles/common.scss';
+$background-color: rgba(117, 117, 117, 0.4);
+$app-max-width: 560px;
+@mixin background {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $background-color;
+}
+@mixin modal-box {
+  position: relative;
+  background-color: $color-white;
+  border-radius: 10px;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 14px rgba(166, 166, 166, 0.25);
+}
+@mixin modal-inner {
+  padding: 23px;
+  box-sizing: inherit;
+}
+@mixin modal-root {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+}
+#modal-root,
+#bottom-nav-modal-root {
+  @include modal-root;
+  font-size: 16px;
+  color: $color-black;
+  .modal {
+    max-width: $app-max-width;
+    height: 100vh;
+    margin: 0 auto;
+  }
+}
+.modal__background {
+  position: relative;
+}
