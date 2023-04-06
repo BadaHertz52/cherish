@@ -1,0 +1,54 @@
+@import '../modalCommon.scss';
+.confirm-modal {
+  .modal__background {
+    @include background;
+  }
+  .modal__box {
+    @include modal-box;
+    width: 77%;
+    max-width: calc(560px * 0.6);
+  }
+  .modal__inner {
+    @include modal-inner;
+    min-height: 168px;
+    max-height: 80vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  // confirm-modal 의 height는 .modal__inner을 통해 조절
+  &__title {
+    @include h2-font;
+    display: block;
+    height: fit-content;
+  }
+  &__contents {
+    @include bd1-font;
+    padding-bottom: 34px;
+    text-align: center;
+  }
+  &__btn-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    //100% - padding.left -padding.right
+    width: 100%;
+  }
+  button {
+    @include bd1-font;
+    //100& - 버튼 간격
+    width: 115px;
+    height: 39px;
+  }
+  .btn-yes {
+    @include btn-selected-border-style;
+    margin-right: 10px;
+  }
+  .btn-no {
+    @include btn-selected-full-style;
+  }
+  button {
+    @include clean-btn-style;
+  }
+}
