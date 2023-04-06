@@ -23,7 +23,8 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.2",
     "reset-css": "^5.0.1",
-    "sass": "^1.59.2"
+    "sass": "^1.59.2",
+    "vite-plugin-svgr": "^2.4.0"
   },
   "packageManager": "yarn@3.4.1",
   "devDependencies": {

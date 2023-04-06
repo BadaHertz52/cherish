@@ -1,0 +1,57 @@
+@import '../modalCommon.scss';
+.alert-modal {
+  position: relative;
+  .modal__background {
+    @include background;
+  }
+  .modal__inner {
+    @include modal-inner;
+    padding-bottom: 36px;
+    position: relative;
+  }
+  .modal__box {
+    @include modal-box;
+    width: 77%;
+    max-width: calc(560px * 0.6);
+  }
+  // alert-modal의 height는 .contents를 통해 변경
+  &__contents {
+    @include bd1-font;
+    width: 100%;
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    &.short {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: calc(100vw * 0.77 * 0.5 - 24px - 36px);
+      max-height: calc(560px * 0.6 * 0.5 - 24px - 36px);
+    }
+    &.long {
+      max-height: calc(70vh - 60px);
+    }
+  }
+  .btn-close {
+    @include clean-btn-style;
+    @include h3-font;
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+    color: $color-primary;
+  }
+  &__text-container {
+    @include bd3-font;
+    overflow-wrap: break-word;
+    &.center {
+      text-align: center;
+    }
+    h4 {
+      @include bd2-font;
+      font-weight: bold;
+    }
+  }
+}
