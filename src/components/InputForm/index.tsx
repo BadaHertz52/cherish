@@ -23,16 +23,16 @@ type InputFormProps = {
  * @returns
  */
 const InputForm = ({ id, data, setData }: InputFormProps) => {
-  const [showPw, setShowPw] = useState<boolean>(false);
+  const [hiddenPw, setHiddenPw] = useState<boolean>(true);
   // ⚠️InputFormIdType 과 placeholder, label 의 property명은 동일 해야함
-  const placeholder = {
+  const PLACE_HOLDER = {
     name: '이름',
     nickName: '닉네임',
     email: '이메일',
     pw: '비밀번호',
     confirmPw: '비밀번호 확인',
   };
-  const label = {
+  const LABEL = {
     name: '이름을 입력해주세요.',
     nickName: '닉네임을 입력해주세요.',
     email: '이메일을 입력해주세요.',
@@ -87,7 +87,7 @@ const InputForm = ({ id, data, setData }: InputFormProps) => {
       const testResult = checkRegex(text);
       setData({
         value: text,
-        errorMsg: testResult === 'pass' ? null : ERROR_MSG[`${testResult}`],
+        errorMsg: testResult === 'pass' ? null : ERROR_MSG[testResult],
       });
     }
   };
@@ -101,34 +101,32 @@ const InputForm = ({ id, data, setData }: InputFormProps) => {
   };
   return (
     <div id={`inputForm-${id}`} className="input-form">
-      {id !== 'confirmPw' && <label htmlFor={`input-${id}`}>{label[`${id}`]}</label>}
+      {id !== 'confirmPw' && <label htmlFor={`input-${id}`}>{LABEL[id]}</label>}
       <input
-        type={showPw || (id !== 'pw' && id !== 'confirmPw') ? 'text' : 'password'}
+        type={!hiddenPw || (id !== 'pw' && id !== 'confirmPw') ? 'text' : 'password'}
         id={`input-${id}`}
         name={`data-${id}`}
-        placeholder={placeholder[`${id}`]}
+        placeholder={PLACE_HOLDER[id]}
         value={data.value}
         onChange={event => handleChange(event)}
         onBlur={handleBlur}
       />
       {(id == 'pw' || id == 'confirmPw') && (
         <>
-          <BtnShowPw showPw={showPw} setShowPw={setShowPw} />
-          <div
-            className={`pw__check-icon ${data.value !== '' && data.errorMsg === null ? 'on' : ''}`}
-          >
+          <BtnShowPw hiddenPw={hiddenPw} setHiddenPw={setHiddenPw} />
+          <div className={`pw__check-icon ${data.value && !data.errorMsg ? 'on' : ''}`}>
             <FontAwesomeIcon icon={faCheck} />
           </div>
         </>
       )}
-      <div className={`error-msg ${id == 'email' && data.value === '' ? 'email' : ''}`}>
+      <div className={`error-msg ${id === 'email' && data.value ? 'email' : ''}`}>
         {id === 'email' &&
           (data.value === ''
             ? `'@'을 포함하여 작성해주세요.`
             : data.errorMsg !== null
             ? data.errorMsg
             : '')}
-        {id !== 'email' && (data.errorMsg !== null ? data.errorMsg : '')}
+        {id !== 'email' && (data.errorMsg ? data.errorMsg : '')}
       </div>
     </div>
   );

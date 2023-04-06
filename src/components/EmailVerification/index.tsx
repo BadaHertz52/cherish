@@ -16,7 +16,7 @@ type EmailVerificationProps = {
   setOpenToastModal: Dispatch<SetStateAction<boolean>>;
   openAlertModal: boolean;
   setOpenAlertModal: Dispatch<SetStateAction<boolean>>;
-  isEmailDuplicate: boolean; //이메일 중복 검사 진행 여부
+  emailDuplicationChecker: boolean; //이메일 중복 검사 진행 여부
   onClickCloseBtnInAlertModal: () => void;
 };
 const EmailVerification = ({
@@ -29,7 +29,7 @@ const EmailVerification = ({
   openToastModal,
   setOpenToastModal,
   onClickCloseBtnInAlertModal,
-  isEmailDuplicate,
+  emailDuplicationChecker,
 }: EmailVerificationProps) => {
   /**
    * 인증 번호에 대한 검사를 시작했는지 여부
@@ -77,13 +77,14 @@ const EmailVerification = ({
     // 1.가능한 이메일 인증 횟수를 충족한 경우
     if (!overSending) {
       //A. 백엔드에 이메일  중복 여부 확인
-      let duplicate: boolean = false; // 중복 이메일
-      if (isEmailDuplicate) {
-        const result = checkDuplicateEmail();
+      let emailDuplicate: boolean = false; // 중복 이메일
+      // 간편가입 시 이메일 중복 검사 진행, 비밀번호 찾기에서는 이메일 중복 검사 진행하지 않음
+      if (emailDuplicationChecker) {
+        emailDuplicate = checkDuplicateEmail();
         // result 값에 따라 duplicate 값 변경
       }
       // A-1 중복 메일인 경우
-      if (duplicate) {
+      if (emailDuplicate) {
         setEmail((prev: InputDataType) => {
           const newState: InputDataType = {
             ...prev,
@@ -93,7 +94,7 @@ const EmailVerification = ({
         });
       }
       // A-2 유효한 메일
-      if (!duplicate) {
+      if (!emailDuplicate) {
         // a 서버에 이메일 인증 보내기
         const result = sendVerificationEmail();
         // 인증 번호 이메일 전송 성공
@@ -140,7 +141,7 @@ const EmailVerification = ({
     const result = getAuthNumber();
     setCheckAuthNumber(true);
     //data는  string type으로
-    if (authNumber !== undefined && result === authNumber) {
+    if (authNumber && result === authNumber) {
       setPass(true);
       setDisableBtn(false);
       setOpenTimer(false);
@@ -150,7 +151,7 @@ const EmailVerification = ({
     }
   };
   useEffect(() => {
-    if (email.value !== '' && email.errorMsg === null) {
+    if (email.value && !email.errorMsg) {
       // 이미 인증이 완료 된 경우에 다음 버튼 클릭 가능
       setPass(true);
       setCheckAuthNumber(true);
@@ -160,7 +161,7 @@ const EmailVerification = ({
   }, []);
   useEffect(() => {
     const inputEle = document.querySelector('#input-email') as HTMLInputElement | null;
-    if (inputEle !== null) {
+    if (inputEle) {
       inputEle.disabled = !disableBtn;
     }
   }, [disableBtn]);

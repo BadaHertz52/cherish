@@ -117,7 +117,7 @@ const BottomNavModal = ({
       ...filteringCondition,
     };
     // 현재 화면에서 보여지는 카테고리에서 선택된 필터링 조건들을 newFilerCondition 에 반영
-    newFilteringCondition[`${category}`] = newCondition;
+    newFilteringCondition[category] = newCondition;
     if (recovery) {
       // checked를 풀지 않으면 카테고리 이동시, 해당 카테고리에서 선택되지 않은 box가 선택되는 오류 일어남
       selectedList.forEach(el => {
@@ -157,7 +157,7 @@ const BottomNavModal = ({
   };
   const onClickResetBtn = () => {
     setFilteringCondition(selectedFilteringCondition);
-    setTargetCondition(selectedFilteringCondition[`${category}`]);
+    setTargetCondition(selectedFilteringCondition[category]);
     changeChecked();
   };
   /**
@@ -199,7 +199,7 @@ const BottomNavModal = ({
   useEffect(() => {
     if (filteringCondition !== null) {
       //set targetCondition
-      setTargetCondition(filteringCondition[`${category}`]);
+      setTargetCondition(filteringCondition[category]);
     }
   }, [category, filteringCondition]);
 

@@ -4,18 +4,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { Dispatch, SetStateAction } from 'react';
 import './style.scss';
 type BtnShowPwProps = {
-  showPw: boolean;
-  setShowPw: Dispatch<SetStateAction<boolean>>;
+  hiddenPw: boolean;
+  setHiddenPw: Dispatch<SetStateAction<boolean>>;
 };
-const BtnShowPw = ({ showPw, setShowPw }: BtnShowPwProps) => {
+const BtnShowPw = ({ hiddenPw, setHiddenPw }: BtnShowPwProps) => {
   return (
     <button
       type="button"
-      className={showPw ? 'btn-show-pw on' : 'btn-show-pw'}
+      className={!hiddenPw ? 'btn-show-pw on' : 'btn-show-pw'}
       title="button that show pw as text"
-      onClick={() => setShowPw(prev => !prev)}
+      onClick={() => setHiddenPw(prev => !prev)}
     >
-      <FontAwesomeIcon icon={showPw ? faEye : faEyeSlash} />
+      <FontAwesomeIcon icon={!hiddenPw ? faEye : faEyeSlash} />
     </button>
   );
 };
