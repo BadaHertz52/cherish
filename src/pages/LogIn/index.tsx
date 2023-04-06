@@ -101,7 +101,7 @@ const LogIn = () => {
           <div className="log-in__data__pw">
             <input
               value={pw}
-              type={hiddenPw ? 'text' : 'password'}
+              type={!hiddenPw ? 'text' : 'password'}
               placeholder="비밀번호을 입력해주세요"
               onChange={event => handleChangeOfValue(event, 'pw')}
             />
