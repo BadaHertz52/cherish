@@ -7,7 +7,7 @@ import './style.scss';
 import BtnShowPw from '@/components/BtnShowPw';
 import CheckBox from '@/components/CheckBox';
 
-export const XSSCheck = (str: string, level: undefined | number) => {
+export const XSSCheck = (str: string, level?: number) => {
   if (level == undefined || level == 0) {
     str = str.replace(/\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-/g, '');
   } else if (level != undefined && level == 1) {
@@ -33,7 +33,7 @@ const LogIn = () => {
     target.classList.toggle('on');
   };
   const handleChangeOfValue = (event: ChangeEvent<HTMLInputElement>, target: InputTargetType) => {
-    const value = XSSCheck(event.target.value, undefined);
+    const value = XSSCheck(event.target.value);
     if (target === 'email') {
       setEmail(value);
     } else {
