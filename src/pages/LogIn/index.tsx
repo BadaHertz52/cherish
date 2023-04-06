@@ -20,7 +20,7 @@ const LogIn = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string>('');
   const [pw, setPw] = useState<string>('');
-  const [showPw, setShowPw] = useState<boolean>(false);
+  const [hiddenPw, setHiddenPw] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
   const [keepLogin, setKeepLogin] = useState<boolean>(false);
   const inputTarget = {
@@ -101,11 +101,11 @@ const LogIn = () => {
           <div className="log-in__data__pw">
             <input
               value={pw}
-              type={showPw ? 'text' : 'password'}
+              type={hiddenPw ? 'text' : 'password'}
               placeholder="비밀번호을 입력해주세요"
               onChange={event => handleChangeOfValue(event, 'pw')}
             />
-            <BtnShowPw showPw={showPw} setShowPw={setShowPw} />
+            <BtnShowPw hiddenPw={hiddenPw} setHiddenPw={setHiddenPw} />
           </div>
         </div>
         <div className="log-in__util">
