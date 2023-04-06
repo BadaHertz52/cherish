@@ -1,16 +1,16 @@
 import React, { createContext, Dispatch, SetStateAction, useState } from 'react';
-import { SignUpStateType } from './components/signUpTypes';
+import { SignUpStateType } from './signUpTypes';
 import SignUpTopBar from './components/SignUpTopBar';
 import ProgressBar from './components/ProgressBar';
 import SignUpTerms from './components/SignUpTerms';
 import './style.scss';
 import NameAndNickName from './components/NameAndNickName';
-import Email from './components/Email';
+import SignUpEmail from './components/SignUpEmail';
 import SignUpPw from './components/SignUpPw';
 import GenderAndBirth from './components/GenderAndBirth';
 import JobInfo from './components/JobInfo';
 export const initialSignUpState: SignUpStateType = {
-  progress: 'genderAndBirth',
+  progress: 'pw',
   agreeToTerms: {
     termsOfUse: false,
     ageCondition: false,
@@ -50,7 +50,7 @@ const SignUp = () => {
         {/* step: 회원 가입 단계별 component */}
         {signUpState.progress === 'agreeToTerms' && <SignUpTerms />}
         {signUpState.progress === 'nameAndNickName' && <NameAndNickName />}
-        {signUpState.progress === 'email' && <Email />}
+        {signUpState.progress === 'email' && <SignUpEmail />}
         {signUpState.progress === 'pw' && <SignUpPw />}
         {signUpState.progress === 'genderAndBirth' && <GenderAndBirth />}
         {signUpState.progress === 'job' && <JobInfo />}

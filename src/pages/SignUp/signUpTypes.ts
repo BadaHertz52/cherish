@@ -89,7 +89,11 @@ export const jobCheckBoxArr: JobCheckBoxType[] = [
   { name: 'inoccupation', label: '무직' },
   { name: 'etc', label: '기타' },
 ];
-
+export type BirthDateType = {
+  year: string;
+  month: string;
+  date: string;
+};
 export type SignUpStateType = {
   progress: SignUpProgressType;
   agreeToTerms: AgreementStateType;
@@ -98,7 +102,7 @@ export type SignUpStateType = {
   email: string | null;
   pw: string | null;
   gender: GenderType | null;
-  birth: { year: string; month: string; date: string } | null;
+  birth: BirthDateType | null;
   job: JobType | null;
 };
 const errorType = {
@@ -133,11 +137,7 @@ export type GenderStateType = {
   value: GenderType | null;
   errorMsg: string | null;
 };
-export type BirthDateType = {
-  year: string;
-  month: string;
-  date: string;
-};
+
 export type BirthStateType = {
   value: BirthDateType | null;
   errorMsg: string | null;

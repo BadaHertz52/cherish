@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
-import { SignUpContext } from '..';
+import { SignUpContext } from '../../../pages/SignUp';
 import InputForm from '@/components/InputForm';
 import { getPrevData } from './SignUpTopBar';
-import { initialInputData, InputDataType, SessionDataType, SignUpStateType } from './signUpTypes';
+import { initialInputData, InputDataType, SignUpStateType } from '../signUpTypes';
 import StepInner from './StepInner';
 
 const NameAndNickName = () => {
@@ -11,20 +11,17 @@ const NameAndNickName = () => {
   const [name, setName] = useState<InputDataType>(initialInputData);
   const [nickName, setNickName] = useState<InputDataType>(initialInputData);
   const onClickNextBtn = () => {
-    setSignUpState((prev: SignUpStateType) => {
-      const newState: SignUpStateType = {
-        ...prev,
-        progress: 'email',
-        name: name.value,
-        nickname: nickName.value,
-      };
-      return newState;
-    });
+    setSignUpState((prev: SignUpStateType) => ({
+      ...prev,
+      progress: 'email',
+      name: name.value,
+      nickname: nickName.value,
+    }));
   };
   useEffect(() => {
     // sessionStorage
-    getPrevData('name', setName, null, null);
-    getPrevData('nickName', setNickName, null, null);
+    getPrevData('name', setName, undefined, undefined);
+    getPrevData('nickName', setNickName, undefined, undefined);
     if (signUpState.name !== null && signUpState.nickname !== null) {
       setName({
         value: signUpState.name,
@@ -37,12 +34,7 @@ const NameAndNickName = () => {
     }
   }, []);
   useEffect(() => {
-    if (
-      name.value !== '' &&
-      name.errorMsg == null &&
-      nickName.value !== '' &&
-      nickName.errorMsg == null
-    ) {
+    if (name.value && !name.errorMsg && nickName.value && !nickName.errorMsg) {
       setDisableBtn(false);
     } else {
       setDisableBtn(true);

@@ -1,18 +1,18 @@
 import { ChangeEvent, useContext, useEffect, useRef, useState } from 'react';
-import { SignUpContext } from '..';
+import { SignUpContext } from '../../../pages/SignUp';
 import CheckBox from '@/components/CheckBox';
 import {
   AgreementStateType,
   SignUpStateType,
   TermsCheckBoxNameType,
   TermsContentsNameType,
-} from './signUpTypes';
+} from '../signUpTypes';
 import StepInner from './StepInner';
 import ConfirmModal, { ConfirmModalProps } from '@/components/Modals/ConfirmModal';
 import { ConfirmModalBtnType } from '@/components/Modals/modalTypes';
-import TermsOfUse from './terms/TermsOfUse';
-import PersonalInformation from './terms/PersonalInformation';
-import Marketing from './terms/Marketing';
+import TermsOfUse from '../../../pages/SignUp/components/terms/TermsOfUse';
+import PersonalInformation from '../../../pages/SignUp/components/terms/PersonalInformation';
+import Marketing from '../../../pages/SignUp/components/terms/Marketing';
 
 type SignUpTermProps = {
   id: TermsCheckBoxNameType;
@@ -57,28 +57,36 @@ const SignUpTerms = () => {
   const WHOLE_AGREEMENT_CHECK_BOX_EL = document.querySelector(
     `#whole-agree`,
   ) as HTMLInputElement | null;
-  const modalForTermsOfUse: Omit<ConfirmModalProps, 'closeModal'> = {
+  const NO_BTN_VALUE: ConfirmModalBtnType = {
+    //btn 의 text node
+    text: '닫기',
+    //btn 클릭 시 이동해야 할 페이지의 경로
+    path: null,
+    //btn 클릭 시 이동/창 닫기 외의 필요한 기능
+    otherFn: null,
+  };
+  const MODAL_TERMS_OF_USE: Omit<ConfirmModalProps, 'closeModal'> = {
     title: '이용약관(필수)',
     children: <TermsOfUse />,
     yesBtn: makeYestBtnValue('termsOfUse'),
-    noBtn: makeNoBtnValue('termsOfUse'),
+    noBtn: NO_BTN_VALUE,
   };
-  const modalForPersonalInformation: Omit<ConfirmModalProps, 'closeModal'> = {
+  const MODAL_PERSONAL_INFORMATION: Omit<ConfirmModalProps, 'closeModal'> = {
     title: '개인정보 수집 및 이용(필수)',
     children: <PersonalInformation />,
     yesBtn: makeYestBtnValue('personalInformation'),
-    noBtn: makeNoBtnValue('personalInformation'),
+    noBtn: NO_BTN_VALUE,
   };
-  const modalForMarketing: Omit<ConfirmModalProps, 'closeModal'> = {
+  const MODAL_MARKETING: Omit<ConfirmModalProps, 'closeModal'> = {
     title: '마케팅 정보 활용 동의(선택)',
     children: <Marketing />,
     yesBtn: makeYestBtnValue('marketing'),
-    noBtn: makeNoBtnValue('marketing'),
+    noBtn: NO_BTN_VALUE,
   };
-  const terms = {
-    termsOfUse: modalForTermsOfUse,
-    personalInformation: modalForPersonalInformation,
-    marketing: modalForMarketing,
+  const TERMS = {
+    termsOfUse: MODAL_TERMS_OF_USE,
+    personalInformation: MODAL_PERSONAL_INFORMATION,
+    marketing: MODAL_MARKETING,
   };
   function makeYestBtnValue(name: TermsContentsNameType): ConfirmModalBtnType {
     return {
@@ -90,16 +98,7 @@ const SignUpTerms = () => {
       otherFn: () => onClickYesBtn(name),
     };
   }
-  function makeNoBtnValue(name: TermsContentsNameType): ConfirmModalBtnType {
-    return {
-      //btn 의 text node
-      text: '닫기',
-      //btn 클릭 시 이동해야 할 페이지의 경로
-      path: null,
-      //btn 클릭 시 이동/창 닫기 외의 필요한 기능
-      otherFn: null,
-    };
-  }
+
   const onClickNextBtn = () => {
     setSignUpState((prevState: SignUpStateType) => {
       const newState: SignUpStateType = {
@@ -203,7 +202,7 @@ const SignUpTerms = () => {
     }
     listOfTermsCheckBoxEl.forEach(el => {
       const name = el.name as TermsCheckBoxNameType;
-      el.checked = signUpState.agreeToTerms[`${name}`];
+      el.checked = signUpState.agreeToTerms[name];
     });
   }, []);
   useEffect(() => {
@@ -261,12 +260,12 @@ const SignUpTerms = () => {
       </StepInner>
       {openModal && (
         <ConfirmModal
-          title={terms[`${openTargetTerms}`].title}
-          yesBtn={terms[`${openTargetTerms}`].yesBtn}
-          noBtn={terms[`${openTargetTerms}`].noBtn}
+          title={TERMS[openTargetTerms].title}
+          yesBtn={TERMS[openTargetTerms].yesBtn}
+          noBtn={TERMS[openTargetTerms].noBtn}
           closeModal={() => setOpenModal(false)}
         >
-          {terms[`${openTargetTerms}`].children}
+          {TERMS[openTargetTerms].children}
         </ConfirmModal>
       )}
     </div>

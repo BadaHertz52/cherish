@@ -7,7 +7,7 @@ import './assets/styles/App.scss';
 import ModalTest from './examples/modalTest';
 import LogIn from './pages/LogIn';
 import './assets/main.scss';
-import SignUp from './components/SignUp';
+import SignUp from './pages/SignUp';
 import Home from './pages/Home';
 
 function App() {

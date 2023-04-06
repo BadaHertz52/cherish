@@ -1,5 +1,5 @@
 import React from 'react';
-import { SignUpProgressType, progressArr } from './signUpTypes';
+import { SignUpProgressType, progressArr } from '../signUpTypes';
 
 export const moveProgressBar = (progress: SignUpProgressType, forward: boolean) => {
   const progressEl = document.querySelector('.progress') as HTMLElement | null;
@@ -18,7 +18,7 @@ const ProgressBar = () => {
   return (
     <div className="progressBar">
       <div className="out-box bar">
-        <div className="progress bar" role="progressbar"></div>
+        <div className="progress bar" role="progressbar" title="progress bar"></div>
       </div>
     </div>
   );

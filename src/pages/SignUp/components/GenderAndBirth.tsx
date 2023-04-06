@@ -6,8 +6,8 @@ import {
   GenderStateType,
   GenderType,
   SignUpStateType,
-} from './signUpTypes';
-import { SignUpContext } from '..';
+} from '../signUpTypes';
+import { SignUpContext } from '@/pages/SignUp';
 import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getPrevData } from './SignUpTopBar';
@@ -51,23 +51,23 @@ const GenderAndBirth = () => {
     setOpenDatePicker((prev: boolean) => !prev);
   };
   useEffect(() => {
-    getPrevData('gender', null, setGender, null);
-    getPrevData('birth', null, null, setBirth);
+    getPrevData('gender', undefined, setGender, undefined);
+    getPrevData('birth', undefined, undefined, setBirth);
     if (signUpState.gender) {
       setGender({
         value: signUpState.gender,
         errorMsg: null,
       });
     }
-    // birth
+    if (signUpState.birth) {
+      setBirth({
+        value: signUpState.birth,
+        errorMsg: null,
+      });
+    }
   }, []);
   useEffect(() => {
-    if (
-      gender.value !== null &&
-      gender.errorMsg === null &&
-      birth.value !== null &&
-      birth.errorMsg == null
-    ) {
+    if (gender.value && !gender.errorMsg && birth.value && !birth.errorMsg) {
       setDisableBtn(false);
     } else {
       setDisableBtn(true);
@@ -96,19 +96,17 @@ const GenderAndBirth = () => {
               남성
             </button>
           </div>
-          <div className="msg">{gender.value === null && ERROR_MSG.required}</div>
+          <div className="msg">{!gender.value && ERROR_MSG.required}</div>
         </section>
         <section className="birth">
           <h4>생년월일</h4>
           <button
-            className={`btn-open-date-picker ${birth.value === null ? 'none-data' : ''}`}
+            className={`btn-open-date-picker ${!birth.value ? 'none-data' : ''}`}
             type="button"
             onClick={onClickBirthBtn}
           >
             <div className="birth__data">
-              {birth.value === null
-                ? ''
-                : `${birth.value.year}. ${birth.value.month}. ${birth.value.date}`}
+              {!birth.value ? '' : `${birth.value.year}. ${birth.value.month}. ${birth.value.date}`}
             </div>
             <FontAwesomeIcon icon={openDatePicker ? faSortUp : faSortDown} />
           </button>

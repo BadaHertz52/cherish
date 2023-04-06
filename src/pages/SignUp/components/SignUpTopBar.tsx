@@ -1,7 +1,7 @@
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dispatch, SetStateAction, useContext } from 'react';
-import { SignUpContext } from '..';
+import { SignUpContext } from '../../../pages/SignUp';
 import {
   BirthStateType,
   GenderStateType,
@@ -11,7 +11,7 @@ import {
   SessionDataKeyType,
   SessionDataType,
   SignUpStateType,
-} from './signUpTypes';
+} from '../signUpTypes';
 /**
  *  sessionStorage에 target에 대한 정보가 있을 경우, setState로 target에 대한 상태를 업데이트한다.
  * @param target
@@ -20,28 +20,28 @@ import {
  */
 export const getPrevData = (
   target: SessionDataKeyType,
-  setInputDataState: Dispatch<SetStateAction<InputDataType>> | null,
-  setGenderState: Dispatch<SetStateAction<GenderStateType>> | null,
-  setBirthState: Dispatch<SetStateAction<BirthStateType>> | null,
+  setInputDataState?: Dispatch<SetStateAction<InputDataType>>,
+  setGenderState?: Dispatch<SetStateAction<GenderStateType>>,
+  setBirthState?: Dispatch<SetStateAction<BirthStateType>>,
 ) => {
   const item = sessionStorage.getItem('signUpBackUpData');
   if (item !== null) {
     const prevData: SessionDataType[] = JSON.parse(item);
-    const prevState = prevData.filter(i => i.key === target)[0];
+    const prevState = prevData.find(i => i.key === target);
     if (prevState !== undefined) {
-      if (setInputDataState !== null) {
+      if (setInputDataState) {
         setInputDataState({
           value: prevState.value,
           errorMsg: null,
         });
       }
-      if (setGenderState !== null) {
+      if (setGenderState) {
         setGenderState({
           value: prevState.value as GenderType,
           errorMsg: null,
         });
       }
-      if (setBirthState !== null) {
+      if (setBirthState) {
         const arr = prevState.value.split('/');
         setBirthState({
           value: {

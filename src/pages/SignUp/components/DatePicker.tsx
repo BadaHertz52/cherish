@@ -1,25 +1,25 @@
 import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 import Picker from 'react-mobile-picker';
-import { BirthDateType, BirthStateType } from './signUpTypes';
+import { BirthDateType, BirthStateType } from '../signUpTypes';
 import '../styles/datePicker.scss';
 type DatePickerProps = {
   birth: BirthStateType;
   setBirth: Dispatch<SetStateAction<BirthStateType>>;
 };
 const DatePicker = ({ birth, setBirth }: DatePickerProps) => {
-  const arrYear = getArr(1920, 2010);
-  const arrMonth = getArr(1, 12);
-  const arrDateThirtyOne = getDateArr('1', '31');
-  const arrDateThirty = getDateArr('1', '30');
+  const ARR_YEAR = getArr(1920, 2010);
+  const ARR_MONTH = getArr(1, 12);
+  const ARR_DATE_THIRTY_ONE = getDateArr('1', '31');
+  const ARR_DATE_THIRTY = getDateArr('1', '30');
   type OptionGroupType = {
     year: string[];
     month: string[];
     date: string[];
   };
   const [optionGroups, setOptionGroups] = useState<OptionGroupType>({
-    year: arrYear,
-    month: arrMonth,
-    date: arrDateThirtyOne,
+    year: ARR_YEAR,
+    month: ARR_MONTH,
+    date: ARR_DATE_THIRTY_ONE,
   });
 
   const initialData: BirthDateType = {
@@ -49,19 +49,19 @@ const DatePicker = ({ birth, setBirth }: DatePickerProps) => {
         month === '2'
           ? getDateArr(year, month)
           : thirtyTarget.includes(month)
-          ? arrDateThirty
-          : arrDateThirtyOne,
+          ? ARR_DATE_THIRTY
+          : ARR_DATE_THIRTY_ONE,
     }));
   };
   const changeBirth = (target: string, value: string) => {
     setBirthDate(prev => ({
       ...prev,
-      [`${target}`]: value,
+      [target]: value,
     }));
     setBirth({
       value: {
         ...birthDate,
-        [`${target}`]: value,
+        [target]: value,
       },
       errorMsg: null,
     });

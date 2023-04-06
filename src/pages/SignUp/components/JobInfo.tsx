@@ -7,10 +7,10 @@ import {
   SignUpStateType,
   initialInputData,
   jobCheckBoxArr,
-} from './signUpTypes';
+} from '../signUpTypes';
 import { getPrevData } from './SignUpTopBar';
-import { JobType } from './signUpTypes';
-import { SignUpContext } from '..';
+import { JobType } from '../signUpTypes';
+import { SignUpContext } from '../../../pages/SignUp';
 
 const JobInfo = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
@@ -22,7 +22,7 @@ const JobInfo = () => {
   const changeLabelClass = (el: HTMLInputElement) => {
     const parentEl = el.parentElement;
     const targetLabelEl = parentEl?.lastElementChild;
-    if (targetLabelEl !== null && targetLabelEl !== undefined) {
+    if (targetLabelEl) {
       if (el.checked) {
         targetLabelEl.classList.add('on');
       } else {
@@ -40,7 +40,7 @@ const JobInfo = () => {
           errorMsg: null,
         });
       } else {
-        if (el.checked === true) el.checked = false;
+        if (el.checked) el.checked = false;
       }
       changeLabelClass(el);
     });
@@ -55,7 +55,7 @@ const JobInfo = () => {
     // 간편 가입 성공 시 1.1 로 이동
   };
   useEffect(() => {
-    getPrevData('job', setJob, null, null);
+    getPrevData('job', setJob, undefined, undefined);
   }, []);
   useEffect(() => {
     if (job.value !== '') {
