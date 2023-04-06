@@ -16,7 +16,7 @@
     position: absolute;
     top: 105vh;
     transition: top 1s;
-    width: 100vw;
+    width: 100%;
     height: 46vh;
     min-height: initial;
     background-color: $color-white;
@@ -31,7 +31,7 @@
     box-sizing: border-box;
 
     section {
-      height: calc(100% - 64px - 48px);
+      height: calc(100% - 48px - 48px);
       overflow-y: scroll;
       -ms-overflow-style: none; /* IE and Edge */
       scrollbar-width: none; /* Firefox */
