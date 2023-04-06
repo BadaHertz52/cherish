@@ -11,11 +11,11 @@ const BtnShowPw = ({ hiddenPw, setHiddenPw }: BtnShowPwProps) => {
   return (
     <button
       type="button"
-      className={hiddenPw ? 'btn-show-pw on' : 'btn-show-pw'}
+      className={!hiddenPw ? 'btn-show-pw on' : 'btn-show-pw'}
       title="button that show pw as text"
       onClick={() => setHiddenPw(prev => !prev)}
     >
-      <FontAwesomeIcon icon={hiddenPw ? faEye : faEyeSlash} />
+      <FontAwesomeIcon icon={!hiddenPw ? faEye : faEyeSlash} />
     </button>
   );
 };
