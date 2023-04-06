@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import StepInner from './StepInner';
-import CheckBox from '../../checkbox';
+import CheckBox from '@/components/CheckBox';
 import {
   ERROR_MSG,
   InputDataType,

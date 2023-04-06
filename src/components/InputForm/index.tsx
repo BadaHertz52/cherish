@@ -4,11 +4,11 @@ import {
   InputDataType,
   InputFormIdType,
   TestResultType,
-} from '../signup/components/signUpTypes';
+} from '@/components/SignUp/components/signUpTypes';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import BtnShowPw from '../btnShowPw';
-import { XSSCheck } from '../logIn';
+import BtnShowPw from '@/components/BtnShowPw';
+import { XSSCheck } from '@/components/LogIn';
 import './style.scss';
 type InputFormProps = {
   id: InputFormIdType;

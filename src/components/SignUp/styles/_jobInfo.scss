@@ -1,4 +1,4 @@
-@import '@/common.scss';
+@import '@/assets/styles/common.scss';
 #job-info {
   h3 {
     @include bd1-font;
@@ -9,8 +9,5 @@
     grid-template-columns: repeat(2, 50%);
     grid-template-rows: repeat(5, 30px);
     grid-gap: 6px;
-  }
-  .label.on {
-    font-weight: bold;
   }
 }

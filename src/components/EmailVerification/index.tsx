@@ -1,11 +1,11 @@
 import { ChangeEvent, Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
-import { XSSCheck } from '../logIn/index';
-import AlertModal from '../modals/alertModal';
-import { ToastModalType } from '../modals/modalTypes';
-import ToastModal from '../modals/toastModal';
-import InputForm from '../inputForm';
-import { InputDataType } from '../signup/components/signUpTypes';
-import Timer from '../signup/components/Timer';
+import { XSSCheck } from '@/components/LogIn/index';
+import AlertModal from '@/components/Modals/AlertModal';
+import { ToastModalType } from '@/components/Modals/modalTypes';
+import ToastModal from '@/components/Modals/ToastModal';
+import InputForm from '../InputForm';
+import { InputDataType } from '@/components/SignUp/components/signUpTypes';
+import Timer from '@/components/SignUp/components/Timer';
 import './style.scss';
 type EmailVerificationProps = {
   disableBtn: boolean;

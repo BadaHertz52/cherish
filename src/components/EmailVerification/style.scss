@@ -1,4 +1,4 @@
-@import '@/common.scss';
+@import '@/assets/styles/common.scss';
 .email-verification {
   .email-from,
   .authNumber-form,
@@ -28,6 +28,7 @@
       height: 48px;
       input {
         width: 70%;
+        border-radius: 5px;
       }
       .btn-authNumber {
         width: 30%;

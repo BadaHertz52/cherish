@@ -1,7 +1,7 @@
 import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 import Picker from 'react-mobile-picker';
 import { BirthDateType, BirthStateType } from './signUpTypes';
-import '../assets/datePicker.scss';
+import '../styles/datePicker.scss';
 type DatePickerProps = {
   birth: BirthStateType;
   setBirth: Dispatch<SetStateAction<BirthStateType>>;

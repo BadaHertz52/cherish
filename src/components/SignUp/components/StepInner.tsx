@@ -1,5 +1,5 @@
 import React, { ReactNode, useContext } from 'react';
-import NextBtn, { NextBtnProps } from './NextBtn';
+import NextBtn, { NextBtnProps } from './SignUpNextBtn';
 import { SignUpContext } from '..';
 type StepInnerProps = NextBtnProps & {
   children: ReactNode;

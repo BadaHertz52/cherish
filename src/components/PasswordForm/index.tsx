@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import InputForm from '../inputForm/index';
-import { ERROR_MSG, InputDataType } from '../signup/components/signUpTypes';
+import InputForm from '../InputForm/index';
+import { ERROR_MSG, InputDataType } from '@/components/SignUp/components/signUpTypes';
 import './style.scss';
 type PasswordFormProps = {
   confirmPw: InputDataType;

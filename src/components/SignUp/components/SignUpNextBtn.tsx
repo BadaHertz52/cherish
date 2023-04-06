@@ -6,7 +6,7 @@ export type NextBtnProps = {
   disableBtn: boolean;
   onClickNextBtn: () => void;
 };
-const NextBtn = ({ disableBtn, onClickNextBtn }: NextBtnProps) => {
+const SignUpNextBtn = ({ disableBtn, onClickNextBtn }: NextBtnProps) => {
   const { signUpState } = useContext(SignUpContext);
   useEffect(() => {
     disableBtn
@@ -22,4 +22,4 @@ const NextBtn = ({ disableBtn, onClickNextBtn }: NextBtnProps) => {
   );
 };
 
-export default React.memo(NextBtn);
+export default React.memo(SignUpNextBtn);

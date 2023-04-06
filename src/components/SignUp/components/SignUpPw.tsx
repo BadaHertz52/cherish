@@ -3,7 +3,7 @@ import { SignUpContext } from '..';
 import { getPrevData } from './SignUpTopBar';
 import { InputDataType, SignUpStateType, initialInputData } from './signUpTypes';
 import StepInner from './StepInner';
-import PasswordForm from '../../passwordForm';
+import PasswordForm from '@/components/PasswordForm';
 
 const SignUpPw = () => {
   const { setSignUpState } = useContext(SignUpContext);
