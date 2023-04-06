@@ -150,7 +150,7 @@ const EmailVerification = ({
     }
   };
   useEffect(() => {
-    if (email.value !== '' && email.errorMsg === null) {
+    if (email.value && !email.errorMsg) {
       // 이미 인증이 완료 된 경우에 다음 버튼 클릭 가능
       setPass(true);
       setCheckAuthNumber(true);
