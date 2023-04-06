@@ -5,9 +5,9 @@ import Fourth from './pages/Fourth';
 import { BottomNav } from './components';
 import './assets/styles/App.scss';
 import ModalTest from './examples/modalTest';
-import LogIn from './logIn';
+import LogIn from './pages/LogIn';
 import './assets/main.scss';
-import SignUp from './signup';
+import SignUp from './pages/SignUp';
 import Home from './pages/Home';
 
 function App() {
