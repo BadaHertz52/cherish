@@ -1,0 +1,22 @@
+@import '../modalCommon.scss';
+
+.toast-modal {
+  position: absolute;
+  .modal__box {
+    background-color: $color-light;
+    border-radius: 6px;
+    height: 39px;
+    width: calc(100vw * 0.6);
+    color: $color-primary;
+  }
+  .modal__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+  }
+  .toast-modal__.contents {
+    @include navigation-font;
+  }
+}

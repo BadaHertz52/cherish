@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ChangeEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './style.scss';
-import BtnShowPw from '../btnShowPw';
-import CheckBox from '../checkbox';
+import BtnShowPw from '@/components/BtnShowPw';
+import CheckBox from '@/components/CheckBox';
 
 export const XSSCheck = (str: string, level: undefined | number) => {
   if (level == undefined || level == 0) {
