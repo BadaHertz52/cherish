@@ -49,8 +49,8 @@ const LogIn = () => {
   };
   const handleClickLogInBtn = async () => {
     const data = { email: email, pw: pw };
+    //[todo -api]
     // data 서버에 전송
-
     try {
       const response = await fetch('', {
         method: 'POST',
@@ -118,6 +118,7 @@ const LogIn = () => {
             />
           </div>
           <div className="log-in__util__find">
+            {/* [todo] 비밀번호찾기 path 설정 */}
             <Link
               to={'/비밀번호찾기'}
               className="link-find-pw"
