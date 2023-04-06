@@ -6,11 +6,13 @@
   }
   .modal__inner {
     @include modal-inner;
+    padding-bottom: 36px;
     position: relative;
   }
   .modal__box {
     @include modal-box;
-    width: 77vw;
+    width: 77%;
+    max-width: calc(560px * 0.6);
   }
   // alert-modal의 height는 .contents를 통해 변경
   &__contents {
@@ -26,10 +28,11 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      height: calc((77vw * 0.57) - 46px);
+      height: calc(100vw * 0.77 * 0.5 - 24px - 36px);
+      max-height: calc(560px * 0.6 * 0.5 - 24px - 36px);
     }
     &.long {
-      height: calc(50vh - 60px);
+      max-height: calc(70vh - 60px);
     }
   }
   .btn-close {
@@ -49,8 +52,6 @@
     h4 {
       @include bd2-font;
       font-weight: bold;
-    }
-    .text {
     }
   }
 }

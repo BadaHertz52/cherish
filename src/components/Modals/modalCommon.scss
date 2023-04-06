@@ -1,9 +1,10 @@
 @import '@/assets/styles/common.scss';
 $background-color: rgba(117, 117, 117, 0.4);
+$app-max-width: 560px;
 @mixin background {
   position: relative;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,16 +22,21 @@ $background-color: rgba(117, 117, 117, 0.4);
   box-sizing: inherit;
 }
 @mixin modal-root {
-  z-index: 999;
   position: absolute;
   top: 0;
   left: 0;
+  width: 100vw;
 }
 #modal-root,
 #bottom-nav-modal-root {
   @include modal-root;
   font-size: 16px;
   color: $color-black;
+  .modal {
+    max-width: $app-max-width;
+    height: 100vh;
+    margin: 0 auto;
+  }
 }
 .modal__background {
   position: relative;

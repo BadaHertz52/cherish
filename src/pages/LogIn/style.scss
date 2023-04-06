@@ -1,7 +1,7 @@
 @import '@/assets/styles/common.scss';
 
 #log-in {
-  width: 100vw;
+  width: 100%;
   //100vh - bottomNav.height
   height: calc(100vh - 94px);
   display: flex;
@@ -14,7 +14,7 @@
     @include clean-btn-style;
   }
   .inner {
-    width: 88vw;
+    width: 88%;
   }
   .logo {
     @include sofia-h1-font;
