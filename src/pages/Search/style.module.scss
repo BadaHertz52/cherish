@@ -16,5 +16,25 @@
       gap: 10px;
       overflow-x: auto;
     }
+
+    .filters {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+
+      .filter {
+        display: flex;
+        align-items: center;
+        border: 0.8px solid #ff6b8f;
+        border-radius: 30px;
+        padding: 4px 12px;
+
+        > span {
+          @include bd1-font;
+          color: #ff6b8f;
+          margin-right: 10px;
+        }
+      }
+    }
   }
 }
