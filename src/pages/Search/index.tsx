@@ -1,7 +1,5 @@
-import SearchHeader from '@/components/SearchHeader';
-import SearchKeywordSection from '@/components/SearchKeywordSection';
 import styles from './style.module.scss';
-import { ItemCard } from '@/components';
+import { SearchKeywordSection, SearchHeader, ItemCard } from '@/components';
 
 const SearchPage = () => {
   return (
