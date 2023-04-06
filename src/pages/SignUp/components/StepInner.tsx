@@ -15,8 +15,7 @@ const StepInner = ({ children, disableBtn, onClickNextBtn }: StepInnerProps) => 
             : '회원가입을 위한 정보를 입력해 주세요.'}
         </h3>
       )}
-
-      {children}
+      <div className="step__inner__body">{children}</div>
       <NextBtn disableBtn={disableBtn} onClickNextBtn={onClickNextBtn} />
     </div>
   );

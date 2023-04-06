@@ -5,7 +5,7 @@
   justify-content: center;
   position: relative;
   width: 100%;
-  padding: 6vw;
+  padding: 6vw 21px;
   box-sizing: border-box;
   border-bottom: 1px solid $color-light;
   button,
@@ -18,7 +18,7 @@
     @include clean-btn-style;
     position: absolute;
     top: calc((100% - 32px) / 2);
-    left: 6vw;
+    left: 21px;
     width: 32px;
   }
 }
