@@ -146,6 +146,7 @@ const SearchPage = () => {
       </section>
       {filterType && (
         <SearchFilter
+          defaultFilters={FILTERS}
           filters={filters}
           type={filterType}
           setFilters={handleSetFilters}

@@ -9,13 +9,14 @@ export type FilterType = '상품유형' | '성별' | '직업' | '상황' | null;
 export type Filter = { type: FilterType; value: string[]; selected: boolean[] };
 
 export type SearchFilterProps = {
+  defaultFilters: Filter[];
   filters: Filter[];
   type: FilterType;
   setFilters: (filters: Filter[]) => void;
   close: () => void;
 };
 
-const SearchFilter = ({ filters, type, setFilters, close }: SearchFilterProps) => {
+const SearchFilter = ({ defaultFilters, filters, type, setFilters, close }: SearchFilterProps) => {
   const filterRef = useRef<HTMLDivElement>(null);
 
   const [currentFilters, setCurrentFilters] = useState<Filter[]>(
@@ -43,7 +44,7 @@ const SearchFilter = ({ filters, type, setFilters, close }: SearchFilterProps) =
   };
 
   const handleReset = () => {
-    setCurrentFilters(JSON.parse(JSON.stringify(filters)));
+    setCurrentFilters(JSON.parse(JSON.stringify(defaultFilters)));
   };
 
   const handleFiltering = () => {
