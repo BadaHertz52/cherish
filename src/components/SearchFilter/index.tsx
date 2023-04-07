@@ -14,16 +14,32 @@ export type SearchFilterProps = {
 };
 
 const SearchFilter = ({ FILTERS, type }: SearchFilterProps) => {
+  const [currentFilters, setCurrentFilters] = useState(FILTERS);
   const [currentType, setCurrentType] = useState(type);
+
   const currentFilter = useMemo(() => {
-    return FILTERS.find(filter => filter.type === currentType);
+    return FILTERS.find(filter => filter.type === currentType)!;
   }, [currentType]);
+
+  const handleClickFilterValue = (index: number) => {
+    const targetFilterIndex = currentFilters.findIndex(
+      filter => filter.value === currentFilter.value,
+    )!;
+
+    const targetFilter = currentFilters[targetFilterIndex];
+    targetFilter.selected[index] = !targetFilter.selected[index];
+
+    let nextFilters = currentFilters.slice();
+    nextFilters.splice(targetFilterIndex, 1, targetFilter);
+
+    setCurrentFilters(nextFilters);
+  };
 
   return (
     <div className={styles.searchFilter}>
       <div className={styles.filterBox}>
         <div className={styles.filterTap}>
-          {FILTERS.map(filter => (
+          {currentFilters.map(filter => (
             <li
               className={currentType === filter.type ? styles.selected : ''}
               key={filter.type}
@@ -40,14 +56,17 @@ const SearchFilter = ({ FILTERS, type }: SearchFilterProps) => {
         <section>
           {currentFilter &&
             currentFilter.value.map((value, index) => (
-              <li className={currentFilter.selected[index] ? styles.selected : ''} key={value}>
+              <li
+                className={currentFilter.selected[index] ? styles.selected : ''}
+                key={value}
+                onClick={() => handleClickFilterValue(index)}
+              >
                 {currentFilter.selected[index] ? (
                   <CheckboxSelectedSvg />
                 ) : (
                   <CheckboxNotSelectedSvg />
                 )}
                 {value}
-                {currentFilter.selected[index] && '1234'}
               </li>
             ))}
         </section>
