@@ -36,5 +36,12 @@
         }
       }
     }
+
+    .searchedProductSection {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      row-gap: 27px;
+      column-gap: 16px;
+    }
   }
 }

@@ -8,11 +8,22 @@ const SearchPage = () => {
   const [recentKeywords, setRecentKeywords] = useState<string[]>([]);
   const [recommendKeywords, setRecommendKeywords] = useState<string[]>([]);
   const [recentProducts, setRecentProducts] = useState<Item[]>([]);
+  const [searchedProduct, setSearchedProduct] = useState<Item[]>([]);
 
   const [isSearch, setIsSearch] = useState(true);
 
   const handleSearch = (keyword: string) => {
     // TODO: search API
+    setSearchedProduct(
+      Array.from({ length: 12 }, (_, index) => ({
+        id: index,
+        company: 'Aesop',
+        name: '검색된 상품',
+        price: 31000,
+        image: 'https://image.edaily.co.kr/images/photo/files/NP/S/2022/04/PS22042501396.jpg',
+        bookmarked: true,
+      })),
+    );
     setIsSearch(true);
   };
 
@@ -28,10 +39,10 @@ const SearchPage = () => {
     setRecentKeywords(['졸업식', '엄마', '40대']);
     setRecommendKeywords(['화이트데이', '스몰럭셔리', '가정의 달']);
     setRecentProducts(
-      Array.from({ length: 5 }, (_, index) => ({
+      Array.from({ length: 7 }, (_, index) => ({
         id: index,
         company: 'Aesop',
-        name: '레저렉션 아로마틱 핸드 밤',
+        name: '최근 본 상품',
         price: 31000,
         image:
           'https://ichef.bbci.co.uk/news/800/cpsprodpb/E172/production/_126241775_getty_cats.png',
@@ -62,8 +73,8 @@ const SearchPage = () => {
         ) : (
           <>
             <div className={styles.filters}>
-              {filters.map(filter => (
-                <div className={styles.filter}>
+              {filters.map((filter, index) => (
+                <div className={styles.filter} key={index}>
                   <span>{filter.type}</span>
                   <FilterDropdownSvg />
                 </div>
@@ -71,6 +82,11 @@ const SearchPage = () => {
             </div>
             {/* TODO: 이름 변경하기 */}
             <h2>가나다님, 이런 선물 어때요?</h2>
+            <div className={styles.searchedProductSection}>
+              {searchedProduct.map(item => (
+                <ItemCard key={item.id} {...item} />
+              ))}
+            </div>
           </>
         )}
       </section>
