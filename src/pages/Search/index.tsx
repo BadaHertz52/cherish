@@ -145,7 +145,12 @@ const SearchPage = () => {
         )}
       </section>
       {filterType && (
-        <SearchFilter filters={filters} type={filterType} setFilters={handleSetFilters} />
+        <SearchFilter
+          filters={filters}
+          type={filterType}
+          setFilters={handleSetFilters}
+          close={() => setFilterType(null)}
+        />
       )}
     </div>
   );

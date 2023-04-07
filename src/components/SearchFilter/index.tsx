@@ -1,6 +1,6 @@
 import styles from './style.module.scss';
 import ResetSvg from '@/assets/svgs/reset.svg';
-import { useMemo, useState } from 'react';
+import { useRef, useMemo, useState } from 'react';
 import CheckboxNotSelectedSvg from '@/assets/svgs/checkbox-not-selected.svg';
 import CheckboxSelectedSvg from '@/assets/svgs/checkbox-selected.svg';
 import '@/assets/Button.scss';
@@ -12,13 +12,17 @@ export type SearchFilterProps = {
   filters: Filter[];
   type: FilterType;
   setFilters: (filters: Filter[]) => void;
+  close: () => void;
 };
 
-const SearchFilter = ({ filters, type, setFilters }: SearchFilterProps) => {
+const SearchFilter = ({ filters, type, setFilters, close }: SearchFilterProps) => {
+  const filterRef = useRef<HTMLDivElement>(null);
+
   const [currentFilters, setCurrentFilters] = useState<Filter[]>(
     JSON.parse(JSON.stringify(filters)),
   );
   const [currentType, setCurrentType] = useState(type);
+  const [closing, setClosing] = useState(false);
 
   const currentFilter = useMemo(() => {
     return currentFilters.find(filter => filter.type === currentType)!;
@@ -43,12 +47,25 @@ const SearchFilter = ({ filters, type, setFilters }: SearchFilterProps) => {
   };
 
   const handleFiltering = () => {
-    setFilters(currentFilters);
+    closeFilter(() => setFilters(currentFilters));
+  };
+
+  const closeFilter = (callback: Function) => {
+    setClosing(true);
+    setTimeout(() => {
+      callback();
+    }, 400);
+  };
+
+  const handleClickOutside = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (filterRef.current === e.target) {
+      closeFilter(close);
+    }
   };
 
   return (
-    <div className={styles.searchFilter}>
-      <div className={styles.filterBox}>
+    <div ref={filterRef} className={styles.searchFilter} onClick={e => handleClickOutside(e)}>
+      <div className={`${styles.filterBox} ${closing && styles.fadeOut}`}>
         <div className={styles.filterTap}>
           {currentFilters.map(filter => (
             <li
