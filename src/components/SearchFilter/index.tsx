@@ -67,17 +67,15 @@ const SearchFilter = ({ filters, type, setFilters }: SearchFilterProps) => {
         <section>
           {currentFilter &&
             currentFilter.value.map((value, index) => (
-              <li
-                className={currentFilter.selected[index] ? styles.selected : ''}
-                key={value}
-                onClick={() => handleClickFilterValue(index)}
-              >
-                {currentFilter.selected[index] ? (
-                  <CheckboxSelectedSvg />
-                ) : (
-                  <CheckboxNotSelectedSvg />
-                )}
-                {value}
+              <li className={currentFilter.selected[index] ? styles.selected : ''} key={value}>
+                <span onClick={() => handleClickFilterValue(index)}>
+                  {currentFilter.selected[index] ? (
+                    <CheckboxSelectedSvg />
+                  ) : (
+                    <CheckboxNotSelectedSvg />
+                  )}
+                  {value}
+                </span>
               </li>
             ))}
         </section>
