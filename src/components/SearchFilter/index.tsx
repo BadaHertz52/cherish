@@ -14,17 +14,19 @@ export type SearchFilterProps = {
 };
 
 const SearchFilter = ({ FILTERS, type }: SearchFilterProps) => {
-  const [currentFilters, setCurrentFilters] = useState(FILTERS);
+  const [currentFilters, setCurrentFilters] = useState<Filter[]>(
+    JSON.parse(JSON.stringify(FILTERS)),
+  );
   const [currentType, setCurrentType] = useState(type);
 
   const currentFilter = useMemo(() => {
-    return FILTERS.find(filter => filter.type === currentType)!;
-  }, [currentType]);
+    return currentFilters.find(filter => filter.type === currentType)!;
+  }, [currentType, currentFilters]);
 
   const handleClickFilterValue = (index: number) => {
     const targetFilterIndex = currentFilters.findIndex(
-      filter => filter.value === currentFilter.value,
-    )!;
+      filter => filter.type === currentFilter.type,
+    );
 
     const targetFilter = currentFilters[targetFilterIndex];
     targetFilter.selected[index] = !targetFilter.selected[index];
@@ -33,6 +35,10 @@ const SearchFilter = ({ FILTERS, type }: SearchFilterProps) => {
     nextFilters.splice(targetFilterIndex, 1, targetFilter);
 
     setCurrentFilters(nextFilters);
+  };
+
+  const handleReset = () => {
+    setCurrentFilters(JSON.parse(JSON.stringify(FILTERS)));
   };
 
   return (
@@ -48,7 +54,7 @@ const SearchFilter = ({ FILTERS, type }: SearchFilterProps) => {
               {filter.type}
             </li>
           ))}
-          <span>
+          <span onClick={handleReset}>
             <ResetSvg />
             초기화
           </span>
