@@ -1,0 +1,68 @@
+@import '@/assets/styles/common.scss';
+#sign-up__terms {
+  width: 100%;
+  .top {
+    position: relative;
+    padding-bottom: 2vh;
+    border-bottom: 0.6px dashed $color-dark-gray;
+    .header,
+    p:first-child {
+      margin-bottom: 14px;
+    }
+    p {
+      @include h2-font;
+    }
+    .header {
+      display: flex;
+      flex-direction: column;
+      h2 {
+        @include h2-font;
+        margin-bottom: 1vh;
+      }
+      h3 {
+        @include h3-font;
+      }
+      margin-bottom: 16px;
+    }
+    .check-box {
+      margin-top: 3.75vh;
+    }
+  }
+
+  .btn-open-modal {
+    @include bd3-font;
+    color: $color-light-black;
+  }
+  .terms-group {
+    margin-top: 16px;
+    .check-box {
+      margin-bottom: 10px;
+      .check-box__label {
+        display: none;
+      }
+    }
+    button {
+      @include clean-btn-style;
+      @include bd2-font;
+      color: $color-light-black;
+      text-align: left;
+      text-decoration: underline;
+    }
+  }
+  .term {
+    display: flex;
+    margin-bottom: 2vh;
+    height: 5vh;
+    .check {
+      margin-top: 8px;
+    }
+  }
+  .term__contents {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    .check-box__label {
+      cursor: default;
+    }
+  }
+}
