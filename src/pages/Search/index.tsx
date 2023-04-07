@@ -3,14 +3,56 @@ import { useState, useEffect } from 'react';
 import { SearchKeywordSection, SearchHeader, ItemCard } from '@/components';
 import FilterDropdownSvg from '@/assets/svgs/filter-dropdown.svg';
 import type { Item } from '@/components/ItemCard';
+import SearchFilter from '@/components/SearchFilter';
+import type { Filter, FilterType } from '@/components/SearchFilter';
 
 const SearchPage = () => {
+  const FILTERS: Filter[] = [
+    {
+      type: '상품유형',
+      value: ['식품', '의류/잡화', '뷰티', '리빙/주방', '디지털가전', '기타'],
+      selected: [true, false, false, false, false, false],
+    },
+    { type: '성별', value: ['남자', '여자'], selected: [false, false] },
+    {
+      type: '직업',
+      value: [
+        '전문직',
+        '사무직',
+        '판매/서비스직',
+        '노동/생산직',
+        '자영업',
+        '학생',
+        '전업주부',
+        '무직',
+        '기타',
+      ],
+      selected: [false, false, false, false, false, false, false, false, false],
+    },
+    {
+      type: '상황',
+      value: [
+        '생일',
+        '이사/집들이',
+        '입학/졸업',
+        '퇴사/퇴직',
+        '취업/이직',
+        '전역',
+        '병문안(아플 때)',
+        '기념일',
+        '출산/육아',
+      ],
+      selected: [false, false, false, false, false, false, false, false, false],
+    },
+  ];
+
   const [recentKeywords, setRecentKeywords] = useState<string[]>([]);
   const [recommendKeywords, setRecommendKeywords] = useState<string[]>([]);
   const [recentProducts, setRecentProducts] = useState<Item[]>([]);
   const [searchedProduct, setSearchedProduct] = useState<Item[]>([]);
 
   const [isSearch, setIsSearch] = useState(true);
+  const [filterType, setFilterType] = useState<FilterType | null>(null);
 
   const handleSearch = (keyword: string) => {
     // TODO: search API
@@ -27,12 +69,9 @@ const SearchPage = () => {
     setIsSearch(true);
   };
 
-  const filters = [
-    { type: '상품유형', value: ['식품', '뷰티', '리빙/주방', '디지털가전', '의류/잡화', '기타'] },
-    { type: '성별', value: ['식품', '뷰티', '리빙/주방', '디지털가전', '의류/잡화', '기타'] },
-    { type: '직업', value: ['식품', '뷰티', '리빙/주방', '디지털가전', '의류/잡화', '기타'] },
-    { type: '상황', value: ['식품', '뷰티', '리빙/주방', '디지털가전', '의류/잡화', '기타'] },
-  ];
+  const handleShowFilters = (type: FilterType) => {
+    setFilterType(type);
+  };
 
   useEffect(() => {
     // TODO: fetch API
@@ -73,8 +112,12 @@ const SearchPage = () => {
         ) : (
           <>
             <div className={styles.filters}>
-              {filters.map((filter, index) => (
-                <div className={styles.filter} key={index}>
+              {FILTERS.map((filter, index) => (
+                <div
+                  className={styles.filter}
+                  key={index}
+                  onClick={() => handleShowFilters(filter.type)}
+                >
                   <span>{filter.type}</span>
                   <FilterDropdownSvg />
                 </div>
@@ -90,6 +133,7 @@ const SearchPage = () => {
           </>
         )}
       </section>
+      {filterType && <SearchFilter FILTERS={FILTERS} type={filterType} />}
     </div>
   );
 };

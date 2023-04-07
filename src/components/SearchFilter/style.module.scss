@@ -1,0 +1,85 @@
+@import '@/common.scss';
+
+.searchFilter {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: rgba(117, 117, 117, 0.4);
+  width: 100%;
+  height: 100vh;
+  z-index: 10;
+
+  .filterBox {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    position: absolute;
+    background: white;
+    width: 100%;
+    height: 360px;
+    bottom: 0;
+    border-radius: 12px 12px 0 0;
+    padding: 22px;
+
+    .filterTap {
+      @include bd1-font;
+      color: #d9d9d9;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #e7e7e7;
+      margin-bottom: 32px;
+
+      > li {
+        border-bottom: 2px solid white;
+        cursor: pointer;
+        color: #9e9e9e;
+        padding: 8px;
+        list-style: none;
+
+        &.selected {
+          color: #121212;
+          border-bottom: 2px solid #ff86a3;
+        }
+      }
+
+      > span {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+
+        > svg {
+          margin-right: 6px;
+        }
+      }
+    }
+
+    > section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      row-gap: 10px;
+
+      > li {
+        @include bd1-font;
+        color: #595959;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        list-style: none;
+
+        &.selected {
+          color: #121212;
+        }
+
+        > svg {
+          margin-right: 10px;
+        }
+      }
+    }
+
+    > button {
+      margin-top: auto;
+      width: 100%;
+    }
+  }
+}
