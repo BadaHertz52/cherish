@@ -5,8 +5,9 @@ import Fourth from './pages/Fourth';
 import { BottomNav } from './components';
 import './assets/styles/App.scss';
 import ModalTest from './examples/modalTest';
-import LogIn from './logIn';
+import LogIn from './pages/LogIn';
 import './assets/main.scss';
+import SignUp from './pages/SignUp';
 import Home from './pages/Home';
 import SearchPage from './pages/Search';
 
@@ -22,6 +23,7 @@ function App() {
         {/* modal 테스트를 위해 route 추가 , 추후 삭제 예정*/}
         <Route path="modaltest" element={<ModalTest />} />
         <Route path="login" element={<LogIn />} />
+        <Route path="signup" element={<SignUp />} />
       </Routes>
       <BottomNav />
     </div>
