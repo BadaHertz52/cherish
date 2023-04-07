@@ -6,45 +6,47 @@ import type { Item } from '@/components/ItemCard';
 import SearchFilter from '@/components/SearchFilter';
 import type { Filter, FilterType } from '@/components/SearchFilter';
 
+const FILTERS: Filter[] = [
+  {
+    type: '상품유형',
+    value: ['식품', '의류/잡화', '뷰티', '리빙/주방', '디지털가전', '기타'],
+    selected: [false, false, false, false, false, false],
+  },
+  { type: '성별', value: ['남자', '여자'], selected: [false, false] },
+  {
+    type: '직업',
+    value: [
+      '전문직',
+      '사무직',
+      '판매/서비스직',
+      '노동/생산직',
+      '자영업',
+      '학생',
+      '전업주부',
+      '무직',
+      '기타',
+    ],
+    selected: [false, false, false, false, false, false, false, false, false],
+  },
+  {
+    type: '상황',
+    value: [
+      '생일',
+      '이사/집들이',
+      '입학/졸업',
+      '퇴사/퇴직',
+      '취업/이직',
+      '전역',
+      '병문안(아플 때)',
+      '기념일',
+      '출산/육아',
+    ],
+    selected: [false, false, false, false, false, false, false, false, false],
+  },
+];
+
 const SearchPage = () => {
-  const FILTERS: Filter[] = [
-    {
-      type: '상품유형',
-      value: ['식품', '의류/잡화', '뷰티', '리빙/주방', '디지털가전', '기타'],
-      selected: [true, false, false, false, false, false],
-    },
-    { type: '성별', value: ['남자', '여자'], selected: [false, false] },
-    {
-      type: '직업',
-      value: [
-        '전문직',
-        '사무직',
-        '판매/서비스직',
-        '노동/생산직',
-        '자영업',
-        '학생',
-        '전업주부',
-        '무직',
-        '기타',
-      ],
-      selected: [false, false, false, false, false, false, false, false, false],
-    },
-    {
-      type: '상황',
-      value: [
-        '생일',
-        '이사/집들이',
-        '입학/졸업',
-        '퇴사/퇴직',
-        '취업/이직',
-        '전역',
-        '병문안(아플 때)',
-        '기념일',
-        '출산/육아',
-      ],
-      selected: [false, false, false, false, false, false, false, false, false],
-    },
-  ];
+  const [filters, setFilters] = useState(FILTERS);
 
   const [recentKeywords, setRecentKeywords] = useState<string[]>([]);
   const [recommendKeywords, setRecommendKeywords] = useState<string[]>([]);
@@ -72,6 +74,15 @@ const SearchPage = () => {
   const handleShowFilters = (type: FilterType) => {
     setFilterType(type);
   };
+
+  const handleSetFilters = (nextFilters: Filter[]) => {
+    setFilterType(null);
+    setFilters(nextFilters);
+  };
+
+  useEffect(() => {
+    // TODO: fetch list at filter
+  }, [filters]);
 
   useEffect(() => {
     // TODO: fetch API
@@ -112,7 +123,7 @@ const SearchPage = () => {
         ) : (
           <>
             <div className={styles.filters}>
-              {FILTERS.map((filter, index) => (
+              {filters.map((filter, index) => (
                 <div
                   className={styles.filter}
                   key={index}
@@ -133,7 +144,9 @@ const SearchPage = () => {
           </>
         )}
       </section>
-      {filterType && <SearchFilter FILTERS={FILTERS} type={filterType} />}
+      {filterType && (
+        <SearchFilter filters={filters} type={filterType} setFilters={handleSetFilters} />
+      )}
     </div>
   );
 };

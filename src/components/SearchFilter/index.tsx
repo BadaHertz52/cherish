@@ -9,13 +9,14 @@ export type FilterType = '상품유형' | '성별' | '직업' | '상황' | null;
 export type Filter = { type: FilterType; value: string[]; selected: boolean[] };
 
 export type SearchFilterProps = {
-  FILTERS: Filter[];
+  filters: Filter[];
   type: FilterType;
+  setFilters: (filters: Filter[]) => void;
 };
 
-const SearchFilter = ({ FILTERS, type }: SearchFilterProps) => {
+const SearchFilter = ({ filters, type, setFilters }: SearchFilterProps) => {
   const [currentFilters, setCurrentFilters] = useState<Filter[]>(
-    JSON.parse(JSON.stringify(FILTERS)),
+    JSON.parse(JSON.stringify(filters)),
   );
   const [currentType, setCurrentType] = useState(type);
 
@@ -38,7 +39,11 @@ const SearchFilter = ({ FILTERS, type }: SearchFilterProps) => {
   };
 
   const handleReset = () => {
-    setCurrentFilters(JSON.parse(JSON.stringify(FILTERS)));
+    setCurrentFilters(JSON.parse(JSON.stringify(filters)));
+  };
+
+  const handleFiltering = () => {
+    setFilters(currentFilters);
   };
 
   return (
@@ -76,7 +81,9 @@ const SearchFilter = ({ FILTERS, type }: SearchFilterProps) => {
               </li>
             ))}
         </section>
-        <button className="abled">필터링하기</button>
+        <button className="abled" onClick={handleFiltering}>
+          필터링하기
+        </button>
       </div>
     </div>
   );
