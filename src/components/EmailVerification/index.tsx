@@ -12,11 +12,8 @@ type EmailVerificationProps = {
   setDisableBtn: Dispatch<SetStateAction<boolean>>;
   email: InputDataType;
   setEmail: Dispatch<SetStateAction<InputDataType>>;
-  openAlertModal: boolean;
-  setOpenAlertModal: Dispatch<SetStateAction<boolean>>;
   emailDuplicationChecker: boolean; //이메일 중복 검사 진행 여부
   toastModalPositionTargetEl: HTMLElement | null; // toastModal 위치
-  onClickCloseBtnInAlertModal: () => void;
 };
 const EmailVerification = ({
   additionOfLabel,
@@ -24,12 +21,10 @@ const EmailVerification = ({
   setDisableBtn,
   email,
   setEmail,
-  openAlertModal,
-  setOpenAlertModal,
-  onClickCloseBtnInAlertModal,
   emailDuplicationChecker,
   toastModalPositionTargetEl,
 }: EmailVerificationProps) => {
+  const [openAlertModal, setOpenAlertModal] = useState<boolean>(false);
   const [openToastModal, setOpenToastModal] = useState<boolean>(false);
   /**
    * 인증 번호에 대한 검사를 시작했는지 여부
@@ -169,6 +164,10 @@ const EmailVerification = ({
         errorMsg: ERROR_MSG.required,
       });
     }
+  };
+  const onClickCloseBtnInAlertModal = () => {
+    //[todo] 이메일 인증 횟수 초과 시 해야하는 것
+    setOpenAlertModal(false);
   };
   useEffect(() => {
     if (email.value && !email.errorMsg) {
