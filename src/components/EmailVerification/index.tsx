@@ -52,6 +52,7 @@ const EmailVerification = ({
   });
 
   const successSendingEmail = useRef<boolean>(false);
+  const inputEl = document.querySelector('#input-email') as HTMLInputElement | null;
   /**
    * 이메일 중복 여부, 서버에 인증 번호를 담은 이메일 요청등을 담당
    */
@@ -179,9 +180,8 @@ const EmailVerification = ({
     }
   }, []);
   useEffect(() => {
-    const inputEle = document.querySelector('#input-email') as HTMLInputElement | null;
-    if (inputEle) {
-      inputEle.disabled = !disableBtn;
+    if (inputEl) {
+      inputEl.disabled = !disableBtn;
     }
   }, [disableBtn]);
   return (
