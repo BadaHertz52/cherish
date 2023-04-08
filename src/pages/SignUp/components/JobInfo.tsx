@@ -44,6 +44,7 @@ const JobInfo = () => {
       }
       changeLabelClass(el);
     });
+    target.checked && setDisableBtn(false);
   };
   const onClickNextBtn = () => {
     const newState: SignUpStateType = {
@@ -57,19 +58,6 @@ const JobInfo = () => {
   useEffect(() => {
     getPrevData('job', setJob, undefined, undefined);
   }, []);
-  useEffect(() => {
-    if (job.value !== '') {
-      setDisableBtn(false);
-      const targetCheckBoxEl = document.querySelector(
-        `#job-info-${job.value}`,
-      ) as HTMLInputElement | null;
-      if (targetCheckBoxEl !== null) {
-        targetCheckBoxEl.checked = true;
-      }
-    } else {
-      setDisableBtn(true);
-    }
-  }, [job]);
   return (
     <div id="job-info">
       <StepInner disableBtn={disableBtn} onClickNextBtn={onClickNextBtn}>

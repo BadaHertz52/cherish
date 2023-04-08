@@ -4,10 +4,12 @@ import AlertModal from '@/components/Modals/AlertModal';
 import { ToastModalType } from '@/components/Modals/modalTypes';
 import ToastModal from '@/components/Modals/ToastModal';
 import InputForm from '../InputForm';
-import { InputDataType } from '@/pages/SignUp/signUpTypes';
+import { ERROR_MSG, InputDataType, initialInputData } from '@/pages/SignUp/signUpTypes';
 import Timer from '@/pages/SignUp/components/Timer';
 import './style.scss';
+import { getToastModalPosition } from '@/pages/SignUp';
 type EmailVerificationProps = {
+  additionOfLabel?: string; // InputForm의 additionOfLabel
   disableBtn: boolean;
   setDisableBtn: Dispatch<SetStateAction<boolean>>;
   email: InputDataType;
@@ -17,9 +19,11 @@ type EmailVerificationProps = {
   openAlertModal: boolean;
   setOpenAlertModal: Dispatch<SetStateAction<boolean>>;
   emailDuplicationChecker: boolean; //이메일 중복 검사 진행 여부
+  toastModalPositionTargetEl: HTMLElement | null; // toastModal 위치
   onClickCloseBtnInAlertModal: () => void;
 };
 const EmailVerification = ({
+  additionOfLabel,
   disableBtn,
   setDisableBtn,
   email,
@@ -30,6 +34,7 @@ const EmailVerification = ({
   setOpenToastModal,
   onClickCloseBtnInAlertModal,
   emailDuplicationChecker,
+  toastModalPositionTargetEl,
 }: EmailVerificationProps) => {
   /**
    * 인증 번호에 대한 검사를 시작했는지 여부
@@ -39,7 +44,7 @@ const EmailVerification = ({
    * 이메일 인증 횟수
    */
   const sendingEmailCount = useRef<number>(0);
-  const [authNumber, setAuthNumber] = useState<string | undefined>();
+  const [authNumber, setAuthNumber] = useState<InputDataType>(initialInputData);
   const verifiedEmail = useRef<string | undefined>();
   /**
    * 이메일 인증 시간 오버
@@ -55,8 +60,7 @@ const EmailVerification = ({
     top: '0',
     left: '0',
   });
-  const nextBtnEl = document.querySelector('.next-btn');
-  const nextBtnElDomRect = nextBtnEl?.getClientRects()[0];
+
   const successSendingEmail = useRef<boolean>(false);
   /**
    * 이메일 중복 여부, 서버에 인증 번호를 담은 이메일 요청등을 담당
@@ -70,6 +74,18 @@ const EmailVerification = ({
     let result: boolean = true;
     // [api] 인증 이메일 보내기
     return result;
+  };
+
+  const changeToastModalState = (contents: string) => {
+    if (toastModalPositionTargetEl) {
+      const { top, left } = getToastModalPosition(toastModalPositionTargetEl);
+      setToastModalState({
+        contents: contents,
+        // 39: toastModal.height
+        top: top,
+        left: left,
+      });
+    }
   };
   const onClickEmailBtn = async () => {
     overTime && setOverTime(false);
@@ -103,17 +119,9 @@ const EmailVerification = ({
           successSendingEmail.current = true;
           // ㄱ. 타이머 작동. 모달 오픈
           setOpenTimer(true);
-          if (nextBtnElDomRect !== null && nextBtnElDomRect !== undefined) {
-            // modal의 height, width에 따라 top,left 값 변경
-            setOpenToastModal(true);
-            setToastModalState({
-              contents: '인증 이메일이 발송됐어요.',
-              //  39:toastModal.height
-              top: `${nextBtnElDomRect.top - 39 - 16}px`,
-              left: `20vw`,
-            });
-            sendingEmailCount.current += 1;
-          }
+          sendingEmailCount.current += 1;
+          setOpenToastModal(true);
+          changeToastModalState('인증 이메일이 발송됐어요.');
         }
       }
     }
@@ -127,7 +135,10 @@ const EmailVerification = ({
   };
   const onChangeAuthNumber = (event: ChangeEvent<HTMLInputElement>) => {
     const text = XSSCheck(event.target.value, undefined);
-    setAuthNumber(text);
+    setAuthNumber({
+      value: text,
+      errorMsg: null,
+    });
     if (checkAuthNumber) setCheckAuthNumber(false);
   };
   //서버에서 받은 데이터
@@ -141,13 +152,27 @@ const EmailVerification = ({
     const result = getAuthNumber();
     setCheckAuthNumber(true);
     //data는  string type으로
-    if (authNumber && result === authNumber) {
+    if (authNumber.value && result === authNumber.value) {
       setPass(true);
       setDisableBtn(false);
       setOpenTimer(false);
       verifiedEmail.current = email.value;
+      setOpenToastModal(true);
+      changeToastModalState('인증이 완료 되었어요.');
     } else {
       setPass(false);
+      setAuthNumber(prev => ({
+        ...prev,
+        errorMsg: ERROR_MSG.invalidAuthNumber,
+      }));
+    }
+  };
+  const handleBlurOfAuthNumber = () => {
+    if (!authNumber.value) {
+      setAuthNumber({
+        ...authNumber,
+        errorMsg: ERROR_MSG.required,
+      });
     }
   };
   useEffect(() => {
@@ -168,7 +193,7 @@ const EmailVerification = ({
   return (
     <div className="email-verification">
       <section className="email-form">
-        <InputForm id={'email'} data={email} setData={setEmail} />
+        <InputForm additionOfLabel={additionOfLabel} id={'email'} data={email} setData={setEmail} />
         {!successSendingEmail.current && (
           <>
             <button
@@ -190,8 +215,9 @@ const EmailVerification = ({
             <input
               id="authNumber"
               name="authNumber"
-              value={authNumber}
+              value={authNumber.value}
               onChange={onChangeAuthNumber}
+              onBlur={handleBlurOfAuthNumber}
               placeholder="인증번호(6자리)"
             />
             {openTimer && <Timer setOpenTimer={setOpenTimer} setOverTime={setOverTime} />}
@@ -207,17 +233,12 @@ const EmailVerification = ({
 
           <div className="msg">
             {overTime && <p className="msg-over-time">인증 시간이 지났습니다.</p>}
-            {!overTime &&
-              authNumber !== undefined &&
-              checkAuthNumber &&
-              (pass ? (
-                <p>인증이 완료 되었어요.</p>
-              ) : (
-                <div className="error-msg">
-                  <p>인증번호가 일치하지 않아요.</p>
-                  <p>인증번호를 다시 확인해주세요.</p>
-                </div>
-              ))}
+            {!overTime && authNumber.errorMsg && (
+              <div className="error-msg">
+                <p>{authNumber.errorMsg}</p>
+                <p>인증번호를 다시 확인해주세요.</p>
+              </div>
+            )}
             {!checkAuthNumber && !overTime && (
               <div className="alert">
                 이메일이 수신되지 않는 경우, 입력하신 이메일이 정확한지 확인해 주세요. 또는
