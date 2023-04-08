@@ -8,8 +8,8 @@ import { getToastModalPosition } from '@/pages/SignUp/functions';
 
 type EmailVerificationProps = {
   additionOfLabel?: string; // InputForm의 additionOfLabel
-  disableBtn: boolean;
-  setDisableBtn: Dispatch<SetStateAction<boolean>>;
+  disableBtn?: boolean;
+  setDisableBtn?: Dispatch<SetStateAction<boolean>>;
   email: InputDataType;
   setEmail: Dispatch<SetStateAction<InputDataType>>;
   emailDuplicationChecker: boolean; //이메일 중복 검사 진행 여부
@@ -52,6 +52,7 @@ const EmailVerification = ({
   });
 
   const successSendingEmail = useRef<boolean>(false);
+  const inputEl = document.querySelector('#input-email') as HTMLInputElement | null;
   /**
    * 이메일 중복 여부, 서버에 인증 번호를 담은 이메일 요청등을 담당
    */
@@ -144,7 +145,7 @@ const EmailVerification = ({
     //data는  string type으로
     if (authNumber.value && result === authNumber.value) {
       setPass(true);
-      setDisableBtn(false);
+      setDisableBtn && setDisableBtn(false);
       setOpenTimer(false);
       verifiedEmail.current = email.value;
       setOpenToastModal(true);
@@ -175,13 +176,13 @@ const EmailVerification = ({
       setPass(true);
       setCheckAuthNumber(true);
       verifiedEmail.current = email.value;
-      setDisableBtn(false);
+      setDisableBtn && setDisableBtn(false);
     }
   }, []);
+  //EmailVerification 에서 disableBtn 상태 변경 시
   useEffect(() => {
-    const inputEle = document.querySelector('#input-email') as HTMLInputElement | null;
-    if (inputEle) {
-      inputEle.disabled = !disableBtn;
+    if (inputEl && disableBtn !== undefined) {
+      inputEl.disabled = !disableBtn;
     }
   }, [disableBtn]);
   return (
