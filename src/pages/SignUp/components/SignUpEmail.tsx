@@ -8,7 +8,6 @@ const SignUpEmail = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
   const [email, setEmail] = useState<InputDataType>(initialInputData);
   const [disableBtn, setDisableBtn] = useState<boolean>(true);
-  const [openToastModal, setOpenToastModal] = useState<boolean>(false);
   const [openAlertModal, setOpenAlertModal] = useState<boolean>(false);
   const nextBtnEl = document.querySelector('.next-btn') as HTMLElement | null;
 
@@ -48,8 +47,6 @@ const SignUpEmail = () => {
           setEmail={setEmail}
           openAlertModal={openAlertModal}
           setOpenAlertModal={setOpenAlertModal}
-          openToastModal={openToastModal}
-          setOpenToastModal={setOpenToastModal}
           emailDuplicationChecker={true}
           onClickCloseBtnInAlertModal={onClickCloseBtnInAlertModal}
           toastModalPositionTargetEl={nextBtnEl}
