@@ -8,8 +8,8 @@ import { getToastModalPosition } from '@/pages/SignUp/functions';
 
 type EmailVerificationProps = {
   additionOfLabel?: string; // InputForm의 additionOfLabel
-  disableBtn?: boolean;
-  setDisableBtn?: Dispatch<SetStateAction<boolean>>;
+  disableBtn: boolean;
+  setDisableBtn: Dispatch<SetStateAction<boolean>>;
   email: InputDataType;
   setEmail: Dispatch<SetStateAction<InputDataType>>;
   emailDuplicationChecker: boolean; //이메일 중복 검사 진행 여부
@@ -145,7 +145,7 @@ const EmailVerification = ({
     //data는  string type으로
     if (authNumber.value && result === authNumber.value) {
       setPass(true);
-      setDisableBtn && setDisableBtn(false);
+      setDisableBtn(false);
       setOpenTimer(false);
       verifiedEmail.current = email.value;
       setOpenToastModal(true);
@@ -176,12 +176,11 @@ const EmailVerification = ({
       setPass(true);
       setCheckAuthNumber(true);
       verifiedEmail.current = email.value;
-      setDisableBtn && setDisableBtn(false);
+      setDisableBtn(false);
     }
   }, []);
-  //EmailVerification 에서 disableBtn 상태 변경 시
   useEffect(() => {
-    if (inputEl && disableBtn !== undefined) {
+    if (inputEl) {
       inputEl.disabled = !disableBtn;
     }
   }, [disableBtn]);
