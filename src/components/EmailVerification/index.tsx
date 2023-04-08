@@ -1,13 +1,11 @@
 import { ChangeEvent, Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { XSSCheck } from '@/pages/LogIn/index';
-import AlertModal from '@/components/Modals/AlertModal';
+import { Timer, ToastModal, AlertModal, InputForm } from '@/components';
 import { ToastModalType } from '@/components/Modals/modalTypes';
-import ToastModal from '@/components/Modals/ToastModal';
-import InputForm from '../InputForm';
 import { ERROR_MSG, InputDataType, initialInputData } from '@/pages/SignUp/signUpTypes';
-import Timer from '@/pages/SignUp/components/Timer';
 import './style.scss';
-import { getToastModalPosition } from '@/pages/SignUp';
+import { getToastModalPosition } from '@/pages/SignUp/functions';
+
 type EmailVerificationProps = {
   additionOfLabel?: string; // InputForm의 additionOfLabel
   disableBtn: boolean;

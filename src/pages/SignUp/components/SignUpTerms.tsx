@@ -1,6 +1,6 @@
 import { ChangeEvent, useContext, useEffect, useRef, useState } from 'react';
-import { SignUpContext } from '../../../pages/SignUp';
-import CheckBox from '@/components/CheckBox';
+import { SignUpContext } from '@/pages/SignUp';
+import { CheckBox, ConfirmModal } from '@/components';
 import {
   AgreementStateType,
   SignUpStateType,
@@ -8,11 +8,9 @@ import {
   TermsContentsNameType,
 } from '../signUpTypes';
 import StepInner from './StepInner';
-import ConfirmModal, { ConfirmModalProps } from '@/components/Modals/ConfirmModal';
+import { ConfirmModalProps } from '@/components/Modals/ConfirmModal';
 import { ConfirmModalBtnType } from '@/components/Modals/modalTypes';
-import TermsOfUse from '../../../pages/SignUp/components/terms/TermsOfUse';
-import PersonalInformation from '../../../pages/SignUp/components/terms/PersonalInformation';
-import Marketing from '../../../pages/SignUp/components/terms/Marketing';
+import { TermsOfUse, Marketing, PersonalInformation } from '@/pages/SignUp/components/terms';
 
 type SignUpTermProps = {
   id: TermsCheckBoxNameType;

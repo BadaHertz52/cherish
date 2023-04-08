@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
-import { SignUpContext, getToastModalPosition } from '@/pages/SignUp';
+import { SignUpContext } from '@/pages/SignUp';
+import { getToastModalPosition } from '../functions';
 import { getPrevData } from './SignUpTopBar';
 import { InputDataType, SignUpStateType, initialInputData } from '../signUpTypes';
 import StepInner from './StepInner';
-import PasswordForm from '@/components/PasswordForm';
-import ToastModal from '@/components/Modals/ToastModal';
+import { PasswordForm, ToastModal } from '@/components';
 import { ToastModalType } from '@/components/Modals/modalTypes';
 
 const SignUpPw = () => {
