@@ -203,8 +203,8 @@ const SignUpTerms = () => {
   return (
     <div id="sign-up__terms" className="step">
       <StepInner disableBtn={disableBtn} onClickNextBtn={onClickNextBtn}>
-        <div className="top">
-          <div className="header">
+        <div className="terms__top">
+          <div className="terms__header">
             <h2>환영해요!</h2>
             <h3>아래 약관에 동의하시면</h3>
             <h3>정성스러운 선물을 추천해드려요</h3>

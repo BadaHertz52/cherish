@@ -2,8 +2,8 @@
 .step__inner {
   position: relative;
   width: 100%;
-  // 100%  -bottomNav.height-SignUpTopBar.height - progreebar -padding.top
-  height: calc(100vh - 80px - 149px - 5px - 3.3vh);
+  // 100%  -bottomNav.height-SignUpTopBar.height - progreebar
+  height: calc(100vh - 80px - 107px - 5px);
   overflow-y: auto;
   padding-top: 30px;
   padding-left: 21px;
