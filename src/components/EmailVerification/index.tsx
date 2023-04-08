@@ -7,7 +7,7 @@ import InputForm from '../InputForm';
 import { ERROR_MSG, InputDataType, initialInputData } from '@/pages/SignUp/signUpTypes';
 import Timer from '@/pages/SignUp/components/Timer';
 import './style.scss';
-import { dom } from '@fortawesome/fontawesome-svg-core';
+import { getToastModalPosition } from '@/pages/SignUp';
 type EmailVerificationProps = {
   additionOfLabel?: string; // InputForm의 additionOfLabel
   disableBtn: boolean;
@@ -55,7 +55,6 @@ const EmailVerification = ({
    * 이메일 인증 pass
    */
   const [pass, setPass] = useState<boolean>(false);
-  const appEl = document.querySelector('.App') as HTMLElement | null;
   const [toastModalState, setToastModalState] = useState<ToastModalType>({
     contents: '',
     top: '0',
@@ -76,16 +75,15 @@ const EmailVerification = ({
     // [api] 인증 이메일 보내기
     return result;
   };
-  const changeToastModalState = (contents: string) => {
-    if (toastModalPositionTargetEl && appEl) {
-      const widthOfToastModal = window.innerWidth >= 560 ? 560 * 0.6 : window.innerWidth * 0.6;
-      const domRectOfTarget = toastModalPositionTargetEl.getClientRects()[0];
 
+  const changeToastModalState = (contents: string) => {
+    if (toastModalPositionTargetEl) {
+      const { top, left } = getToastModalPosition(toastModalPositionTargetEl);
       setToastModalState({
         contents: contents,
         // 39: toastModal.height
-        top: `${domRectOfTarget.top - 39 - 16}px`,
-        left: `${(window.innerWidth - widthOfToastModal) / 2 - 10}px`,
+        top: top,
+        left: left,
       });
     }
   };
