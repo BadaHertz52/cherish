@@ -9,12 +9,14 @@ import LogIn from './pages/LogIn';
 import './assets/main.scss';
 import SignUp from './pages/SignUp';
 import Home from './pages/Home';
+import SearchPage from './pages/Search';
 
 function App() {
   return (
     <div className="App">
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/search" element={<SearchPage />} />
         <Route path="/second" element={<Second />} />
         <Route path="/third" element={<Third />} />
         <Route path="/fourth" element={<Fourth />} />

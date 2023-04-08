@@ -7,6 +7,8 @@ import ConfirmModal from './Modals/ConfirmModal';
 import EmailVerification from './EmailVerification';
 import FullModal from './Modals/FullModal';
 import ItemCard from './ItemCard';
+import SearchKeywordSection from './SearchKeywordSection';
+import SearchHeader from './SearchHeader';
 import InputForm from './InputForm';
 import PasswordForm from './PasswordForm';
 import ToastModal from './Modals/ToastModal';
@@ -22,6 +24,8 @@ export {
   FullModal,
   ItemCard,
   InputForm,
+  SearchKeywordSection,
+  SearchHeader,
   PasswordForm,
   Timer,
   ToastModal,
