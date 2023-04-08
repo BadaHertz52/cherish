@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, MouseEvent, useContext, useEffect, useRef, useState } from 'react';
 import { SignUpContext } from '@/pages/SignUp';
 import { CheckBox, ConfirmModal } from '@/components';
 import {
@@ -19,25 +19,18 @@ type SignUpTermProps = {
   onClickBtn: (() => void) | null;
 };
 const SignUpTerm = ({ id, label, onChange, onClickBtn }: SignUpTermProps) => {
-  const termRef = useRef<HTMLDivElement>(null);
   const handleClick = () => {
     if (onClickBtn !== null) onClickBtn();
   };
-  useEffect(() => {
-    const labelEl = termRef.current?.querySelector('.label');
-    if (labelEl !== null && label !== undefined) {
-      labelEl?.addEventListener('click', handleClick);
-    }
-  }, [termRef.current]);
   return (
-    <div className="term" ref={termRef}>
+    <div className="term">
       <CheckBox id={id} name={id} label={label} onChange={onChange} />
       <div className="term__contents">
-        <div className="label" onClick={handleClick}>
+        <button className=" btn-open-modal label" onClick={handleClick}>
           {label}
-        </div>
+        </button>
         {onClickBtn !== null && (
-          <button className="btn-open-modal" onClick={handleClick} type="button">
+          <button className="btn-open-modal " onClick={handleClick} type="button">
             내용보기
           </button>
         )}
@@ -55,6 +48,9 @@ const SignUpTerms = () => {
   const WHOLE_AGREEMENT_CHECK_BOX_EL = document.querySelector(
     `#whole-agree`,
   ) as HTMLInputElement | null;
+  const listOfTermsCheckBoxEl = document.querySelectorAll(
+    '.terms-group input',
+  ) as NodeListOf<HTMLInputElement>;
   const NO_BTN_VALUE: ConfirmModalBtnType = {
     //btn 의 text node
     text: '닫기',
@@ -108,47 +104,41 @@ const SignUpTerms = () => {
     });
   };
   const handleWholeAgree = (event: ChangeEvent<HTMLInputElement>) => {
-    const target = event.target as HTMLInputElement | null;
-    if (target !== null) {
-      const checked = target.checked;
-      setAgreement({
-        termsOfUse: checked,
-        personalInformation: checked,
-        ageCondition: checked,
-        marketing: checked,
-      });
-      const listOfInput = document.querySelectorAll('input');
-      listOfInput.forEach(el => (el.checked = checked));
-    }
+    const target = event.currentTarget;
+    const checked = target.checked;
+    listOfTermsCheckBoxEl.forEach(el => (el.checked = checked));
+    setAgreement({
+      termsOfUse: checked,
+      personalInformation: checked,
+      ageCondition: checked,
+      marketing: checked,
+    });
   };
   function changeAgreement(name: TermsCheckBoxNameType, checked: boolean) {
     switch (name) {
+      case 'ageCondition':
+        setAgreement((prev: AgreementStateType) => ({
+          ...prev,
+          ageCondition: checked,
+        }));
+        break;
       case 'termsOfUse':
-        setAgreement((prev: AgreementStateType) => {
-          const newState: AgreementStateType = {
-            ...prev,
-            termsOfUse: checked,
-          };
-          return newState;
-        });
+        setAgreement((prev: AgreementStateType) => ({
+          ...prev,
+          termsOfUse: checked,
+        }));
         break;
       case 'personalInformation':
-        setAgreement((prev: AgreementStateType) => {
-          const newState: AgreementStateType = {
-            ...prev,
-            personalInformation: checked,
-          };
-          return newState;
-        });
+        setAgreement((prev: AgreementStateType) => ({
+          ...prev,
+          personalInformation: checked,
+        }));
         break;
       case 'marketing':
-        setAgreement((prev: AgreementStateType) => {
-          const newState: AgreementStateType = {
-            ...prev,
-            marketing: checked,
-          };
-          return newState;
-        });
+        setAgreement((prev: AgreementStateType) => ({
+          ...prev,
+          marketing: checked,
+        }));
         break;
 
       default:
@@ -163,31 +153,27 @@ const SignUpTerms = () => {
     changeAgreement(name, true);
   }
   const handleCheckBoxOfTerm = (event: ChangeEvent<HTMLInputElement>) => {
-    const target = event.target as HTMLInputElement | null;
-    if (target !== null) {
-      const name = target.name as TermsCheckBoxNameType;
-      const checked = target.checked;
-      if (!checked) {
-        if (WHOLE_AGREEMENT_CHECK_BOX_EL !== null && WHOLE_AGREEMENT_CHECK_BOX_EL.checked) {
-          WHOLE_AGREEMENT_CHECK_BOX_EL.checked = false;
-        }
+    const target = event.currentTarget;
+    const name = target.name as TermsCheckBoxNameType;
+    const checked = target.checked;
+    if (!checked) {
+      if (WHOLE_AGREEMENT_CHECK_BOX_EL && WHOLE_AGREEMENT_CHECK_BOX_EL.checked) {
+        WHOLE_AGREEMENT_CHECK_BOX_EL.checked = false;
       }
-      changeAgreement(name, checked);
     }
+    changeAgreement(name, checked);
   };
   const onClickToShowTerm = (name: TermsContentsNameType) => {
     setOpenModal(true);
     setOpenTargetTerms(name);
   };
-
+  // 이전 버튼으로 현재 단게로 이동했을때, signUpState 상태에 따라 업데이트
   useEffect(() => {
     const valueOfTermsOfUse = signUpState.agreeToTerms.termsOfUse;
     const valueOfPersonalInformation = signUpState.agreeToTerms.personalInformation;
     const valueOfAgeCondition = signUpState.agreeToTerms.ageCondition;
     const valueOfMarketing = signUpState.agreeToTerms.marketing;
-    const listOfTermsCheckBoxEl = document.querySelectorAll(
-      '.terms-group input',
-    ) as NodeListOf<HTMLInputElement>;
+
     listOfTermsCheckBoxEl.forEach(el => {
       const name = el.name as TermsCheckBoxNameType;
       el.checked = signUpState.agreeToTerms[name];
@@ -198,15 +184,16 @@ const SignUpTerms = () => {
       valueOfAgeCondition &&
       valueOfMarketing
     ) {
-      if (WHOLE_AGREEMENT_CHECK_BOX_EL !== null) {
+      if (WHOLE_AGREEMENT_CHECK_BOX_EL && !WHOLE_AGREEMENT_CHECK_BOX_EL.checked) {
         WHOLE_AGREEMENT_CHECK_BOX_EL.checked = true;
       }
     }
-  }, [WHOLE_AGREEMENT_CHECK_BOX_EL]);
+  }, [WHOLE_AGREEMENT_CHECK_BOX_EL, signUpState.agreeToTerms]);
+  //agreement 의 상태 변화에 따라 disableBtn 상태 변경
   useEffect(() => {
     if (agreement.termsOfUse && agreement.personalInformation && agreement.ageCondition) {
       setDisableBtn(false);
-      if (agreement.marketing && WHOLE_AGREEMENT_CHECK_BOX_EL !== null) {
+      if (agreement.marketing && WHOLE_AGREEMENT_CHECK_BOX_EL) {
         WHOLE_AGREEMENT_CHECK_BOX_EL.checked = true;
       }
     } else {
