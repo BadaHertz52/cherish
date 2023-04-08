@@ -51,14 +51,14 @@ const SearchPage = () => {
   const [recentKeywords, setRecentKeywords] = useState<string[]>([]);
   const [recommendKeywords, setRecommendKeywords] = useState<string[]>([]);
   const [recentProducts, setRecentProducts] = useState<Item[]>([]);
-  const [searchedProduct, setSearchedProduct] = useState<Item[]>([]);
+  const [searchedProducts, setSearchedProducts] = useState<Item[]>([]);
 
   const [isSearch, setIsSearch] = useState(false);
   const [filterType, setFilterType] = useState<FilterType>(null);
 
   const handleSearch = (keyword: string) => {
     // TODO: search API
-    setSearchedProduct(
+    setSearchedProducts(
       Array.from({ length: 12 }, (_, index) => ({
         id: index,
         company: 'Aesop',
@@ -137,7 +137,7 @@ const SearchPage = () => {
             {/* TODO: 이름 변경하기 */}
             <h2>가나다님, 이런 선물 어때요?</h2>
             <div className={styles.searchedProductSection}>
-              {searchedProduct.map(item => (
+              {searchedProducts.map(item => (
                 <ItemCard key={item.id} {...item} />
               ))}
             </div>
