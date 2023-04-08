@@ -1,0 +1,50 @@
+@import '@/assets/styles/common.scss';
+
+.myPage {
+  > section {
+    padding: 20px;
+
+    > h2 {
+      @include h2-font;
+      color: #121212;
+      margin-bottom: 10px;
+    }
+
+    .tags {
+      display: flex;
+      gap: 10px;
+
+      > span {
+        @include bd1-font;
+        color: #ff6b8f;
+        background: #fff3f6;
+        border: 0.8px solid #ff86a3;
+        border-radius: 30px;
+        padding: 4px 16px;
+        cursor: pointer;
+      }
+    }
+
+    .menu {
+      @include bd1-font;
+      cursor: pointer;
+      color: #595959;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 9px 0;
+
+      &.emphasized {
+        @include h2-font;
+        color: #121212;
+      }
+    }
+  }
+
+  > hr {
+    border: none;
+    margin: 0px;
+    height: 5px;
+    background: #f4f4f4;
+  }
+}

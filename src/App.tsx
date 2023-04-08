@@ -10,6 +10,7 @@ import './assets/main.scss';
 import SignUp from './pages/SignUp';
 import Home from './pages/Home';
 import SearchPage from './pages/Search';
+import MyPage from './pages/My';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/search" element={<SearchPage />} />
+        <Route path="/my" element={<MyPage />} />
         <Route path="/second" element={<Second />} />
         <Route path="/third" element={<Third />} />
         <Route path="/fourth" element={<Fourth />} />
