@@ -28,7 +28,7 @@ const SearchFilter = ({
   const [currentFilters, setCurrentFilters] = useState<Filter[]>(
     JSON.parse(JSON.stringify(filters)),
   );
-  const [currentType, setCurrentType] = useState(type);
+  const [currentType, setCurrentType] = useState(initialType);
   const [closing, setClosing] = useState(false);
 
   const currentFilter = useMemo(() => {
