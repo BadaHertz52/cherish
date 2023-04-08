@@ -16,7 +16,7 @@ const SignUpNextBtn = ({ disableBtn, onClickNextBtn }: NextBtnProps) => {
   return (
     <div className="next-btn">
       <button type="button" disabled={disableBtn} onClick={onClickNextBtn}>
-        다음
+        {signUpState.progress === 'job' ? '회원가입 완료' : '다음'}
       </button>
     </div>
   );
