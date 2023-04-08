@@ -55,6 +55,7 @@ const SearchPage = () => {
 
   const [isSearch, setIsSearch] = useState(true);
   const [filterType, setFilterType] = useState<FilterType | null>(null);
+  const [isSearch, setIsSearch] = useState(false);
 
   const handleSearch = (keyword: string) => {
     // TODO: search API
