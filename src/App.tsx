@@ -10,6 +10,7 @@ import './assets/main.scss';
 import SignUp from './pages/SignUp';
 import Home from './pages/Home';
 import SearchPage from './pages/Search';
+import FindPw from './pages/FindPw';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="modaltest" element={<ModalTest />} />
         <Route path="login" element={<LogIn />} />
         <Route path="signup" element={<SignUp />} />
+        <Route path="findpw" element={<FindPw />} />
       </Routes>
       <BottomNav />
     </div>
