@@ -13,7 +13,7 @@
     }
   }
   .btn-gender {
-    width: calc((100vw - 8.8vw) / 2);
+    width: calc((100vw - 16px) / 2);
     background-color: $color-white;
     border: 0.6px solid $color-light-black;
     color: $color-light-black;
@@ -21,7 +21,7 @@
       @include btn-selected-border-style;
     }
     &:first-child {
-      margin-right: 8.8vw;
+      margin-right: 16px;
     }
   }
 
