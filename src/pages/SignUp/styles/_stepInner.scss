@@ -17,18 +17,19 @@
     // -header.height -nextBtn max height
     height: calc(100% - 44px - 66px);
   }
-}
-button {
-  @include clean-btn-style;
-  @include btn-selected-full-style;
-  &:disabled {
-    @include btn-disabled-style;
+  button {
+    @include clean-btn-style;
+    @include btn-selected-full-style;
+    &:disabled {
+      @include btn-disabled-style;
+    }
+  }
+  button,
+  input {
+    height: 48px;
   }
 }
-button,
-input {
-  height: 48px;
-}
+
 .next-btn {
   display: flex;
   justify-content: center;
