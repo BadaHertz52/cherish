@@ -12,8 +12,6 @@ type EmailVerificationProps = {
   setDisableBtn: Dispatch<SetStateAction<boolean>>;
   email: InputDataType;
   setEmail: Dispatch<SetStateAction<InputDataType>>;
-  openToastModal: boolean;
-  setOpenToastModal: Dispatch<SetStateAction<boolean>>;
   openAlertModal: boolean;
   setOpenAlertModal: Dispatch<SetStateAction<boolean>>;
   emailDuplicationChecker: boolean; //이메일 중복 검사 진행 여부
@@ -28,12 +26,11 @@ const EmailVerification = ({
   setEmail,
   openAlertModal,
   setOpenAlertModal,
-  openToastModal,
-  setOpenToastModal,
   onClickCloseBtnInAlertModal,
   emailDuplicationChecker,
   toastModalPositionTargetEl,
 }: EmailVerificationProps) => {
+  const [openToastModal, setOpenToastModal] = useState<boolean>(false);
   /**
    * 인증 번호에 대한 검사를 시작했는지 여부
    */
