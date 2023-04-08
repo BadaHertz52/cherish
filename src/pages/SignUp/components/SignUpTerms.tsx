@@ -190,6 +190,10 @@ const SignUpTerms = () => {
     const listOfTermsCheckBoxEl = document.querySelectorAll(
       '.terms-group input',
     ) as NodeListOf<HTMLInputElement>;
+    listOfTermsCheckBoxEl.forEach(el => {
+      const name = el.name as TermsCheckBoxNameType;
+      el.checked = signUpState.agreeToTerms[name];
+    });
     if (
       valueOfTermsOfUse &&
       valueOfPersonalInformation &&
@@ -200,11 +204,7 @@ const SignUpTerms = () => {
         WHOLE_AGREEMENT_CHECK_BOX_EL.checked = true;
       }
     }
-    listOfTermsCheckBoxEl.forEach(el => {
-      const name = el.name as TermsCheckBoxNameType;
-      el.checked = signUpState.agreeToTerms[name];
-    });
-  }, []);
+  }, [WHOLE_AGREEMENT_CHECK_BOX_EL]);
   useEffect(() => {
     if (agreement.termsOfUse && agreement.personalInformation && agreement.ageCondition) {
       setDisableBtn(false);
