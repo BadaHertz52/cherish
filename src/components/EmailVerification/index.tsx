@@ -181,9 +181,15 @@ const EmailVerification = ({
   }, []);
   useEffect(() => {
     if (inputEl) {
-      inputEl.disabled = !disableBtn;
+      inputEl.disabled = openTimer;
     }
-  }, [disableBtn]);
+  }, [openTimer]);
+
+  useEffect(() => {
+    // [todo] 추가 조건 : 이메일 인증 횟수 초과하지 않은 경우
+    successSendingEmail.current = false;
+    if (inputEl) inputEl.disabled = false;
+  }, [overTime]);
   return (
     <div className="email-verification">
       <section className="email-form">
@@ -192,7 +198,7 @@ const EmailVerification = ({
           <>
             <button
               className="btn-email"
-              disabled={email.value !== '' && email.errorMsg == null && !pass ? false : true}
+              disabled={email.value !== '' && email.errorMsg == null ? false : true}
               type="button"
               onClick={onClickEmailBtn}
             >
