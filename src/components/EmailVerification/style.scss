@@ -51,14 +51,3 @@
     }
   }
 }
-#timer {
-  position: absolute;
-  top: 0;
-  left: calc(70% - 48px);
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  @include h2-font;
-  color: $color-primary;
-}

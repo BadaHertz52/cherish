@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { SignUpContext } from '../../../pages/SignUp';
+import { SignUpContext } from '@/pages/SignUp';
 import { moveProgressBar } from './ProgressBar';
 
 export type NextBtnProps = {
