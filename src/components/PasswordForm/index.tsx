@@ -3,13 +3,21 @@ import InputForm from '../InputForm/index';
 import { ERROR_MSG, InputDataType } from '@/pages/SignUp/signUpTypes';
 import './style.scss';
 type PasswordFormProps = {
+  additionOfLabel?: string; //InputForm의 additionOfLabel
   confirmPw: InputDataType;
   setConfirmPw: Dispatch<SetStateAction<InputDataType>>;
   pw: InputDataType;
   setPw: Dispatch<SetStateAction<InputDataType>>;
   setDisableBtn: Dispatch<SetStateAction<boolean>>;
 };
-const PasswordForm = ({ confirmPw, setConfirmPw, pw, setPw, setDisableBtn }: PasswordFormProps) => {
+const PasswordForm = ({
+  additionOfLabel,
+  confirmPw,
+  setConfirmPw,
+  pw,
+  setPw,
+  setDisableBtn,
+}: PasswordFormProps) => {
   //pw, confirmPw 의 변화에 따라 disableBtn 상태 변경
   useEffect(() => {
     if (confirmPw.value !== '' && pw.value !== '') {
@@ -34,8 +42,13 @@ const PasswordForm = ({ confirmPw, setConfirmPw, pw, setPw, setDisableBtn }: Pas
   }, [pw, confirmPw]);
   return (
     <div className="pw-form">
-      <InputForm id="pw" data={pw} setData={setPw} />
-      <InputForm id="confirmPw" data={confirmPw} setData={setConfirmPw} />
+      <InputForm additionOfLabel={additionOfLabel} id="pw" data={pw} setData={setPw} />
+      <InputForm
+        additionOfLabel={additionOfLabel}
+        id="confirmPw"
+        data={confirmPw}
+        setData={setConfirmPw}
+      />
     </div>
   );
 };

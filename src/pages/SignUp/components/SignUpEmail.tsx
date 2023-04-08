@@ -41,6 +41,7 @@ const SignUpEmail = () => {
     <div id="email">
       <StepInner disableBtn={disableBtn} onClickNextBtn={onClickNextBtn}>
         <EmailVerification
+          additionOfLabel="로그인을 위한"
           disableBtn={disableBtn}
           setDisableBtn={setDisableBtn}
           email={email}

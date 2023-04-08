@@ -8,6 +8,7 @@ import { InputDataType } from '@/pages/SignUp/signUpTypes';
 import Timer from '@/pages/SignUp/components/Timer';
 import './style.scss';
 type EmailVerificationProps = {
+  additionOfLabel?: string; // InputForm의 additionOfLabel
   disableBtn: boolean;
   setDisableBtn: Dispatch<SetStateAction<boolean>>;
   email: InputDataType;
@@ -20,6 +21,7 @@ type EmailVerificationProps = {
   onClickCloseBtnInAlertModal: () => void;
 };
 const EmailVerification = ({
+  additionOfLabel,
   disableBtn,
   setDisableBtn,
   email,
@@ -168,7 +170,7 @@ const EmailVerification = ({
   return (
     <div className="email-verification">
       <section className="email-form">
-        <InputForm id={'email'} data={email} setData={setEmail} />
+        <InputForm additionOfLabel={additionOfLabel} id={'email'} data={email} setData={setEmail} />
         {!successSendingEmail.current && (
           <>
             <button
