@@ -148,7 +148,7 @@ const SearchPage = () => {
         <SearchFilter
           defaultFilters={FILTERS}
           filters={filters}
-          type={filterType}
+          initialType={filterType}
           setFilters={handleSetFilters}
           close={() => setFilterType(null)}
         />

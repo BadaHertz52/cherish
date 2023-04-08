@@ -11,15 +11,23 @@ export type Filter = { type: FilterType; value: string[]; selected: boolean[] };
 export type SearchFilterProps = {
   defaultFilters: Filter[];
   filters: Filter[];
-  type: FilterType;
+  initialType: FilterType;
   setFilters: (filters: Filter[]) => void;
   close: () => void;
 };
 
-const SearchFilter = ({ defaultFilters, filters, type, setFilters, close }: SearchFilterProps) => {
+const SearchFilter = ({
+  defaultFilters,
+  filters,
+  initialType,
+  setFilters,
+  close,
+}: SearchFilterProps) => {
   const filterRef = useRef<HTMLDivElement>(null);
 
-  const [currentFilters, setCurrentFilters] = useState<Filter[]>(filters);
+  const [currentFilters, setCurrentFilters] = useState<Filter[]>(
+    JSON.parse(JSON.stringify(filters)),
+  );
   const [currentType, setCurrentType] = useState(type);
   const [closing, setClosing] = useState(false);
 
@@ -32,16 +40,17 @@ const SearchFilter = ({ defaultFilters, filters, type, setFilters, close }: Sear
       filter => filter.type === currentFilter.type,
     );
 
-    let nextFilters = JSON.parse(JSON.stringify(currentFilters));
-
-    const targetFilter = nextFilters[targetFilterIndex];
+    const targetFilter = currentFilters[targetFilterIndex];
     targetFilter.selected[index] = !targetFilter.selected[index];
+
+    let nextFilters = currentFilters.slice();
+    nextFilters.splice(targetFilterIndex, 1, targetFilter);
 
     setCurrentFilters(nextFilters);
   };
 
   const handleReset = () => {
-    setCurrentFilters(defaultFilters);
+    setCurrentFilters(JSON.parse(JSON.stringify(defaultFilters)));
   };
 
   const handleFiltering = () => {
