@@ -10,6 +10,7 @@ const SignUpEmail = () => {
   const [disableBtn, setDisableBtn] = useState<boolean>(true);
   const [openToastModal, setOpenToastModal] = useState<boolean>(false);
   const [openAlertModal, setOpenAlertModal] = useState<boolean>(false);
+  const nextBtnEl = document.querySelector('.next-btn') as HTMLElement | null;
 
   const onClickCloseBtnInAlertModal = () => {
     if (sessionStorage.getItem('signUpBackUpData') !== null) {
@@ -36,11 +37,11 @@ const SignUpEmail = () => {
       setDisableBtn(false);
     }
   }, []);
-
   return (
     <div id="email">
       <StepInner disableBtn={disableBtn} onClickNextBtn={onClickNextBtn}>
         <EmailVerification
+          additionOfLabel="로그인을 위한"
           disableBtn={disableBtn}
           setDisableBtn={setDisableBtn}
           email={email}
@@ -51,6 +52,7 @@ const SignUpEmail = () => {
           setOpenToastModal={setOpenToastModal}
           emailDuplicationChecker={true}
           onClickCloseBtnInAlertModal={onClickCloseBtnInAlertModal}
+          toastModalPositionTargetEl={nextBtnEl}
         />
       </StepInner>
     </div>

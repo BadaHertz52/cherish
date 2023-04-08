@@ -14,6 +14,7 @@ type InputFormProps = {
   id: InputFormIdType;
   data: InputDataType;
   setData: Dispatch<SetStateAction<InputDataType>>;
+  additionOfLabel?: string;
 };
 /**
  *
@@ -22,14 +23,14 @@ type InputFormProps = {
  * @param setData: input의 change event 시 해당 event의 value에 따라 data의 상태를 변경
  * @returns
  */
-const InputForm = ({ id, data, setData }: InputFormProps) => {
+const InputForm = ({ id, data, setData, additionOfLabel }: InputFormProps) => {
   const [hiddenPw, setHiddenPw] = useState<boolean>(true);
   // ⚠️InputFormIdType 과 placeholder, label 의 property명은 동일 해야함
   const PLACE_HOLDER = {
     name: '이름',
     nickName: '닉네임',
-    email: '이메일',
-    pw: '비밀번호',
+    email: '이메일을 입력해주세요.',
+    pw: '8-12자 영문 + 숫자',
     confirmPw: '비밀번호 확인',
   };
   const LABEL = {
@@ -101,7 +102,12 @@ const InputForm = ({ id, data, setData }: InputFormProps) => {
   };
   return (
     <div id={`inputForm-${id}`} className="input-form">
-      {id !== 'confirmPw' && <label htmlFor={`input-${id}`}>{LABEL[id]}</label>}
+      {id !== 'confirmPw' && (
+        <label htmlFor={`input-${id}`}>
+          {additionOfLabel && <span>{additionOfLabel} &nbsp;</span>}
+          <span>{LABEL[id]}</span>
+        </label>
+      )}
       <input
         type={!hiddenPw || (id !== 'pw' && id !== 'confirmPw') ? 'text' : 'password'}
         id={`input-${id}`}
