@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import InputForm from '../InputForm/index';
 import { ERROR_MSG, InputDataType } from '@/pages/SignUp/signUpTypes';
 import './style.scss';
