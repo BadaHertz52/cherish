@@ -3,7 +3,7 @@ import { SignUpContext } from '..';
 import { initialInputData, InputDataType, SignUpStateType } from '../signUpTypes';
 import StepInner from './StepInner';
 import { getPrevData } from './SignUpTopBar';
-import EmailVerification from '@/components/EmailVerification';
+import { EmailVerification } from '@/components';
 const SignUpEmail = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
   const [email, setEmail] = useState<InputDataType>(initialInputData);

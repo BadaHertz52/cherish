@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import StepInner from './StepInner';
-import CheckBox from '@/components/CheckBox';
+import { CheckBox } from '@/components';
 import {
   ERROR_MSG,
   InputDataType,
@@ -10,7 +10,7 @@ import {
 } from '../signUpTypes';
 import { getPrevData } from './SignUpTopBar';
 import { JobType } from '../signUpTypes';
-import { SignUpContext } from '../../../pages/SignUp';
+import { SignUpContext } from '@/pages/SignUp';
 
 const JobInfo = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);

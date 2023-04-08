@@ -1,7 +1,7 @@
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dispatch, SetStateAction, useContext } from 'react';
-import { SignUpContext } from '../../../pages/SignUp';
+import { SignUpContext } from '@/pages/SignUp';
 import {
   BirthStateType,
   GenderStateType,

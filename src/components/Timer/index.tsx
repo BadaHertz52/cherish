@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import style from './style.module.scss';
 type TimerProps = {
   setOverTime: Dispatch<SetStateAction<boolean>>;
   setOpenTimer: Dispatch<SetStateAction<boolean>>;
@@ -26,7 +27,7 @@ const Timer = ({ setOverTime, setOpenTimer }: TimerProps) => {
     return () => clearInterval(countdown);
   }, [minutes, seconds]);
   return (
-    <div id="timer">
+    <div id="timer" className={style.timer}>
       <div>
         {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
       </div>

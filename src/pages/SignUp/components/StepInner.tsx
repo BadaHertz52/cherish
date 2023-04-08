@@ -1,6 +1,6 @@
 import React, { ReactNode, useContext } from 'react';
 import NextBtn, { NextBtnProps } from './SignUpNextBtn';
-import { SignUpContext } from '../../../pages/SignUp';
+import { SignUpContext } from '@/pages/SignUp';
 type StepInnerProps = NextBtnProps & {
   children: ReactNode;
 };

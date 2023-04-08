@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
-import { SignUpContext } from '../../../pages/SignUp';
-import InputForm from '@/components/InputForm';
+import { SignUpContext } from '@/pages/SignUp';
+import { InputForm } from '@/components';
 import { getPrevData } from './SignUpTopBar';
 import { initialInputData, InputDataType, SignUpStateType } from '../signUpTypes';
 import StepInner from './StepInner';
