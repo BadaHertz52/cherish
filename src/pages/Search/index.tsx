@@ -53,9 +53,8 @@ const SearchPage = () => {
   const [recentProducts, setRecentProducts] = useState<Item[]>([]);
   const [searchedProduct, setSearchedProduct] = useState<Item[]>([]);
 
-  const [isSearch, setIsSearch] = useState(true);
-  const [filterType, setFilterType] = useState<FilterType | null>(null);
   const [isSearch, setIsSearch] = useState(false);
+  const [filterType, setFilterType] = useState<FilterType>(null);
 
   const handleSearch = (keyword: string) => {
     // TODO: search API
