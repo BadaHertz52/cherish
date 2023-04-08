@@ -6,7 +6,7 @@ import StepInner from './StepInner';
 import PasswordForm from '@/components/PasswordForm';
 
 const SignUpPw = () => {
-  const { setSignUpState } = useContext(SignUpContext);
+  const { signUpState, setSignUpState } = useContext(SignUpContext);
   const [disableBtn, setDisableBtn] = useState<boolean>(true);
   const [pw, setPw] = useState<InputDataType>(initialInputData);
   const [confirmPw, setConfirmPw] = useState<InputDataType>(initialInputData);
@@ -21,6 +21,16 @@ const SignUpPw = () => {
   useEffect(() => {
     getPrevData('pw', setPw, undefined, undefined);
     getPrevData('confirmPw', setConfirmPw, undefined, undefined);
+    if (signUpState.pw) {
+      setPw({
+        value: signUpState.pw,
+        errorMsg: null,
+      });
+      setConfirmPw({
+        value: signUpState.pw,
+        errorMsg: null,
+      });
+    }
   }, []);
   return (
     <div id="sing-up__pw">
