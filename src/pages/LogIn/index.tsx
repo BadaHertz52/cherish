@@ -43,9 +43,8 @@ const LogIn = () => {
   const handleClickRemoveBtn = () => {
     setEmail('');
   };
-  const handleChangeOfKeep = (event: ChangeEvent<HTMLInputElement>) => {
-    const target = event.target as HTMLInputElement | null;
-    target !== null && setKeepLogin(target.checked);
+  const handleChangeOfKeep = () => {
+    setKeepLogin(!keepLogin);
   };
   const handleClickLogInBtn = async () => {
     const data = { email: email, pw: pw };
@@ -114,6 +113,7 @@ const LogIn = () => {
               id="checkboxKeep"
               name="autoLogIn"
               label="자동 로그인 하기"
+              isChecked={() => keepLogin}
               onChange={handleChangeOfKeep}
             />
           </div>
