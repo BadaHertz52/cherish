@@ -1,0 +1,117 @@
+@import '../modalCommon.scss';
+.bottom-nav-modal {
+  display: none;
+  position: relative;
+  button {
+    @include clean-btn-style;
+  }
+  &.on {
+    display: block;
+  }
+  .modal__background {
+    @include background;
+  }
+  .modal__box {
+    @include modal-box;
+    position: absolute;
+    top: 105vh;
+    transition: top 1s;
+    width: 100%;
+    height: 46vh;
+    min-height: initial;
+    background-color: $color-white;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .modal__inner {
+    position: relative;
+    width: inherit;
+    height: inherit;
+    padding: 25px;
+    box-sizing: border-box;
+    section {
+      height: calc(100% - 48px - 10px);
+    }
+    .category {
+      position: relative;
+      .btn-group {
+        display: flex;
+        align-items: center;
+      }
+      .bar {
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        border-bottom: 1px solid #e7e7e7;
+      }
+      &-btn {
+        @include bd1-font;
+        margin-right: 17px;
+        padding-bottom: 10px;
+        color: $color-light-black;
+        &.on {
+          color: $color-black;
+          border-bottom: 2px solid $color-primary;
+          z-index: 1;
+        }
+      }
+      .btn-reset {
+        @include bd1-font;
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: $color-dark-gray;
+        span {
+          margin-left: 11px;
+        }
+        &:hover,
+        &.on {
+          color: $color-primary;
+        }
+      }
+    }
+    .check-box-group-container {
+      // 100% - category.height - margin.top
+      height: calc(100% - 35px - 16px - 10px);
+      overflow-y: scroll;
+      padding-top: 16px;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: repeat(2, 50%);
+      grid-template-rows: repeat(5, 30px);
+      grid-gap: 6px;
+      width: 100%;
+    }
+    .check-box {
+      display: flex;
+      align-items: center;
+      &__inner {
+        width: 100%;
+      }
+      .label {
+        @include bd1-font;
+        color: $color-light-black;
+        &.on {
+          color: $color-black;
+        }
+      }
+    }
+    .btn-submit {
+      @include btn-selected-full-style;
+      @include bd1-font;
+      position: absolute;
+      bottom: 25px;
+      left: 25px;
+      width: calc(100% - 50px);
+      height: 48px;
+      padding: 0;
+    }
+  }
+}

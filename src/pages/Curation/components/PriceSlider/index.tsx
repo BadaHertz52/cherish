@@ -47,9 +47,9 @@ const PriceSlider = ({ prices, setPrices }: PriceSliderProps) => {
             <Segment {...getSegmentProps()} index={i} />
           ))}
           {handles.map(({ getHandleProps }) => (
-            <button {...getHandleProps({})}>
-              <div className={styles.handle}></div>
-            </button>
+            <div {...getHandleProps({})}>
+              <button className={styles.handle}></button>
+            </div>
           ))}
         </div>
         <div className={styles.sliderContentMinMaxPrice}>
