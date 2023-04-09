@@ -103,7 +103,7 @@ const ModalTest = () => {
       const targetElDomRect = document
         .getElementById('test__toast-modal-target')
         ?.getBoundingClientRect();
-      if (targetElDomRect !== undefined) {
+      if (targetElDomRect) {
         setToastModalState({
           contents: 'toast modal!!!',
           top: `${targetElDomRect.top}px`,
@@ -168,7 +168,7 @@ const ModalTest = () => {
           "confirmModal"
         </ConfirmModal>
       )}
-      {openTarget === modalType.toast && toastModalState !== undefined && (
+      {openTarget === modalType.toast && toastModalState && (
         <ToastModal modalState={toastModalState} closeModal={() => setOpenTarget(null)} />
       )}
       {openTarget === modalType.full && (

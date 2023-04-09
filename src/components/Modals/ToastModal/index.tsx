@@ -10,7 +10,7 @@ const ToastModal = ({ modalState, closeModal }: ToastModalProps) => {
   useEffect(() => {
     const modalEl = document.querySelector('.modal') as HTMLElement | null;
     modalEl?.classList.add('toast-modal');
-    if (modalEl !== null) {
+    if (modalEl) {
       modalEl.style.top = modalState.top;
       modalEl.style.left = modalState.left;
     }

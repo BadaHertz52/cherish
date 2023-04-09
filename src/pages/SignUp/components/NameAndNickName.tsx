@@ -22,7 +22,7 @@ const NameAndNickName = () => {
     // sessionStorage
     getPrevData('name', setName, undefined, undefined);
     getPrevData('nickName', setNickName, undefined, undefined);
-    if (signUpState.name !== null && signUpState.nickname !== null) {
+    if (signUpState.name && signUpState.nickname) {
       setName({
         value: signUpState.name,
         errorMsg: null,

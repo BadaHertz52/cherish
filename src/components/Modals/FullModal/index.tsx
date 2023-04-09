@@ -42,12 +42,12 @@ const FullScreModal = ({ modalState, closeModal }: FullScreModalProps) => {
     const modalEl = document.querySelector('.modal') as HTMLElement | null;
     modalEl?.classList.add('full-scre-modal');
     setTimeout(() => {
-      if (outBoxRef.current !== null) {
+      if (outBoxRef.current) {
         outBoxRef.current.style.display = 'block';
       }
     }, 100);
     return () => {
-      if (outBoxRef.current !== null) {
+      if (outBoxRef.current) {
         outBoxRef.current.style.display = 'none';
       }
     };
