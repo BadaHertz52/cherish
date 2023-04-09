@@ -4,9 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ChangeEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './style.scss';
-import BtnShowPw from '@/components/BtnShowPw';
-import CheckBox from '@/components/CheckBox';
-
+import { BtnShowPw, CheckBox } from '@/components';
 export const XSSCheck = (str: string, level?: number) => {
   if (!level || level == 0) {
     str = str.replace(/\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-/g, '');
