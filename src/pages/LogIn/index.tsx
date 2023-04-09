@@ -8,9 +8,9 @@ import BtnShowPw from '@/components/BtnShowPw';
 import CheckBox from '@/components/CheckBox';
 
 export const XSSCheck = (str: string, level?: number) => {
-  if (level == undefined || level == 0) {
+  if (!level || level == 0) {
     str = str.replace(/\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-/g, '');
-  } else if (level != undefined && level == 1) {
+  } else if (level == 1) {
     str = str.replace(/\</g, '&lt;');
     str = str.replace(/\>/g, '&gt;');
   }
@@ -45,7 +45,7 @@ const LogIn = () => {
   };
   const handleChangeOfKeep = (event: ChangeEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement | null;
-    target !== null && setKeepLogin(target.checked);
+    target && setKeepLogin(target.checked);
   };
   const handleClickLogInBtn = async () => {
     const data = { email: email, pw: pw };
