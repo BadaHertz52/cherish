@@ -28,7 +28,7 @@ const DatePicker = ({ birth, setBirth }: DatePickerProps) => {
     date: '01',
   };
   const [birthDate, setBirthDate] = useState<BirthDateType>(
-    birth.value !== null ? birth.value : initialData,
+    birth.value ? birth.value : initialData,
   );
   function getArr(startNumber: number, lastNumber: number) {
     let arr = [];

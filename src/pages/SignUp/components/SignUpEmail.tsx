@@ -3,21 +3,12 @@ import { SignUpContext } from '..';
 import { initialInputData, InputDataType, SignUpStateType } from '../signUpTypes';
 import StepInner from './StepInner';
 import { getPrevData } from './SignUpTopBar';
-import EmailVerification from '@/components/EmailVerification';
+import { EmailVerification } from '@/components';
 const SignUpEmail = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
   const [email, setEmail] = useState<InputDataType>(initialInputData);
   const [disableBtn, setDisableBtn] = useState<boolean>(true);
-  const [openToastModal, setOpenToastModal] = useState<boolean>(false);
-  const [openAlertModal, setOpenAlertModal] = useState<boolean>(false);
-
-  const onClickCloseBtnInAlertModal = () => {
-    if (sessionStorage.getItem('signUpBackUpData') !== null) {
-      sessionStorage.removeItem('signUpBackUpData');
-    }
-    //[todo] 이메일 인증 횟수 초과 시 해야하는 것
-    setOpenAlertModal(false);
-  };
+  const nextBtnEl = document.querySelector('.next-btn') as HTMLElement | null;
   const onClickNextBtn = () => {
     setSignUpState((prev: SignUpStateType) => ({
       ...prev,
@@ -36,21 +27,17 @@ const SignUpEmail = () => {
       setDisableBtn(false);
     }
   }, []);
-
   return (
     <div id="email">
       <StepInner disableBtn={disableBtn} onClickNextBtn={onClickNextBtn}>
         <EmailVerification
+          additionOfLabel="로그인을 위한"
           disableBtn={disableBtn}
           setDisableBtn={setDisableBtn}
           email={email}
           setEmail={setEmail}
-          openAlertModal={openAlertModal}
-          setOpenAlertModal={setOpenAlertModal}
-          openToastModal={openToastModal}
-          setOpenToastModal={setOpenToastModal}
           emailDuplicationChecker={true}
-          onClickCloseBtnInAlertModal={onClickCloseBtnInAlertModal}
+          toastModalPositionTargetEl={nextBtnEl}
         />
       </StepInner>
     </div>

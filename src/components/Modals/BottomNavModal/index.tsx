@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState, TouchEvent } from 'react';
+import { useEffect, useState, TouchEvent } from 'react';
 import { ConditionType, FilteringConditionType } from '@/components/Modals/modalTypes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRotateRight } from '@fortawesome/free-solid-svg-icons';
@@ -73,7 +73,9 @@ const BottomNavModal = ({
     selectedFilteringCondition,
   );
   //CheckBox에서 이미 선택된 조건들이 표시 되는데 사용
-  const [targetCondition, setTargetCondition] = useState<ConditionType>(null);
+  const [targetCondition, setTargetCondition] = useState<ConditionType>(
+    filteringCondition[category],
+  );
   const categoryArr: CategoryType[] = ['productType', 'gender', 'job', 'situation'];
   const categoryBtnTextArr = ['상품유형', '성별', '직업', '상황'];
   const arrOfCheckBoxArr = [
@@ -85,46 +87,31 @@ const BottomNavModal = ({
   const BOTTOM_MODAL_El = document.querySelector('.bottom-nav-modal') as HTMLElement | null;
   const MODAL_BACKGROUND_EL = document.querySelector('.bottom-nav-modal .modal__background');
   const MODAL_EL = BOTTOM_MODAL_El?.querySelector('.modal__box') as HTMLElement | null | undefined;
-  const listOfCheckBox: NodeListOf<HTMLInputElement> =
-    document.querySelectorAll('input[type="checkbox"]');
-  const changeLabelClass = (el: HTMLInputElement) => {
-    const parentEl = el.parentElement;
-    const targetLabelEl = parentEl?.lastElementChild;
-    if (targetLabelEl !== null && targetLabelEl !== undefined) {
-      if (el.checked) {
-        targetLabelEl.classList.add('on');
-      } else {
-        targetLabelEl.classList.remove('on');
-      }
+  const onChangeCheckBox = (name: ConditionName) => {
+    const checked = targetCondition?.includes(name);
+    if (checked && targetCondition) {
+      const newTargetCondition = targetCondition.filter(i => i !== name);
+      setTargetCondition(newTargetCondition || null);
+    } else {
+      targetCondition ? setTargetCondition([...targetCondition, name]) : setTargetCondition([name]);
     }
-  };
-  const onChangeCheckBox = (event: ChangeEvent<HTMLInputElement>) => {
-    const target = event.currentTarget;
-    changeLabelClass(target);
   };
   /**
    * A function that detects changes in checkboxes , updates the state of filteringCondition , return it, and if the value of recovery is true, changes the checked attribute of checkboxes that are currently checked to false
    * @param recovery
    * @returns
    */
-  const updateFilteringCondition = (recovery: boolean) => {
+  const updateFilteringCondition = () => {
     const selectedList: NodeListOf<HTMLInputElement> = document.querySelectorAll(
       'input[type="checkbox"]:checked',
     );
     const nameArr = [...selectedList].map(el => el.name) as ConditionName[];
-    const newCondition = nameArr[0] === undefined ? null : nameArr;
+    const newCondition = !nameArr[0] ? null : nameArr;
     let newFilteringCondition: FilteringConditionType = {
       ...filteringCondition,
     };
     // 현재 화면에서 보여지는 카테고리에서 선택된 필터링 조건들을 newFilerCondition 에 반영
     newFilteringCondition[category] = newCondition;
-    if (recovery) {
-      // checked를 풀지 않으면 카테고리 이동시, 해당 카테고리에서 선택되지 않은 box가 선택되는 오류 일어남
-      selectedList.forEach(el => {
-        el.checked = false;
-        changeLabelClass(el);
-      });
-    }
     setFilteringCondition(newFilteringCondition);
     return newFilteringCondition;
   };
@@ -135,19 +122,19 @@ const BottomNavModal = ({
    */
   const onClickCategoryBtn = (item: CategoryType, index: number) => {
     // set filteringCondition
-    updateFilteringCondition(true);
+    updateFilteringCondition();
     setCategory(item);
     setCheckBoxArr(arrOfCheckBoxArr[index]);
   };
   const onClickSubmitBtn = () => {
-    const newFilteringCondition = updateFilteringCondition(false);
+    const newFilteringCondition = updateFilteringCondition();
     sendData(newFilteringCondition);
     closeModal();
   };
   const closeBottomNavModal = (event: Event) => {
     const target = event.target as HTMLElement | null;
-    if (!target?.closest('.modal__box') && BOTTOM_MODAL_El !== null) {
-      if (MODAL_EL !== null && MODAL_EL !== undefined) {
+    if (!target?.closest('.modal__box') && BOTTOM_MODAL_El) {
+      if (MODAL_EL) {
         MODAL_EL.style.top = '105vh';
       }
       setTimeout(() => {
@@ -158,24 +145,6 @@ const BottomNavModal = ({
   const onClickResetBtn = () => {
     setFilteringCondition(selectedFilteringCondition);
     setTargetCondition(selectedFilteringCondition[category]);
-    changeChecked();
-  };
-  /**
-   * targetCondition의 변화에 따라, checkBox의 checked와 label의 class를 변경
-   */
-  const changeChecked = () => {
-    listOfCheckBox.forEach(el => {
-      if (targetCondition !== null) {
-        if (targetCondition.includes(el.name as ConditionName)) {
-          el.checked = true;
-        } else {
-          el.checked = false;
-        }
-      } else {
-        el.checked = false;
-      }
-      changeLabelClass(el);
-    });
   };
   const onTouchResetBtn = (event: TouchEvent<HTMLElement>) => {
     const target = event.currentTarget;
@@ -185,7 +154,7 @@ const BottomNavModal = ({
     if (openBottomNavModal) {
       BOTTOM_MODAL_El?.classList.add('on');
       setTimeout(() => {
-        if (MODAL_EL !== null && MODAL_EL !== undefined) {
+        if (MODAL_EL) {
           MODAL_EL.style.top = `54vh`;
         }
       }, 50);
@@ -197,16 +166,11 @@ const BottomNavModal = ({
   }, [openBottomNavModal]);
 
   useEffect(() => {
-    if (filteringCondition !== null) {
+    if (filteringCondition) {
       //set targetCondition
       setTargetCondition(filteringCondition[category]);
     }
   }, [category, filteringCondition]);
-
-  useEffect(() => {
-    // targetCondition 의 값을 이용해, 사용자가 이미 선택한 필터링 조건인 경우 checked 표시함
-    changeChecked();
-  }, [targetCondition]);
   return (
     <BottomNavModalPortal>
       <section>
@@ -243,7 +207,8 @@ const BottomNavModal = ({
               id={v.name}
               name={v.name}
               label={v.label}
-              onChange={event => onChangeCheckBox(event)}
+              isChecked={targetCondition ? () => targetCondition.includes(v.name) : () => false}
+              onChange={() => onChangeCheckBox(v.name)}
             />
           ))}
         </div>

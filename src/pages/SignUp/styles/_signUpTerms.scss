@@ -1,9 +1,9 @@
 @import '@/assets/styles/common.scss';
 #sign-up__terms {
   width: 100%;
-  .top {
+  .terms__top {
     position: relative;
-    padding-bottom: 2vh;
+    padding-bottom: 16px;
     border-bottom: 0.6px dashed $color-dark-gray;
     .header,
     p:first-child {
@@ -12,7 +12,7 @@
     p {
       @include h2-font;
     }
-    .header {
+    .terms__header {
       display: flex;
       flex-direction: column;
       h2 {
@@ -25,14 +25,10 @@
       margin-bottom: 16px;
     }
     .check-box {
-      margin-top: 3.75vh;
+      margin-top: 30px;
     }
   }
 
-  .btn-open-modal {
-    @include bd3-font;
-    color: $color-light-black;
-  }
   .terms-group {
     margin-top: 16px;
     .check-box {
@@ -41,12 +37,17 @@
         display: none;
       }
     }
-    button {
-      @include clean-btn-style;
+  }
+  .btn-open-modal {
+    @include clean-btn-style;
+    @include bd3-font;
+    color: $color-light-black;
+    text-align: left;
+    text-decoration: underline;
+    &.label {
       @include bd2-font;
-      color: $color-light-black;
-      text-align: left;
-      text-decoration: underline;
+      color: $color-black;
+      text-decoration: none;
     }
   }
   .term {
