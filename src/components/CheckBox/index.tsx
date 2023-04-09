@@ -8,7 +8,7 @@ type CheckBoxProps = {
 };
 const CheckBox = ({ id, name, label, onChange }: CheckBoxProps) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    onChange !== null && onChange(event);
+    onChange && onChange(event);
   };
   return (
     <div className="check-box">
