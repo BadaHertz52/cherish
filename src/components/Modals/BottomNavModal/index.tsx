@@ -200,17 +200,19 @@ const BottomNavModal = ({
           </div>
           <div className="bar"></div>
         </div>
-        <div className="checkbox-group">
-          {checkBoxArr.map((v, i) => (
-            <Checkbox
-              key={`checkbox_${i}`}
-              id={v.name}
-              name={v.name}
-              label={v.label}
-              isChecked={targetCondition ? () => targetCondition.includes(v.name) : () => false}
-              onChange={() => onChangeCheckBox(v.name)}
-            />
-          ))}
+        <div className="check-box-group-container">
+          <div className="checkbox-group">
+            {checkBoxArr.map((v, i) => (
+              <Checkbox
+                key={`checkbox_${i}`}
+                id={v.name}
+                name={v.name}
+                label={v.label}
+                isChecked={targetCondition ? () => targetCondition.includes(v.name) : () => false}
+                onChange={() => onChangeCheckBox(v.name)}
+              />
+            ))}
+          </div>
         </div>
       </section>
       <button type="button" className="btn-submit" onClick={onClickSubmitBtn}>
