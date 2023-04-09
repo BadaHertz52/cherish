@@ -168,7 +168,7 @@ const BottomNavModal = ({
   useEffect(() => {
     if (filteringCondition) {
       //set targetCondition
-      setTargetCondition(filteringCondition[`${category}`]);
+      setTargetCondition(filteringCondition[category]);
     }
   }, [category, filteringCondition]);
   return (
