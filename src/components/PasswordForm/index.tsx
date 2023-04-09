@@ -21,19 +21,19 @@ const PasswordForm = ({
   //pw, confirmPw 의 변화에 따라 disableBtn 상태 변경
   useEffect(() => {
     if (confirmPw.value !== '' && pw.value !== '') {
-      if (pw.value !== confirmPw.value && confirmPw.errorMsg === null) {
+      if (pw.value !== confirmPw.value && !confirmPw.errorMsg) {
         setConfirmPw((prev: InputDataType) => ({
           ...prev,
           errorMsg: ERROR_MSG.invalidConfirmPw,
         }));
       }
-      if (pw.value === confirmPw.value && pw.errorMsg === null) {
+      if (pw.value === confirmPw.value && !pw.errorMsg) {
         setConfirmPw(prev => ({
           ...prev,
           errorMsg: null,
         }));
       }
-      if (pw.value === confirmPw.value && pw.errorMsg === null && confirmPw.errorMsg === null) {
+      if (pw.value === confirmPw.value && !pw.errorMsg && !confirmPw.errorMsg) {
         setDisableBtn(false);
       } else {
         setDisableBtn(true);

@@ -25,7 +25,7 @@ export const getPrevData = (
   setBirthState?: Dispatch<SetStateAction<BirthStateType>>,
 ) => {
   const item = sessionStorage.getItem('signUpBackUpData');
-  if (item !== null) {
+  if (item) {
     const prevData: SessionDataType[] = JSON.parse(item);
     const prevState = prevData.find(i => i.key === target);
     if (prevState !== undefined) {
@@ -84,7 +84,7 @@ const SignUpTopBar = () => {
       let backUpData: SessionDataType[] = [];
       //gender
       const targetBtnEl = document.querySelector('.btn-gender.on') as HTMLButtonElement | null;
-      if (targetBtnEl !== null) {
+      if (targetBtnEl) {
         backUpData.push({
           key: 'gender',
           value: targetBtnEl.name,
@@ -93,11 +93,7 @@ const SignUpTopBar = () => {
       //birth
       const btnOpenDatePickerEl = document.querySelector('.btn-open-date-picker');
       const birthDataEl = btnOpenDatePickerEl?.firstElementChild;
-      if (
-        !btnOpenDatePickerEl?.classList.contains('none-data') &&
-        birthDataEl !== null &&
-        birthDataEl !== undefined
-      ) {
+      if (!btnOpenDatePickerEl?.classList.contains('none-data') && birthDataEl) {
         backUpData.push({
           key: 'birth',
           value: birthDataEl.textContent as string,

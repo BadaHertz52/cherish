@@ -1,12 +1,4 @@
-import {
-  ChangeEvent,
-  MouseEvent,
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { ChangeEvent, useCallback, useContext, useEffect, useState } from 'react';
 import { SignUpContext } from '@/pages/SignUp';
 import { CheckBox, ConfirmModal } from '@/components';
 import {
@@ -28,7 +20,7 @@ type SignUpTermProps = {
 };
 const SignUpTerm = ({ id, label, handleChange, onClickBtn }: SignUpTermProps) => {
   const handleClick = () => {
-    if (onClickBtn !== null) onClickBtn();
+    if (onClickBtn) onClickBtn();
   };
   return (
     <div className="term">
@@ -37,7 +29,7 @@ const SignUpTerm = ({ id, label, handleChange, onClickBtn }: SignUpTermProps) =>
         <button className=" btn-open-modal label" onClick={handleClick}>
           {label}
         </button>
-        {onClickBtn !== null && (
+        {onClickBtn && (
           <button className="btn-open-modal" onClick={handleClick} type="button">
             내용보기
           </button>
@@ -155,7 +147,7 @@ const SignUpTerms = () => {
   }
   function onClickYesBtn(name: TermsCheckBoxNameType) {
     const targetInputEl = document.querySelector(`#${name}`) as HTMLInputElement | null;
-    if (targetInputEl !== null) {
+    if (targetInputEl) {
       targetInputEl.checked = true;
     }
     changeAgreement(name, true);
