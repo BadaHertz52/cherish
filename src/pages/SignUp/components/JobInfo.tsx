@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import StepInner from './StepInner';
 import { CheckBox } from '@/components';
 import {
