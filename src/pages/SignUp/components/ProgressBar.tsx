@@ -4,7 +4,7 @@ import { SignUpProgressType, progressArr } from '../signUpTypes';
 export const moveProgressBar = (progress: SignUpProgressType, forward: boolean) => {
   const progressEl = document.querySelector('.progress') as HTMLElement | null;
   const progressIndex = progressArr.indexOf(progress);
-  if (progressEl !== null) {
+  if (progressEl) {
     const number: number = forward ? progressIndex + 1 : progressIndex;
     if (progressIndex === progressArr.length - 1 && forward) {
       progressEl.style.left = '0';

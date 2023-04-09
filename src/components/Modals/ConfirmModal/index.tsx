@@ -11,13 +11,13 @@ export type ConfirmModalProps = {
 };
 const ConfirmModal = ({ title, children, yesBtn, noBtn, closeModal }: ConfirmModalProps) => {
   const onClickYesBtn = () => {
-    if (yesBtn.otherFn !== null) {
+    if (yesBtn.otherFn) {
       yesBtn.otherFn();
     }
     closeModal();
   };
   const onClickNoBtn = () => {
-    if (noBtn.otherFn !== null) {
+    if (noBtn.otherFn) {
       noBtn.otherFn();
     }
     closeModal();
@@ -28,7 +28,7 @@ const ConfirmModal = ({ title, children, yesBtn, noBtn, closeModal }: ConfirmMod
   }, []);
   return (
     <ModalPortal>
-      {title !== null && <h2 className="confirm-modal__title">{title}</h2>}
+      {title && <h2 className="confirm-modal__title">{title}</h2>}
       <section className="confirm-modal__contents">{children}</section>
       <section className="confirm-modal__btn-group">
         <button type="button" className="btn-yes" onClick={onClickYesBtn}>

@@ -127,11 +127,7 @@ const InputForm = ({ id, data, setData, additionOfLabel }: InputFormProps) => {
       )}
       <div className={`error-msg ${id === 'email' && data.value ? 'email' : ''}`}>
         {id === 'email' &&
-          (data.value === ''
-            ? `'@'을 포함하여 작성해주세요.`
-            : data.errorMsg !== null
-            ? data.errorMsg
-            : '')}
+          (data.value === '' ? `'@'을 포함하여 작성해주세요.` : data.errorMsg ? data.errorMsg : '')}
         {id !== 'email' && (data.errorMsg ? data.errorMsg : '')}
       </div>
     </div>
