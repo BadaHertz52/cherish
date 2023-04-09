@@ -1,4 +1,12 @@
-import { ChangeEvent, MouseEvent, useContext, useEffect, useRef, useState } from 'react';
+import {
+  ChangeEvent,
+  MouseEvent,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { SignUpContext } from '@/pages/SignUp';
 import { CheckBox, ConfirmModal } from '@/components';
 import {
@@ -167,8 +175,8 @@ const SignUpTerms = () => {
     setOpenModal(true);
     setOpenTargetTerms(name);
   };
-  // 이전 버튼으로 현재 단게로 이동했을때, signUpState 상태에 따라 업데이트
-  useEffect(() => {
+  // 이전 버튼으로 현재 단게로 이동했을때, signUpState 상태에 따라  CheckBox 업데이트
+  const changeCheckBoxStateBySignUpState = useCallback(() => {
     const valueOfTermsOfUse = signUpState.agreeToTerms.termsOfUse;
     const valueOfPersonalInformation = signUpState.agreeToTerms.personalInformation;
     const valueOfAgeCondition = signUpState.agreeToTerms.ageCondition;
@@ -189,8 +197,9 @@ const SignUpTerms = () => {
       }
     }
   }, [WHOLE_AGREEMENT_CHECK_BOX_EL, signUpState.agreeToTerms]);
+
   //agreement 의 상태 변화에 따라 disableBtn 상태 변경
-  useEffect(() => {
+  const changeDisableBtn = useCallback(() => {
     if (agreement.termsOfUse && agreement.personalInformation && agreement.ageCondition) {
       setDisableBtn(false);
       if (agreement.marketing && WHOLE_AGREEMENT_CHECK_BOX_EL) {
@@ -199,6 +208,14 @@ const SignUpTerms = () => {
     } else {
       setDisableBtn(true);
     }
+  }, [agreement]);
+
+  useEffect(() => {
+    changeCheckBoxStateBySignUpState();
+  }, [WHOLE_AGREEMENT_CHECK_BOX_EL, signUpState.agreeToTerms]);
+
+  useEffect(() => {
+    changeDisableBtn();
   }, [agreement]);
   return (
     <div id="sign-up__terms" className="step">
