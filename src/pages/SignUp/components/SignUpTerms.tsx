@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { SignUpContext } from '@/pages/SignUp';
 import { CheckBox, ConfirmModal } from '@/components';
 import {
