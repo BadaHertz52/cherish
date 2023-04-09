@@ -27,10 +27,17 @@
     position: relative;
     width: inherit;
     height: inherit;
-    padding: 25px;
+    padding: calc(100vh * 0.045) calc(100vw * 0.07);
     box-sizing: border-box;
+
     section {
-      height: calc(100% - 48px - 10px);
+      height: calc(100% - 48px - 48px);
+      overflow-y: scroll;
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
     .category {
       position: relative;
@@ -73,21 +80,19 @@
         }
       }
     }
-    .check-box-group-container {
-      // 100% - category.height - margin.top
-      height: calc(100% - 35px - 16px - 10px);
-      overflow-y: scroll;
-      padding-top: 16px;
-      &::-webkit-scrollbar {
-        display: none;
-      }
-    }
     .checkbox-group {
       display: grid;
       grid-template-columns: repeat(2, 50%);
       grid-template-rows: repeat(5, 30px);
       grid-gap: 6px;
       width: 100%;
+      // 100% - category.height - padding.top
+      height: calc(100% - 32px - 16px);
+      overflow-y: scroll;
+      margin-top: 16px;
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
     .check-box {
       display: flex;
@@ -106,10 +111,7 @@
     .btn-submit {
       @include btn-selected-full-style;
       @include bd1-font;
-      position: absolute;
-      bottom: 25px;
-      left: 25px;
-      width: calc(100% - 50px);
+      width: 100%;
       height: 48px;
       padding: 0;
     }
