@@ -15,16 +15,16 @@ import { TermsOfUse, Marketing, PersonalInformation } from '@/pages/SignUp/compo
 type SignUpTermProps = {
   id: TermsCheckBoxNameType;
   label: string;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onClickBtn: (() => void) | null;
 };
-const SignUpTerm = ({ id, label, onChange, onClickBtn }: SignUpTermProps) => {
+const SignUpTerm = ({ id, label, handleChange, onClickBtn }: SignUpTermProps) => {
   const handleClick = () => {
     if (onClickBtn !== null) onClickBtn();
   };
   return (
     <div className="term">
-      <CheckBox id={id} name={id} label={label} onChange={onChange} />
+      <CheckBox id={id} name={id} label={label} onChange={handleChange} />
       <div className="term__contents">
         <button className=" btn-open-modal label" onClick={handleClick}>
           {label}
@@ -220,25 +220,25 @@ const SignUpTerms = () => {
           <SignUpTerm
             id="termsOfUse"
             label="이용약관(필수)"
-            onChange={handleCheckBoxOfTerm}
+            handleChange={handleCheckBoxOfTerm}
             onClickBtn={() => onClickToShowTerm('termsOfUse')}
           />
           <SignUpTerm
             id="personalInformation"
             label="개인정보 수집 및 이용(필수)"
-            onChange={handleCheckBoxOfTerm}
+            handleChange={handleCheckBoxOfTerm}
             onClickBtn={() => onClickToShowTerm('personalInformation')}
           />
           <SignUpTerm
             id="ageCondition"
             label="14세 이상 이용 동의(필수)"
-            onChange={handleCheckBoxOfTerm}
+            handleChange={handleCheckBoxOfTerm}
             onClickBtn={null}
           />
           <SignUpTerm
             id="marketing"
             label="마케팅 정보 활용 동의(선택)"
-            onChange={handleCheckBoxOfTerm}
+            handleChange={handleCheckBoxOfTerm}
             onClickBtn={() => onClickToShowTerm('marketing')}
           />
         </section>
