@@ -93,7 +93,7 @@ const FullScreModal = ({ modalState, closeModal }: FullScreModalProps) => {
                 <h2>온라인 구매처</h2>
                 {modalState.store.online.sort().map((v, i) => (
                   <div className="site" key={`site_${i}`}>
-                    <div className="site__name">{ONLINE_SHOP[`${v.name}`]}</div>
+                    <div className="site__name">{ONLINE_SHOP[v.name]}</div>
                     <a
                       className="site__link"
                       href={v.url}
