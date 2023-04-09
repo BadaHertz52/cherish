@@ -16,35 +16,13 @@ const JobInfo = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
   const [disableBtn, setDisableBtn] = useState<boolean>(true);
   const [job, setJob] = useState<InputDataType>(initialInputData);
-  const checkedCheckBoxEl = document.querySelectorAll(
-    '.check-box input',
-  ) as NodeListOf<HTMLInputElement>;
-  const changeLabelClass = (el: HTMLInputElement) => {
-    const parentEl = el.parentElement;
-    const targetLabelEl = parentEl?.lastElementChild;
-    if (targetLabelEl) {
-      if (el.checked) {
-        targetLabelEl.classList.add('on');
-      } else {
-        targetLabelEl.classList.remove('on');
-      }
-    }
-  };
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const target = event.currentTarget;
-    checkedCheckBoxEl.forEach(el => {
-      if (el.id === target.id) {
-        el.checked = true;
-        setJob({
-          value: el.name,
-          errorMsg: null,
-        });
-      } else {
-        if (el.checked) el.checked = false;
-      }
-      changeLabelClass(el);
+
+  const handleChange = (name: JobType) => {
+    setJob({
+      value: name,
+      errorMsg: null,
     });
-    target.checked && setDisableBtn(false);
+    setDisableBtn(false);
   };
   const onClickNextBtn = () => {
     const newState: SignUpStateType = {
@@ -68,7 +46,8 @@ const JobInfo = () => {
               id={`job-info-${i.name}`}
               name={i.name}
               label={i.label}
-              onChange={handleChange}
+              isChecked={() => job.value === i.name}
+              onChange={() => handleChange(i.name)}
             />
           ))}
         </section>
