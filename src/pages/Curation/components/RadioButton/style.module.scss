@@ -1,0 +1,50 @@
+@import '../../../../assets/common.scss';
+
+.radio {
+  position: relative;
+  display: flex;
+  align-items: center;
+  &Inner {
+    // 상황에 맞게 조정가능
+    display: flex;
+    align-items: center;
+  }
+  input[type='radio'] {
+    display: none;
+  }
+  label {
+    display: block;
+    padding-right: 32px;
+  }
+  label.labels:before {
+    font-family: 'Font Awesome 5 free';
+    display: inline-block;
+    content: url('../../../../assets/icons/disabled-check.svg');
+    color: $color-light-black;
+    font-size: 20px;
+    padding-right: 10px;
+  }
+
+  input:checked + label.labels:before {
+    content: url('../../../../assets/icons/enabled-check.svg');
+    font-size: 20px;
+    color: $color-primary;
+  }
+
+  input:checked + label.labels {
+    color: black;
+  }
+
+  .labels {
+    display: flex;
+    align-items: center;
+    @include bd2-font;
+    // 상황에 맞게 조정가능
+    line-height: 14px;
+    text-align: center;
+    color: $color-light-black;
+    span {
+      padding-right: 32px;
+    }
+  }
+}
