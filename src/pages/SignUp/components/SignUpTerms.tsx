@@ -52,12 +52,6 @@ const SignUpTerms = () => {
   const [openTargetTerms, setOpenTargetTerms] = useState<TermsContentsNameType>('termsOfUse');
   // NextBtn 비활성화 여부
   const [disableBtn, setDisableBtn] = useState<boolean>(true);
-  const WHOLE_AGREEMENT_CHECK_BOX_EL = document.querySelector(
-    `#whole-agree`,
-  ) as HTMLInputElement | null;
-  const listOfTermsCheckBoxEl = document.querySelectorAll(
-    '.terms-group input',
-  ) as NodeListOf<HTMLInputElement>;
   const NO_BTN_VALUE: ConfirmModalBtnType = {
     //btn 의 text node
     text: '닫기',
@@ -165,60 +159,19 @@ const SignUpTerms = () => {
   function onClickYesBtn(name: TermsCheckBoxNameType) {
     changeAgreement(name, true);
   }
-
-  // const handleCheckBoxOfTerm = (event: ChangeEvent<HTMLInputElement>) => {
-  //   const target = event.currentTarget;
-  //   const name = target.name as TermsCheckBoxNameType;
-  //   const checked = target.checked;
-  //   if (!checked) {
-  //     if (WHOLE_AGREEMENT_CHECK_BOX_EL && WHOLE_AGREEMENT_CHECK_BOX_EL.checked) {
-  //       WHOLE_AGREEMENT_CHECK_BOX_EL.checked = false;
-  //     }
-  //   }
-  //   changeAgreement(name, checked);
-  // };
   const onClickToShowTerm = (name: TermsContentsNameType) => {
     setOpenModal(true);
     setOpenTargetTerms(name);
   };
-  // 이전 버튼으로 현재 단게로 이동했을때, signUpState 상태에 따라  CheckBox 업데이트
-  const changeCheckBoxStateBySignUpState = useCallback(() => {
-    const valueOfTermsOfUse = signUpState.agreeToTerms.termsOfUse;
-    const valueOfPersonalInformation = signUpState.agreeToTerms.personalInformation;
-    const valueOfAgeCondition = signUpState.agreeToTerms.ageCondition;
-    const valueOfMarketing = signUpState.agreeToTerms.marketing;
-
-    listOfTermsCheckBoxEl.forEach(el => {
-      const name = el.name as TermsCheckBoxNameType;
-      el.checked = signUpState.agreeToTerms[name];
-    });
-    if (
-      valueOfTermsOfUse &&
-      valueOfPersonalInformation &&
-      valueOfAgeCondition &&
-      valueOfMarketing
-    ) {
-      if (WHOLE_AGREEMENT_CHECK_BOX_EL && !WHOLE_AGREEMENT_CHECK_BOX_EL.checked) {
-        WHOLE_AGREEMENT_CHECK_BOX_EL.checked = true;
-      }
-    }
-  }, [WHOLE_AGREEMENT_CHECK_BOX_EL, signUpState.agreeToTerms]);
 
   //agreement 의 상태 변화에 따라 disableBtn 상태 변경
   const changeDisableBtn = useCallback(() => {
     if (agreement.termsOfUse && agreement.personalInformation && agreement.ageCondition) {
       setDisableBtn(false);
-      if (agreement.marketing && WHOLE_AGREEMENT_CHECK_BOX_EL) {
-        WHOLE_AGREEMENT_CHECK_BOX_EL.checked = true;
-      }
     } else {
       setDisableBtn(true);
     }
   }, [agreement]);
-
-  useEffect(() => {
-    changeCheckBoxStateBySignUpState();
-  }, [WHOLE_AGREEMENT_CHECK_BOX_EL, signUpState.agreeToTerms]);
 
   useEffect(() => {
     changeDisableBtn();
