@@ -15,16 +15,23 @@ import { TermsOfUse, Marketing, PersonalInformation } from '@/pages/SignUp/compo
 type SignUpTermProps = {
   id: TermsCheckBoxNameType;
   label: string;
-  handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  isChecked: boolean;
+  handleChange: () => void;
   onClickBtn: (() => void) | null;
 };
-const SignUpTerm = ({ id, label, handleChange, onClickBtn }: SignUpTermProps) => {
+const SignUpTerm = ({ id, label, isChecked, handleChange, onClickBtn }: SignUpTermProps) => {
   const handleClick = () => {
     if (onClickBtn) onClickBtn();
   };
   return (
     <div className="term">
-      <CheckBox id={id} name={id} label={label} onChange={handleChange} />
+      <CheckBox
+        id={id}
+        name={id}
+        label={label}
+        isChecked={() => isChecked}
+        onChange={handleChange}
+      />
       <div className="term__contents">
         <button className=" btn-open-modal label" onClick={handleClick}>
           {label}
@@ -103,41 +110,51 @@ const SignUpTerms = () => {
       return newState;
     });
   };
-  const handleWholeAgree = (event: ChangeEvent<HTMLInputElement>) => {
-    const target = event.currentTarget;
-    const checked = target.checked;
-    listOfTermsCheckBoxEl.forEach(el => (el.checked = checked));
-    setAgreement({
-      termsOfUse: checked,
-      personalInformation: checked,
-      ageCondition: checked,
-      marketing: checked,
-    });
+  const handleChecked = (name: TermsCheckBoxNameType | 'whole-agree') => {
+    let checked = true;
+    if (name == 'whole-agree') {
+      checked =
+        agreement.ageCondition &&
+        agreement.marketing &&
+        agreement.personalInformation &&
+        agreement.termsOfUse;
+    } else {
+      checked = agreement[name];
+    }
+    return checked;
   };
-  function changeAgreement(name: TermsCheckBoxNameType, checked: boolean) {
+  const handleWholeAgree = () => {
+    setAgreement(prev => ({
+      termsOfUse: !prev.termsOfUse,
+      personalInformation: !prev.personalInformation,
+      ageCondition: !prev.ageCondition,
+      marketing: !prev.marketing,
+    }));
+  };
+  function changeAgreement(name: TermsCheckBoxNameType, agree: boolean) {
     switch (name) {
       case 'ageCondition':
         setAgreement((prev: AgreementStateType) => ({
           ...prev,
-          ageCondition: checked,
+          ageCondition: agree,
         }));
         break;
       case 'termsOfUse':
         setAgreement((prev: AgreementStateType) => ({
           ...prev,
-          termsOfUse: checked,
+          termsOfUse: agree,
         }));
         break;
       case 'personalInformation':
         setAgreement((prev: AgreementStateType) => ({
           ...prev,
-          personalInformation: checked,
+          personalInformation: !prev.personalInformation,
         }));
         break;
       case 'marketing':
         setAgreement((prev: AgreementStateType) => ({
           ...prev,
-          marketing: checked,
+          marketing: agree,
         }));
         break;
 
@@ -146,23 +163,20 @@ const SignUpTerms = () => {
     }
   }
   function onClickYesBtn(name: TermsCheckBoxNameType) {
-    const targetInputEl = document.querySelector(`#${name}`) as HTMLInputElement | null;
-    if (targetInputEl) {
-      targetInputEl.checked = true;
-    }
     changeAgreement(name, true);
   }
-  const handleCheckBoxOfTerm = (event: ChangeEvent<HTMLInputElement>) => {
-    const target = event.currentTarget;
-    const name = target.name as TermsCheckBoxNameType;
-    const checked = target.checked;
-    if (!checked) {
-      if (WHOLE_AGREEMENT_CHECK_BOX_EL && WHOLE_AGREEMENT_CHECK_BOX_EL.checked) {
-        WHOLE_AGREEMENT_CHECK_BOX_EL.checked = false;
-      }
-    }
-    changeAgreement(name, checked);
-  };
+
+  // const handleCheckBoxOfTerm = (event: ChangeEvent<HTMLInputElement>) => {
+  //   const target = event.currentTarget;
+  //   const name = target.name as TermsCheckBoxNameType;
+  //   const checked = target.checked;
+  //   if (!checked) {
+  //     if (WHOLE_AGREEMENT_CHECK_BOX_EL && WHOLE_AGREEMENT_CHECK_BOX_EL.checked) {
+  //       WHOLE_AGREEMENT_CHECK_BOX_EL.checked = false;
+  //     }
+  //   }
+  //   changeAgreement(name, checked);
+  // };
   const onClickToShowTerm = (name: TermsContentsNameType) => {
     setOpenModal(true);
     setOpenTargetTerms(name);
@@ -220,8 +234,9 @@ const SignUpTerms = () => {
           </div>
           <CheckBox
             id="whole-agree"
-            name="whole-agree"
+            name=""
             label="전체 동의"
+            isChecked={() => handleChecked('whole-agree')}
             onChange={handleWholeAgree}
           />
         </div>
@@ -229,25 +244,31 @@ const SignUpTerms = () => {
           <SignUpTerm
             id="termsOfUse"
             label="이용약관(필수)"
-            handleChange={handleCheckBoxOfTerm}
+            isChecked={agreement.termsOfUse}
+            handleChange={() => changeAgreement('termsOfUse', !agreement.termsOfUse)}
             onClickBtn={() => onClickToShowTerm('termsOfUse')}
           />
           <SignUpTerm
             id="personalInformation"
             label="개인정보 수집 및 이용(필수)"
-            handleChange={handleCheckBoxOfTerm}
+            isChecked={agreement.personalInformation}
+            handleChange={() =>
+              changeAgreement('personalInformation', !agreement.personalInformation)
+            }
             onClickBtn={() => onClickToShowTerm('personalInformation')}
           />
           <SignUpTerm
             id="ageCondition"
             label="14세 이상 이용 동의(필수)"
-            handleChange={handleCheckBoxOfTerm}
+            isChecked={agreement.ageCondition}
+            handleChange={() => changeAgreement('ageCondition', !agreement.ageCondition)}
             onClickBtn={null}
           />
           <SignUpTerm
             id="marketing"
             label="마케팅 정보 활용 동의(선택)"
-            handleChange={handleCheckBoxOfTerm}
+            isChecked={agreement.marketing}
+            handleChange={() => changeAgreement('marketing', !agreement.marketing)}
             onClickBtn={() => onClickToShowTerm('marketing')}
           />
         </section>
