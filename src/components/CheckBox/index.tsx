@@ -5,7 +5,7 @@ type CheckBoxProps = {
   name: string;
   label: string;
   // checked인 input 의 name을 모아 둔 state에 해당 input의 name이  있는 지 여부
-  isChecked: (name: string) => boolean;
+  isChecked: (name?: string) => boolean;
   onChange: null | (() => void);
 };
 const CheckBox = ({ id, name, label, isChecked, onChange }: CheckBoxProps) => {
