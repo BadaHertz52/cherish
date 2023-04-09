@@ -28,7 +28,7 @@ export const getPrevData = (
   if (item) {
     const prevData: SessionDataType[] = JSON.parse(item);
     const prevState = prevData.find(i => i.key === target);
-    if (prevState !== undefined) {
+    if (prevState) {
       if (setInputDataState) {
         setInputDataState({
           value: prevState.value,
@@ -72,12 +72,12 @@ const SignUpTopBar = () => {
       const listOfInputEl = document.querySelectorAll(
         '.input-form input',
       ) as NodeListOf<HTMLInputElement>;
-      if (listOfInputEl[0] !== undefined) {
+      if (listOfInputEl[0]) {
         const backUpDataArr: SessionDataType[] = [...listOfInputEl].map((el: HTMLInputElement) => ({
           key: el.id.replace('input-', '') as SessionDataKeyType,
           value: el.value,
         }));
-        backUpDataArr[0] !== undefined && setItem(backUpDataArr);
+        backUpDataArr[0] && setItem(backUpDataArr);
       }
     }
     if (signUpState.progress === 'genderAndBirth') {
@@ -100,7 +100,7 @@ const SignUpTopBar = () => {
         });
       }
       // save
-      if (backUpData[0] !== undefined) {
+      if (backUpData[0]) {
         setItem(backUpData);
       }
     }
