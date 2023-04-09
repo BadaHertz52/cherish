@@ -27,7 +27,7 @@ const GenderAndBirth = () => {
   });
   const [openDatePicker, setOpenDatePicker] = useState<boolean>(false);
   const onClickNextBtn = () => {
-    if (gender.value !== null && birth.value !== null) {
+    if (gender.value && birth.value) {
       setSignUpState((prev: SignUpStateType) => {
         const newState: SignUpStateType = {
           ...prev,

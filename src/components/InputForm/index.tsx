@@ -14,6 +14,7 @@ type InputFormProps = {
   id: InputFormIdType;
   data: InputDataType;
   setData: Dispatch<SetStateAction<InputDataType>>;
+  additionOfLabel?: string;
 };
 /**
  *
@@ -22,14 +23,14 @@ type InputFormProps = {
  * @param setData: input의 change event 시 해당 event의 value에 따라 data의 상태를 변경
  * @returns
  */
-const InputForm = ({ id, data, setData }: InputFormProps) => {
+const InputForm = ({ id, data, setData, additionOfLabel }: InputFormProps) => {
   const [hiddenPw, setHiddenPw] = useState<boolean>(true);
   // ⚠️InputFormIdType 과 placeholder, label 의 property명은 동일 해야함
   const PLACE_HOLDER = {
-    name: '이름',
-    nickName: '닉네임',
-    email: '이메일',
-    pw: '비밀번호',
+    name: '이름을 입력해주세요.',
+    nickName: '닉네임을 입력해주세요.',
+    email: '이메일을 입력해주세요.',
+    pw: '8-12자 영문+숫자+툭수문자(!,@,^).',
     confirmPw: '비밀번호 확인',
   };
   const LABEL = {
@@ -45,7 +46,7 @@ const InputForm = ({ id, data, setData }: InputFormProps) => {
     nickName: new RegExp('^[ㄱ-ㅎ가-힣a-zA-Z0-9]{3,10}$'),
     email: new RegExp('[a-z0-9]+@[a-z]+.[a-z]{2,3}'),
     //8~20자 (영문 + 숫자 + 특수기호(!@^))
-    pw: new RegExp('^[a-zA-Z0-9!@^]{8,20}$'),
+    pw: new RegExp('^(?=.*[a-zA-Z])(?=.*[0-9])(?=.[!@^])[a-zA-z0-9!@^]{8,20}$'),
   };
   /**
    * name, nickName, email,pw의 유효성을 검사하는 함수
@@ -101,7 +102,12 @@ const InputForm = ({ id, data, setData }: InputFormProps) => {
   };
   return (
     <div id={`inputForm-${id}`} className="input-form">
-      {id !== 'confirmPw' && <label htmlFor={`input-${id}`}>{LABEL[id]}</label>}
+      {id !== 'confirmPw' && (
+        <label htmlFor={`input-${id}`}>
+          {additionOfLabel && <span>{additionOfLabel} &nbsp;</span>}
+          <span>{LABEL[id]}</span>
+        </label>
+      )}
       <input
         type={!hiddenPw || (id !== 'pw' && id !== 'confirmPw') ? 'text' : 'password'}
         id={`input-${id}`}
@@ -121,11 +127,7 @@ const InputForm = ({ id, data, setData }: InputFormProps) => {
       )}
       <div className={`error-msg ${id === 'email' && data.value ? 'email' : ''}`}>
         {id === 'email' &&
-          (data.value === ''
-            ? `'@'을 포함하여 작성해주세요.`
-            : data.errorMsg !== null
-            ? data.errorMsg
-            : '')}
+          (data.value === '' ? `'@'을 포함하여 작성해주세요.` : data.errorMsg ? data.errorMsg : '')}
         {id !== 'email' && (data.errorMsg ? data.errorMsg : '')}
       </div>
     </div>
