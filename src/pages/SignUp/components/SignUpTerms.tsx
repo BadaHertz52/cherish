@@ -30,7 +30,7 @@ const SignUpTerm = ({ id, label, onChange, onClickBtn }: SignUpTermProps) => {
           {label}
         </button>
         {onClickBtn !== null && (
-          <button className="btn-open-modal " onClick={handleClick} type="button">
+          <button className="btn-open-modal" onClick={handleClick} type="button">
             내용보기
           </button>
         )}
