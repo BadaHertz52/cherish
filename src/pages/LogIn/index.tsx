@@ -8,9 +8,9 @@ import BtnShowPw from '@/components/BtnShowPw';
 import CheckBox from '@/components/CheckBox';
 
 export const XSSCheck = (str: string, level?: number) => {
-  if (level == undefined || level == 0) {
+  if (!level || level == 0) {
     str = str.replace(/\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-/g, '');
-  } else if (level != undefined && level == 1) {
+  } else if (level == 1) {
     str = str.replace(/\</g, '&lt;');
     str = str.replace(/\>/g, '&gt;');
   }
@@ -112,8 +112,8 @@ const LogIn = () => {
             <CheckBox
               id="checkboxKeep"
               name="autoLogIn"
-              label="자동 로그인 하기"
               isChecked={() => keepLogin}
+              label="자동 로그인 하기"
               onChange={handleChangeOfKeep}
             />
           </div>

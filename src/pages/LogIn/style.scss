@@ -75,15 +75,18 @@
   // find
   .log-in__util__keep {
     .check,
-    .label {
+    .check-box__label {
       height: 16px;
     }
     .check-box {
-      .label {
+      &__label {
         @include navigation-font;
         display: flex;
         align-items: center;
         margin-left: 10px;
+        &.on {
+          font-weight: 600;
+        }
       }
     }
     .check {
