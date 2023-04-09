@@ -90,7 +90,7 @@ const BottomNavModal = ({
   const changeLabelClass = (el: HTMLInputElement) => {
     const parentEl = el.parentElement;
     const targetLabelEl = parentEl?.lastElementChild;
-    if (targetLabelEl !== null && targetLabelEl !== undefined) {
+    if (targetLabelEl) {
       if (el.checked) {
         targetLabelEl.classList.add('on');
       } else {
@@ -112,7 +112,7 @@ const BottomNavModal = ({
       'input[type="checkbox"]:checked',
     );
     const nameArr = [...selectedList].map(el => el.name) as ConditionName[];
-    const newCondition = nameArr[0] === undefined ? null : nameArr;
+    const newCondition = !nameArr[0] ? null : nameArr;
     let newFilteringCondition: FilteringConditionType = {
       ...filteringCondition,
     };
@@ -146,8 +146,8 @@ const BottomNavModal = ({
   };
   const closeBottomNavModal = (event: Event) => {
     const target = event.target as HTMLElement | null;
-    if (!target?.closest('.modal__box') && BOTTOM_MODAL_El !== null) {
-      if (MODAL_EL !== null && MODAL_EL !== undefined) {
+    if (!target?.closest('.modal__box') && BOTTOM_MODAL_El) {
+      if (MODAL_EL) {
         MODAL_EL.style.top = '105vh';
       }
       setTimeout(() => {
@@ -165,7 +165,7 @@ const BottomNavModal = ({
    */
   const changeChecked = () => {
     listOfCheckBox.forEach(el => {
-      if (targetCondition !== null) {
+      if (targetCondition) {
         if (targetCondition.includes(el.name as ConditionName)) {
           el.checked = true;
         } else {
@@ -185,7 +185,7 @@ const BottomNavModal = ({
     if (openBottomNavModal) {
       BOTTOM_MODAL_El?.classList.add('on');
       setTimeout(() => {
-        if (MODAL_EL !== null && MODAL_EL !== undefined) {
+        if (MODAL_EL) {
           MODAL_EL.style.top = `54vh`;
         }
       }, 50);
@@ -197,7 +197,7 @@ const BottomNavModal = ({
   }, [openBottomNavModal]);
 
   useEffect(() => {
-    if (filteringCondition !== null) {
+    if (filteringCondition) {
       //set targetCondition
       setTargetCondition(filteringCondition[`${category}`]);
     }
