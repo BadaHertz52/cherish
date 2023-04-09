@@ -198,7 +198,7 @@ const EmailVerification = ({
           <>
             <button
               className="btn-email"
-              disabled={email.value !== '' && email.errorMsg == null ? false : true}
+              disabled={!(email.value && !email.errorMsg)}
               type="button"
               onClick={onClickEmailBtn}
             >
