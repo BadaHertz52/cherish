@@ -12,7 +12,7 @@ const SignUpPw = () => {
   const [disableBtn, setDisableBtn] = useState<boolean>(true);
   const [pw, setPw] = useState<InputDataType>(initialInputData);
   const [confirmPw, setConfirmPw] = useState<InputDataType>(initialInputData);
-  const [openTostModal, setOpenToastModal] = useState<boolean>(false);
+  const [openToastModal, setOpenToastModal] = useState<boolean>(false);
   const [toastModalState, setToastModalState] = useState<ToastModalType>({
     contents: '다음은 마지막 단계예요!',
     top: '',
@@ -64,7 +64,7 @@ const SignUpPw = () => {
           pw={pw}
           setPw={setPw}
         />
-        {openTostModal && (
+        {openToastModal && (
           <ToastModal modalState={toastModalState} closeModal={() => setOpenToastModal(false)} />
         )}
       </StepInner>
