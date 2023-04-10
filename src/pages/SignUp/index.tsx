@@ -40,6 +40,8 @@ export const SignUpContext = createContext<SignUpContextType>(context);
 
 const SignUp = () => {
   const [signUpState, setSignUpState] = useState<SignUpStateType>(initialSignUpState);
+  const [openAuthNumberForm, setOpenAuthNumberForm] = useState<boolean>(false);
+
   return (
     <div id="sign-up">
       <SignUpContext.Provider
@@ -48,12 +50,20 @@ const SignUp = () => {
           setSignUpState: setSignUpState,
         }}
       >
-        <SignUpTopBar />
+        <SignUpTopBar
+          openAuthNumberForm={openAuthNumberForm}
+          setOpenAuthNumberForm={setOpenAuthNumberForm}
+        />
         <ProgressBar />
         {/* step: 회원 가입 단계별 component */}
         {signUpState.progress === 'agreeToTerms' && <SignUpTerms />}
         {signUpState.progress === 'nameAndNickName' && <NameAndNickName />}
-        {signUpState.progress === 'email' && <SignUpEmail />}
+        {signUpState.progress === 'email' && (
+          <SignUpEmail
+            openAuthNumberForm={openAuthNumberForm}
+            setOpenAuthNumberForm={setOpenAuthNumberForm}
+          />
+        )}
         {signUpState.progress === 'pw' && <SignUpPw />}
         {signUpState.progress === 'genderAndBirth' && <GenderAndBirth />}
         {signUpState.progress === 'job' && <JobInfo />}
