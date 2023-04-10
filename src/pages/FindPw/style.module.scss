@@ -3,10 +3,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  width: 100%;
+  padding: 37px 21px;
+  box-sizing: border-box;
+  border-bottom: 1px solid $color-light;
+  button,
   h2 {
+    height: 32px;
     @include h2-font;
-    padding: 32px 22px;
-    box-sizing: border-box;
+    color: $color-black;
+  }
+  button {
+    @include clean-btn-style;
+    position: absolute;
+    top: calc((100% - 32px) / 2);
+    left: 21px;
+    width: 32px;
   }
 }
 .inner {
@@ -19,6 +32,9 @@
   h3 {
     @include h3-font;
     margin-bottom: 29px;
+  }
+  input {
+    height: 48px;
   }
 }
 .btnContainer {

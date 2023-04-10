@@ -21,7 +21,7 @@ const FindPw = () => {
   const handleClickBtn = () => {
     //change pw
     // 서버 연동 후
-    //opentoastmodal
+    //open toast modal
     setTimeout(() => {
       navigate('/login');
     }, 2100);
@@ -56,6 +56,7 @@ const FindPw = () => {
             openAuthNumberForm={openAuthNumberForm}
             setOpenAuthNumberForm={setOpenAuthNumberForm}
             toastModalPositionTargetEl={null}
+            inFindPw={true}
           />
         ) : (
           <>
