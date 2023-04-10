@@ -1,8 +1,8 @@
 import { memo } from 'react';
 import styles from './style.module.scss';
-import BackIcon from '../../assets/icons/back.png';
-import SearchIcon from '../../assets/icons/search.png';
-import MyPageIcon from '../../assets/icons/mypage.png';
+import BackIcon from '@/assets/svgs/back-button.svg';
+import SearchIcon from '@/assets/svgs/search.svg';
+import MyPageIcon from '@/assets/svgs/mypage.svg';
 import Accordion from './components/Accordion';
 
 const Curation = () => {
@@ -11,14 +11,14 @@ const Curation = () => {
       <div className={styles.curationTitle}>
         <div className={styles.curationTitleContainer}>
           <div className={styles.curationTitleContainerBack}>
-            <img src={BackIcon} alt="back-icon" />
+            <BackIcon />
           </div>
           <div className={styles.curationTitleContainerText}>
             <h2>맞춤형 선물 추천</h2>
           </div>
           <div className={styles.curationTitleContainerIcons}>
-            <img src={SearchIcon} alt="search-icon" />
-            <img src={MyPageIcon} alt="mypage-icon" />
+            <SearchIcon />
+            <MyPageIcon />
           </div>
         </div>
       </div>

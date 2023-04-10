@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import styles from '../style.scss';
+import '../../style.scss';
 
 interface RadioButtonProps {
   id: string;

@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect, useMemo, memo } from 'react';
 import styles from './style.module.scss';
-import DownArrow from '../../../../assets/icons/down-arrow.png';
-import ActiveUpArrow from '../../../../assets/icons/active-up-arrow.png';
+import DownArrow from '@/assets/svgs/down-arrow.svg';
+import ActiveUpArrow from '@/assets/svgs/active-up-arrow.svg';
 import CheckBox from '../CheckButton';
 import RadioButton from '../RadioButton';
 import PriceSlider from '../PriceSlider';
@@ -896,7 +896,7 @@ const Accordion = () => {
           <h2>
             나는 어떤 사람인가요? <span>(선택)</span>
           </h2>
-          <img src={showFirstAccordion ? ActiveUpArrow : DownArrow} alt="down-arrow" />
+          {showFirstAccordion ? <ActiveUpArrow /> : <DownArrow />}
         </div>
 
         {showFirstAccordion ? (
@@ -920,7 +920,7 @@ const Accordion = () => {
       >
         <div className={styles.accordionContainerTitle} onClick={handleShowSecondAccordion}>
           <h2>누구를 위한 선물인가요?</h2>
-          <img src={showSecondAccordion ? ActiveUpArrow : DownArrow} alt="down-arrow" />
+          {showSecondAccordion ? <ActiveUpArrow /> : <DownArrow />}
         </div>
         {showSecondAccordion ? (
           <div className={styles.accordionContainerContent}>
