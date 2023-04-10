@@ -50,4 +50,15 @@
       }
     }
   }
+  button {
+    @include clean-btn-style;
+    @include btn-selected-full-style;
+    &:disabled {
+      @include btn-disabled-style;
+    }
+  }
+  button,
+  input {
+    height: 48px;
+  }
 }
