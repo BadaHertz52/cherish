@@ -31,15 +31,18 @@
 }
 
 .next-btn {
+  display: none;
   position: absolute;
   bottom: 26px;
   left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
   height: 13vw;
   max-height: 50px;
+  &.on {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   button {
     @include h2-font;
     width: 80%;
