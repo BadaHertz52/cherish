@@ -1,13 +1,15 @@
 @import '../modalCommon.scss';
-
 .toast-modal {
   position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
   .modal__box {
     background-color: $color-light;
     border-radius: 6px;
     height: 39px;
-    width: calc(100vw * 0.6);
-    max-width: calc(560px * 0.6);
+    padding: 10px 18px;
+    box-sizing: border-box;
     color: $color-primary;
   }
   .modal__inner {
