@@ -95,14 +95,25 @@ const categoryList: Array<Category> = [
   },
 ];
 
-const Home = () => {
+const NavIcon = ({ src, link }: { src: string; link: string }) => (
+  <img
+    src={src}
+    width="14px"
+    onClick={() => {
+      window.location.href = link;
+    }}
+    style={{ cursor: 'pointer' }}
+  />
+);
+
+function Home() {
   return (
     <>
       <div className="header">
         <div className="logo-text">Cherishu</div>
         <div className="icons">
-          <img src="/icons/search.png" width="14px" />
-          <img src="/icons/profile.png" width="14px" />
+          <NavIcon src="/icons/search.png" link="/search" />
+          <NavIcon src="/icons/profile.png" link="/profile" />
         </div>
       </div>
       <div className="main-image"></div>
@@ -128,5 +139,5 @@ const Home = () => {
       </div>
     </>
   );
-};
+}
 export default Home;
