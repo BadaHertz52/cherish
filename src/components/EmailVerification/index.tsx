@@ -22,7 +22,8 @@ type EmailVerificationProps = {
   openAuthNumberForm: boolean;
   setOpenAuthNumberForm: Dispatch<SetStateAction<boolean>>;
   emailDuplicationChecker: boolean; //이메일 중복 검사 진행 여부
-  toastModalPositionTargetEl: HTMLElement | null; // toastModal 위치
+  toastModalPositionTargetEl: HTMLElement | null; // toastModal 위치,
+  inFindPw?: boolean; // 비밀번호 찾기 페이지에서 사용하는 지 여부
 };
 const EmailVerification = ({
   additionOfLabel,
@@ -33,6 +34,7 @@ const EmailVerification = ({
   setOpenAuthNumberForm,
   emailDuplicationChecker,
   toastModalPositionTargetEl,
+  inFindPw,
 }: EmailVerificationProps) => {
   const [openAlertModal, setOpenAlertModal] = useState<boolean>(false);
   const [openToastModal, setOpenToastModal] = useState<boolean>(false);
@@ -53,10 +55,6 @@ const EmailVerification = ({
    */
   const [openTimer, setOpenTimer] = useState<boolean>(false);
   const [overTime, setOverTime] = useState<boolean>(false);
-  /**
-   * 이메일 인증 pass
-   */
-  const [pass, setPass] = useState<boolean>(false);
 
   const inputEl = document.querySelector('#input-email') as HTMLInputElement | null;
   /**
@@ -141,13 +139,20 @@ const EmailVerification = ({
     setCheckAuthNumber(true);
     //data는  string type으로
     if (authNumber.value && result === authNumber.value) {
-      setPass(true);
-      setDisableBtn(false);
+      //서버에서 받은 인증 번호와 사용자가 입력한 인증 번호가 일치할 경우
       setOpenTimer(false);
       verifiedEmail.current = email.value;
       setOpenToastModal(true);
+      if (inFindPw) {
+        setTimeout(() => {
+          setDisableBtn(false);
+          setOpenToastModal(false);
+        }, 1000);
+      } else {
+        setDisableBtn(false);
+      }
     } else {
-      setPass(false);
+      //인증 번호 불일치
       setAuthNumber(prev => ({
         ...prev,
         errorMsg: ERROR_MSG.invalidAuthNumber,
@@ -172,10 +177,14 @@ const EmailVerification = ({
     const position = getToastModalPosition();
     if (openToastModal && position) {
       const { top, left } = position;
-      if (openAuthNumberForm && toastModalPositionTargetEl) {
+      if (openAuthNumberForm) {
+        // 비밀번호 찾기 페이지에서는 toastModalPositionTargetEl === null
+        const newTop = toastModalPositionTargetEl
+          ? top - toastModalPositionTargetEl.offsetHeight - 16
+          : top;
         const modalForPass: ToastModalType = {
           contents: '인증되었습니다.',
-          top: `${top - toastModalPositionTargetEl.offsetHeight - 16}px`,
+          top: `${newTop}px`,
           left: left,
         };
         setToastModalState(modalForPass);
@@ -194,7 +203,6 @@ const EmailVerification = ({
   useEffect(() => {
     if (email.value && !email.errorMsg) {
       // 이미 인증이 완료 된 경우에 다음 버튼 클릭 가능
-      setPass(true);
       setCheckAuthNumber(true);
       verifiedEmail.current = email.value;
       setDisableBtn(false);
@@ -207,7 +215,7 @@ const EmailVerification = ({
   }, [openTimer]);
 
   useEffect(() => {
-    // [todo] 추가 조건 : 이메일 인증 횟수 초과하지 않은 경우
+    // 타이머 시간을 경과한 경우, 이메일 작성란 다시 열기
     if (overTime) {
       setTimeout(() => {
         setOpenAuthNumberForm(false);
