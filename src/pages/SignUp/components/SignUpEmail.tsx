@@ -19,40 +19,40 @@ const SignUpEmail = () => {
       email: email.value,
     }));
   };
-  const sendVerificationEmail: () => Promise<ResultOfEmailAPI> = async () => {
+  const sendVerificationEmail = async (): Promise<ResultOfEmailAPI> => {
     let result: ResultOfEmailAPI = {
-      type: 'duplicate',
+      type: 'success',
     };
-    try {
-      const response = await axios.post('', { email: email });
-      if (response.status === 200) {
-        result = { type: 'success' };
-      }
-    } catch (error) {
-      const axiosError = error as AxiosError;
-      if (axiosError.response) {
-        console.log('axios error', axiosError);
-        const msg = axiosError.response.statusText;
-        if (msg.includes('가입')) {
-          //중복 이메일
-          result = { type: 'duplicate' };
-        }
-        if (msg.includes('5분')) {
-          //5분간 이메일 전송 금지
-          result = { type: 'pause' };
-        }
-        if (msg.includes('초과')) {
-          // 하루 인증 횟수 초과
-          result = { type: 'overSending' };
-        }
-        if (msg.includes('에러')) {
-          // 알 수 없는 서버 에러
-          result = { type: 'serverError', msg: axiosError.message };
-        }
-      } else {
-        result = { type: 'serverError', msg: axiosError.message };
-      }
-    }
+    // try {
+    //   const response = await axios.post('', { email: email });
+    //   if (response.status === 200) {
+    //     result = { type: 'success' };
+    //   }
+    // } catch (error) {
+    //   const axiosError = error as AxiosError;
+    //   if (axiosError.response) {
+    //     console.log('axios error', axiosError);
+    //     const msg = axiosError.response.statusText;
+    //     if (msg.includes('가입')) {
+    //       //중복 이메일
+    //       result = { type: 'duplicate' };
+    //     }
+    //     if (msg.includes('5분')) {
+    //       //5분간 이메일 전송 금지
+    //       result = { type: 'pause' };
+    //     }
+    //     if (msg.includes('초과')) {
+    //       // 하루 인증 횟수 초과
+    //       result = { type: 'overSending' };
+    //     }
+    //     if (msg.includes('에러')) {
+    //       // 알 수 없는 서버 에러
+    //       result = { type: 'serverError', msg: axiosError.message };
+    //     }
+    //   } else {
+    //     result = { type: 'serverError', msg: axiosError.message };
+    //   }
+    // }
 
     return result;
   };

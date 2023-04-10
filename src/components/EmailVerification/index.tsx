@@ -63,8 +63,7 @@ const EmailVerification = ({
   const [overTime, setOverTime] = useState<boolean>(false);
   const onClickEmailBtn = async () => {
     try {
-      //const result = await sendVerificationEmail();
-      const result: ResultOfEmailAPI = { type: 'pause' };
+      const result = await sendVerificationEmail();
       switch (result.type) {
         case 'duplicate':
           setEmail((prev: InputDataType) => ({
