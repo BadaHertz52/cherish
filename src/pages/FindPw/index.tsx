@@ -1,14 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
+
 import './style.scss';
-import styles from './style.module.scss';
-import { EmailVerification, ToastModal } from '@/components';
-import { PasswordForm } from '@/components';
-import { InputDataType, initialInputData } from '../SignUp/signUpTypes';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
+
+import { PasswordForm, EmailVerification, ToastModal } from '@/components';
 import { ToastModalType } from '@/components/Modals/modalTypes';
+
 import { getToastModalPosition } from '../SignUp/functions';
+import { InputDataType, initialInputData } from '../SignUp/signUpTypes';
+
+import styles from './style.module.scss';
 
 const FindPw = () => {
   // 이메일 인증 여부

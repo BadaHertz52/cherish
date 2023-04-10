@@ -7,12 +7,14 @@ import {
   useRef,
   useState,
 } from 'react';
-import { XSSCheck } from '@/pages/LogIn/index';
+
 import { Timer, AlertModal, InputForm, ToastModal } from '@/components';
+import { XSSCheck } from '@/pages/LogIn/index';
+import { getToastModalPosition } from '@/pages/SignUp/functions';
 import { ERROR_MSG, InputDataType, initialInputData } from '@/pages/SignUp/signUpTypes';
+
 import './style.scss';
 import { ToastModalType } from '../Modals/modalTypes';
-import { getToastModalPosition } from '@/pages/SignUp/functions';
 
 type EmailVerificationProps = {
   additionOfLabel?: string; // InputForm의 additionOfLabel
@@ -61,23 +63,23 @@ const EmailVerification = ({
    * 이메일 중복 여부, 서버에 인증 번호를 담은 이메일 요청등을 담당
    */
   const checkDuplicateEmail = () => {
-    let result: boolean = false;
+    const result = false;
     //[api]이메일 중복 검사
     return result;
   };
   const sendVerificationEmail = () => {
-    let result: boolean = true;
+    const result = true;
     // [api] 인증 이메일 보내기
     return result;
   };
 
   const onClickEmailBtn = async () => {
     overTime && setOverTime(false);
-    const overSending: boolean = false;
+    const overSending = false;
     // 1.가능한 이메일 인증 횟수를 충족한 경우
     if (!overSending) {
       //A. 백엔드에 이메일  중복 여부 확인
-      let emailDuplicate: boolean = false; // 중복 이메일
+      let emailDuplicate = false; // 중복 이메일
       // 간편가입 시 이메일 중복 검사 진행, 비밀번호 찾기에서는 이메일 중복 검사 진행하지 않음
       if (emailDuplicationChecker) {
         emailDuplicate = checkDuplicateEmail();
@@ -129,7 +131,7 @@ const EmailVerification = ({
   };
   //서버에서 받은 데이터
   const getAuthNumber = () => {
-    let result = '111111';
+    const result = '111111';
     //[api]
     return result;
   };

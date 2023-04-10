@@ -1,8 +1,9 @@
-import { TouchEvent } from 'react';
+import { TouchEvent, ChangeEvent, useState } from 'react';
+
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ChangeEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+
 import './style.scss';
 import { BtnShowPw, CheckBox } from '@/components';
 export const XSSCheck = (str: string, level?: number) => {

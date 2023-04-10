@@ -1,14 +1,16 @@
 import React, { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import BtnShowPw from '@/components/BtnShowPw';
+import { XSSCheck } from '@/pages/LogIn';
 import {
   ERROR_MSG,
   InputDataType,
   InputFormIdType,
   TestResultType,
 } from '@/pages/SignUp/signUpTypes';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import BtnShowPw from '@/components/BtnShowPw';
-import { XSSCheck } from '@/pages/LogIn';
 import './style.scss';
 type InputFormProps = {
   id: InputFormIdType;

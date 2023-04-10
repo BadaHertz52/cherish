@@ -1,7 +1,9 @@
-import styles from './style.module.scss';
 import { memo, useCallback } from 'react';
-import styled from 'styled-components';
+
 import { useRanger } from 'react-ranger';
+import styled from 'styled-components';
+
+import styles from './style.module.scss';
 
 export const Segment = styled('div')`
   background: ${(props: any) =>
