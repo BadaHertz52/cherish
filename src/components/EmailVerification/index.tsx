@@ -44,10 +44,6 @@ const EmailVerification = ({
     left: '0',
   };
   const [toastModalState, setToastModalState] = useState<ToastModalType>(initialToastModalState);
-  /**
-   * 인증 번호에 대한 검사를 시작했는지 여부
-   */
-  const [checkAuthNumber, setCheckAuthNumber] = useState<boolean>(false);
   const [authNumber, setAuthNumber] = useState<InputDataType>(initialInputData);
   const verifiedEmail = useRef<string | undefined>();
   /**
@@ -125,7 +121,6 @@ const EmailVerification = ({
       value: text,
       errorMsg: null,
     });
-    if (checkAuthNumber) setCheckAuthNumber(false);
   };
   //서버에서 받은 데이터
   const getAuthNumber = () => {
@@ -136,7 +131,6 @@ const EmailVerification = ({
   const onClickAuthNumberBtn = async () => {
     //백엔드에 이메인 인증 번호 확인
     const result = getAuthNumber();
-    setCheckAuthNumber(true);
     //data는  string type으로
     if (authNumber.value && result === authNumber.value) {
       //서버에서 받은 인증 번호와 사용자가 입력한 인증 번호가 일치할 경우
@@ -203,7 +197,6 @@ const EmailVerification = ({
   useEffect(() => {
     if (email.value && !email.errorMsg) {
       // 이미 인증이 완료 된 경우에 다음 버튼 클릭 가능
-      setCheckAuthNumber(true);
       verifiedEmail.current = email.value;
       setDisableBtn(false);
     }
@@ -241,7 +234,7 @@ const EmailVerification = ({
             >
               이메일 인증하기
             </button>
-            <div className="alert">이메일은 회원가입 후 변경하실 수 없어요.</div>
+            {!inFindPw && <div className="alert">이메일은 회원가입 후 변경하실 수 없어요.</div>}
           </>
         )}
       </section>
@@ -269,17 +262,17 @@ const EmailVerification = ({
           </div>
 
           <div className="msg">
-            {overTime && <p className="msg-over-time">인증 시간이 지났습니다.</p>}
-            {!overTime && authNumber.errorMsg && (
+            {overTime ? (
+              <p className="msg-over-time">인증 시간이 지났습니다.</p>
+            ) : authNumber.errorMsg ? (
               <div className="error-msg">
                 <p>{authNumber.errorMsg}</p>
                 <p>인증번호를 다시 확인해주세요.</p>
               </div>
-            )}
-            {!checkAuthNumber && !overTime && (
+            ) : (
               <div className="alert">
-                이메일이 수신되지 않는 경우, 입력하신 이메일이 정확한지 확인해 주세요. 또는
-                스펨메일함과 메일함 용량을 확인해 주세요.
+                <p>이메일이 수신되지 않는 경우, 입력하신 이메일이 정확한지 확인해 주세요.</p>
+                <p>또는 스펨메일함과 메일함 용량을 확인해 주세요.</p>
               </div>
             )}
           </div>
