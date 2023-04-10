@@ -854,6 +854,7 @@ const Accordion = () => {
     if (
       personCheckedValue === '' ||
       purposeCheckedValue === '' ||
+      age === '' ||
       relationshipCheckedValue === ''
     ) {
       alert('필수 항목들을 선택해 주세요.');
