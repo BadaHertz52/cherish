@@ -178,24 +178,10 @@ const EmailVerification = ({
   }, [openToastModal]);
 
   useEffect(() => {
-    if (email.value && !email.errorMsg) {
-      // 이미 인증이 완료 된 경우에 다음 버튼 클릭 가능
-      verifiedEmail.current = email.value;
-      setDisableBtn(false);
-    }
-  }, []);
-  useEffect(() => {
-    if (inputEl) {
-      inputEl.disabled = openTimer;
-    }
-  }, [openTimer]);
-
-  useEffect(() => {
     // 타이머 시간을 경과한 경우, 이메일 작성란 다시 열기
     if (overTime) {
       setTimeout(() => {
         setOpenAuthNumberForm(false);
-        if (inputEl) inputEl.disabled = false;
       }, 500);
     }
   }, [overTime]);
@@ -206,7 +192,13 @@ const EmailVerification = ({
   return (
     <div className="email-verification">
       <section className="email-form">
-        <InputForm additionOfLabel={additionOfLabel} id={'email'} data={email} setData={setEmail} />
+        <InputForm
+          additionOfLabel={additionOfLabel}
+          id={'email'}
+          data={email}
+          setData={setEmail}
+          disabled={openAuthNumberForm}
+        />
         {!openAuthNumberForm && (
           <>
             <button
