@@ -69,9 +69,10 @@ const FindPw = () => {
   };
   const onClickPrevBtn = () => {
     if (openEmailForm) {
-      navigate('/login');
+      openAuthNumberForm ? setOpenAuthNumberForm(false) : navigate('/login');
     } else {
       setOpenEmailForm(true);
+      setOpenAuthNumberForm(true);
     }
   };
   return (
