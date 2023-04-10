@@ -39,12 +39,13 @@ const SignUpPw = () => {
         errorMsg: null,
       });
     }
+    const position = getToastModalPosition();
     const nextBtnEl = document.querySelector('.next-btn') as HTMLElement | null;
-    if (nextBtnEl) {
-      const { top, left } = getToastModalPosition(nextBtnEl);
+    if (position && nextBtnEl) {
+      const { top, left } = position;
       setToastModalState(prev => ({
         ...prev,
-        top: top,
+        top: `${top - nextBtnEl.offsetHeight - 16}px`,
         left: left,
       }));
     }
