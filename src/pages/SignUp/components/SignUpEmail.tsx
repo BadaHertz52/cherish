@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 import { SignUpContext } from '..';
 import { initialInputData, InputDataType, SignUpStateType } from '../signUpTypes';
 import StepInner from './StepInner';
@@ -6,11 +6,15 @@ import { getPrevData } from './SignUpTopBar';
 import { EmailVerification } from '@/components';
 import axios, { AxiosError } from 'axios';
 import { ResultOfEmailAPI } from '@/components/EmailVerification/types';
-const SignUpEmail = () => {
+type SignUpEmailProps = {
+  openAuthNumberForm: boolean;
+  setOpenAuthNumberForm: Dispatch<SetStateAction<boolean>>;
+};
+const SignUpEmail = ({ openAuthNumberForm, setOpenAuthNumberForm }: SignUpEmailProps) => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
   const [email, setEmail] = useState<InputDataType>(initialInputData);
   const [disableBtn, setDisableBtn] = useState<boolean>(true);
-  const [openAuthNumberForm, setOpenAuthNumberForm] = useState<boolean>(false);
+
   const nextBtnEl = document.querySelector('.next-btn') as HTMLElement | null;
   const onClickNextBtn = () => {
     setSignUpState((prev: SignUpStateType) => ({
