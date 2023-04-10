@@ -3,8 +3,9 @@ import NextBtn, { NextBtnProps } from './SignUpNextBtn';
 import { SignUpContext } from '@/pages/SignUp';
 type StepInnerProps = NextBtnProps & {
   children: ReactNode;
+  isNextBtnHidden?: boolean;
 };
-const StepInner = ({ children, disableBtn, onClickNextBtn }: StepInnerProps) => {
+const StepInner = ({ children, disableBtn, onClickNextBtn, isNextBtnHidden }: StepInnerProps) => {
   const { signUpState } = useContext(SignUpContext);
   return (
     <div className="step__inner">
@@ -16,7 +17,7 @@ const StepInner = ({ children, disableBtn, onClickNextBtn }: StepInnerProps) => 
         </h3>
       )}
       <div className="step__inner__body">{children}</div>
-      <NextBtn disableBtn={disableBtn} onClickNextBtn={onClickNextBtn} />
+      <NextBtn disableBtn={disableBtn} onClickNextBtn={onClickNextBtn} isNextBtnHidden={isNextBtnHidden} />
     </div>
   );
 };
