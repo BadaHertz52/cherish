@@ -3,6 +3,7 @@ import styles from './style.module.scss';
 import Header from '@/components/common/Header';
 import MenuMoveSvg from '@/assets/svgs/menu-move.svg';
 import AlertModal from '@/components/Modals/AlertModal';
+import { RecentlyViewProductPage } from '../RecentlyViewProduct';
 
 export type MenuProps = {
   title: string;
@@ -58,47 +59,61 @@ const MyPage = () => {
 
   const [tags, setTags] = useState<string[]>([]);
   const [showInquiry, setShowInquiry] = useState(false);
+  const [currentScreen, setCurrentScreen] = useState<JSX.Element | null>(null);
+
+  const handleBackButton = () => {
+    setCurrentScreen(null);
+  };
 
   useEffect(() => {
     setTags(['직장인', '10대', '여성']);
   }, []);
 
   return (
-    <div className={styles.myPage}>
-      <Header title="마이페이지" handleBackButton={() => {}} />
-      <section>
-        <h2>닉네임님 안녕하세요!</h2>
-        <div className={styles.tags}>
-          {tags.map(tag => (
-            <span key={tag}>#{tag}</span>
+    <>
+      <div className={styles.myPage}>
+        <Header title="마이페이지" handleBackButton={() => {}} />
+        <section>
+          <h2>닉네임님 안녕하세요!</h2>
+          <div className={styles.tags}>
+            {tags.map(tag => (
+              <span key={tag}>#{tag}</span>
+            ))}
+          </div>
+        </section>
+        <hr />
+        <section>
+          <Menu
+            title="최근 본 상품"
+            handleClick={() =>
+              setCurrentScreen(<RecentlyViewProductPage handleBackButton={handleBackButton} />)
+            }
+            emphasized
+          />
+        </section>
+        <hr />
+        <section>
+          <h2>안내</h2>
+          {noticeMenus.map(menu => (
+            <Menu key={menu.title} title={menu.title} handleClick={menu.handleClick} />
           ))}
-        </div>
-      </section>
-      <hr />
-      <section>
-        <Menu title="최근 본 상품" handleClick={() => {}} emphasized />
-      </section>
-      <hr />
-      <section>
-        <h2>안내</h2>
-        {noticeMenus.map(menu => (
-          <Menu key={menu.title} title={menu.title} handleClick={menu.handleClick} />
-        ))}
-      </section>
-      <hr />
-      <section>
-        <h2>회원정보 관리</h2>
-        {memberInfoManageMenus.map(menu => (
-          <Menu key={menu.title} title={menu.title} handleClick={menu.handleClick} />
-        ))}
-      </section>
-      {showInquiry && (
-        // TODO: 이메일 주소 변경
-        <AlertModal center short={false} closeModal={() => setShowInquiry(false)}>
-          <div className={styles.inquiry}>1111@naver.com으로 문의해 주세요.</div>
-        </AlertModal>
-      )}
-    </div>
+        </section>
+        <hr />
+        <section>
+          <h2>회원정보 관리</h2>
+          {memberInfoManageMenus.map(menu => (
+            <Menu key={menu.title} title={menu.title} handleClick={menu.handleClick} />
+          ))}
+        </section>
+        {showInquiry && (
+          // TODO: 이메일 주소 변경
+          <AlertModal center short={false} closeModal={() => setShowInquiry(false)}>
+            <div className={styles.inquiry}>1111@naver.com으로 문의해 주세요.</div>
+          </AlertModal>
+        )}
+      </div>
+      {currentScreen}
+    </>
   );
 };
 
