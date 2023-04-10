@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 const FindPw = () => {
   // 이메일 인증 여부
   const [openEmailForm, setOpenEmailForm] = useState<boolean>(true);
+  const [openAuthNumberForm, setOpenAuthNumberForm] = useState<boolean>(false);
   const [email, setEmail] = useState<InputDataType>(initialInputData);
   const [pw, setPw] = useState<InputDataType>(initialInputData);
   const [confirmPw, setConfirmPw] = useState<InputDataType>(initialInputData);
@@ -48,11 +49,12 @@ const FindPw = () => {
         {openEmailForm ? (
           <EmailVerification
             additionOfLabel="가입하신"
-            disableBtn={openEmailForm}
             setDisableBtn={setOpenEmailForm}
             email={email}
             setEmail={setEmail}
             emailDuplicationChecker={false}
+            openAuthNumberForm={openAuthNumberForm}
+            setOpenAuthNumberForm={setOpenAuthNumberForm}
             toastModalPositionTargetEl={null}
           />
         ) : (
