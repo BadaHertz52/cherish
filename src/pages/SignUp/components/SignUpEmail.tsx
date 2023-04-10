@@ -65,6 +65,7 @@ const SignUpEmail = () => {
       });
       // 이미 인증이 완료 된 경우에 다음 버튼 클릭 가능
       setDisableBtn(false);
+      setOpenAuthNumberForm(true);
     }
   }, []);
   return (
