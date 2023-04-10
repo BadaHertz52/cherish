@@ -948,7 +948,7 @@ const Accordion = () => {
       </div>
       <div className={styles.accordionSubmitButtonContainer}>
         <button
-          onClick={e => getRecommendedPresents(e)}
+          onClick={getRecommendedPresents}
           className={styles.accordionSubmitButtonContainerButton}
         >
           선물 추천받기
