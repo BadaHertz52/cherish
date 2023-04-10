@@ -1,11 +1,4 @@
 @import './common.scss';
-body {
-  width: 100vw;
-  height: 100vh;
-}
-button {
-  @include clean-btn-style;
-}
 $background-color: rgba(117, 117, 117, 0.4);
 @mixin background {
   position: relative;
