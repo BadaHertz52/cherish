@@ -14,7 +14,7 @@ export const getToastModalPosition = () => {
   */
     const top = wrapper.getClientRects()[0].top - 39 - 23;
     // widthOfModal =widthOfAppEl*0.6;
-    const left = `${marginLeft + widthOfAppEl * 0.2}px`;
+    const left = `${marginLeft + widthOfAppEl * 0.2 - 15}px`;
     return { top: top, left: left };
   }
 };
