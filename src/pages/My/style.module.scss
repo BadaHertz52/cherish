@@ -48,3 +48,9 @@
     background: #f4f4f4;
   }
 }
+
+.inquiry {
+  @include bd1-font;
+  color: #121212;
+  padding: 10px 0 40px 0;
+}

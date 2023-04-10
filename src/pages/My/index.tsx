@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import styles from './style.module.scss';
 import Header from '@/components/common/Header';
 import MenuMoveSvg from '@/assets/svgs/menu-move.svg';
+import AlertModal from '@/components/Modals/AlertModal';
 
 export type MenuProps = {
   title: string;
@@ -26,7 +27,9 @@ const MyPage = () => {
     },
     {
       title: '문의하기',
-      handleClick: () => {},
+      handleClick: () => {
+        setShowInquiry(true);
+      },
     },
     {
       title: '이용약관',
@@ -54,6 +57,7 @@ const MyPage = () => {
   ];
 
   const [tags, setTags] = useState<string[]>([]);
+  const [showInquiry, setShowInquiry] = useState(false);
 
   useEffect(() => {
     setTags(['직장인', '10대', '여성']);
@@ -88,6 +92,12 @@ const MyPage = () => {
           <Menu key={menu.title} title={menu.title} handleClick={menu.handleClick} />
         ))}
       </section>
+      {showInquiry && (
+        // TODO: 이메일 주소 변경
+        <AlertModal center short={false} closeModal={() => setShowInquiry(false)}>
+          <div className={styles.inquiry}>1111@naver.com으로 문의해 주세요.</div>
+        </AlertModal>
+      )}
     </div>
   );
 };
