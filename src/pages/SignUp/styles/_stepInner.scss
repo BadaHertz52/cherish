@@ -1,0 +1,51 @@
+@import '@/assets/styles/common.scss';
+.step__inner {
+  position: relative;
+  width: 100%;
+  // 100%  -bottomNav.height-SignUpTopBar.height - progreebar
+  height: calc(100vh - 80px - 107px - 5px);
+  overflow-y: auto;
+  padding-top: 30px;
+  padding-left: 21px;
+  padding-right: 21px;
+  box-sizing: border-box;
+  &__header {
+    @include h3-font;
+    margin-bottom: 2vh;
+  }
+  &__body {
+    // -header.height -nextBtn max height
+    height: calc(100% - 44px - 66px);
+  }
+  button {
+    @include clean-btn-style;
+    @include btn-selected-full-style;
+    &:disabled {
+      @include btn-disabled-style;
+    }
+  }
+  button,
+  input {
+    height: 48px;
+  }
+}
+
+.next-btn {
+  display: none;
+  position: absolute;
+  bottom: 26px;
+  left: 0;
+  width: 100%;
+  height: 13vw;
+  max-height: 50px;
+  &.on {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  button {
+    @include h2-font;
+    width: 80%;
+    height: 100%;
+  }
+}
