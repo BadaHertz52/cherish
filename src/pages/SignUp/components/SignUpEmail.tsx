@@ -5,6 +5,7 @@ import StepInner from './StepInner';
 import { getPrevData } from './SignUpTopBar';
 import { EmailVerification } from '@/components';
 import axios, { AxiosError } from 'axios';
+import { ResultOfEmailAPI } from '@/components/EmailVerification/types';
 const SignUpEmail = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
   const [email, setEmail] = useState<InputDataType>(initialInputData);

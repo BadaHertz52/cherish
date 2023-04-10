@@ -1,6 +1,7 @@
 import {
   ChangeEvent,
   Dispatch,
+  ReactNode,
   SetStateAction,
   useCallback,
   useEffect,
@@ -13,6 +14,7 @@ import { ERROR_MSG, InputDataType, initialInputData } from '@/pages/SignUp/signU
 import './style.scss';
 import { ToastModalType } from '../Modals/modalTypes';
 import { getToastModalPosition } from '@/pages/SignUp/functions';
+import { ResultOfEmailAPI } from './types';
 
 type EmailVerificationProps = {
   additionOfLabel?: string; // InputForm의 additionOfLabel
@@ -44,7 +46,14 @@ const EmailVerification = ({
     left: '0',
   };
   const [toastModalState, setToastModalState] = useState<ToastModalType>(initialToastModalState);
-  const [confirmModalText, setConfirmModalText] = useState<string>();
+  const [alertModalChild, setAlertModalChilde] = useState<ReactNode>();
+  const childOfModalForOverSending = (
+    <div className="msg-over-sending">
+      <p>해당 메일에 대한 인증 횟수를 초과했어요.</p>
+      <p>내일 다시 시도하세요.</p>
+    </div>
+  );
+  const childOfModalForPause = <p>5분간 해당 이메일에 대한 인증을 하실 수 없어요.</p>;
   const [authNumber, setAuthNumber] = useState<InputDataType>(initialInputData);
   const verifiedEmail = useRef<string | undefined>();
   /**
@@ -52,32 +61,29 @@ const EmailVerification = ({
    */
   const [openTimer, setOpenTimer] = useState<boolean>(false);
   const [overTime, setOverTime] = useState<boolean>(false);
-
-  const inputEl = document.querySelector('#input-email') as HTMLInputElement | null;
   const onClickEmailBtn = async () => {
     try {
-      const result = await sendVerificationEmail();
+      //const result = await sendVerificationEmail();
+      const result: ResultOfEmailAPI = { type: 'pause' };
       switch (result.type) {
         case 'duplicate':
-          setEmail((prev: InputDataType) => {
-            const newState: InputDataType = {
-              ...prev,
-              errorMsg: '이미 회원가입된 이메일이에요.',
-            };
-            return newState;
-          });
+          setEmail((prev: InputDataType) => ({
+            ...prev,
+            errorMsg: '이미 회원가입된 이메일이에요.',
+          }));
           break;
         case 'pause':
           setOpenToastModal(false);
+          setAlertModalChilde(childOfModalForPause);
           setTimeout(() => {
             setOpenAlertModal(true);
-            setConfirmModalText('5분간 해당 이메일에 대한 인증을 하실 수 없어요.');
           }, 100);
+          break;
         case 'overSending':
           setOpenToastModal(false);
+          setAlertModalChilde(childOfModalForOverSending);
           setTimeout(() => {
             setOpenAlertModal(true);
-            setConfirmModalText('유효한 이메일 인증 횟수를 초과했어요.');
           }, 100);
           break;
         case 'serverError':
@@ -147,6 +153,7 @@ const EmailVerification = ({
   //이메일 인증 5분간 중단/ 하루 인증 횟수 초과 시 , 이메일 작성 폼으로 돌아감
   const onClickCloseBtnInAlertModal = () => {
     setOpenAlertModal(false);
+    setAlertModalChilde('');
     setOpenAuthNumberForm(false);
   };
 
@@ -255,7 +262,7 @@ const EmailVerification = ({
       )}
       {openAlertModal && (
         <AlertModal center={true} short={true} closeModal={onClickCloseBtnInAlertModal}>
-          <p>{confirmModalText}</p>
+          {alertModalChild}
         </AlertModal>
       )}
       {openToastModal && toastModalState.contents && (

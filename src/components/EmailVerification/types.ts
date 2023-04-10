@@ -6,9 +6,9 @@ const resultTypeOfEmail = {
   serverError: 'serverError',
 } as const;
 
-type ResultTypeOfEmail = keyof typeof resultTypeOfEmail;
+export type ResultTypeOfEmail = keyof typeof resultTypeOfEmail;
 
-type ResultOfEmailAPI = {
+export type ResultOfEmailAPI = {
   type: ResultTypeOfEmail;
   msg?: string;
 };
