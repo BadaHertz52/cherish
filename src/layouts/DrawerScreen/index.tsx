@@ -5,10 +5,16 @@ import Header from '@/components/common/Header';
 export type DrawerScreenProps = {
   children: JSX.Element;
   title: string;
+  padding?: boolean;
   handleBackButton: () => void;
 };
 
-export const DrawerScreen = ({ children, handleBackButton }: DrawerScreenProps) => {
+export const DrawerScreen = ({
+  children,
+  title,
+  handleBackButton,
+  padding = true,
+}: DrawerScreenProps) => {
   const [closing, setClosing] = useState(false);
 
   const handleBackButtonClick = () => {
@@ -20,8 +26,8 @@ export const DrawerScreen = ({ children, handleBackButton }: DrawerScreenProps) 
 
   return (
     <div className={`${styles.drawerScreen} ${closing ? styles.closing : ''}`}>
-      <Header title="최근 본 상품" handleBackButton={handleBackButtonClick} />
-      <section>{children}</section>
+      <Header title={title} handleBackButton={handleBackButtonClick} />
+      <section className={`${padding ? styles.padding : ''}`}>{children}</section>
     </div>
   );
 };

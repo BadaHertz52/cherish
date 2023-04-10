@@ -4,6 +4,7 @@ import Header from '@/components/common/Header';
 import MenuMoveSvg from '@/assets/svgs/menu-move.svg';
 import AlertModal from '@/components/Modals/AlertModal';
 import { RecentlyViewProductPage } from '../RecentlyViewProduct';
+import { NoticePage } from '../Notice';
 
 export type MenuProps = {
   title: string;
@@ -24,7 +25,9 @@ const MyPage = () => {
   const noticeMenus = [
     {
       title: '공지사항',
-      handleClick: () => {},
+      handleClick: () => {
+        setCurrentScreen(<NoticePage handleBackButton={handleBackButton} />);
+      },
     },
     {
       title: '문의하기',

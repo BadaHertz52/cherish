@@ -1,7 +1,6 @@
-import Header from '@/components/common/Header';
 import styles from './style.module.scss';
 import { ItemCard } from '@/components';
-import { useState, useEffect, SetStateAction } from 'react';
+import { useState, useEffect } from 'react';
 import { DrawerScreen } from '@/layouts/DrawerScreen';
 import type { Item } from '@/components/ItemCard';
 
