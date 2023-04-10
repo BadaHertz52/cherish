@@ -9,6 +9,8 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { ToastModalType } from '@/components/Modals/modalTypes';
 import { getToastModalPosition } from '../SignUp/functions';
+import { ResultOfEmailAPI } from '@/components/EmailVerification/types';
+import axios from 'axios';
 
 const FindPw = () => {
   // 이메일 인증 여부
@@ -38,6 +40,23 @@ const FindPw = () => {
       }));
       setOpenToastModal(true);
     }
+  };
+  const sendVerificationEmail = async (): Promise<ResultOfEmailAPI> => {
+    let result: ResultOfEmailAPI = {
+      type: 'success',
+    };
+    // try {
+    //   const response = await axios.post('', { email: email });
+    //   if (response.status === 200) {
+    //     result = { type: 'success' };
+    //   }
+    //   if (response.status === 400) {
+    //     result = { type: 'overSending' };
+    //   }
+    // } catch (error) {
+    //   result = { type: 'serverError' };
+    // }
+    return result;
   };
   const handleClickBtn = () => {
     //change pw
@@ -75,11 +94,11 @@ const FindPw = () => {
               setDisableBtn={setOpenEmailForm}
               email={email}
               setEmail={setEmail}
-              emailDuplicationChecker={false}
               openAuthNumberForm={openAuthNumberForm}
               setOpenAuthNumberForm={setOpenAuthNumberForm}
               toastModalPositionTargetEl={null}
               inFindPw={true}
+              sendVerificationEmail={sendVerificationEmail}
             />
           </>
         ) : (
