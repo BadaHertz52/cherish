@@ -1,11 +1,20 @@
 // toastModal의 top,left 값을 리턴하는 함수
-export const getToastModalPosition = (toastModalPositionTargetEl: HTMLElement) => {
-  const widthOfToastModal = window.innerWidth >= 560 ? 560 * 0.6 : window.innerWidth * 0.6;
-  const domRectOfTarget = toastModalPositionTargetEl.getClientRects()[0];
-  const top = `${domRectOfTarget.top - 39 - 16}px`;
-  const left = `${(window.innerWidth - widthOfToastModal) / 2 - 10}px`;
-  return {
-    top: top,
-    left: left,
-  };
+export const getToastModalPosition = () => {
+  const appEl = document.querySelector('.App');
+  const wrapper = document.querySelector('.wrapper');
+  if (appEl && wrapper) {
+    const widthOfAppEl = appEl.clientWidth;
+    const marginLeft = (window.innerWidth - widthOfAppEl) / 2;
+    //39 : toastModal.height 23: wrapper와의 간격 , 20 :  toast modal의 padding
+    /* 만약 .next-btn 위에 있어야 한다면,
+      const nextBtnEl= document.querySelector("next-btn") as HTMLElement|null;
+      setTostModalState({...
+      top:`${top - nextBtnEl.offsetHeight -16}px`
+    }) 
+  */
+    const top = wrapper.getClientRects()[0].top - 39 - 23 - 20;
+    // widthOfModal =widthOfAppEl*0.6;
+    const left = `${marginLeft}px`;
+    return { top: top, left: left };
+  }
 };
