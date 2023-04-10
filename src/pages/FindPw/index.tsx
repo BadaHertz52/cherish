@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './style.scss';
 import styles from './style.module.scss';
-import { EmailVerification } from '@/components';
+import { EmailVerification, ToastModal } from '@/components';
 import { PasswordForm } from '@/components';
 import { InputDataType, initialInputData } from '../SignUp/signUpTypes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import { ToastModalType } from '@/components/Modals/modalTypes';
+import { getToastModalPosition } from '../SignUp/functions';
 
 const FindPw = () => {
   // 이메일 인증 여부
@@ -17,7 +19,26 @@ const FindPw = () => {
   const [confirmPw, setConfirmPw] = useState<InputDataType>(initialInputData);
   const [disableBtn, setDisableBtn] = useState<boolean>(true);
   const [openToastModal, setOpenToastModal] = useState<boolean>(false);
+  const [toastModalState, setToastModalState] = useState<ToastModalType>({
+    contents: '비밀번호가 변경되었어요. 다시 로그인 해주세요.',
+    top: '0',
+    left: '0',
+  });
+  const btnChangePwRef = useRef<HTMLButtonElement>(null);
   const navigate = useNavigate();
+  const handleToastModal = () => {
+    const position = getToastModalPosition();
+    if (position && btnChangePwRef.current) {
+      const { top, left } = position;
+      const newTop = `${top - btnChangePwRef.current.offsetHeight}px`;
+      setToastModalState(prev => ({
+        ...prev,
+        top: newTop,
+        left: left,
+      }));
+      setOpenToastModal(true);
+    }
+  };
   const handleClickBtn = () => {
     //change pw
     // 서버 연동 후
@@ -70,6 +91,7 @@ const FindPw = () => {
             <div className={`${styles.btnContainer} btn-container`}>
               <button
                 type="button"
+                ref={btnChangePwRef}
                 className={styles.btnChangePw}
                 disabled={disableBtn}
                 onClick={handleClickBtn}
@@ -80,6 +102,9 @@ const FindPw = () => {
           </>
         )}
       </div>
+      {openToastModal && (
+        <ToastModal modalState={toastModalState} closeModal={() => setOpenToastModal(false)} />
+      )}
     </div>
   );
 };
