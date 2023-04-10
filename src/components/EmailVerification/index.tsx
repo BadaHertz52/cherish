@@ -21,9 +21,9 @@ type EmailVerificationProps = {
   setEmail: Dispatch<SetStateAction<InputDataType>>;
   openAuthNumberForm: boolean;
   setOpenAuthNumberForm: Dispatch<SetStateAction<boolean>>;
-  emailDuplicationChecker: boolean; //이메일 중복 검사 진행 여부
   toastModalPositionTargetEl: HTMLElement | null; // toastModal 위치,
   inFindPw?: boolean; // 비밀번호 찾기 페이지에서 사용하는 지 여부
+  sendVerificationEmail: () => Promise<ResultOfEmailAPI>; // 이메일 전송 api 진행
 };
 const EmailVerification = ({
   additionOfLabel,
@@ -32,9 +32,9 @@ const EmailVerification = ({
   setEmail,
   openAuthNumberForm,
   setOpenAuthNumberForm,
-  emailDuplicationChecker,
   toastModalPositionTargetEl,
   inFindPw,
+  sendVerificationEmail,
 }: EmailVerificationProps) => {
   const [openAlertModal, setOpenAlertModal] = useState<boolean>(false);
   const [openToastModal, setOpenToastModal] = useState<boolean>(false);
@@ -44,6 +44,7 @@ const EmailVerification = ({
     left: '0',
   };
   const [toastModalState, setToastModalState] = useState<ToastModalType>(initialToastModalState);
+  const [confirmModalText, setConfirmModalText] = useState<string>();
   const [authNumber, setAuthNumber] = useState<InputDataType>(initialInputData);
   const verifiedEmail = useRef<string | undefined>();
   /**
@@ -53,50 +54,36 @@ const EmailVerification = ({
   const [overTime, setOverTime] = useState<boolean>(false);
 
   const inputEl = document.querySelector('#input-email') as HTMLInputElement | null;
-  /**
-   * 이메일 중복 여부, 서버에 인증 번호를 담은 이메일 요청등을 담당
-   */
-  const checkDuplicateEmail = () => {
-    let result: boolean = false;
-    //[api]이메일 중복 검사
-    return result;
-  };
-  const sendVerificationEmail = () => {
-    let result: boolean = true;
-    // [api] 인증 이메일 보내기
-    return result;
-  };
-
   const onClickEmailBtn = async () => {
-    overTime && setOverTime(false);
-    const overSending: boolean = false;
-    // 1.가능한 이메일 인증 횟수를 충족한 경우
-    if (!overSending) {
-      //A. 백엔드에 이메일  중복 여부 확인
-      let emailDuplicate: boolean = false; // 중복 이메일
-      // 간편가입 시 이메일 중복 검사 진행, 비밀번호 찾기에서는 이메일 중복 검사 진행하지 않음
-      if (emailDuplicationChecker) {
-        emailDuplicate = checkDuplicateEmail();
-        // result 값에 따라 duplicate 값 변경
-      }
-      // A-1 중복 메일인 경우
-      if (emailDuplicate) {
-        setEmail((prev: InputDataType) => {
-          const newState: InputDataType = {
-            ...prev,
-            errorMsg: '이미 회원가입된 이메일이에요.',
-          };
-          return newState;
-        });
-      }
-      // A-2 유효한 메일
-      if (!emailDuplicate) {
-        // a 서버에 이메일 인증 보내기
-        const result = sendVerificationEmail();
-        // 인증 번호 이메일 전송 성공
-        //  a-1 이메일 발송 성공
-        if (result) {
-          // ㄱ. 타이머 작동. 모달 오픈
+    try {
+      const result = await sendVerificationEmail();
+      switch (result.type) {
+        case 'duplicate':
+          setEmail((prev: InputDataType) => {
+            const newState: InputDataType = {
+              ...prev,
+              errorMsg: '이미 회원가입된 이메일이에요.',
+            };
+            return newState;
+          });
+          break;
+        case 'pause':
+          setOpenToastModal(false);
+          setTimeout(() => {
+            setOpenAlertModal(true);
+            setConfirmModalText('5분간 해당 이메일에 대한 인증을 하실 수 없어요.');
+          }, 100);
+        case 'overSending':
+          setOpenToastModal(false);
+          setTimeout(() => {
+            setOpenAlertModal(true);
+            setConfirmModalText('유효한 이메일 인증 횟수를 초과했어요.');
+          }, 100);
+          break;
+        case 'serverError':
+          console.error(result.msg);
+          break;
+        case 'success':
           setOpenTimer(true);
           setOpenToastModal(true);
           setTimeout(() => {
@@ -104,15 +91,11 @@ const EmailVerification = ({
             setOpenToastModal(false);
             setToastModalState(initialToastModalState);
           }, 1000);
-        }
+        default:
+          break;
       }
-    }
-    //  2. 할 수 있는 이메일 인증 횟수를 초과한 경우
-    if (overSending) {
-      setOpenToastModal(false);
-      setTimeout(() => {
-        setOpenAlertModal(true);
-      }, 100);
+    } catch (error) {
+      console.error(error);
     }
   };
   const onChangeAuthNumber = (event: ChangeEvent<HTMLInputElement>) => {
@@ -161,8 +144,8 @@ const EmailVerification = ({
       });
     }
   };
+  //이메일 인증 5분간 중단/ 하루 인증 횟수 초과 시 , 이메일 작성 폼으로 돌아감
   const onClickCloseBtnInAlertModal = () => {
-    //[todo] 이메일 인증 횟수 초과 시 해야하는 것
     setOpenAlertModal(false);
     setOpenAuthNumberForm(false);
   };
@@ -280,7 +263,7 @@ const EmailVerification = ({
       )}
       {openAlertModal && (
         <AlertModal center={true} short={true} closeModal={onClickCloseBtnInAlertModal}>
-          <p>유효한 이메일 인증 횟수를 초과했습니다.</p>
+          <p>{confirmModalText}</p>
         </AlertModal>
       )}
       {openToastModal && toastModalState.contents && (
