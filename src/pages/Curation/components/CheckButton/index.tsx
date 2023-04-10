@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import styles from './style.module.scss';
+import '../../style.scss';
 
 interface CheckBoxProps {
   name: string;
@@ -12,8 +12,8 @@ interface CheckBoxProps {
 
 const CheckBox = ({ name, id, value, label, checked, checkOnlyOne }: CheckBoxProps) => {
   return (
-    <div className={styles.check}>
-      <div className={styles.checkInner}>
+    <div className="check-element">
+      <div className="check-element__inner">
         <input
           type="checkbox"
           name={name}
@@ -22,8 +22,7 @@ const CheckBox = ({ name, id, value, label, checked, checkOnlyOne }: CheckBoxPro
           checked={checked}
           onChange={e => checkOnlyOne(e.target, name)}
         />
-        <label htmlFor={id} className={styles.check}></label>
-        <label htmlFor={id} className={styles.labels}>
+        <label htmlFor={id} className="labels">
           <span>{label}</span>
         </label>
       </div>

@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import styles from './style.module.scss';
+import styles from '../style.scss';
 
 interface RadioButtonProps {
   id: string;
@@ -11,10 +11,10 @@ interface RadioButtonProps {
 
 const RadioButton = ({ id, name, label, checked, hanleChangeValue }: RadioButtonProps) => {
   return (
-    <div className={styles.radio}>
-      <div className={styles.radioInner}>
+    <div className="check-element">
+      <div className="checkElementInner">
         <input type="radio" id={id} name={name} checked={checked} onChange={hanleChangeValue} />
-        <label htmlFor={id} className={styles.labels}>
+        <label htmlFor={id} className="labels">
           {label}
         </label>
       </div>

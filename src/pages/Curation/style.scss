@@ -1,14 +1,18 @@
-@import '../../../../assets/styles/common.scss';
-.radio {
+@import '../../assets/styles/common.scss';
+
+.check-element {
   position: relative;
   display: flex;
   align-items: center;
-  &Inner {
+  &__inner {
     // 상황에 맞게 조정가능
     display: flex;
     align-items: center;
   }
   input[type='radio'] {
+    display: none;
+  }
+  input[type='checkbox'] {
     display: none;
   }
   label {
@@ -18,15 +22,15 @@
   label.labels:before {
     font-family: 'Font Awesome 5 free';
     display: inline-block;
-    content: url('../../../../assets/icons/disabled-check.svg');
+    content: url('../../assets/svgs/disabled-check.svg');
     color: $color-light-black;
-    font-size: 20px;
     padding-right: 10px;
+    width: 22px;
+    height: 22px;
   }
 
   input:checked + label.labels:before {
-    content: url('../../../../assets/icons/enabled-check.svg');
-    font-size: 20px;
+    content: url('../../assets/svgs/enabled-check.svg');
     color: $color-primary;
   }
 
