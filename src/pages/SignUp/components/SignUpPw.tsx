@@ -1,11 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
-import { SignUpContext } from '@/pages/SignUp';
-import { getToastModalPosition } from '../functions';
-import { getPrevData } from './SignUpTopBar';
-import { InputDataType, SignUpStateType, initialInputData } from '../signUpTypes';
-import StepInner from './StepInner';
+
 import { PasswordForm, ToastModal } from '@/components';
 import { ToastModalType } from '@/components/Modals/modalTypes';
+import { SignUpContext } from '@/pages/SignUp';
+
+import { getToastModalPosition } from '../functions';
+import { InputDataType, SignUpStateType, initialInputData } from '../signUpTypes';
+
+import { getPrevData } from './SignUpTopBar';
+import StepInner from './StepInner';
 
 const SignUpPw = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
@@ -39,12 +42,13 @@ const SignUpPw = () => {
         errorMsg: null,
       });
     }
+    const position = getToastModalPosition();
     const nextBtnEl = document.querySelector('.next-btn') as HTMLElement | null;
-    if (nextBtnEl) {
-      const { top, left } = getToastModalPosition(nextBtnEl);
+    if (position && nextBtnEl) {
+      const { top, left } = position;
       setToastModalState(prev => ({
         ...prev,
-        top: top,
+        top: `${top - nextBtnEl.offsetHeight - 16}px`,
         left: left,
       }));
     }
