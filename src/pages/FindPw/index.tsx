@@ -43,6 +43,7 @@ const FindPw = () => {
     //change pw
     // 서버 연동 후
     //open toast modal
+    handleToastModal();
     setTimeout(() => {
       navigate('/login');
     }, 2100);
