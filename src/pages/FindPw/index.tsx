@@ -64,25 +64,31 @@ const FindPw = () => {
         <h2>비밀번호 찾기</h2>
       </div>
       <div className={styles.inner}>
-        <h3>
-          <p>회원님의 비밀번호를 찾을 수 있도록</p>
-          <p>가입하신 이메일을 입력해 주세요.</p>
-        </h3>
         {openEmailForm ? (
-          <EmailVerification
-            additionOfLabel="가입하신"
-            setDisableBtn={setOpenEmailForm}
-            email={email}
-            setEmail={setEmail}
-            emailDuplicationChecker={false}
-            openAuthNumberForm={openAuthNumberForm}
-            setOpenAuthNumberForm={setOpenAuthNumberForm}
-            toastModalPositionTargetEl={null}
-            inFindPw={true}
-          />
+          <>
+            <h3>
+              <p>회원님의 비밀번호를 찾을 수 있도록</p>
+              <p>가입하신 이메일을 입력해 주세요.</p>
+            </h3>
+            <EmailVerification
+              additionOfLabel="가입하신"
+              setDisableBtn={setOpenEmailForm}
+              email={email}
+              setEmail={setEmail}
+              emailDuplicationChecker={false}
+              openAuthNumberForm={openAuthNumberForm}
+              setOpenAuthNumberForm={setOpenAuthNumberForm}
+              toastModalPositionTargetEl={null}
+              inFindPw={true}
+            />
+          </>
         ) : (
           <>
+            <h3>
+              <p>비밀번호 재설정</p>
+            </h3>
             <PasswordForm
+              additionOfLabel="신규"
               confirmPw={confirmPw}
               setConfirmPw={setConfirmPw}
               pw={pw}
