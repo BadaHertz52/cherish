@@ -77,7 +77,6 @@ const FindPw = () => {
             setDisableBtn={setOpenEmailForm}
             email={email}
             setEmail={setEmail}
-            emailDuplicationChecker={false}
             openAuthNumberForm={openAuthNumberForm}
             setOpenAuthNumberForm={setOpenAuthNumberForm}
             toastModalPositionTargetEl={null}

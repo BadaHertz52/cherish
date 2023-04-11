@@ -1,4 +1,5 @@
 import React, { ReactNode, useEffect } from 'react';
+
 import ModalPortal from '../ModalPortal';
 import './style.scss';
 type AlertModalProps = {
