@@ -8,6 +8,7 @@ import { NoticePage } from '../Notice';
 import { TermsOfServicePage } from '../TermsOfService';
 import ConfirmModal from '@/components/Modals/ConfirmModal';
 import { WithdrawalPage } from '../Withdrawal';
+import { DrawerScreen } from '@/layouts/DrawerScreen';
 
 export type MenuProps = {
   title: string;
@@ -24,7 +25,11 @@ const Menu = ({ title, handleClick, emphasized }: MenuProps) => {
   );
 };
 
-const MyPage = () => {
+export type MyPageProps = {
+  handleBackButton: () => void;
+};
+
+const MyPage = ({ handleBackButton: handleCloseMyPage }: MyPageProps) => {
   const noticeMenus = [
     {
       title: '공지사항',
@@ -83,9 +88,8 @@ const MyPage = () => {
   }, []);
 
   return (
-    <>
+    <DrawerScreen title="마이페이지" handleBackButton={handleCloseMyPage} padding={false}>
       <div className={styles.myPage}>
-        <Header title="마이페이지" handleBackButton={() => {}} />
         <section>
           <h2>닉네임님 안녕하세요!</h2>
           <div className={styles.tags}>
@@ -133,9 +137,9 @@ const MyPage = () => {
             <div>로그아웃 하시겠어요?</div>
           </ConfirmModal>
         )}
+        {currentScreen}
       </div>
-      {currentScreen}
-    </>
+    </DrawerScreen>
   );
 };
 

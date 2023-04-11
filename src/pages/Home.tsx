@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import '../assets/styles/Home.scss';
 import { ItemCard } from '../components';
 import type { Item } from '../components/ItemCard';
+import MyPage from './My';
 
 interface Category {
   title: string;
@@ -96,13 +98,20 @@ const categoryList: Array<Category> = [
 ];
 
 const Home = () => {
+  const [showMyPage, setShowMyPage] = useState(false);
+
+  const handleShowMyPage = () => {
+    // TODO: 로그인 전 상태에서는 로그인 페이지로 이동
+    setShowMyPage(true);
+  };
+
   return (
     <>
       <div className="header">
         <div className="logo-text">Cherishu</div>
         <div className="icons">
           <img src="/icons/search.png" width="14px" />
-          <img src="/icons/profile.png" width="14px" />
+          <img src="/icons/profile.png" width="14px" onClick={handleShowMyPage} />
         </div>
       </div>
       <div className="main-image"></div>
@@ -126,6 +135,7 @@ const Home = () => {
           </div>
         ))}
       </div>
+      {showMyPage && <MyPage handleBackButton={() => setShowMyPage(false)} />}
     </>
   );
 };
