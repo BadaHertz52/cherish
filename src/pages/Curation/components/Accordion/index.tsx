@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect, useMemo, memo } from 'react';
 import styles from './style.module.scss';
 import DownArrow from '@/assets/svgs/down-arrow.svg';
 import ActiveUpArrow from '@/assets/svgs/active-up-arrow.svg';
-import PresentLoader from '@/assets/svgs/present-loader.svg';
+import PresentLoader from '@/assets/icons/present-loader.png';
 import CheckBox from '../CheckButton';
 import RadioButton from '../RadioButton';
 import PriceSlider from '../PriceSlider';
@@ -864,7 +864,6 @@ const Accordion = () => {
       return;
     }
     setLoader(true);
-    console.log('loading...');
     try {
       //넘길 값
       let optionalValuesObj = {
@@ -966,16 +965,16 @@ const Accordion = () => {
           선물 추천받기
         </button>
       </div>
-      {loader && (
+      {
         <div className={styles.accordionLoader}>
-          <PresentLoader />
+          <img src={PresentLoader} alt="present-loader" className={styles.accordionLoaderIcon} />
           <p className={styles.accordionLoaderText}>
             소중한 당신을 위해
             <br />
             선물을 고르고 있어요.
           </p>
         </div>
-      )}
+      }
     </div>
   );
 };

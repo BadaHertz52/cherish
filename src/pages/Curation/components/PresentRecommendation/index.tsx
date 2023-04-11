@@ -3,7 +3,7 @@ import BackIcon from '@/assets/svgs/back-button.svg';
 import SearchIcon from '@/assets/svgs/search.svg';
 import MyPageIcon from '@/assets/svgs/mypage.svg';
 
-const PresentReccomendation = () => {
+const PresentRecommendation = () => {
   const handleGoBack = () => {
     location.href = '/curation';
   };
@@ -27,4 +27,4 @@ const PresentReccomendation = () => {
   );
 };
 
-export default PresentReccomendation;
+export default PresentRecommendation;
