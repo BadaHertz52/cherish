@@ -1,7 +1,11 @@
+import { Dispatch, SetStateAction, useContext } from 'react';
+
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Dispatch, SetStateAction, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { SignUpContext } from '@/pages/SignUp';
+
 import {
   BirthStateType,
   GenderStateType,
@@ -12,7 +16,7 @@ import {
   SessionDataType,
   SignUpStateType,
 } from '../signUpTypes';
-import { useNavigate } from 'react-router-dom';
+
 /**
  *  sessionStorage에 target에 대한 정보가 있을 경우, setState로 target에 대한 상태를 업데이트한다.
  * @param target
@@ -87,7 +91,7 @@ const SignUpTopBar = ({ openAuthNumberForm, setOpenAuthNumberForm }: SignUpTopBa
       }
     }
     if (signUpState.progress === 'genderAndBirth') {
-      let backUpData: SessionDataType[] = [];
+      const backUpData: SessionDataType[] = [];
       //gender
       const targetBtnEl = document.querySelector('.btn-gender.on') as HTMLButtonElement | null;
       if (targetBtnEl) {
@@ -131,11 +135,7 @@ const SignUpTopBar = ({ openAuthNumberForm, setOpenAuthNumberForm }: SignUpTopBa
     if (signUpState.progress === 'email' && openAuthNumberForm) {
       setOpenAuthNumberForm(false);
     }
-    if (
-      signUpState.progress !== 'agreeToTerms' &&
-      signUpState.progress === 'email' &&
-      !openAuthNumberForm
-    ) {
+    if (signUpState.progress !== 'agreeToTerms') {
       // 현재 페이지 작성 내용 저장
       saveData();
       //이전 단계로 이동
