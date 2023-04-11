@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect, useMemo, memo } from 'react';
 import styles from './style.module.scss';
 import DownArrow from '@/assets/svgs/down-arrow.svg';
 import ActiveUpArrow from '@/assets/svgs/active-up-arrow.svg';
+import PresentLoader from '@/assets/svgs/present-loader.svg';
 import CheckBox from '../CheckButton';
 import RadioButton from '../RadioButton';
 import PriceSlider from '../PriceSlider';
@@ -28,6 +29,7 @@ const Accordion = () => {
 
   const [showFirstAccordion, setShowFirstAccordion] = useState<boolean>(false);
   const [showSecondAccordion, setShowSecondAccordion] = useState<boolean>(true);
+  const [loader, setLoader] = useState(false);
 
   //해당 3가지 상태값들을 GET API가 완료 되는대로 제거 예정
   const [optionalPersonCheckedValue, setOptionalPersonCheckedValue] =
@@ -851,6 +853,7 @@ const Accordion = () => {
   //TODO : POST API (선물 추천받기)
   const getRecommendedPresents = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
+
     if (
       personCheckedValue === '' ||
       purposeCheckedValue === '' ||
@@ -860,7 +863,8 @@ const Accordion = () => {
       alert('필수 항목들을 선택해 주세요.');
       return;
     }
-
+    setLoader(true);
+    console.log('loading...');
     try {
       //넘길 값
       let optionalValuesObj = {
@@ -878,7 +882,12 @@ const Accordion = () => {
         productType: checkedList,
         emotion: emotionsCheckedValue,
       };
-      // console.log(optionalValuesObj, valuesObj);
+
+      setTimeout(() => {
+        setLoader(false);
+        console.log(optionalValuesObj, valuesObj);
+      }, 3000);
+
       //성공 시 초기화
       handleResetValues();
     } catch (err) {
@@ -954,6 +963,16 @@ const Accordion = () => {
           선물 추천받기
         </button>
       </div>
+      {loader && (
+        <div className={styles.accordionLoader}>
+          <PresentLoader />
+          <p className={styles.accordionLoaderText}>
+            소중한 당신을 위해
+            <br />
+            선물을 고르고 있어요.
+          </p>
+        </div>
+      )}
     </div>
   );
 };
