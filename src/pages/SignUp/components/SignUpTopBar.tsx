@@ -129,13 +129,14 @@ const SignUpTopBar = ({ openAuthNumberForm, setOpenAuthNumberForm }: SignUpTopBa
     }
   };
   const onClickPrevBtn = () => {
+    const conditionToCloseAuthNumberForm = signUpState.progress === 'email' && openAuthNumberForm;
     if (signUpState.progress === 'agreeToTerms') {
       navigate('/login');
     }
-    if (signUpState.progress === 'email' && openAuthNumberForm) {
+    if (conditionToCloseAuthNumberForm) {
       setOpenAuthNumberForm(false);
     }
-    if (signUpState.progress !== 'agreeToTerms') {
+    if (signUpState.progress !== 'agreeToTerms' && !conditionToCloseAuthNumberForm) {
       // 현재 페이지 작성 내용 저장
       saveData();
       //이전 단계로 이동
