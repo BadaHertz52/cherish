@@ -2,7 +2,7 @@
 export const getToastModalPosition = () => {
   const appEl = document.querySelector('.App');
   const wrapper = document.querySelector('.wrapper');
-  if (appEl && wrapper) {
+  if (appEl) {
     const widthOfAppEl = appEl.clientWidth;
     const marginLeft = (window.innerWidth - widthOfAppEl) / 2;
     //39 : toastModal.height 23: wrapper와의 간격 , 20 :  toast modal의 padding
@@ -12,7 +12,7 @@ export const getToastModalPosition = () => {
       top:`${top - nextBtnEl.offsetHeight -16}px`
     }) 
   */
-    const top = wrapper.getClientRects()[0].top - 39 - 23 - 20;
+    const top = wrapper ? wrapper.getClientRects()[0].top - 39 - 23 - 20 : window.innerHeight - 80;
     // widthOfModal =widthOfAppEl*0.6;
     const left = `${marginLeft}px`;
     return { top: top, left: left };
