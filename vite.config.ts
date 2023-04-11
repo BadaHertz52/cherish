@@ -21,4 +21,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src'),
     },
   },
+  define: {
+    'process.env.REACT_APP_SERVER_API_URL': `"${process.env.REACT_APP_SERVER_API_URL}"`,
+  },
 });
