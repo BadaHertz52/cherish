@@ -25,10 +25,7 @@ button {
     @include btn-disabled-style;
   }
 }
-button,
-input {
-  height: 48px;
-}
+
 .next-btn {
   display: flex;
   justify-content: center;
