@@ -50,13 +50,9 @@ const ModalTest = () => {
   const [alertModalChildren, setAlertModalChildren] = useState<string>('alert01');
   const confirmYesBtn: ConfirmModalBtnType = {
     text: 'yes',
-    path: null,
-    otherFn: null,
   };
   const confirmNoBtn: ConfirmModalBtnType = {
     text: 'no',
-    path: null,
-    otherFn: null,
   };
 
   //사용자가 선택한 필터링 조건

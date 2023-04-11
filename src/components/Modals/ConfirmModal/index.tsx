@@ -3,21 +3,21 @@ import ModalPortal from '../ModalPortal';
 import { ConfirmModalBtnType } from '@/components/Modals/modalTypes';
 import './style.scss';
 export type ConfirmModalProps = {
-  title: string;
+  title?: string;
   children: ReactNode;
-  yesBtn: ConfirmModalBtnType;
-  noBtn: ConfirmModalBtnType;
+  yesBtn?: ConfirmModalBtnType;
+  noBtn?: ConfirmModalBtnType;
   closeModal: () => void;
 };
 const ConfirmModal = ({ title, children, yesBtn, noBtn, closeModal }: ConfirmModalProps) => {
   const onClickYesBtn = () => {
-    if (yesBtn.otherFn !== null) {
-      yesBtn.otherFn();
+    if (yesBtn?.otherFn) {
+      yesBtn?.otherFn();
     }
     closeModal();
   };
   const onClickNoBtn = () => {
-    if (noBtn.otherFn !== null) {
+    if (noBtn?.otherFn) {
       noBtn.otherFn();
     }
     closeModal();
@@ -28,14 +28,14 @@ const ConfirmModal = ({ title, children, yesBtn, noBtn, closeModal }: ConfirmMod
   }, []);
   return (
     <ModalPortal>
-      {title !== null && <h2 className="confirm-modal__title">{title}</h2>}
+      {title && <h2 className="confirm-modal__title">{title}</h2>}
       <section className="confirm-modal__contents">{children}</section>
       <section className="confirm-modal__btn-group">
         <button type="button" className="btn-yes" onClick={onClickYesBtn}>
-          {yesBtn?.text}
+          {yesBtn?.text || '확인'}
         </button>
         <button type="button" className="btn-no" onClick={onClickNoBtn}>
-          {noBtn?.text}
+          {noBtn?.text || '취소'}
         </button>
       </section>
     </ModalPortal>
