@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import Fourth from './pages/Fourth';
 // import ModalTest from './components/modals/ModalTest';
+import { BottomNav } from './components';
 import Home from './pages/Home';
 import LogIn from './pages/LogIn';
 import Curation from './pages/Curation';
@@ -26,6 +27,7 @@ function App() {
         <Route path="login" element={<LogIn />} />
         <Route path="signup" element={<SignUp />} />
       </Routes>
+      <BottomNav />
     </div>
   );
 }

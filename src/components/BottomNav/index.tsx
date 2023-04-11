@@ -41,7 +41,7 @@ const BottomNav = () => {
 
   return (
     /* 하단 네비게이션 최상위 태그 */
-    <nav className={hide ? 'wrapper-hidden' : 'wrapper'}>
+    <nav className={hide ? 'wrapper_hidden' : 'wrapper'}>
       {/* 네비게이션을 구성하고 있는 하나의 버튼 */}
       {tags.map(tag => (
         <Link
