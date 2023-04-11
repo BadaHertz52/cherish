@@ -6,6 +6,7 @@ import AlertModal from '@/components/Modals/AlertModal';
 import { RecentlyViewProductPage } from '../RecentlyViewProduct';
 import { NoticePage } from '../Notice';
 import { TermsOfServicePage } from '../TermsOfService';
+import ConfirmModal from '@/components/Modals/ConfirmModal';
 
 export type MenuProps = {
   title: string;
@@ -55,7 +56,7 @@ const MyPage = () => {
     },
     {
       title: '로그아웃',
-      handleClick: () => {},
+      handleClick: () => setShowLogOutModal(true),
     },
     {
       title: '회원탈퇴',
@@ -65,10 +66,15 @@ const MyPage = () => {
 
   const [tags, setTags] = useState<string[]>([]);
   const [showInquiry, setShowInquiry] = useState(false);
+  const [showLogOutModal, setShowLogOutModal] = useState(false);
   const [currentScreen, setCurrentScreen] = useState<JSX.Element | null>(null);
 
   const handleBackButton = () => {
     setCurrentScreen(null);
+  };
+
+  const handleLogout = () => {
+    // TODO: 로그아웃 API 연결
   };
 
   useEffect(() => {
@@ -116,6 +122,15 @@ const MyPage = () => {
           <AlertModal center short={false} closeModal={() => setShowInquiry(false)}>
             <div className={styles.inquiry}>1111@naver.com으로 문의해 주세요.</div>
           </AlertModal>
+        )}
+        {showLogOutModal && (
+          <ConfirmModal
+            yesBtn={{ otherFn: handleLogout, text: '네' }}
+            noBtn={{ text: '아니오' }}
+            closeModal={() => setShowLogOutModal(false)}
+          >
+            <div>로그아웃 하시겠어요?</div>
+          </ConfirmModal>
         )}
       </div>
       {currentScreen}
