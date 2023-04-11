@@ -30,3 +30,18 @@
     }
   }
 }
+
+.noticeModalTitle {
+  @include bd2-font;
+  color: #121212;
+}
+
+.noticeModalDate {
+  @include bd3-font;
+  color: #121212;
+  margin-bottom: 20px;
+}
+
+.noticeModalContent {
+  margin-bottom: 30px;
+}
