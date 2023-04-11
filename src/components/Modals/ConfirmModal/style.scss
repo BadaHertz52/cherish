@@ -6,7 +6,7 @@
   .modal__box {
     @include modal-box;
     width: 77%;
-    max-width: calc(560px * 0.6);
+    max-width: calc($app-max-width * 0.6);
   }
   .modal__inner {
     @include modal-inner;
