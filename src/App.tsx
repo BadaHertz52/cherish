@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import Curation from './pages/Curation';
 import Fourth from './pages/Fourth';
-// import ModalTest from './components/modals/ModalTest';
+// import ModalTest from './example/modalTest';
 import Home from './pages/Home';
 import LogIn from './pages/LogIn';
 import SignUp from './pages/SignUp';
