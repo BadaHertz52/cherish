@@ -97,7 +97,6 @@ const EmailVerification = ({
           setTimeout(() => {
             setOpenAuthNumberForm(true);
             setOpenToastModal(false);
-            setToastModalState(initialToastModalState);
           }, 1000);
         default:
           break;
@@ -165,8 +164,9 @@ const EmailVerification = ({
       const { top, left } = position;
       if (openAuthNumberForm) {
         // 비밀번호 찾기 페이지에서는 toastModalPositionTargetEl === null
+
         const newTop = toastModalPositionTargetEl
-          ? top - toastModalPositionTargetEl.offsetHeight - 16
+          ? toastModalPositionTargetEl.getClientRects()[0].top - 39 - 16
           : top;
         const modalForPass: ToastModalType = {
           contents: '인증되었습니다.',
@@ -177,7 +177,6 @@ const EmailVerification = ({
       } else {
         const modalForSendingEmail: ToastModalType = {
           contents: '인증 이메일을 발송했어요.',
-
           top: `${top}px`,
           left: left,
         };
@@ -196,7 +195,11 @@ const EmailVerification = ({
   }, [overTime]);
 
   useEffect(() => {
-    changeToastModalState();
+    if (openToastModal) {
+      changeToastModalState();
+    } else {
+      setToastModalState(initialToastModalState);
+    }
   }, [openToastModal]);
   return (
     <div className="email-verification">

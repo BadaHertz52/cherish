@@ -12,7 +12,8 @@ export const getToastModalPosition = () => {
       top:`${top - nextBtnEl.offsetHeight -16}px`
     }) 
   */
-    const top = wrapper ? wrapper.getClientRects()[0].top - 39 - 23 - 20 : window.innerHeight - 80;
+    const startPoint = wrapper ? wrapper.getClientRects()[0].top : window.innerHeight - 80;
+    const top = startPoint - 39 - 23 - 20;
     // widthOfModal =widthOfAppEl*0.6;
     const left = `${marginLeft}px`;
     return { top: top, left: left };
