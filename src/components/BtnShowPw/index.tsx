@@ -1,7 +1,9 @@
+import React, { Dispatch, SetStateAction } from 'react';
+
 import { faEye } from '@fortawesome/free-regular-svg-icons';
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { Dispatch, SetStateAction } from 'react';
+
 import './style.scss';
 type BtnShowPwProps = {
   hiddenPw: boolean;

@@ -1,8 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
-import { SignUpContext } from '@/pages/SignUp';
+
 import { InputForm } from '@/components';
-import { getPrevData } from './SignUpTopBar';
+import { SignUpContext } from '@/pages/SignUp';
+
 import { initialInputData, InputDataType, SignUpStateType } from '../signUpTypes';
+
+import { getPrevData } from './SignUpTopBar';
 import StepInner from './StepInner';
 
 const NameAndNickName = () => {

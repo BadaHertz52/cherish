@@ -3,7 +3,6 @@ import React, { ReactNode, useEffect } from 'react';
 import { ConfirmModalBtnType } from '@/components/Modals/modalTypes';
 
 import ModalPortal from '../ModalPortal';
-
 import './style.scss';
 export type ConfirmModalProps = {
   title: string;

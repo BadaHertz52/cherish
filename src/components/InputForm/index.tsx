@@ -17,6 +17,7 @@ type InputFormProps = {
   data: InputDataType;
   setData: Dispatch<SetStateAction<InputDataType>>;
   additionOfLabel?: string;
+  disabled?: boolean;
 };
 /**
  *
@@ -25,15 +26,15 @@ type InputFormProps = {
  * @param setData: input의 change event 시 해당 event의 value에 따라 data의 상태를 변경
  * @returns
  */
-const InputForm = ({ id, data, setData, additionOfLabel }: InputFormProps) => {
+const InputForm = ({ id, data, setData, additionOfLabel, disabled }: InputFormProps) => {
   const [hiddenPw, setHiddenPw] = useState<boolean>(true);
   // ⚠️InputFormIdType 과 placeholder, label 의 property명은 동일 해야함
   const PLACE_HOLDER = {
     name: '이름을 입력해주세요.',
     nickName: '닉네임을 입력해주세요.',
     email: '이메일을 입력해주세요.',
-    pw: '8-12자 영문+숫자+툭수문자(!,@,^).',
-    confirmPw: '비밀번호 확인',
+    pw: '비밀번호를 입력해주세요',
+    confirmPw: '비밀번호을 다시 입력해주세요.',
   };
   const LABEL = {
     name: '이름을 입력해주세요.',
@@ -116,6 +117,7 @@ const InputForm = ({ id, data, setData, additionOfLabel }: InputFormProps) => {
         name={`data-${id}`}
         placeholder={PLACE_HOLDER[id]}
         value={data.value}
+        disabled={disabled}
         onChange={event => handleChange(event)}
         onBlur={handleBlur}
       />
@@ -127,10 +129,13 @@ const InputForm = ({ id, data, setData, additionOfLabel }: InputFormProps) => {
           </div>
         </>
       )}
-      <div className={`error-msg ${id === 'email' && data.value ? 'email' : ''}`}>
-        {id === 'email' &&
-          (data.value === '' ? `'@'을 포함하여 작성해주세요.` : data.errorMsg ? data.errorMsg : '')}
-        {id !== 'email' && (data.errorMsg ? data.errorMsg : '')}
+      <div className="error-msg">
+        {data.errorMsg ? (
+          <p>{data.errorMsg}</p>
+        ) : (
+          id === 'email' &&
+          !data.value && <p className="info-email-form">'@'을 포함하여 작성해주세요.</p>
+        )}
       </div>
     </div>
   );
