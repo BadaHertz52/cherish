@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 
+import { BottomNav } from './components';
 import Curation from './pages/Curation';
 import FindPw from './pages/FindPw';
 import Fourth from './pages/Fourth';
@@ -26,6 +27,7 @@ function App() {
         <Route path="signup" element={<SignUp />} />
         <Route path="findpw" element={<FindPw />} />
       </Routes>
+      <BottomNav />
     </div>
   );
 }
