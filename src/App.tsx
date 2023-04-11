@@ -13,6 +13,7 @@ import SearchPage from './pages/Search';
 import React from 'react';
 import LogIn from './pages/LogIn';
 import Curation from './pages/Curation';
+import PresentReccomendation from './pages/Curation/components/PresentRecommendation';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/" element={<Home />} />
         {/* <Route path="/first" element={<First />} /> */}
         <Route path="/curation" element={<Curation />} />
+        <Route path="/curation/present/recommendation" element={<PresentReccomendation />} />
         <Route path="/third" element={<Third />} />
         <Route path="/fourth" element={<Fourth />} />
         {/* modal 테스트를 위해 route 추가 , 추후 삭제 예정*/}

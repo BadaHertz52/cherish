@@ -781,7 +781,7 @@ const Accordion = () => {
         name: 'emotions',
         id: 'respect',
         value: 'respect',
-        label: '식품',
+        label: '존경',
         checked: emotionsCheckedValue === 'respect',
         checkOnlyOne: checkOnlyOne,
       },
@@ -883,10 +883,13 @@ const Accordion = () => {
         emotion: emotionsCheckedValue,
       };
 
+      //res.json이 200일 때 처리로 변경 필요.
+      //현재는 단순 로직 보여주기 위해 타임아웃을 걸었음
       setTimeout(() => {
         setLoader(false);
         console.log(optionalValuesObj, valuesObj);
-      }, 3000);
+        location.href = '/curation/present/recommendation';
+      }, 5000);
 
       //성공 시 초기화
       handleResetValues();
