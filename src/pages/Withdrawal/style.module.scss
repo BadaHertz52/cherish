@@ -1,0 +1,42 @@
+@import '@/assets/styles/common.scss';
+
+.withdrawalPage {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  > h2 {
+    @include h2-font;
+    margin-bottom: 40px;
+  }
+
+  > ul {
+    > li {
+      @include bd1-font;
+      margin-bottom: 25px;
+    }
+  }
+
+  > label {
+    @include bd1-font;
+    display: flex;
+    align-items: center;
+
+    > input {
+      margin-right: 10px;
+    }
+  }
+
+  .warning {
+    @include bd3-font;
+    color: #ff3939;
+  }
+
+  > button {
+    // TODO: Bottom Nav Bar 수정 이후 스타일 조정 필요
+    @include h3-font;
+    height: 48px;
+    margin-top: auto;
+    margin-bottom: 80px;
+  }
+}

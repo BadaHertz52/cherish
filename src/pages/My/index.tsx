@@ -7,6 +7,7 @@ import { RecentlyViewProductPage } from '../RecentlyViewProduct';
 import { NoticePage } from '../Notice';
 import { TermsOfServicePage } from '../TermsOfService';
 import ConfirmModal from '@/components/Modals/ConfirmModal';
+import { WithdrawalPage } from '../Withdrawal';
 
 export type MenuProps = {
   title: string;
@@ -60,7 +61,7 @@ const MyPage = () => {
     },
     {
       title: '회원탈퇴',
-      handleClick: () => {},
+      handleClick: () => setCurrentScreen(<WithdrawalPage handleBackButton={handleBackButton} />),
     },
   ];
 
