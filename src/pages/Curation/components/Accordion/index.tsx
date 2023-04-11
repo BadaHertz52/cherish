@@ -965,7 +965,7 @@ const Accordion = () => {
           선물 추천받기
         </button>
       </div>
-      {
+      {loader && (
         <div className={styles.accordionLoader}>
           <img src={PresentLoader} alt="present-loader" className={styles.accordionLoaderIcon} />
           <p className={styles.accordionLoaderText}>
@@ -974,7 +974,7 @@ const Accordion = () => {
             선물을 고르고 있어요.
           </p>
         </div>
-      }
+      )}
     </div>
   );
 };
