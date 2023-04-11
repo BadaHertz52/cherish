@@ -381,7 +381,7 @@ const Accordion = () => {
     let body = null;
     body = (
       <div className={styles.accordionContainerContent}>
-        <p className={styles.accordionContainerContentTitle}>성별</p>
+        <p className={styles.accordionContainerContentTitle}>성별 *</p>
         <div className={styles.accordionContainerContentRadio}>
           {persons.map((person: RadioButton) => {
             return (
@@ -405,7 +405,7 @@ const Accordion = () => {
     let body = null;
     body = (
       <div className={styles.accordionContainerContent}>
-        <p className={styles.accordionContainerContentTitle}>나이</p>
+        <p className={styles.accordionContainerContentTitle}>나이 *</p>
         <input
           type="text"
           placeholder="나이를 입력해 주세요."
@@ -601,7 +601,7 @@ const Accordion = () => {
     let body = null;
     body = (
       <div className={styles.accordionContainerContent}>
-        <p className={styles.accordionContainerContentTitle}>선물 목적</p>
+        <p className={styles.accordionContainerContentTitle}>선물 목적 *</p>
         <div className={styles.accordionContainerContentCheck}>
           {purposes.map((purpose: RadioButton) => {
             return (
@@ -673,7 +673,7 @@ const Accordion = () => {
     let body = null;
     body = (
       <div className={styles.accordionContainerContent}>
-        <p className={styles.accordionContainerContentTitle}>나와의 관계</p>
+        <p className={styles.accordionContainerContentTitle}>나와의 관계 *</p>
         <div className={styles.accordionContainerContentCheck}>
           {relationships.map((relationship: RadioButton) => {
             return (
