@@ -1,7 +1,11 @@
+import { Dispatch, SetStateAction, useContext } from 'react';
+
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Dispatch, SetStateAction, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { SignUpContext } from '@/pages/SignUp';
+
 import {
   BirthStateType,
   GenderStateType,
@@ -12,6 +16,7 @@ import {
   SessionDataType,
   SignUpStateType,
 } from '../signUpTypes';
+
 /**
  *  sessionStorage에 target에 대한 정보가 있을 경우, setState로 target에 대한 상태를 업데이트한다.
  * @param target
@@ -55,8 +60,13 @@ export const getPrevData = (
     }
   }
 };
-const SignUpTopBar = () => {
+type SignUpTopBarProps = {
+  openAuthNumberForm: boolean;
+  setOpenAuthNumberForm: Dispatch<SetStateAction<boolean>>;
+};
+const SignUpTopBar = ({ openAuthNumberForm, setOpenAuthNumberForm }: SignUpTopBarProps) => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
+  const navigate = useNavigate();
   const setItem = (item: SessionDataType[]) => {
     sessionStorage.setItem('signUpBackUpData', JSON.stringify(item));
   };
@@ -81,7 +91,7 @@ const SignUpTopBar = () => {
       }
     }
     if (signUpState.progress === 'genderAndBirth') {
-      let backUpData: SessionDataType[] = [];
+      const backUpData: SessionDataType[] = [];
       //gender
       const targetBtnEl = document.querySelector('.btn-gender.on') as HTMLButtonElement | null;
       if (targetBtnEl) {
@@ -119,20 +129,22 @@ const SignUpTopBar = () => {
     }
   };
   const onClickPrevBtn = () => {
-    if (signUpState.progress !== 'agreeToTerms') {
+    const conditionToCloseAuthNumberForm = signUpState.progress === 'email' && openAuthNumberForm;
+    if (signUpState.progress === 'agreeToTerms') {
+      navigate('/login');
+    }
+    if (conditionToCloseAuthNumberForm) {
+      setOpenAuthNumberForm(false);
+    }
+    if (signUpState.progress !== 'agreeToTerms' && !conditionToCloseAuthNumberForm) {
       // 현재 페이지 작성 내용 저장
       saveData();
       //이전 단계로 이동
       const currentStepIndex = progressArr.indexOf(signUpState.progress);
-      setSignUpState((prevState: SignUpStateType) => {
-        const newState: SignUpStateType = {
-          ...prevState,
-          progress: progressArr[currentStepIndex - 1],
-        };
-        return newState;
-      });
-    } else {
-      // 간편 가입 이전 페이지 이동
+      setSignUpState((prevState: SignUpStateType) => ({
+        ...prevState,
+        progress: progressArr[currentStepIndex - 1],
+      }));
     }
   };
   return (

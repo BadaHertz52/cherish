@@ -1,6 +1,8 @@
 import { Dispatch, SetStateAction, useEffect } from 'react';
-import InputForm from '../InputForm/index';
+
 import { ERROR_MSG, InputDataType } from '@/pages/SignUp/signUpTypes';
+
+import InputForm from '../InputForm/index';
 import './style.scss';
 type PasswordFormProps = {
   additionOfLabel?: string; //InputForm의 additionOfLabel
