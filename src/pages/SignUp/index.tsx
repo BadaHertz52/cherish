@@ -1,5 +1,5 @@
 import React, { createContext, Dispatch, SetStateAction, useState } from 'react';
-import { SignUpStateType } from './signUpTypes';
+
 import {
   SignUpTopBar,
   ProgressBar,
@@ -11,6 +11,7 @@ import {
   JobInfo,
 } from './components';
 import './style.scss';
+import { SignUpStateType } from './signUpTypes';
 
 export const initialSignUpState: SignUpStateType = {
   progress: 'agreeToTerms',

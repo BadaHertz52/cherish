@@ -1,11 +1,16 @@
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
+
+import axios, { AxiosError } from 'axios';
+
+import { EmailVerification } from '@/components';
+import { ResultOfEmailAPI } from '@/components/EmailVerification/types';
+
 import { SignUpContext } from '..';
 import { initialInputData, InputDataType, SignUpStateType } from '../signUpTypes';
-import StepInner from './StepInner';
+
 import { getPrevData } from './SignUpTopBar';
-import { EmailVerification } from '@/components';
-import axios, { AxiosError } from 'axios';
-import { ResultOfEmailAPI } from '@/components/EmailVerification/types';
+import StepInner from './StepInner';
+
 type SignUpEmailProps = {
   openAuthNumberForm: boolean;
   setOpenAuthNumberForm: Dispatch<SetStateAction<boolean>>;
@@ -24,7 +29,7 @@ const SignUpEmail = ({ openAuthNumberForm, setOpenAuthNumberForm }: SignUpEmailP
     }));
   };
   const sendVerificationEmail = async (): Promise<ResultOfEmailAPI> => {
-    let result: ResultOfEmailAPI = {
+    const result: ResultOfEmailAPI = {
       type: 'success',
     };
     // try {

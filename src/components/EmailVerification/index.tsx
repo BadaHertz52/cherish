@@ -8,12 +8,15 @@ import {
   useRef,
   useState,
 } from 'react';
-import { XSSCheck } from '@/pages/LogIn/index';
+
 import { Timer, AlertModal, InputForm, ToastModal } from '@/components';
+import { XSSCheck } from '@/pages/LogIn/index';
+import { getToastModalPosition } from '@/pages/SignUp/functions';
 import { ERROR_MSG, InputDataType, initialInputData } from '@/pages/SignUp/signUpTypes';
+
 import './style.scss';
 import { ToastModalType } from '../Modals/modalTypes';
-import { getToastModalPosition } from '@/pages/SignUp/functions';
+
 import { ResultOfEmailAPI } from './types';
 
 type EmailVerificationProps = {
@@ -94,7 +97,6 @@ const EmailVerification = ({
           setTimeout(() => {
             setOpenAuthNumberForm(true);
             setOpenToastModal(false);
-            setToastModalState(initialToastModalState);
           }, 1000);
         default:
           break;
@@ -112,7 +114,7 @@ const EmailVerification = ({
   };
   //서버에서 받은 데이터
   const getAuthNumber = () => {
-    let result = '111111';
+    const result = '111111';
     //[api]
     return result;
   };
@@ -162,8 +164,9 @@ const EmailVerification = ({
       const { top, left } = position;
       if (openAuthNumberForm) {
         // 비밀번호 찾기 페이지에서는 toastModalPositionTargetEl === null
+
         const newTop = toastModalPositionTargetEl
-          ? top - toastModalPositionTargetEl.offsetHeight - 16
+          ? toastModalPositionTargetEl.getClientRects()[0].top - 39 - 16
           : top;
         const modalForPass: ToastModalType = {
           contents: '인증되었습니다.',
@@ -174,7 +177,6 @@ const EmailVerification = ({
       } else {
         const modalForSendingEmail: ToastModalType = {
           contents: '인증 이메일을 발송했어요.',
-
           top: `${top}px`,
           left: left,
         };
@@ -193,7 +195,11 @@ const EmailVerification = ({
   }, [overTime]);
 
   useEffect(() => {
-    changeToastModalState();
+    if (openToastModal) {
+      changeToastModalState();
+    } else {
+      setToastModalState(initialToastModalState);
+    }
   }, [openToastModal]);
   return (
     <div className="email-verification">

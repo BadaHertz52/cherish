@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { SignUpProgressType, progressArr } from '../signUpTypes';
 
 export const moveProgressBar = (progress: SignUpProgressType, forward: boolean) => {
