@@ -1,10 +1,11 @@
 import React, { useRef, useState, useEffect } from 'react';
+
 import '../FontAwesome';
 import './BottomNav.scss';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faCompass, faPlus, faMedal } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import throttle from 'lodash/throttle';
+import { Link } from 'react-router-dom';
 
 const BottomNav = () => {
   // 현재 선택된 아이콘을 관리하는 state
