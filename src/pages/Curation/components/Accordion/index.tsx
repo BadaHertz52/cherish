@@ -198,8 +198,7 @@ const Accordion = () => {
   }, [optionalPersonCheckedValue]);
 
   const renderPersonsOptional = useMemo(() => {
-    let body = null;
-    body = (
+    return (
       <div className={styles.accordionContainerContent}>
         <p className={styles.accordionContainerContentTitle}>성별</p>
         <div className={styles.accordionContainerContentRadio}>
@@ -219,13 +218,10 @@ const Accordion = () => {
         </div>
       </div>
     );
-
-    return body;
   }, [optionalPersonCheckedValue]);
 
   const renderAgeOptional = useMemo(() => {
-    let body = null;
-    body = (
+    return (
       <div className={styles.accordionContainerContent}>
         <p className={styles.accordionContainerContentTitle}>나이</p>
         <input
@@ -242,7 +238,6 @@ const Accordion = () => {
         </p>
       </div>
     );
-    return body;
   }, [optionalAge]);
 
   const jobsOptional = useMemo(() => {
@@ -331,8 +326,7 @@ const Accordion = () => {
   }, [optionalJobCheckedValue]);
 
   const renderJobsOptional = useMemo(() => {
-    let body = null;
-    body = (
+    return (
       <div className={styles.accordionContainerContent}>
         <p className={styles.accordionContainerContentTitle}>
           직업 <span>(선택)</span>
@@ -355,7 +349,6 @@ const Accordion = () => {
         </div>
       </div>
     );
-    return body;
   }, [optionalJobCheckedValue]);
 
   const persons = useMemo(() => {
@@ -378,8 +371,7 @@ const Accordion = () => {
   }, [personCheckedValue]);
 
   const renderPersons = useMemo(() => {
-    let body = null;
-    body = (
+    return (
       <div className={styles.accordionContainerContent}>
         <p className={styles.accordionContainerContentTitle}>성별 *</p>
         <div className={styles.accordionContainerContentRadio}>
@@ -398,12 +390,10 @@ const Accordion = () => {
         </div>
       </div>
     );
-    return body;
   }, [personCheckedValue]);
 
   const renderAge = useMemo(() => {
-    let body = null;
-    body = (
+    return (
       <div className={styles.accordionContainerContent}>
         <p className={styles.accordionContainerContentTitle}>나이 *</p>
         <input
@@ -420,7 +410,6 @@ const Accordion = () => {
         </p>
       </div>
     );
-    return body;
   }, [age]);
 
   const jobs = useMemo(() => {
@@ -509,8 +498,7 @@ const Accordion = () => {
   }, [jobCheckedValue]);
 
   const renderJobs = useMemo(() => {
-    let body = null;
-    body = (
+    return (
       <div className={styles.accordionContainerContent}>
         <p className={styles.accordionContainerContentTitle}>
           직업 <span>(선택)</span>
@@ -533,7 +521,6 @@ const Accordion = () => {
         </div>
       </div>
     );
-    return body;
   }, [jobCheckedValue]);
 
   const purposes = useMemo(() => {
@@ -598,8 +585,7 @@ const Accordion = () => {
   }, [purposeCheckedValue]);
 
   const renderPurposes = useMemo(() => {
-    let body = null;
-    body = (
+    return (
       <div className={styles.accordionContainerContent}>
         <p className={styles.accordionContainerContentTitle}>선물 목적 *</p>
         <div className={styles.accordionContainerContentCheck}>
@@ -619,7 +605,6 @@ const Accordion = () => {
         </div>
       </div>
     );
-    return body;
   }, [purposeCheckedValue]);
 
   const relationships = useMemo(() => {
@@ -670,8 +655,7 @@ const Accordion = () => {
   }, [relationshipCheckedValue]);
 
   const renderRelationships = useMemo(() => {
-    let body = null;
-    body = (
+    return (
       <div className={styles.accordionContainerContent}>
         <p className={styles.accordionContainerContentTitle}>나와의 관계 *</p>
         <div className={styles.accordionContainerContentCheck}>
@@ -691,7 +675,6 @@ const Accordion = () => {
         </div>
       </div>
     );
-    return body;
   }, [relationshipCheckedValue]);
 
   const presentTypes = useMemo(() => {
@@ -748,8 +731,7 @@ const Accordion = () => {
   }, [checkedList]);
 
   const renderPresentTypes = useMemo(() => {
-    let body = null;
-    body = (
+    return (
       <div className={styles.accordionContainerContent}>
         <p className={styles.accordionContainerContentTitle}>
           상품 종류 <span>(선택)</span>
@@ -772,7 +754,6 @@ const Accordion = () => {
         </div>
       </div>
     );
-    return body;
   }, [checkedList]);
 
   const emotions = useMemo(() => {
@@ -813,8 +794,7 @@ const Accordion = () => {
   }, [emotionsCheckedValue]);
 
   const renderEmotions = useMemo(() => {
-    let body = null;
-    body = (
+    return (
       <div className={styles.accordionContainerContent}>
         <p className={styles.accordionContainerContentTitle}>
           감정<span>(선택)</span>
@@ -837,7 +817,6 @@ const Accordion = () => {
         </div>
       </div>
     );
-    return body;
   }, [emotionsCheckedValue]);
 
   const handleResetValues = useCallback(() => {
