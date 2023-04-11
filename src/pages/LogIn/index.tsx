@@ -1,11 +1,13 @@
-import { TouchEvent, ChangeEvent, useState } from 'react';
+import { TouchEvent, ChangeEvent, useState, useEffect } from 'react';
 
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useNavigate } from 'react-router-dom';
 
 import './style.scss';
+import { LogInParams, onLogIn } from '@/api/logIn';
 import { BtnShowPw, CheckBox } from '@/components';
+
 export const XSSCheck = (str: string, level?: number) => {
   if (!level || level == 0) {
     str = str.replace(/\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-/g, '');
@@ -22,6 +24,7 @@ const LogIn = () => {
   const [hiddenPw, setHiddenPw] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
   const [keepLogin, setKeepLogin] = useState<boolean>(false);
+  const [reLogIn, setReLogIn] = useState<boolean>(false);
   const inputTarget = {
     email: 'email',
     pw: 'pw',
@@ -54,35 +57,10 @@ const LogIn = () => {
     return REGEX.email.test(email) && REGEX.pw.test(pw);
   };
   const sendLogInData = async () => {
-    const data = { email: email, pw: pw };
+    const data: LogInParams = { email: email, password: pw };
     //[todo -api]
     // data 서버에 전송
-    try {
-      const response = await fetch('', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-      if (!response.ok) {
-        throw new Error('Server response was not ok');
-      }
-      const result = await response.json();
-      //result 값에 따라 login / 오류 메세지
-      // if(login === success){
-      //   navigate('/main');
-      //   if(keepLogin){
-      //     //로그인 유지
-      //   }
-      // }
-      // else{setError(true)}
-    } catch (e) {
-      // error message
-      console.error('Error sending POST request:', e);
-      // fetch 실패 시 오류 메세지.... 어떻게....???
-      throw error;
-    }
+    onLogIn(data, keepLogin);
   };
   const handleClickLogInBtn = () => {
     if (checkRegex()) {
@@ -95,6 +73,12 @@ const LogIn = () => {
   const onClickSignUpBtn = () => {
     navigate('/signup');
   };
+  useEffect(() => {
+    if (sessionStorage.getItem('reLogIn')) {
+      setReLogIn(true);
+      sessionStorage.removeItem('reLogIn');
+    }
+  }, [sessionStorage.getItem('reLogIn')]);
   return (
     <div id="log-in">
       <div className="inner">
@@ -159,7 +143,9 @@ const LogIn = () => {
           간편가입
         </button>
         <div className="banner">
-          <div>결제정보 입력 없이 1분만에 회원가입하세요!</div>
+          <div>
+            {reLogIn ? '다시 로그인 해주세요.' : '결제정보 입력 없이 1분만에 회원가입하세요!'}
+          </div>
         </div>
       </div>
     </div>
