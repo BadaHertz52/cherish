@@ -5,6 +5,7 @@ import MenuMoveSvg from '@/assets/svgs/menu-move.svg';
 import AlertModal from '@/components/Modals/AlertModal';
 import { RecentlyViewProductPage } from '../RecentlyViewProduct';
 import { NoticePage } from '../Notice';
+import { TermsOfServicePage } from '../TermsOfService';
 
 export type MenuProps = {
   title: string;
@@ -37,7 +38,9 @@ const MyPage = () => {
     },
     {
       title: '이용약관',
-      handleClick: () => {},
+      handleClick: () => {
+        setCurrentScreen(<TermsOfServicePage handleBackButton={handleBackButton} />);
+      },
     },
     {
       title: '개인정보보호정책',
