@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import './style.scss';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
