@@ -1,14 +1,16 @@
 import React, { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
+
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import BtnShowPw from '@/components/BtnShowPw';
+import { XSSCheck } from '@/pages/LogIn';
 import {
   ERROR_MSG,
   InputDataType,
   InputFormIdType,
   TestResultType,
 } from '@/pages/SignUp/signUpTypes';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import BtnShowPw from '@/components/BtnShowPw';
-import { XSSCheck } from '@/pages/LogIn';
 import './style.scss';
 type InputFormProps = {
   id: InputFormIdType;
@@ -46,7 +48,7 @@ const InputForm = ({ id, data, setData, additionOfLabel }: InputFormProps) => {
     nickName: new RegExp('^[ㄱ-ㅎ가-힣a-zA-Z0-9]{3,10}$'),
     email: new RegExp('[a-z0-9]+@[a-z]+.[a-z]{2,3}'),
     //8~20자 (영문 + 숫자 + 특수기호(!@^))
-    pw: new RegExp('^(?=.*[a-zA-Z])(?=.*[0-9])(?=.[!@^])[a-zA-z0-9!@^]{8,20}$'),
+    pw: new RegExp('^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@^])[a-zA-z0-9!@^]{8,20}$'),
   };
   /**
    * name, nickName, email,pw의 유효성을 검사하는 함수

@@ -1,9 +1,15 @@
 import { useEffect, useState, TouchEvent } from 'react';
-import { ConditionType, FilteringConditionType } from '@/components/Modals/modalTypes';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { faRotateRight } from '@fortawesome/free-solid-svg-icons';
-import { ConditionName } from '@/components/Modals/modalTypes';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import Checkbox from '@/components/CheckBox';
+import {
+  ConditionType,
+  FilteringConditionType,
+  ConditionName,
+} from '@/components/Modals/modalTypes';
+
 import BottomNavModalPortal from '../BottomNavModalPortal';
 import './style.scss';
 const CATEGORY = {
@@ -107,7 +113,7 @@ const BottomNavModal = ({
     );
     const nameArr = [...selectedList].map(el => el.name) as ConditionName[];
     const newCondition = !nameArr[0] ? null : nameArr;
-    let newFilteringCondition: FilteringConditionType = {
+    const newFilteringCondition: FilteringConditionType = {
       ...filteringCondition,
     };
     // 현재 화면에서 보여지는 카테고리에서 선택된 필터링 조건들을 newFilerCondition 에 반영

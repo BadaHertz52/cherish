@@ -1,8 +1,9 @@
-import { TouchEvent } from 'react';
+import { TouchEvent, ChangeEvent, useState } from 'react';
+
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ChangeEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+
 import './style.scss';
 import { BtnShowPw, CheckBox } from '@/components';
 export const XSSCheck = (str: string, level?: number) => {
@@ -26,6 +27,11 @@ const LogIn = () => {
     pw: 'pw',
   } as const;
   type InputTargetType = keyof typeof inputTarget;
+  const REGEX = {
+    email: new RegExp('[a-z0-9]+@[a-z]+.[a-z]{2,3}'),
+    //8~20자 (영문 + 숫자 + 특수기호(!@^))
+    pw: new RegExp('^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@^])[a-zA-z0-9!@^]{8,20}$'),
+  };
   const handleTouchOfLink = (event: TouchEvent<HTMLElement>) => {
     const target = event.currentTarget;
     target.classList.toggle('on');
@@ -44,7 +50,10 @@ const LogIn = () => {
   const handleChangeOfKeep = () => {
     setKeepLogin(!keepLogin);
   };
-  const handleClickLogInBtn = async () => {
+  const checkRegex = () => {
+    return REGEX.email.test(email) && REGEX.pw.test(pw);
+  };
+  const sendLogInData = async () => {
     const data = { email: email, pw: pw };
     //[todo -api]
     // data 서버에 전송
@@ -73,6 +82,14 @@ const LogIn = () => {
       console.error('Error sending POST request:', e);
       // fetch 실패 시 오류 메세지.... 어떻게....???
       throw error;
+    }
+  };
+  const handleClickLogInBtn = () => {
+    if (checkRegex()) {
+      setError(false);
+      sendLogInData();
+    } else {
+      setError(true);
     }
   };
   const onClickSignUpBtn = () => {
@@ -118,7 +135,7 @@ const LogIn = () => {
           <div className="log-in__util__find">
             {/* [todo] 비밀번호찾기 path 설정 */}
             <Link
-              to={'/비밀번호찾기'}
+              to={'/findpw'}
               className="link-find-pw"
               onTouchStart={event => handleTouchOfLink(event)}
               onTouchEnd={event => handleTouchOfLink(event)}
