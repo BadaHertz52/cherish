@@ -1,7 +1,11 @@
 import { useState } from 'react';
+
+import { useNavigate } from 'react-router-dom';
+
 import '../assets/styles/Home.scss';
 import { ItemCard } from '../components';
 import type { Item } from '../components/ItemCard';
+
 import MyPage from './My';
 
 interface Category {
@@ -97,7 +101,12 @@ const categoryList: Array<Category> = [
   },
 ];
 
-const Home = () => {
+const NavIcon = ({ src, onClick }: { src: string; onClick: () => void }) => (
+  <img src={src} width="14px" onClick={onClick} style={{ cursor: 'pointer' }} />
+);
+
+function Home() {
+  const navigate = useNavigate();
   const [showMyPage, setShowMyPage] = useState(false);
 
   const handleShowMyPage = () => {
@@ -105,20 +114,25 @@ const Home = () => {
     setShowMyPage(true);
   };
 
+  const handleShowSearchPage = () => {
+    navigate('/search');
+  };
+
   return (
     <>
       <div className="header">
         <div className="logo-text">Cherishu</div>
         <div className="icons">
-          <img src="/icons/search.png" width="14px" />
-          <img src="/icons/profile.png" width="14px" onClick={handleShowMyPage} />
+          {/* <img src="/icons/profile.png" width="14px"  /> */}
+          <NavIcon src="/icons/search.png" onClick={handleShowSearchPage} />
+          <NavIcon src="/icons/profile.png" onClick={handleShowMyPage} />
         </div>
       </div>
       <div className="main-image"></div>
       <div className="container">
         <div className="category-header">요즘 핫한 선물 추천</div>
         {[...categoryList].map(category => (
-          <div className="category">
+          <div className="category" key={category.title}>
             <div className="category-title">
               {category.title}
               <div className="right-arrow">
@@ -138,5 +152,5 @@ const Home = () => {
       {showMyPage && <MyPage handleBackButton={() => setShowMyPage(false)} />}
     </>
   );
-};
+}
 export default Home;

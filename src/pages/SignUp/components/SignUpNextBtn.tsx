@@ -1,12 +1,16 @@
 import React, { useContext, useEffect } from 'react';
-import { SignUpContext } from '../../../pages/SignUp';
+
+import { SignUpContext } from '@/pages/SignUp';
+
 import { moveProgressBar } from './ProgressBar';
 
 export type NextBtnProps = {
   disableBtn: boolean;
   onClickNextBtn: () => void;
+  // email form에서 인증 번호 입력 전 단계에서 숨겨짐
+  isNextBtnHidden?: boolean;
 };
-const SignUpNextBtn = ({ disableBtn, onClickNextBtn }: NextBtnProps) => {
+const SignUpNextBtn = ({ disableBtn, onClickNextBtn, isNextBtnHidden }: NextBtnProps) => {
   const { signUpState } = useContext(SignUpContext);
   useEffect(() => {
     disableBtn
@@ -14,9 +18,9 @@ const SignUpNextBtn = ({ disableBtn, onClickNextBtn }: NextBtnProps) => {
       : moveProgressBar(signUpState.progress, true);
   }, [disableBtn]);
   return (
-    <div className="next-btn">
+    <div className={`next-btn ${!isNextBtnHidden ? 'on' : ''}`}>
       <button type="button" disabled={disableBtn} onClick={onClickNextBtn}>
-        다음
+        {signUpState.progress === 'job' ? '회원가입 완료' : '다음'}
       </button>
     </div>
   );

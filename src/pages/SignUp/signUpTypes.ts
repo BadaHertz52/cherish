@@ -122,6 +122,7 @@ export const ERROR_MSG = {
   invalidName: '2~20자의 한글,영문(대소문자)를 사용하세요',
   invalidNickName: '3~10자의 한글,영문(대소문자),숫자를 사용하세요',
   invalidEmail: '올바르지 않은 형식의 이메일이에요.',
+  invalidAuthNumber: '인증번호가 일치하지 않아요.',
   invalidPw: '8~20자의 영문(대소문자),숫자 및 특수기호(!,@,^)를 혼용하여 입력하세요',
   invalidConfirmPw: '비밀번호가 일치하지 않아요.',
 };

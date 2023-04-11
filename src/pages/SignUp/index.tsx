@@ -1,14 +1,18 @@
 import React, { createContext, Dispatch, SetStateAction, useState } from 'react';
+
+import {
+  SignUpTopBar,
+  ProgressBar,
+  SignUpTerms,
+  NameAndNickName,
+  SignUpEmail,
+  SignUpPw,
+  GenderAndBirth,
+  JobInfo,
+} from './components';
 import { SignUpStateType } from './signUpTypes';
-import SignUpTopBar from './components/SignUpTopBar';
-import ProgressBar from './components/ProgressBar';
-import SignUpTerms from './components/SignUpTerms';
 import './style.scss';
-import NameAndNickName from './components/NameAndNickName';
-import SignUpEmail from './components/SignUpEmail';
-import SignUpPw from './components/SignUpPw';
-import GenderAndBirth from './components/GenderAndBirth';
-import JobInfo from './components/JobInfo';
+
 export const initialSignUpState: SignUpStateType = {
   progress: 'agreeToTerms',
   agreeToTerms: {

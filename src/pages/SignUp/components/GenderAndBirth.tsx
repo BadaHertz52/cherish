@@ -1,5 +1,10 @@
 import { MouseEvent, useContext, useEffect, useState } from 'react';
-import StepInner from './StepInner';
+
+import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { SignUpContext } from '@/pages/SignUp';
+
 import {
   BirthStateType,
   ERROR_MSG,
@@ -7,11 +12,10 @@ import {
   GenderType,
   SignUpStateType,
 } from '../signUpTypes';
-import { SignUpContext } from '@/pages/SignUp';
-import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { getPrevData } from './SignUpTopBar';
+
 import DatePicker from './DatePicker';
+import { getPrevData } from './SignUpTopBar';
+import StepInner from './StepInner';
 
 const GenderAndBirth = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
@@ -27,7 +31,7 @@ const GenderAndBirth = () => {
   });
   const [openDatePicker, setOpenDatePicker] = useState<boolean>(false);
   const onClickNextBtn = () => {
-    if (gender.value !== null && birth.value !== null) {
+    if (gender.value && birth.value) {
       setSignUpState((prev: SignUpStateType) => {
         const newState: SignUpStateType = {
           ...prev,

@@ -1,8 +1,11 @@
 import React, { MouseEvent, TouchEvent, useEffect, useRef, useState } from 'react';
-import ModalPortal from '../ModalPortal';
-import { FullScreModalType } from '@/components/Modals/modalTypes';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { faAngleRight, faBookmark, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { FullScreModalType } from '@/components/Modals/modalTypes';
+
+import ModalPortal from '../ModalPortal';
 import './style.scss';
 type FullScreModalProps = {
   modalState: FullScreModalType;
@@ -42,12 +45,12 @@ const FullScreModal = ({ modalState, closeModal }: FullScreModalProps) => {
     const modalEl = document.querySelector('.modal') as HTMLElement | null;
     modalEl?.classList.add('full-scre-modal');
     setTimeout(() => {
-      if (outBoxRef.current !== null) {
+      if (outBoxRef.current) {
         outBoxRef.current.style.display = 'block';
       }
     }, 100);
     return () => {
-      if (outBoxRef.current !== null) {
+      if (outBoxRef.current) {
         outBoxRef.current.style.display = 'none';
       }
     };
@@ -101,6 +104,7 @@ const FullScreModal = ({ modalState, closeModal }: FullScreModalProps) => {
                       title="상품 보러 가기"
                       onMouseMove={event => handleMove(event)}
                       onTouchMove={event => handleMove(event)}
+                      rel="noreferrer"
                     >
                       <FontAwesomeIcon icon={faAngleRight} />
                     </a>

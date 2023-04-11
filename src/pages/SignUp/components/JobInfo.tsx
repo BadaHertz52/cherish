@@ -1,49 +1,31 @@
-import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
-import StepInner from './StepInner';
-import CheckBox from '@/components/CheckBox';
+import React, { useContext, useEffect, useState } from 'react';
+
+import { CheckBox } from '@/components';
+import { SignUpContext } from '@/pages/SignUp';
+
 import {
   ERROR_MSG,
   InputDataType,
   SignUpStateType,
   initialInputData,
   jobCheckBoxArr,
+  JobType,
 } from '../signUpTypes';
+
 import { getPrevData } from './SignUpTopBar';
-import { JobType } from '../signUpTypes';
-import { SignUpContext } from '../../../pages/SignUp';
+import StepInner from './StepInner';
 
 const JobInfo = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
   const [disableBtn, setDisableBtn] = useState<boolean>(true);
   const [job, setJob] = useState<InputDataType>(initialInputData);
-  const checkedCheckBoxEl = document.querySelectorAll(
-    '.check-box input',
-  ) as NodeListOf<HTMLInputElement>;
-  const changeLabelClass = (el: HTMLInputElement) => {
-    const parentEl = el.parentElement;
-    const targetLabelEl = parentEl?.lastElementChild;
-    if (targetLabelEl) {
-      if (el.checked) {
-        targetLabelEl.classList.add('on');
-      } else {
-        targetLabelEl.classList.remove('on');
-      }
-    }
-  };
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const target = event.currentTarget;
-    checkedCheckBoxEl.forEach(el => {
-      if (el.id === target.id) {
-        el.checked = true;
-        setJob({
-          value: el.name,
-          errorMsg: null,
-        });
-      } else {
-        if (el.checked) el.checked = false;
-      }
-      changeLabelClass(el);
+
+  const handleChange = (name: JobType) => {
+    setJob({
+      value: name,
+      errorMsg: null,
     });
+    setDisableBtn(false);
   };
   const onClickNextBtn = () => {
     const newState: SignUpStateType = {
@@ -57,19 +39,6 @@ const JobInfo = () => {
   useEffect(() => {
     getPrevData('job', setJob, undefined, undefined);
   }, []);
-  useEffect(() => {
-    if (job.value !== '') {
-      setDisableBtn(false);
-      const targetCheckBoxEl = document.querySelector(
-        `#job-info-${job.value}`,
-      ) as HTMLInputElement | null;
-      if (targetCheckBoxEl !== null) {
-        targetCheckBoxEl.checked = true;
-      }
-    } else {
-      setDisableBtn(true);
-    }
-  }, [job]);
   return (
     <div id="job-info">
       <StepInner disableBtn={disableBtn} onClickNextBtn={onClickNextBtn}>
@@ -80,7 +49,8 @@ const JobInfo = () => {
               id={`job-info-${i.name}`}
               name={i.name}
               label={i.label}
-              onChange={handleChange}
+              isChecked={() => job.value === i.name}
+              onChange={() => handleChange(i.name)}
             />
           ))}
         </section>

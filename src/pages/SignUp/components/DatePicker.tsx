@@ -1,5 +1,7 @@
 import { useState, useEffect, Dispatch, SetStateAction } from 'react';
+
 import Picker from 'react-mobile-picker';
+
 import { BirthDateType, BirthStateType } from '../signUpTypes';
 import '../styles/datePicker.scss';
 type DatePickerProps = {
@@ -28,10 +30,10 @@ const DatePicker = ({ birth, setBirth }: DatePickerProps) => {
     date: '01',
   };
   const [birthDate, setBirthDate] = useState<BirthDateType>(
-    birth.value !== null ? birth.value : initialData,
+    birth.value ? birth.value : initialData,
   );
   function getArr(startNumber: number, lastNumber: number) {
-    let arr = [];
+    const arr = [];
     for (let i = startNumber; i <= lastNumber; i++) {
       arr.push(i < 10 ? `0${i}` : i.toString());
     }

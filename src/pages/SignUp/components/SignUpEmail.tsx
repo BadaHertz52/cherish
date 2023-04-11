@@ -1,23 +1,18 @@
 import { useContext, useEffect, useState } from 'react';
+
+import { EmailVerification } from '@/components';
+
 import { SignUpContext } from '..';
 import { initialInputData, InputDataType, SignUpStateType } from '../signUpTypes';
-import StepInner from './StepInner';
+
 import { getPrevData } from './SignUpTopBar';
-import EmailVerification from '@/components/EmailVerification';
+import StepInner from './StepInner';
 const SignUpEmail = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
   const [email, setEmail] = useState<InputDataType>(initialInputData);
   const [disableBtn, setDisableBtn] = useState<boolean>(true);
-  const [openToastModal, setOpenToastModal] = useState<boolean>(false);
-  const [openAlertModal, setOpenAlertModal] = useState<boolean>(false);
-
-  const onClickCloseBtnInAlertModal = () => {
-    if (sessionStorage.getItem('signUpBackUpData') !== null) {
-      sessionStorage.removeItem('signUpBackUpData');
-    }
-    //[todo] 이메일 인증 횟수 초과 시 해야하는 것
-    setOpenAlertModal(false);
-  };
+  const [openAuthNumberForm, setOpenAuthNumberForm] = useState<boolean>(false);
+  const nextBtnEl = document.querySelector('.next-btn') as HTMLElement | null;
   const onClickNextBtn = () => {
     setSignUpState((prev: SignUpStateType) => ({
       ...prev,
@@ -36,21 +31,22 @@ const SignUpEmail = () => {
       setDisableBtn(false);
     }
   }, []);
-
   return (
     <div id="email">
-      <StepInner disableBtn={disableBtn} onClickNextBtn={onClickNextBtn}>
+      <StepInner
+        disableBtn={disableBtn}
+        onClickNextBtn={onClickNextBtn}
+        isNextBtnHidden={!openAuthNumberForm}
+      >
         <EmailVerification
-          disableBtn={disableBtn}
+          additionOfLabel="로그인을 위한"
           setDisableBtn={setDisableBtn}
           email={email}
           setEmail={setEmail}
-          openAlertModal={openAlertModal}
-          setOpenAlertModal={setOpenAlertModal}
-          openToastModal={openToastModal}
-          setOpenToastModal={setOpenToastModal}
           emailDuplicationChecker={true}
-          onClickCloseBtnInAlertModal={onClickCloseBtnInAlertModal}
+          openAuthNumberForm={openAuthNumberForm}
+          setOpenAuthNumberForm={setOpenAuthNumberForm}
+          toastModalPositionTargetEl={nextBtnEl}
         />
       </StepInner>
     </div>

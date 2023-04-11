@@ -1,16 +1,15 @@
-import { TouchEvent } from 'react';
+import { TouchEvent, ChangeEvent, useState } from 'react';
+
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ChangeEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './style.scss';
-import BtnShowPw from '@/components/BtnShowPw';
-import CheckBox from '@/components/CheckBox';
 
+import './style.scss';
+import { BtnShowPw, CheckBox } from '@/components';
 export const XSSCheck = (str: string, level?: number) => {
-  if (level == undefined || level == 0) {
+  if (!level || level == 0) {
     str = str.replace(/\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-/g, '');
-  } else if (level != undefined && level == 1) {
+  } else if (level == 1) {
     str = str.replace(/\</g, '&lt;');
     str = str.replace(/\>/g, '&gt;');
   }
@@ -28,6 +27,11 @@ const LogIn = () => {
     pw: 'pw',
   } as const;
   type InputTargetType = keyof typeof inputTarget;
+  const REGEX = {
+    email: new RegExp('[a-z0-9]+@[a-z]+.[a-z]{2,3}'),
+    //8~20자 (영문 + 숫자 + 특수기호(!@^))
+    pw: new RegExp('^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@^])[a-zA-z0-9!@^]{8,20}$'),
+  };
   const handleTouchOfLink = (event: TouchEvent<HTMLElement>) => {
     const target = event.currentTarget;
     target.classList.toggle('on');
@@ -43,11 +47,13 @@ const LogIn = () => {
   const handleClickRemoveBtn = () => {
     setEmail('');
   };
-  const handleChangeOfKeep = (event: ChangeEvent<HTMLInputElement>) => {
-    const target = event.target as HTMLInputElement | null;
-    target !== null && setKeepLogin(target.checked);
+  const handleChangeOfKeep = () => {
+    setKeepLogin(!keepLogin);
   };
-  const handleClickLogInBtn = async () => {
+  const checkRegex = () => {
+    return REGEX.email.test(email) && REGEX.pw.test(pw);
+  };
+  const sendLogInData = async () => {
     const data = { email: email, pw: pw };
     //[todo -api]
     // data 서버에 전송
@@ -76,6 +82,14 @@ const LogIn = () => {
       console.error('Error sending POST request:', e);
       // fetch 실패 시 오류 메세지.... 어떻게....???
       throw error;
+    }
+  };
+  const handleClickLogInBtn = () => {
+    if (checkRegex()) {
+      setError(false);
+      sendLogInData();
+    } else {
+      setError(true);
     }
   };
   const onClickSignUpBtn = () => {
@@ -113,6 +127,7 @@ const LogIn = () => {
             <CheckBox
               id="checkboxKeep"
               name="autoLogIn"
+              isChecked={() => keepLogin}
               label="자동 로그인 하기"
               onChange={handleChangeOfKeep}
             />
@@ -120,7 +135,7 @@ const LogIn = () => {
           <div className="log-in__util__find">
             {/* [todo] 비밀번호찾기 path 설정 */}
             <Link
-              to={'/비밀번호찾기'}
+              to={'/findpw'}
               className="link-find-pw"
               onTouchStart={event => handleTouchOfLink(event)}
               onTouchEnd={event => handleTouchOfLink(event)}

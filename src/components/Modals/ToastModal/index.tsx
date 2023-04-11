@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
-import ModalPortal from '../ModalPortal';
+
 import { ToastModalType } from '@/components/Modals/modalTypes';
+
+import ModalPortal from '../ModalPortal';
 import './style.scss';
 type ToastModalProps = {
   modalState: ToastModalType;
@@ -10,7 +12,7 @@ const ToastModal = ({ modalState, closeModal }: ToastModalProps) => {
   useEffect(() => {
     const modalEl = document.querySelector('.modal') as HTMLElement | null;
     modalEl?.classList.add('toast-modal');
-    if (modalEl !== null) {
+    if (modalEl) {
       modalEl.style.top = modalState.top;
       modalEl.style.left = modalState.left;
     }

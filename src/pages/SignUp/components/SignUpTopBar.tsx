@@ -1,7 +1,10 @@
+import { Dispatch, SetStateAction, useContext } from 'react';
+
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Dispatch, SetStateAction, useContext } from 'react';
-import { SignUpContext } from '../../../pages/SignUp';
+
+import { SignUpContext } from '@/pages/SignUp';
+
 import {
   BirthStateType,
   GenderStateType,
@@ -25,10 +28,10 @@ export const getPrevData = (
   setBirthState?: Dispatch<SetStateAction<BirthStateType>>,
 ) => {
   const item = sessionStorage.getItem('signUpBackUpData');
-  if (item !== null) {
+  if (item) {
     const prevData: SessionDataType[] = JSON.parse(item);
     const prevState = prevData.find(i => i.key === target);
-    if (prevState !== undefined) {
+    if (prevState) {
       if (setInputDataState) {
         setInputDataState({
           value: prevState.value,
@@ -72,19 +75,19 @@ const SignUpTopBar = () => {
       const listOfInputEl = document.querySelectorAll(
         '.input-form input',
       ) as NodeListOf<HTMLInputElement>;
-      if (listOfInputEl[0] !== undefined) {
+      if (listOfInputEl[0]) {
         const backUpDataArr: SessionDataType[] = [...listOfInputEl].map((el: HTMLInputElement) => ({
           key: el.id.replace('input-', '') as SessionDataKeyType,
           value: el.value,
         }));
-        backUpDataArr[0] !== undefined && setItem(backUpDataArr);
+        backUpDataArr[0] && setItem(backUpDataArr);
       }
     }
     if (signUpState.progress === 'genderAndBirth') {
-      let backUpData: SessionDataType[] = [];
+      const backUpData: SessionDataType[] = [];
       //gender
       const targetBtnEl = document.querySelector('.btn-gender.on') as HTMLButtonElement | null;
-      if (targetBtnEl !== null) {
+      if (targetBtnEl) {
         backUpData.push({
           key: 'gender',
           value: targetBtnEl.name,
@@ -93,18 +96,14 @@ const SignUpTopBar = () => {
       //birth
       const btnOpenDatePickerEl = document.querySelector('.btn-open-date-picker');
       const birthDataEl = btnOpenDatePickerEl?.firstElementChild;
-      if (
-        !btnOpenDatePickerEl?.classList.contains('none-data') &&
-        birthDataEl !== null &&
-        birthDataEl !== undefined
-      ) {
+      if (!btnOpenDatePickerEl?.classList.contains('none-data') && birthDataEl) {
         backUpData.push({
           key: 'birth',
           value: birthDataEl.textContent as string,
         });
       }
       // save
-      if (backUpData[0] !== undefined) {
+      if (backUpData[0]) {
         setItem(backUpData);
       }
     }
