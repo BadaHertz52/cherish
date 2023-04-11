@@ -8,12 +8,15 @@ import {
   useRef,
   useState,
 } from 'react';
-import { XSSCheck } from '@/pages/LogIn/index';
+
 import { Timer, AlertModal, InputForm, ToastModal } from '@/components';
+import { XSSCheck } from '@/pages/LogIn/index';
+import { getToastModalPosition } from '@/pages/SignUp/functions';
 import { ERROR_MSG, InputDataType, initialInputData } from '@/pages/SignUp/signUpTypes';
+
 import './style.scss';
 import { ToastModalType } from '../Modals/modalTypes';
-import { getToastModalPosition } from '@/pages/SignUp/functions';
+
 import { ResultOfEmailAPI } from './types';
 
 type EmailVerificationProps = {
@@ -112,7 +115,7 @@ const EmailVerification = ({
   };
   //서버에서 받은 데이터
   const getAuthNumber = () => {
-    let result = '111111';
+    const result = '111111';
     //[api]
     return result;
   };

@@ -1,19 +1,19 @@
 import React, { useRef, useState, useEffect } from 'react';
-import '../FontAwesome';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faCompass, faPlus, faMedal } from '@fortawesome/free-solid-svg-icons';
-import throttle from 'lodash/throttle';
 
+import '../FontAwesome';
 import './BottomNav.scss';
+import { faHome, faCompass, faPlus, faMedal } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import throttle from 'lodash/throttle';
+import { Link } from 'react-router-dom';
 
 const BottomNav = () => {
   // 현재 선택된 아이콘을 관리하는 state
-  const [activeNav, setActiveNav] = React.useState(1);
+  const [activeNav, setActiveNav] = React.useState(0);
 
   // 각 페이지별 상태를 나타내는 변수
   const tags = [
-    { id: 1, icon: faHome, title: '홈', link: '/' },
+    { id: 1, icon: faHome, title: '홈', link: '/first' },
     { id: 2, icon: faCompass, title: '큐레이션', link: '/second' },
     { id: 3, icon: faPlus, title: '카테고리', link: '/third' },
     { id: 4, icon: faMedal, title: '저장목록', link: '/fourth' },
@@ -41,7 +41,7 @@ const BottomNav = () => {
 
   return (
     /* 하단 네비게이션 최상위 태그 */
-    <nav className={hide ? 'wrapper_hidden' : 'wrapper'}>
+    <nav className={hide ? 'wrapper-hidden' : 'wrapper'}>
       {/* 네비게이션을 구성하고 있는 하나의 버튼 */}
       {tags.map(tag => (
         <Link

@@ -1,0 +1,53 @@
+@import '../../assets/styles/common.scss';
+
+.check-element {
+  position: relative;
+  display: flex;
+  align-items: center;
+  &__inner {
+    // 상황에 맞게 조정가능
+    display: flex;
+    align-items: center;
+  }
+  input[type='radio'] {
+    display: none;
+  }
+  input[type='checkbox'] {
+    display: none;
+  }
+  label {
+    display: block;
+    padding-right: 32px;
+  }
+  label.labels:before {
+    font-family: 'Font Awesome 5 free';
+    display: inline-block;
+    content: url('../../assets/svgs/disabled-check.svg');
+    color: $color-light-black;
+    padding-right: 10px;
+    width: 22px;
+    height: 22px;
+  }
+
+  input:checked + label.labels:before {
+    content: url('../../assets/svgs/enabled-check.svg');
+    color: $color-primary;
+  }
+
+  input:checked + label.labels {
+    color: black;
+  }
+
+  .labels {
+    display: flex;
+    align-items: center;
+    @include bd2-font;
+    // 상황에 맞게 조정가능
+    line-height: 14px;
+    text-align: center;
+    color: $color-light-black;
+    span {
+      padding-right: 32px;
+    }
+  }
+}
