@@ -5,7 +5,6 @@
   display: flex;
   align-items: center;
   &__inner {
-    // 상황에 맞게 조정가능
     display: flex;
     align-items: center;
   }
@@ -42,12 +41,8 @@
     display: flex;
     align-items: center;
     @include bd2-font;
-    // 상황에 맞게 조정가능
     line-height: 14px;
     text-align: center;
-    color: $color-light-black;
-    span {
-      padding-right: 32px;
-    }
+    color: $color-dark-black;
   }
 }
