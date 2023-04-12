@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react
 import axios, { AxiosError } from 'axios';
 
 import { EmailVerification } from '@/components';
-import { ResultOfEmailAPI } from '@/components/EmailVerification/types';
+import { EMAIL_API_RESULT_TYPE, EmailAPIResult } from '@/components/EmailVerification/types';
 
 import { SignUpContext } from '..';
 import {
@@ -34,9 +34,9 @@ const SignUpEmail = ({ openAuthNumberForm, setOpenAuthNumberForm }: SignUpEmailP
       email: email.value,
     }));
   };
-  const sendVerificationEmail = async (): Promise<ResultOfEmailAPI> => {
-    const result: ResultOfEmailAPI = {
-      type: 'success',
+  const sendVerificationEmail = async (): Promise<EmailAPIResult> => {
+    const result: EmailAPIResult = {
+      type: EMAIL_API_RESULT_TYPE.success,
     };
     //[api ]
     // try {
@@ -82,7 +82,6 @@ const SignUpEmail = ({ openAuthNumberForm, setOpenAuthNumberForm }: SignUpEmailP
     if (signUpState.email) {
       setEmail({
         value: signUpState.email,
-        errorMsg: null,
       });
       // 이미 인증이 완료 된 경우에 다음 버튼 클릭 가능
       setDisableBtn(false);

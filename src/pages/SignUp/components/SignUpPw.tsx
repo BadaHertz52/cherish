@@ -51,11 +51,9 @@ const SignUpPw = () => {
     if (signUpState.pw) {
       setPw({
         value: signUpState.pw,
-        errorMsg: null,
       });
       setConfirmPw({
         value: signUpState.pw,
-        errorMsg: null,
       });
     }
     const position = getToastModalPosition();

@@ -21,13 +21,13 @@ export const initialSignUpState: SignUpStateType = {
     personalInformation: false,
     marketing: false,
   },
-  name: null,
-  nickname: null,
-  email: null,
-  pw: null,
-  gender: null,
-  birth: null,
-  job: null,
+  name: undefined,
+  nickname: undefined,
+  email: undefined,
+  pw: undefined,
+  gender: undefined,
+  birth: undefined,
+  job: undefined,
 };
 type SignUpContextType = {
   signUpState: SignUpStateType;
