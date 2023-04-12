@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useNavigate } from 'react-router-dom';
 
 import './style.scss';
+//import { LogInParams, onLogIn } from '@/api/logIn';
 import { BtnShowPw, CheckBox } from '@/components';
 export const XSSCheck = (str: string, level?: number) => {
   if (!level || level == 0) {
@@ -54,35 +55,10 @@ const LogIn = () => {
     return REGEX.email.test(email) && REGEX.pw.test(pw);
   };
   const sendLogInData = async () => {
-    const data = { email: email, pw: pw };
+    //const data: LogInParams = { email: email, password: pw };
     //[todo -api]
     // data 서버에 전송
-    try {
-      const response = await fetch('', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-      if (!response.ok) {
-        throw new Error('Server response was not ok');
-      }
-      const result = await response.json();
-      //result 값에 따라 login / 오류 메세지
-      // if(login === success){
-      //   navigate('/main');
-      //   if(keepLogin){
-      //     //로그인 유지
-      //   }
-      // }
-      // else{setError(true)}
-    } catch (e) {
-      // error message
-      console.error('Error sending POST request:', e);
-      // fetch 실패 시 오류 메세지.... 어떻게....???
-      throw error;
-    }
+    //onLogIn(data, keepLogin);
   };
   const handleClickLogInBtn = () => {
     if (checkRegex()) {

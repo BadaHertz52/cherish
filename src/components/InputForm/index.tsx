@@ -32,11 +32,11 @@ const InputForm = ({ id, data, setData, additionOfLabel, disabled }: InputFormPr
   const [hiddenPw, setHiddenPw] = useState<boolean>(true);
   // ⚠️InputFormIdType 과 placeholder, label 의 property명은 동일 해야함
   const PLACE_HOLDER = {
-    name: '이름을 입력해주세요.',
-    nickName: '닉네임을 입력해주세요.',
-    email: '이메일을 입력해주세요.',
-    pw: '비밀번호를 입력해주세요',
-    confirmPw: '비밀번호을 다시 입력해주세요.',
+    name: '이름 (2-20자 영문,한글 사용 가능)',
+    nickName: '닉네임 (3-10자 영문,한글,숫자 사용 가능)',
+    email: '이메일',
+    pw: '비밀번호 (8-20자 영문,숫자,특수문자(!,@,^) 조합)',
+    confirmPw: '비밀번호 확인',
   };
   const LABEL = {
     name: '이름을 입력해주세요.',
