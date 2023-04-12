@@ -5,9 +5,9 @@ export type ConfirmModalBtnType = {
   //btn 의 text node
   text: string;
   //btn 클릭 시 이동해야 할 페이지의 경로
-  path: null | string;
+  path?: string;
   //btn 클릭 시 이동/창 닫기 외의 필요한 기능
-  otherFn: (() => void) | null;
+  otherFn?: () => void;
 };
 // alert modal - modalCommonType (모달의 공통적인 것들)
 export type ModalCommonType = {
