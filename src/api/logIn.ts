@@ -75,5 +75,5 @@ export const onLogIn = async (params: LogInParams, keepLogIn: boolean) => {
 
 window.onbeforeunload = () => {
   const item = localStorage.getItem('keepLogIn');
-  onSilentRefresh(item !== null);
+  onSilentRefresh(item === 'true');
 };
