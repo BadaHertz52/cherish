@@ -24,10 +24,12 @@ const GenderAndBirth = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
   const [disableBtn, setDisableBtn] = useState<boolean>(false);
   const [birth, setBirth] = useState<BirthStateType>({
+    value: undefined,
     errorMsg: ERROR_MSG.required,
   });
 
   const [gender, setGender] = useState<GenderStateType>({
+    value: undefined,
     errorMsg: ERROR_MSG.required,
   });
   const [openDatePicker, setOpenDatePicker] = useState<boolean>(false);

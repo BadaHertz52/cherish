@@ -65,6 +65,7 @@ const DatePicker = ({ birth, setBirth }: DatePickerProps) => {
         ...birthDate,
         [target]: value,
       },
+      errorMsg: undefined,
     });
   };
   const handleChange = (name: string, value: string) => {
@@ -83,6 +84,7 @@ const DatePicker = ({ birth, setBirth }: DatePickerProps) => {
   useEffect(() => {
     setBirth({
       value: initialData,
+      errorMsg: undefined,
     });
   }, []);
   return (

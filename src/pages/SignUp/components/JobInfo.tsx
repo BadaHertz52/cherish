@@ -25,7 +25,7 @@ const JobInfo = () => {
   const handleChange = (name: JobType) => {
     setJob({
       value: name,
-      errorMsg: null,
+      errorMsg: undefined,
     });
     setDisableBtn(false);
   };
