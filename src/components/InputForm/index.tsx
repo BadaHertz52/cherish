@@ -7,6 +7,8 @@ import BtnShowPw from '@/components/BtnShowPw';
 import { XSSCheck } from '@/pages/LogIn';
 import {
   ERROR_MSG,
+  ERROR_TYPE,
+  INPUT_FORM_ID,
   InputDataType,
   InputFormIdType,
   TestResultType,
@@ -17,6 +19,7 @@ type InputFormProps = {
   data: InputDataType;
   setData: Dispatch<SetStateAction<InputDataType>>;
   additionOfLabel?: string;
+  disabled?: boolean;
 };
 /**
  *
@@ -25,14 +28,14 @@ type InputFormProps = {
  * @param setData: input의 change event 시 해당 event의 value에 따라 data의 상태를 변경
  * @returns
  */
-const InputForm = ({ id, data, setData, additionOfLabel }: InputFormProps) => {
+const InputForm = ({ id, data, setData, additionOfLabel, disabled }: InputFormProps) => {
   const [hiddenPw, setHiddenPw] = useState<boolean>(true);
   // ⚠️InputFormIdType 과 placeholder, label 의 property명은 동일 해야함
   const PLACE_HOLDER = {
-    name: '이름을 입력해주세요.',
-    nickName: '닉네임을 입력해주세요.',
-    email: '이메일을 입력해주세요.',
-    pw: '8-12자 영문+숫자+툭수문자(!,@,^).',
+    name: '이름 (2-20자 영문,한글 사용 가능)',
+    nickName: '닉네임 (3-10자 영문,한글,숫자 사용 가능)',
+    email: '이메일',
+    pw: '비밀번호 (8-20자 영문,숫자,특수문자(!,@,^) 조합)',
     confirmPw: '비밀번호 확인',
   };
   const LABEL = {
@@ -58,21 +61,21 @@ const InputForm = ({ id, data, setData, additionOfLabel }: InputFormProps) => {
   const checkRegex = (text: string): TestResultType => {
     let result: TestResultType = 'pass';
     switch (id) {
-      case 'name':
-        result = REGEX.name.test(text) ? 'pass' : 'invalidName';
+      case INPUT_FORM_ID.name:
+        result = REGEX.name.test(text) ? 'pass' : ERROR_TYPE.invalidName;
         break;
-      case 'nickName':
-        result = REGEX.nickName.test(text) ? 'pass' : 'invalidNickName';
+      case INPUT_FORM_ID.nickName:
+        result = REGEX.nickName.test(text) ? 'pass' : ERROR_TYPE.invalidNickName;
         break;
-      case 'email':
-        result = REGEX.email.test(text) ? 'pass' : 'invalidEmail';
+      case INPUT_FORM_ID.email:
+        result = REGEX.email.test(text) ? 'pass' : ERROR_TYPE.invalidEmail;
         break;
-      case 'pw':
-        result = REGEX.pw.test(text) ? 'pass' : 'invalidPw';
+      case INPUT_FORM_ID.pw:
+        result = REGEX.pw.test(text) ? 'pass' : ERROR_TYPE.invalidPw;
         break;
-      case 'confirmPw':
+      case INPUT_FORM_ID.confirmPw:
         const inputPwEl = document.querySelector('#input-pw') as HTMLInputElement | null;
-        result = inputPwEl?.value === text ? 'pass' : 'invalidConfirmPw';
+        result = inputPwEl?.value === text ? 'pass' : ERROR_TYPE.invalidConfirmPw;
       default:
         break;
     }
@@ -84,13 +87,12 @@ const InputForm = ({ id, data, setData, additionOfLabel }: InputFormProps) => {
     if (text === '') {
       setData({
         value: text,
-        errorMsg: null,
       });
     } else {
       const testResult = checkRegex(text);
       setData({
         value: text,
-        errorMsg: testResult === 'pass' ? null : ERROR_MSG[testResult],
+        errorMsg: testResult === 'pass' ? undefined : ERROR_MSG[testResult],
       });
     }
   };
@@ -111,15 +113,20 @@ const InputForm = ({ id, data, setData, additionOfLabel }: InputFormProps) => {
         </label>
       )}
       <input
-        type={!hiddenPw || (id !== 'pw' && id !== 'confirmPw') ? 'text' : 'password'}
+        type={
+          !hiddenPw || (id !== INPUT_FORM_ID.pw && id !== INPUT_FORM_ID.confirmPw)
+            ? 'text'
+            : 'password'
+        }
         id={`input-${id}`}
         name={`data-${id}`}
         placeholder={PLACE_HOLDER[id]}
         value={data.value}
+        disabled={disabled}
         onChange={event => handleChange(event)}
         onBlur={handleBlur}
       />
-      {(id == 'pw' || id == 'confirmPw') && (
+      {(id == INPUT_FORM_ID.pw || id == INPUT_FORM_ID.confirmPw) && (
         <>
           <BtnShowPw hiddenPw={hiddenPw} setHiddenPw={setHiddenPw} />
           <div className={`pw__check-icon ${data.value && !data.errorMsg ? 'on' : ''}`}>
@@ -127,10 +134,13 @@ const InputForm = ({ id, data, setData, additionOfLabel }: InputFormProps) => {
           </div>
         </>
       )}
-      <div className={`error-msg ${id === 'email' && data.value ? 'email' : ''}`}>
-        {id === 'email' &&
-          (data.value === '' ? `'@'을 포함하여 작성해주세요.` : data.errorMsg ? data.errorMsg : '')}
-        {id !== 'email' && (data.errorMsg ? data.errorMsg : '')}
+      <div className="error-msg">
+        {data.errorMsg ? (
+          <p>{data.errorMsg}</p>
+        ) : (
+          id === INPUT_FORM_ID.email &&
+          !data.value && <p className="info-email-form"> '@'을 포함하여 작성해주세요.</p>
+        )}
       </div>
     </div>
   );

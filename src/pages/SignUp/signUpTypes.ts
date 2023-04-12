@@ -1,5 +1,5 @@
 //⚠️ singUpProgress 순서는 꼭 회원가입 진행 단계 순서과 일치하게 할 것
-const signUpProgress = {
+export const SIGN_UP_PROGRESS = {
   agreeToTerms: 'agreeToTerms',
   nameAndNickName: 'nameAndNickName', // name 이랑 nickname 같이
   email: 'email',
@@ -7,60 +7,60 @@ const signUpProgress = {
   genderAndBirth: 'genderAndBirth',
   job: 'job',
 } as const;
-export type SignUpProgressType = keyof typeof signUpProgress;
+export type SignUpProgressType = keyof typeof SIGN_UP_PROGRESS;
 // 약관 동의란에는 progressBar가 필요 없음
-export const progressArr: SignUpProgressType[] = [
-  'agreeToTerms',
-  'nameAndNickName',
-  'email',
-  'pw',
-  'genderAndBirth',
-  'job',
+export const PROGRESS_ARR: SignUpProgressType[] = [
+  SIGN_UP_PROGRESS.agreeToTerms,
+  SIGN_UP_PROGRESS.nameAndNickName,
+  SIGN_UP_PROGRESS.email,
+  SIGN_UP_PROGRESS.pw,
+  SIGN_UP_PROGRESS.genderAndBirth,
+  SIGN_UP_PROGRESS.job,
 ];
-const inputFormId = {
+export const INPUT_FORM_ID = {
   name: 'name',
   nickName: 'nickName',
   email: 'email',
   pw: 'pw',
   confirmPw: 'confirmPw',
 };
-export type InputFormIdType = keyof typeof inputFormId;
+export type InputFormIdType = keyof typeof INPUT_FORM_ID;
 export type AgreementStateType = {
   termsOfUse: boolean; //이용약관
   personalInformation: boolean; // 개인정보 수집 및 이용
   ageCondition: boolean;
   marketing: boolean; // 마케팅 정보 활용 동의
 };
-const termsContentsName = {
+export const TERMS_CONTENTS_NAME = {
   termsOfUse: 'termsOfUse',
   personalInformation: 'personalInformation',
   marketing: 'marketing',
 } as const;
-export type TermsContentsNameType = keyof typeof termsContentsName;
-const termsCheckBoxName = {
-  ...termsContentsName,
+export type TermsContentsNameType = keyof typeof TERMS_CONTENTS_NAME;
+export const TERMS_CHECK_BOX_NAME = {
+  ...TERMS_CONTENTS_NAME,
   ageCondition: 'ageCondition',
 } as const;
-export type TermsCheckBoxNameType = keyof typeof termsCheckBoxName;
+export type TermsCheckBoxNameType = keyof typeof TERMS_CHECK_BOX_NAME;
 //⚠️ sessionData property 명과 각 화원가입단계의 입력란이 input 인 경우애는 name  value 맞추기 (ex: name, email)
-export const sessionDataKey = {
-  ...inputFormId,
+export const SIGN_UP_SESSION_DATA_KEY = {
+  ...INPUT_FORM_ID,
   job: 'job',
   gender: 'gender',
   birth: 'birth',
 };
-export type SessionDataKeyType = keyof typeof sessionDataKey;
-// sessionStore 의 item 은 SessionDataType[]의 형태로 나옴
-export type SessionDataType = {
-  key: SessionDataKeyType;
+export type SignUpSessionDataKeyType = keyof typeof SIGN_UP_SESSION_DATA_KEY;
+// sessionStore 의 item 은 SignUpSessionDataType[]의 형태로 나옴
+export type SignUpSessionDataType = {
+  key: SignUpSessionDataKeyType;
   value: string;
 };
-export const genderType = {
+export const GENDER_TYPE = {
   male: 'male',
   female: 'female',
 } as const;
-export type GenderType = keyof typeof genderType;
-const job = {
+export type GenderType = keyof typeof GENDER_TYPE;
+export const job = {
   profession: 'profession', //전문직
   management: 'management', //경영 관리
   desk: 'desk', //사무직
@@ -97,15 +97,15 @@ export type BirthDateType = {
 export type SignUpStateType = {
   progress: SignUpProgressType;
   agreeToTerms: AgreementStateType;
-  name: string | null;
-  nickname: string | null;
-  email: string | null;
-  pw: string | null;
-  gender: GenderType | null;
-  birth: BirthDateType | null;
-  job: JobType | null;
+  name?: string;
+  nickname?: string;
+  email?: string;
+  pw?: string;
+  gender?: GenderType;
+  birth?: BirthDateType;
+  job?: JobType;
 };
-const errorType = {
+export const ERROR_TYPE = {
   required: 'required',
   invalidName: 'invalidName',
   invalidNickName: 'invalidNickName',
@@ -113,33 +113,31 @@ const errorType = {
   invalidPw: 'invalidPw',
   invalidConfirmPw: 'invalidConfirmPw',
 } as const;
-export type ErrorType = keyof typeof errorType;
-const pass = 'pass';
-export type TestResultType = ErrorType | typeof pass;
+export type ErrorType = keyof typeof ERROR_TYPE;
+export type TestResultType = ErrorType | 'pass';
 //⚠️ ErrorType 과 ERROR_MSG의 property 명은 같아야함
 export const ERROR_MSG = {
   required: '필수 입력 항목이에요.',
-  invalidName: '2~20자의 한글,영문(대소문자)를 사용하세요',
-  invalidNickName: '3~10자의 한글,영문(대소문자),숫자를 사용하세요',
+  invalidName: '한글,영문(대소문자)중 한 가지 이상을 사용하여 2-20자내로 입력하세요.',
+  invalidNickName: '한글,영문(대소문자),숫자 중 한 가지 이상을 사용하여 3-10자 내로 입력하세요',
   invalidEmail: '올바르지 않은 형식의 이메일이에요.',
   invalidAuthNumber: '인증번호가 일치하지 않아요.',
-  invalidPw: '8~20자의 영문(대소문자),숫자 및 특수기호(!,@,^)를 혼용하여 입력하세요',
+  invalidPw: '영문(대소문자),숫자,특수기호(!,@,^)을 최소 한가지씩 사용하여 3~10자내로 입력하세요.',
   invalidConfirmPw: '비밀번호가 일치하지 않아요.',
 };
 export type InputDataType = {
   value: string | GenderType;
-  errorMsg: string | null;
+  errorMsg?: string;
 };
 export const initialInputData: InputDataType = {
   value: '',
-  errorMsg: null,
 };
 export type GenderStateType = {
-  value: GenderType | null;
-  errorMsg: string | null;
+  value?: GenderType;
+  errorMsg?: string;
 };
 
 export type BirthStateType = {
-  value: BirthDateType | null;
-  errorMsg: string | null;
+  value?: BirthDateType;
+  errorMsg?: string;
 };

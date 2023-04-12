@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
+
 import AlertModal from '@/components/Modals/AlertModal';
-import ConfirmModal from '@/components/Modals/ConfirmModal';
 import BottomNavModal from '@/components/Modals/BottomNavModal';
+import ConfirmModal from '@/components/Modals/ConfirmModal';
+import FullScreModal from '@/components/Modals/FullModal';
 import {
-  ConfirmModalBtnType,
   FilteringConditionType,
   FullScreModalType,
   ToastModalType,
 } from '@/components/Modals/modalTypes';
 import ToastModal from '@/components/Modals/ToastModal';
-import FullScreModal from '@/components/Modals/FullModal';
+
 import product_sampleImg from './product_sample.jpg';
 import './style.scss';
 
@@ -18,17 +19,17 @@ import './style.scss';
  * @returns
  */
 const ModalTest = () => {
-  const modalType = {
+  const MODAL_TYPE = {
     alert: 'alert',
     bottom: 'bottom',
     confirm: 'confirm',
     full: 'full',
     toast: 'toast',
   } as const;
-  type OpenTargetType = keyof typeof modalType;
+  type OpenTargetType = keyof typeof MODAL_TYPE;
   const [openTarget, setOpenTarget] = useState<OpenTargetType | null>('alert');
   const [openBottomNavModal, setOpenBottomNavModal] = useState<boolean>(
-    openTarget === modalType.bottom,
+    openTarget === MODAL_TYPE.bottom,
   );
   const AlertTextContainer = () => {
     return (
@@ -48,17 +49,6 @@ const ModalTest = () => {
     );
   };
   const [alertModalChildren, setAlertModalChildren] = useState<string>('alert01');
-  const confirmYesBtn: ConfirmModalBtnType = {
-    text: 'yes',
-    path: null,
-    otherFn: null,
-  };
-  const confirmNoBtn: ConfirmModalBtnType = {
-    text: 'no',
-    path: null,
-    otherFn: null,
-  };
-
   //사용자가 선택한 필터링 조건
   const selectedFilteringCondition: FilteringConditionType = {
     productType: ['food'],
@@ -92,13 +82,13 @@ const ModalTest = () => {
    * 모달 창 기능 테스트를 위한 함수로 , 테스트 이후 실제 사용 단계에서 삭제
    */
   useEffect(() => {
-    if (openTarget === 'bottom') {
+    if (openTarget === MODAL_TYPE.bottom) {
       setOpenBottomNavModal(true);
     } else {
       setOpenBottomNavModal(false);
     }
     // toast modal
-    if (openTarget === 'toast') {
+    if (openTarget === MODAL_TYPE.toast) {
       // toast modal이 열려야하는 위치에 해당하는 element의 domRect
       const targetElDomRect = document
         .getElementById('test__toast-modal-target')
@@ -119,7 +109,7 @@ const ModalTest = () => {
         <button
           type="button"
           onClick={() => {
-            setOpenTarget('alert');
+            setOpenTarget(MODAL_TYPE.alert);
             setAlertModalChildren('alert01');
           }}
         >
@@ -128,19 +118,19 @@ const ModalTest = () => {
         <button
           type="button"
           onClick={() => {
-            setOpenTarget('alert');
+            setOpenTarget(MODAL_TYPE.alert);
             setAlertModalChildren('alert02');
           }}
         >
           open alert modal_2
         </button>
-        <button type="button" onClick={() => setOpenTarget('confirm')}>
+        <button type="button" onClick={() => setOpenTarget(MODAL_TYPE.confirm)}>
           open confirm modal
         </button>
-        <button type="button" onClick={() => setOpenTarget('bottom')}>
+        <button type="button" onClick={() => setOpenTarget(MODAL_TYPE.bottom)}>
           open bottom nav modal
         </button>
-        <button type="button" onClick={() => setOpenTarget('toast')}>
+        <button type="button" onClick={() => setOpenTarget(MODAL_TYPE.toast)}>
           open toast modal
         </button>
         <button type="button" onClick={() => setOpenTarget('full')}>
@@ -148,7 +138,7 @@ const ModalTest = () => {
         </button>
       </div>
       <div id="test__toast-modal-target">여기에 toast modal 열기</div>
-      {openTarget === modalType.alert &&
+      {openTarget === MODAL_TYPE.alert &&
         (alertModalChildren === 'alert01' ? (
           <AlertModal center={true} short={true} closeModal={() => setOpenTarget(null)}>
             alert
@@ -158,20 +148,15 @@ const ModalTest = () => {
             <AlertTextContainer />
           </AlertModal>
         ))}
-      {openTarget == modalType.confirm && (
-        <ConfirmModal
-          title="title"
-          yesBtn={confirmYesBtn}
-          noBtn={confirmNoBtn}
-          closeModal={() => setOpenTarget(null)}
-        >
-          "confirmModal"
+      {openTarget == MODAL_TYPE.confirm && (
+        <ConfirmModal title="title" closeModal={() => setOpenTarget(null)}>
+          "confirm modal"
         </ConfirmModal>
       )}
-      {openTarget === modalType.toast && toastModalState && (
+      {openTarget === MODAL_TYPE.toast && toastModalState && (
         <ToastModal modalState={toastModalState} closeModal={() => setOpenTarget(null)} />
       )}
-      {openTarget === modalType.full && (
+      {openTarget === MODAL_TYPE.full && (
         <FullScreModal modalState={fullScreModalState} closeModal={() => setOpenTarget(null)} />
       )}
       <BottomNavModal

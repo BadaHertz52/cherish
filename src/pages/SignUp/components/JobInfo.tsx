@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import { CheckBox } from '@/components';
+import { RadioBtn } from '@/components';
 import { SignUpContext } from '@/pages/SignUp';
 
 import {
@@ -10,6 +10,8 @@ import {
   initialInputData,
   jobCheckBoxArr,
   JobType,
+  SIGN_UP_SESSION_DATA_KEY,
+  SignUpSessionDataKeyType,
 } from '../signUpTypes';
 
 import { getPrevData } from './SignUpTopBar';
@@ -23,7 +25,7 @@ const JobInfo = () => {
   const handleChange = (name: JobType) => {
     setJob({
       value: name,
-      errorMsg: null,
+      errorMsg: undefined,
     });
     setDisableBtn(false);
   };
@@ -37,23 +39,29 @@ const JobInfo = () => {
     // 간편 가입 성공 시 1.1 로 이동
   };
   useEffect(() => {
-    getPrevData('job', setJob, undefined, undefined);
+    getPrevData(
+      SIGN_UP_SESSION_DATA_KEY.job as SignUpSessionDataKeyType,
+      setJob,
+      undefined,
+      undefined,
+    );
   }, []);
   return (
     <div id="job-info">
       <StepInner disableBtn={disableBtn} onClickNextBtn={onClickNextBtn}>
         <h3>직업</h3>
-        <section className="check-box-group">
+        <fieldset className="radio-btn-group">
           {jobCheckBoxArr.map(i => (
-            <CheckBox
+            <RadioBtn
+              key={i.name}
               id={`job-info-${i.name}`}
-              name={i.name}
+              name="job"
+              value={i.name}
               label={i.label}
-              isChecked={() => job.value === i.name}
               onChange={() => handleChange(i.name)}
             />
           ))}
-        </section>
+        </fieldset>
         <div className="msg">{job.value === '' && ERROR_MSG.required}</div>
       </StepInner>
     </div>

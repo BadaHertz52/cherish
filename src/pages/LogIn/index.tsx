@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useNavigate } from 'react-router-dom';
 
 import './style.scss';
+//import { LogInParams, onLogIn } from '@/api/logIn';
 import { BtnShowPw, CheckBox } from '@/components';
 export const XSSCheck = (str: string, level?: number) => {
   if (!level || level == 0) {
@@ -22,11 +23,11 @@ const LogIn = () => {
   const [hiddenPw, setHiddenPw] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
   const [keepLogin, setKeepLogin] = useState<boolean>(false);
-  const inputTarget = {
+  const INPUT_TARGET = {
     email: 'email',
     pw: 'pw',
   } as const;
-  type InputTargetType = keyof typeof inputTarget;
+  type InputTargetType = keyof typeof INPUT_TARGET;
   const REGEX = {
     email: new RegExp('[a-z0-9]+@[a-z]+.[a-z]{2,3}'),
     //8~20자 (영문 + 숫자 + 특수기호(!@^))
@@ -38,7 +39,7 @@ const LogIn = () => {
   };
   const handleChangeOfValue = (event: ChangeEvent<HTMLInputElement>, target: InputTargetType) => {
     const value = XSSCheck(event.target.value);
-    if (target === 'email') {
+    if (target === INPUT_TARGET.email) {
       setEmail(value);
     } else {
       setPw(value);
@@ -54,35 +55,10 @@ const LogIn = () => {
     return REGEX.email.test(email) && REGEX.pw.test(pw);
   };
   const sendLogInData = async () => {
-    const data = { email: email, pw: pw };
+    //const data: LogInParams = { email: email, password: pw };
     //[todo -api]
     // data 서버에 전송
-    try {
-      const response = await fetch('', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-      if (!response.ok) {
-        throw new Error('Server response was not ok');
-      }
-      const result = await response.json();
-      //result 값에 따라 login / 오류 메세지
-      // if(login === success){
-      //   navigate('/main');
-      //   if(keepLogin){
-      //     //로그인 유지
-      //   }
-      // }
-      // else{setError(true)}
-    } catch (e) {
-      // error message
-      console.error('Error sending POST request:', e);
-      // fetch 실패 시 오류 메세지.... 어떻게....???
-      throw error;
-    }
+    //onLogIn(data, keepLogin);
   };
   const handleClickLogInBtn = () => {
     if (checkRegex()) {
@@ -106,7 +82,7 @@ const LogIn = () => {
               value={email}
               type="text"
               placeholder="이메일을 입력해주세요"
-              onChange={event => handleChangeOfValue(event, 'email')}
+              onChange={event => handleChangeOfValue(event, INPUT_TARGET.email)}
             />
             <button type="button" title="btn-remove-email" onClick={handleClickRemoveBtn}>
               <FontAwesomeIcon icon={faCircleXmark} />
@@ -117,7 +93,7 @@ const LogIn = () => {
               value={pw}
               type={!hiddenPw ? 'text' : 'password'}
               placeholder="비밀번호을 입력해주세요"
-              onChange={event => handleChangeOfValue(event, 'pw')}
+              onChange={event => handleChangeOfValue(event, INPUT_TARGET.pw)}
             />
             <BtnShowPw hiddenPw={hiddenPw} setHiddenPw={setHiddenPw} />
           </div>

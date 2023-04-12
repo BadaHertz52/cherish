@@ -1,6 +1,13 @@
 import { Dispatch, SetStateAction, useEffect } from 'react';
+
+import {
+  ERROR_MSG,
+  INPUT_FORM_ID,
+  InputDataType,
+  InputFormIdType,
+} from '@/pages/SignUp/signUpTypes';
+
 import InputForm from '../InputForm/index';
-import { ERROR_MSG, InputDataType } from '@/pages/SignUp/signUpTypes';
 import './style.scss';
 type PasswordFormProps = {
   additionOfLabel?: string; //InputForm의 additionOfLabel
@@ -30,7 +37,7 @@ const PasswordForm = ({
       if (pw.value === confirmPw.value && !pw.errorMsg) {
         setConfirmPw(prev => ({
           ...prev,
-          errorMsg: null,
+          errorMsg: undefined,
         }));
       }
       if (pw.value === confirmPw.value && !pw.errorMsg && !confirmPw.errorMsg) {
@@ -42,10 +49,15 @@ const PasswordForm = ({
   }, [pw, confirmPw]);
   return (
     <div className="pw-form">
-      <InputForm additionOfLabel={additionOfLabel} id="pw" data={pw} setData={setPw} />
       <InputForm
         additionOfLabel={additionOfLabel}
-        id="confirmPw"
+        id={INPUT_FORM_ID.pw as InputFormIdType}
+        data={pw}
+        setData={setPw}
+      />
+      <InputForm
+        additionOfLabel={additionOfLabel}
+        id={INPUT_FORM_ID.confirmPw as InputFormIdType}
         data={confirmPw}
         setData={setConfirmPw}
       />

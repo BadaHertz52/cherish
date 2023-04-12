@@ -10,6 +10,7 @@ import ConfirmModal from './Modals/ConfirmModal';
 import FullModal from './Modals/FullModal';
 import ToastModal from './Modals/ToastModal';
 import PasswordForm from './PasswordForm';
+import RadioBtn from './RadioBtn';
 import SearchHeader from './SearchHeader';
 import SearchKeywordSection from './SearchKeywordSection';
 import Timer from './Timer';
@@ -28,6 +29,7 @@ export {
   SearchKeywordSection,
   SearchHeader,
   PasswordForm,
+  RadioBtn,
   Timer,
   ToastModal,
 };

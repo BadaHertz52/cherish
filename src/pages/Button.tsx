@@ -1,6 +1,7 @@
+import axios from 'axios';
+
 import Button from '../components/Button';
 import '../assets/Button.scss';
-import axios from 'axios';
 const button = () => {
   const handleButtonClick = () => {
     console.log('Button Clicked!');

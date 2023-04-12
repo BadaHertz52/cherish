@@ -5,7 +5,13 @@ import { ToastModalType } from '@/components/Modals/modalTypes';
 import { SignUpContext } from '@/pages/SignUp';
 
 import { getToastModalPosition } from '../functions';
-import { InputDataType, SignUpStateType, initialInputData } from '../signUpTypes';
+import {
+  InputDataType,
+  SIGN_UP_SESSION_DATA_KEY,
+  SignUpSessionDataKeyType,
+  SignUpStateType,
+  initialInputData,
+} from '../signUpTypes';
 
 import { getPrevData } from './SignUpTopBar';
 import StepInner from './StepInner';
@@ -30,16 +36,24 @@ const SignUpPw = () => {
   };
   //sessionStorage, signUpState 내용 가져오기
   useEffect(() => {
-    getPrevData('pw', setPw, undefined, undefined);
-    getPrevData('confirmPw', setConfirmPw, undefined, undefined);
+    getPrevData(
+      SIGN_UP_SESSION_DATA_KEY.pw as SignUpSessionDataKeyType,
+      setPw,
+      undefined,
+      undefined,
+    );
+    getPrevData(
+      SIGN_UP_SESSION_DATA_KEY.confirmPw as SignUpSessionDataKeyType,
+      setConfirmPw,
+      undefined,
+      undefined,
+    );
     if (signUpState.pw) {
       setPw({
         value: signUpState.pw,
-        errorMsg: null,
       });
       setConfirmPw({
         value: signUpState.pw,
-        errorMsg: null,
       });
     }
     const position = getToastModalPosition();

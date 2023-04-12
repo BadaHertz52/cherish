@@ -1,17 +1,22 @@
+import { Dispatch, SetStateAction, useContext } from 'react';
+
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Dispatch, SetStateAction, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { SignUpContext } from '@/pages/SignUp';
+
 import {
   BirthStateType,
   GenderStateType,
   GenderType,
   InputDataType,
-  progressArr,
-  SessionDataKeyType,
-  SessionDataType,
+  PROGRESS_ARR,
+  SignUpSessionDataKeyType,
+  SignUpSessionDataType,
   SignUpStateType,
 } from '../signUpTypes';
+
 /**
  *  sessionStorage에 target에 대한 정보가 있을 경우, setState로 target에 대한 상태를 업데이트한다.
  * @param target
@@ -19,26 +24,24 @@ import {
  * @param removeItem; sessionStorage 에서 해당 item을 삭제하는 지 여부
  */
 export const getPrevData = (
-  target: SessionDataKeyType,
+  target: SignUpSessionDataKeyType,
   setInputDataState?: Dispatch<SetStateAction<InputDataType>>,
   setGenderState?: Dispatch<SetStateAction<GenderStateType>>,
   setBirthState?: Dispatch<SetStateAction<BirthStateType>>,
 ) => {
   const item = sessionStorage.getItem('signUpBackUpData');
   if (item) {
-    const prevData: SessionDataType[] = JSON.parse(item);
+    const prevData: SignUpSessionDataType[] = JSON.parse(item);
     const prevState = prevData.find(i => i.key === target);
     if (prevState) {
       if (setInputDataState) {
         setInputDataState({
           value: prevState.value,
-          errorMsg: null,
         });
       }
       if (setGenderState) {
         setGenderState({
           value: prevState.value as GenderType,
-          errorMsg: null,
         });
       }
       if (setBirthState) {
@@ -49,15 +52,19 @@ export const getPrevData = (
             month: arr[1],
             date: arr[2],
           },
-          errorMsg: null,
         });
       }
     }
   }
 };
-const SignUpTopBar = () => {
+type SignUpTopBarProps = {
+  openAuthNumberForm: boolean;
+  setOpenAuthNumberForm: Dispatch<SetStateAction<boolean>>;
+};
+const SignUpTopBar = ({ openAuthNumberForm, setOpenAuthNumberForm }: SignUpTopBarProps) => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
-  const setItem = (item: SessionDataType[]) => {
+  const navigate = useNavigate();
+  const setItem = (item: SignUpSessionDataType[]) => {
     sessionStorage.setItem('signUpBackUpData', JSON.stringify(item));
   };
   /**
@@ -73,15 +80,17 @@ const SignUpTopBar = () => {
         '.input-form input',
       ) as NodeListOf<HTMLInputElement>;
       if (listOfInputEl[0]) {
-        const backUpDataArr: SessionDataType[] = [...listOfInputEl].map((el: HTMLInputElement) => ({
-          key: el.id.replace('input-', '') as SessionDataKeyType,
-          value: el.value,
-        }));
+        const backUpDataArr: SignUpSessionDataType[] = [...listOfInputEl].map(
+          (el: HTMLInputElement) => ({
+            key: el.id.replace('input-', '') as SignUpSessionDataKeyType,
+            value: el.value,
+          }),
+        );
         backUpDataArr[0] && setItem(backUpDataArr);
       }
     }
     if (signUpState.progress === 'genderAndBirth') {
-      let backUpData: SessionDataType[] = [];
+      const backUpData: SignUpSessionDataType[] = [];
       //gender
       const targetBtnEl = document.querySelector('.btn-gender.on') as HTMLButtonElement | null;
       if (targetBtnEl) {
@@ -106,10 +115,10 @@ const SignUpTopBar = () => {
     }
     if (signUpState.progress === 'job') {
       const listOfCheckBoxEl = document.querySelectorAll(
-        '.check-box-group input',
+        '.radio-btn-group input',
       ) as NodeListOf<HTMLInputElement>;
       const checkedEl = [...listOfCheckBoxEl].filter(el => el.checked)[0];
-      const backUpData: SessionDataType[] = [
+      const backUpData: SignUpSessionDataType[] = [
         {
           key: 'job',
           value: checkedEl.name,
@@ -119,20 +128,22 @@ const SignUpTopBar = () => {
     }
   };
   const onClickPrevBtn = () => {
-    if (signUpState.progress !== 'agreeToTerms') {
+    const conditionToCloseAuthNumberForm = signUpState.progress === 'email' && openAuthNumberForm;
+    if (signUpState.progress === 'agreeToTerms') {
+      navigate('/login');
+    }
+    if (conditionToCloseAuthNumberForm) {
+      setOpenAuthNumberForm(false);
+    }
+    if (signUpState.progress !== 'agreeToTerms' && !conditionToCloseAuthNumberForm) {
       // 현재 페이지 작성 내용 저장
       saveData();
       //이전 단계로 이동
-      const currentStepIndex = progressArr.indexOf(signUpState.progress);
-      setSignUpState((prevState: SignUpStateType) => {
-        const newState: SignUpStateType = {
-          ...prevState,
-          progress: progressArr[currentStepIndex - 1],
-        };
-        return newState;
-      });
-    } else {
-      // 간편 가입 이전 페이지 이동
+      const currentStepIndex = PROGRESS_ARR.indexOf(signUpState.progress);
+      setSignUpState((prevState: SignUpStateType) => ({
+        ...prevState,
+        progress: PROGRESS_ARR[currentStepIndex - 1],
+      }));
     }
   };
   return (
