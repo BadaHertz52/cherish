@@ -11,9 +11,9 @@ import {
   GenderStateType,
   GenderType,
   InputDataType,
-  progressArr,
-  SessionDataKeyType,
-  SessionDataType,
+  PROGRESS_ARR,
+  SignUpSessionDataKeyType,
+  SignUpSessionDataType,
   SignUpStateType,
 } from '../signUpTypes';
 
@@ -24,26 +24,24 @@ import {
  * @param removeItem; sessionStorage 에서 해당 item을 삭제하는 지 여부
  */
 export const getPrevData = (
-  target: SessionDataKeyType,
+  target: SignUpSessionDataKeyType,
   setInputDataState?: Dispatch<SetStateAction<InputDataType>>,
   setGenderState?: Dispatch<SetStateAction<GenderStateType>>,
   setBirthState?: Dispatch<SetStateAction<BirthStateType>>,
 ) => {
   const item = sessionStorage.getItem('signUpBackUpData');
   if (item) {
-    const prevData: SessionDataType[] = JSON.parse(item);
+    const prevData: SignUpSessionDataType[] = JSON.parse(item);
     const prevState = prevData.find(i => i.key === target);
     if (prevState) {
       if (setInputDataState) {
         setInputDataState({
           value: prevState.value,
-          errorMsg: null,
         });
       }
       if (setGenderState) {
         setGenderState({
           value: prevState.value as GenderType,
-          errorMsg: null,
         });
       }
       if (setBirthState) {
@@ -54,7 +52,6 @@ export const getPrevData = (
             month: arr[1],
             date: arr[2],
           },
-          errorMsg: null,
         });
       }
     }
@@ -67,7 +64,7 @@ type SignUpTopBarProps = {
 const SignUpTopBar = ({ openAuthNumberForm, setOpenAuthNumberForm }: SignUpTopBarProps) => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
   const navigate = useNavigate();
-  const setItem = (item: SessionDataType[]) => {
+  const setItem = (item: SignUpSessionDataType[]) => {
     sessionStorage.setItem('signUpBackUpData', JSON.stringify(item));
   };
   /**
@@ -83,15 +80,17 @@ const SignUpTopBar = ({ openAuthNumberForm, setOpenAuthNumberForm }: SignUpTopBa
         '.input-form input',
       ) as NodeListOf<HTMLInputElement>;
       if (listOfInputEl[0]) {
-        const backUpDataArr: SessionDataType[] = [...listOfInputEl].map((el: HTMLInputElement) => ({
-          key: el.id.replace('input-', '') as SessionDataKeyType,
-          value: el.value,
-        }));
+        const backUpDataArr: SignUpSessionDataType[] = [...listOfInputEl].map(
+          (el: HTMLInputElement) => ({
+            key: el.id.replace('input-', '') as SignUpSessionDataKeyType,
+            value: el.value,
+          }),
+        );
         backUpDataArr[0] && setItem(backUpDataArr);
       }
     }
     if (signUpState.progress === 'genderAndBirth') {
-      const backUpData: SessionDataType[] = [];
+      const backUpData: SignUpSessionDataType[] = [];
       //gender
       const targetBtnEl = document.querySelector('.btn-gender.on') as HTMLButtonElement | null;
       if (targetBtnEl) {
@@ -116,10 +115,10 @@ const SignUpTopBar = ({ openAuthNumberForm, setOpenAuthNumberForm }: SignUpTopBa
     }
     if (signUpState.progress === 'job') {
       const listOfCheckBoxEl = document.querySelectorAll(
-        '.check-box-group input',
+        '.radio-btn-group input',
       ) as NodeListOf<HTMLInputElement>;
       const checkedEl = [...listOfCheckBoxEl].filter(el => el.checked)[0];
-      const backUpData: SessionDataType[] = [
+      const backUpData: SignUpSessionDataType[] = [
         {
           key: 'job',
           value: checkedEl.name,
@@ -140,10 +139,10 @@ const SignUpTopBar = ({ openAuthNumberForm, setOpenAuthNumberForm }: SignUpTopBa
       // 현재 페이지 작성 내용 저장
       saveData();
       //이전 단계로 이동
-      const currentStepIndex = progressArr.indexOf(signUpState.progress);
+      const currentStepIndex = PROGRESS_ARR.indexOf(signUpState.progress);
       setSignUpState((prevState: SignUpStateType) => ({
         ...prevState,
-        progress: progressArr[currentStepIndex - 1],
+        progress: PROGRESS_ARR[currentStepIndex - 1],
       }));
     }
   };
