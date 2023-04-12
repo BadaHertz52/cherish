@@ -39,7 +39,9 @@ const PriceSlider = ({ prices, setPrices }: PriceSliderProps) => {
     <div className={styles.slider}>
       <div className={styles.sliderContent}>
         <div className={styles.sliderContentContainer}>
-          <p className={styles.sliderContentContainerTitle}>희망 가격대 *</p>
+          <p className={styles.sliderContentContainerTitle}>
+            희망 가격대 <span className={styles.required}>*</span>
+          </p>
           <h2 className={styles.sliderContentContainerPrice}>
             {changePriceFormat(prices[0])}~{changePriceFormat(prices[1])}
           </h2>

@@ -373,7 +373,9 @@ const Accordion = () => {
   const renderPersons = useMemo(() => {
     return (
       <div className={styles.accordionContainerContent}>
-        <p className={styles.accordionContainerContentTitle}>성별 *</p>
+        <p className={styles.accordionContainerContentTitle}>
+          성별 <span className={styles.required}>*</span>
+        </p>
         <div className={styles.accordionContainerContentRadio}>
           {persons.map((person: RadioButton) => {
             return (
@@ -395,7 +397,9 @@ const Accordion = () => {
   const renderAge = useMemo(() => {
     return (
       <div className={styles.accordionContainerContent}>
-        <p className={styles.accordionContainerContentTitle}>나이 *</p>
+        <p className={styles.accordionContainerContentTitle}>
+          나이 <span className={styles.required}>*</span>
+        </p>
         <input
           type="text"
           placeholder="나이를 입력해 주세요."
@@ -587,7 +591,9 @@ const Accordion = () => {
   const renderPurposes = useMemo(() => {
     return (
       <div className={styles.accordionContainerContent}>
-        <p className={styles.accordionContainerContentTitle}>선물 목적 *</p>
+        <p className={styles.accordionContainerContentTitle}>
+          선물 목적 <span className={styles.required}>*</span>
+        </p>
         <div className={styles.accordionContainerContentCheck}>
           {purposes.map((purpose: RadioButton) => {
             return (
@@ -657,7 +663,9 @@ const Accordion = () => {
   const renderRelationships = useMemo(() => {
     return (
       <div className={styles.accordionContainerContent}>
-        <p className={styles.accordionContainerContentTitle}>나와의 관계 *</p>
+        <p className={styles.accordionContainerContentTitle}>
+          나와의 관계 <span className={styles.required}>*</span>
+        </p>
         <div className={styles.accordionContainerContentCheck}>
           {relationships.map((relationship: RadioButton) => {
             return (
@@ -797,7 +805,7 @@ const Accordion = () => {
     return (
       <div className={styles.accordionContainerContent}>
         <p className={styles.accordionContainerContentTitle}>
-          감정<span>(선택)</span>
+          감정 <span>(선택)</span>
         </p>
         <div className={styles.accordionContainerContentCheck}>
           {emotions.map((emotion: CheckBox) => {
