@@ -58,10 +58,6 @@ const SignUpTerms = () => {
   const NO_BTN_VALUE: ConfirmModalBtnType = {
     //btn 의 text node
     text: '닫기',
-    //btn 클릭 시 이동해야 할 페이지의 경로
-    path: null,
-    //btn 클릭 시 이동/창 닫기 외의 필요한 기능
-    otherFn: null,
   };
   const MODAL_TERMS_OF_USE: Omit<ConfirmModalProps, 'closeModal'> = {
     title: '이용약관(필수)',
@@ -90,8 +86,6 @@ const SignUpTerms = () => {
     return {
       //btn 의 text node
       text: '동의하기',
-      //btn 클릭 시 이동해야 할 페이지의 경로
-      path: null,
       //btn 클릭 시 이동/창 닫기 외의 필요한 기능
       otherFn: () => onClickYesBtn(name),
     };
