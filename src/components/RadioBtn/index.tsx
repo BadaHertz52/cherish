@@ -9,8 +9,7 @@ type CheckBoxProps = {
   isChecked: (name?: string) => boolean;
   onChange?: () => void;
 };
-const CheckBox = ({ id, name, label, isChecked, onChange }: CheckBoxProps) => {
-  console.log(name, isChecked());
+const RadioBtn = ({ id, name, label, isChecked, onChange }: CheckBoxProps) => {
   const handleChange = () => {
     onChange && onChange();
   };
@@ -41,4 +40,4 @@ const CheckBox = ({ id, name, label, isChecked, onChange }: CheckBoxProps) => {
   );
 };
 
-export default React.memo(CheckBox);
+export default React.memo(RadioBtn);

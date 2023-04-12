@@ -6,7 +6,13 @@ import { EmailVerification } from '@/components';
 import { ResultOfEmailAPI } from '@/components/EmailVerification/types';
 
 import { SignUpContext } from '..';
-import { initialInputData, InputDataType, SignUpStateType } from '../signUpTypes';
+import {
+  initialInputData,
+  InputDataType,
+  SIGN_UP_SESSION_DATA_KEY,
+  SignUpSessionDataKeyType,
+  SignUpStateType,
+} from '../signUpTypes';
 
 import { getPrevData } from './SignUpTopBar';
 import StepInner from './StepInner';
@@ -32,6 +38,7 @@ const SignUpEmail = ({ openAuthNumberForm, setOpenAuthNumberForm }: SignUpEmailP
     const result: ResultOfEmailAPI = {
       type: 'success',
     };
+    //[api ]
     // try {
     //   const response = await axios.post('', { email: email });
     //   if (response.status === 200) {
@@ -66,7 +73,12 @@ const SignUpEmail = ({ openAuthNumberForm, setOpenAuthNumberForm }: SignUpEmailP
     return result;
   };
   useEffect(() => {
-    getPrevData('email', setEmail, undefined, undefined);
+    getPrevData(
+      SIGN_UP_SESSION_DATA_KEY.email as SignUpSessionDataKeyType,
+      setEmail,
+      undefined,
+      undefined,
+    );
     if (signUpState.email) {
       setEmail({
         value: signUpState.email,

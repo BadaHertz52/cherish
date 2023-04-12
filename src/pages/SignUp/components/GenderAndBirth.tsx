@@ -8,8 +8,11 @@ import { SignUpContext } from '@/pages/SignUp';
 import {
   BirthStateType,
   ERROR_MSG,
+  GENDER_TYPE,
   GenderStateType,
   GenderType,
+  SIGN_UP_SESSION_DATA_KEY,
+  SignUpSessionDataKeyType,
   SignUpStateType,
 } from '../signUpTypes';
 
@@ -55,8 +58,18 @@ const GenderAndBirth = () => {
     setOpenDatePicker((prev: boolean) => !prev);
   };
   useEffect(() => {
-    getPrevData('gender', undefined, setGender, undefined);
-    getPrevData('birth', undefined, undefined, setBirth);
+    getPrevData(
+      SIGN_UP_SESSION_DATA_KEY.gender as SignUpSessionDataKeyType,
+      undefined,
+      setGender,
+      undefined,
+    );
+    getPrevData(
+      SIGN_UP_SESSION_DATA_KEY.birth as SignUpSessionDataKeyType,
+      undefined,
+      undefined,
+      setBirth,
+    );
     if (signUpState.gender) {
       setGender({
         value: signUpState.gender,
@@ -84,16 +97,16 @@ const GenderAndBirth = () => {
           <h4>성별</h4>
           <div className="btn-group">
             <button
-              className={`btn-gender ${gender.value === 'female' ? 'on' : ''}`}
-              name="female"
+              className={`btn-gender ${gender.value === GENDER_TYPE.female ? 'on' : ''}`}
+              name={GENDER_TYPE.female}
               type="button"
               onClick={event => onClickGenderBtn(event)}
             >
               여성
             </button>
             <button
-              className={`btn-gender ${gender.value === 'male' ? 'on' : ''}`}
-              name="male"
+              className={`btn-gender ${gender.value === GENDER_TYPE.male ? 'on' : ''}`}
+              name={GENDER_TYPE.male}
               type="button"
               onClick={event => onClickGenderBtn(event)}
             >

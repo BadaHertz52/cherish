@@ -14,7 +14,7 @@ import './style.scss';
 import { SignUpStateType } from './signUpTypes';
 
 export const initialSignUpState: SignUpStateType = {
-  progress: 'agreeToTerms',
+  progress: 'job',
   agreeToTerms: {
     termsOfUse: false,
     ageCondition: false,

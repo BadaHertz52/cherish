@@ -22,11 +22,11 @@ const LogIn = () => {
   const [hiddenPw, setHiddenPw] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
   const [keepLogin, setKeepLogin] = useState<boolean>(false);
-  const inputTarget = {
+  const INPUT_TARGET = {
     email: 'email',
     pw: 'pw',
   } as const;
-  type InputTargetType = keyof typeof inputTarget;
+  type InputTargetType = keyof typeof INPUT_TARGET;
   const REGEX = {
     email: new RegExp('[a-z0-9]+@[a-z]+.[a-z]{2,3}'),
     //8~20자 (영문 + 숫자 + 특수기호(!@^))
@@ -38,7 +38,7 @@ const LogIn = () => {
   };
   const handleChangeOfValue = (event: ChangeEvent<HTMLInputElement>, target: InputTargetType) => {
     const value = XSSCheck(event.target.value);
-    if (target === 'email') {
+    if (target === INPUT_TARGET.email) {
       setEmail(value);
     } else {
       setPw(value);
@@ -106,7 +106,7 @@ const LogIn = () => {
               value={email}
               type="text"
               placeholder="이메일을 입력해주세요"
-              onChange={event => handleChangeOfValue(event, 'email')}
+              onChange={event => handleChangeOfValue(event, INPUT_TARGET.email)}
             />
             <button type="button" title="btn-remove-email" onClick={handleClickRemoveBtn}>
               <FontAwesomeIcon icon={faCircleXmark} />
@@ -117,7 +117,7 @@ const LogIn = () => {
               value={pw}
               type={!hiddenPw ? 'text' : 'password'}
               placeholder="비밀번호을 입력해주세요"
-              onChange={event => handleChangeOfValue(event, 'pw')}
+              onChange={event => handleChangeOfValue(event, INPUT_TARGET.pw)}
             />
             <BtnShowPw hiddenPw={hiddenPw} setHiddenPw={setHiddenPw} />
           </div>

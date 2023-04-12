@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import { CheckBox } from '@/components';
-import RadioBtn from '@/components/RadioBtn';
+import { RadioBtn } from '@/components';
 import { SignUpContext } from '@/pages/SignUp';
 
 import {
@@ -11,6 +10,8 @@ import {
   initialInputData,
   jobCheckBoxArr,
   JobType,
+  SIGN_UP_SESSION_DATA_KEY,
+  SignUpSessionDataKeyType,
 } from '../signUpTypes';
 
 import { getPrevData } from './SignUpTopBar';
@@ -38,7 +39,12 @@ const JobInfo = () => {
     // 간편 가입 성공 시 1.1 로 이동
   };
   useEffect(() => {
-    getPrevData('job', setJob, undefined, undefined);
+    getPrevData(
+      SIGN_UP_SESSION_DATA_KEY.job as SignUpSessionDataKeyType,
+      setJob,
+      undefined,
+      undefined,
+    );
   }, []);
   return (
     <div id="job-info">
@@ -50,7 +56,6 @@ const JobInfo = () => {
               key={i.name}
               id={`job-info-${i.name}`}
               name={i.name}
-              value={i.name}
               label={i.label}
               isChecked={() => job.value === i.name}
               onChange={() => handleChange(i.name)}
