@@ -23,7 +23,7 @@ import {
 import './style.scss';
 import { ToastModalType } from '../Modals/modalTypes';
 
-import { ResultOfEmailAPI } from './types';
+import { EMAIL_API_RESULT_TYPE, EmailAPIResult } from './types';
 
 type EmailVerificationProps = {
   additionOfLabel?: string; // InputForm의 additionOfLabel
@@ -34,7 +34,7 @@ type EmailVerificationProps = {
   setOpenAuthNumberForm: Dispatch<SetStateAction<boolean>>;
   toastModalPositionTargetEl: HTMLElement | null; // toastModal 위치,
   inFindPw?: boolean; // 비밀번호 찾기 페이지에서 사용하는 지 여부
-  sendVerificationEmail: () => Promise<ResultOfEmailAPI>; // 이메일 전송 api 진행
+  sendVerificationEmail: () => Promise<EmailAPIResult>; // 이메일 전송 api 진행
 };
 const EmailVerification = ({
   additionOfLabel,
@@ -74,30 +74,30 @@ const EmailVerification = ({
     try {
       const result = await sendVerificationEmail();
       switch (result.type) {
-        case 'duplicate':
+        case EMAIL_API_RESULT_TYPE.duplicate:
           setEmail((prev: InputDataType) => ({
             ...prev,
             errorMsg: '이미 회원가입된 이메일이에요.',
           }));
           break;
-        case 'pause':
+        case EMAIL_API_RESULT_TYPE.pause:
           setOpenToastModal(false);
           setAlertModalChilde(childOfModalForPause);
           setTimeout(() => {
             setOpenAlertModal(true);
           }, 100);
           break;
-        case 'overSending':
+        case EMAIL_API_RESULT_TYPE.overSending:
           setOpenToastModal(false);
           setAlertModalChilde(childOfModalForOverSending);
           setTimeout(() => {
             setOpenAlertModal(true);
           }, 100);
           break;
-        case 'serverError':
+        case EMAIL_API_RESULT_TYPE.serverError:
           console.error(result.msg);
           break;
-        case 'success':
+        case EMAIL_API_RESULT_TYPE.success:
           setOpenTimer(true);
           setOpenToastModal(true);
           setTimeout(() => {

@@ -24,12 +24,10 @@ const GenderAndBirth = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
   const [disableBtn, setDisableBtn] = useState<boolean>(false);
   const [birth, setBirth] = useState<BirthStateType>({
-    value: null,
     errorMsg: ERROR_MSG.required,
   });
 
   const [gender, setGender] = useState<GenderStateType>({
-    value: null,
     errorMsg: ERROR_MSG.required,
   });
   const [openDatePicker, setOpenDatePicker] = useState<boolean>(false);
@@ -51,7 +49,6 @@ const GenderAndBirth = () => {
     const name = target.name as GenderType;
     setGender({
       value: name,
-      errorMsg: null,
     });
   };
   const onClickBirthBtn = () => {
@@ -73,13 +70,11 @@ const GenderAndBirth = () => {
     if (signUpState.gender) {
       setGender({
         value: signUpState.gender,
-        errorMsg: null,
       });
     }
     if (signUpState.birth) {
       setBirth({
         value: signUpState.birth,
-        errorMsg: null,
       });
     }
   }, []);

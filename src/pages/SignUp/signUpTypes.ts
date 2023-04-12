@@ -97,13 +97,13 @@ export type BirthDateType = {
 export type SignUpStateType = {
   progress: SignUpProgressType;
   agreeToTerms: AgreementStateType;
-  name: string | null;
-  nickname: string | null;
-  email: string | null;
-  pw: string | null;
-  gender: GenderType | null;
-  birth: BirthDateType | null;
-  job: JobType | null;
+  name?: string;
+  nickname?: string;
+  email?: string;
+  pw?: string;
+  gender?: GenderType;
+  birth?: BirthDateType;
+  job?: JobType;
 };
 export const ERROR_TYPE = {
   required: 'required',
