@@ -12,38 +12,21 @@ export type LogInData = {
   accessToken: string;
   refreshToken: string;
 };
-export const setCookie = (name: string, value: string, keepLogIn: boolean, saveDate: number) => {
-  const basicCookie =
-    encodeURIComponent(name) + '=' + encodeURIComponent(value) + ';' + 'samesite=lax;' + 'secure';
-  if (keepLogIn) {
-    const now = new Date();
-    const date = new Date(now.setDate(now.getDate() + saveDate));
-    const cookie = basicCookie + 'expires' + date.toUTCString();
-    document.cookie = cookie;
-  } else {
-    document.cookie = basicCookie;
-  }
-};
-export const getCookie = (name: string) => {
-  const matches = document.cookie.match(
-    new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)'),
-  );
-  return matches ? decodeURIComponent(matches[1]) : undefined;
-};
+
 // 로그인 성공 시 token 처리
 export const onLogInSuccess = (response: AxiosResponse, keepLogIn: boolean) => {
-  const { accessToken, refreshToken } = response.data;
+  const { accessToken } = response.data;
   //access token - 로컬 변수로 이용
   axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-  // case 1. refresh token -httpOnly Cookie 에 저장할  경우
-  // localStorage 의 keepLogIn == true 이면 웹 페이지 마운트 시 자동로그인
+  // refresh token -httpOnly Cookie 에 저장할  경우
+  //자동 로그인 여부를 localStorage에 저장해 ,  나중에 사이트 방문 시 로그인 자동 여부를 판별할 수 있도록 함
   if (keepLogIn) {
-    localStorage.setItem('keepLogIn', 'true');
+    localStorage.setItem('keepLogIn', JSON.stringify(true));
   } else {
-    localStorage.setItem('keepLogIn', 'false');
+    if (localStorage.getItem('keepLogIn')) {
+      localStorage.removeItem('keepLogIn');
+    }
   }
-  // case2. refresh token 을  httpOnly Cookie 에 저장하지 않을 경우
-  setCookie('refreshToken', refreshToken, keepLogIn, 14);
 };
 // token refresh (refresh token을 클라이언트에 접근할 수 있는 경우를 가정해 작성했음)
 export const onSilentRefresh = async (keepLogIn: boolean) => {
@@ -57,7 +40,7 @@ export const onSilentRefresh = async (keepLogIn: boolean) => {
     }
     if (response.status === 401) {
       // refresh token 만료 - 로그인 페이지 이동
-      sessionStorage.setItem('reLogIn', 'true');
+      sessionStorage.setItem('reLogIn', JSON.stringify(true));
       location.href = window.location.protocol + '//' + window.location.host + '/' + 'login';
     }
   } catch (error) {}
@@ -75,5 +58,5 @@ export const onLogIn = async (params: LogInParams, keepLogIn: boolean) => {
 
 window.onbeforeunload = () => {
   const item = localStorage.getItem('keepLogIn');
-  onSilentRefresh(item === 'true');
+  onSilentRefresh(item !== null);
 };
