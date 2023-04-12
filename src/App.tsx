@@ -1,10 +1,12 @@
 import { Route, Routes } from 'react-router-dom';
 
-import Curation from './pages/Curation';
 import Fourth from './pages/Fourth';
 // import ModalTest from './components/modals/ModalTest';
+import { BottomNav } from './components';
 import Home from './pages/Home';
 import LogIn from './pages/LogIn';
+import Curation from './pages/Curation';
+import PresentRecommendation from './pages/Curation/components/PresentRecommendation';
 import SignUp from './pages/SignUp';
 import Third from './pages/Third';
 
@@ -17,6 +19,7 @@ function App() {
         <Route path="/" element={<Home />} />
         {/* <Route path="/first" element={<First />} /> */}
         <Route path="/curation" element={<Curation />} />
+        <Route path="/curation/present/recommendation" element={<PresentRecommendation />} />
         <Route path="/third" element={<Third />} />
         <Route path="/fourth" element={<Fourth />} />
         {/* modal 테스트를 위해 route 추가 , 추후 삭제 예정*/}
@@ -24,6 +27,7 @@ function App() {
         <Route path="login" element={<LogIn />} />
         <Route path="signup" element={<SignUp />} />
       </Routes>
+      <BottomNav />
     </div>
   );
 }

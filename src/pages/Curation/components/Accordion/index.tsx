@@ -1,13 +1,11 @@
 import { useState, useCallback, useEffect, useMemo, memo } from 'react';
-
-import ActiveUpArrow from '@/assets/svgs/active-up-arrow.svg';
-import DownArrow from '@/assets/svgs/down-arrow.svg';
-
-import CheckBox from '../CheckButton';
-import PriceSlider from '../PriceSlider';
-import RadioButton from '../RadioButton';
-
 import styles from './style.module.scss';
+import DownArrow from '@/assets/svgs/down-arrow.svg';
+import ActiveUpArrow from '@/assets/svgs/active-up-arrow.svg';
+import PresentLoader from '@/assets/icons/present-loader.png';
+import CheckBox from '../CheckButton';
+import RadioButton from '../RadioButton';
+import PriceSlider from '../PriceSlider';
 
 interface CheckBox {
   name: string;
@@ -31,6 +29,7 @@ const Accordion = () => {
 
   const [showFirstAccordion, setShowFirstAccordion] = useState<boolean>(false);
   const [showSecondAccordion, setShowSecondAccordion] = useState<boolean>(true);
+  const [loader, setLoader] = useState(false);
 
   //해당 3가지 상태값들을 GET API가 완료 되는대로 제거 예정
   const [optionalPersonCheckedValue, setOptionalPersonCheckedValue] =
@@ -199,8 +198,7 @@ const Accordion = () => {
   }, [optionalPersonCheckedValue]);
 
   const renderPersonsOptional = useMemo(() => {
-    let body = null;
-    body = (
+    return (
       <div className={styles.accordionContainerContent}>
         <p className={styles.accordionContainerContentTitle}>성별</p>
         <div className={styles.accordionContainerContentRadio}>
@@ -220,13 +218,10 @@ const Accordion = () => {
         </div>
       </div>
     );
-
-    return body;
   }, [optionalPersonCheckedValue]);
 
   const renderAgeOptional = useMemo(() => {
-    let body = null;
-    body = (
+    return (
       <div className={styles.accordionContainerContent}>
         <p className={styles.accordionContainerContentTitle}>나이</p>
         <input
@@ -243,7 +238,6 @@ const Accordion = () => {
         </p>
       </div>
     );
-    return body;
   }, [optionalAge]);
 
   const jobsOptional = useMemo(() => {
@@ -332,8 +326,7 @@ const Accordion = () => {
   }, [optionalJobCheckedValue]);
 
   const renderJobsOptional = useMemo(() => {
-    let body = null;
-    body = (
+    return (
       <div className={styles.accordionContainerContent}>
         <p className={styles.accordionContainerContentTitle}>
           직업 <span>(선택)</span>
@@ -356,7 +349,6 @@ const Accordion = () => {
         </div>
       </div>
     );
-    return body;
   }, [optionalJobCheckedValue]);
 
   const persons = useMemo(() => {
@@ -379,10 +371,11 @@ const Accordion = () => {
   }, [personCheckedValue]);
 
   const renderPersons = useMemo(() => {
-    let body = null;
-    body = (
+    return (
       <div className={styles.accordionContainerContent}>
-        <p className={styles.accordionContainerContentTitle}>성별</p>
+        <p className={styles.accordionContainerContentTitle}>
+          성별 <span className={styles.required}>*</span>
+        </p>
         <div className={styles.accordionContainerContentRadio}>
           {persons.map((person: RadioButton) => {
             return (
@@ -399,14 +392,14 @@ const Accordion = () => {
         </div>
       </div>
     );
-    return body;
   }, [personCheckedValue]);
 
   const renderAge = useMemo(() => {
-    let body = null;
-    body = (
+    return (
       <div className={styles.accordionContainerContent}>
-        <p className={styles.accordionContainerContentTitle}>나이</p>
+        <p className={styles.accordionContainerContentTitle}>
+          나이 <span className={styles.required}>*</span>
+        </p>
         <input
           type="text"
           placeholder="나이를 입력해 주세요."
@@ -421,7 +414,6 @@ const Accordion = () => {
         </p>
       </div>
     );
-    return body;
   }, [age]);
 
   const jobs = useMemo(() => {
@@ -510,8 +502,7 @@ const Accordion = () => {
   }, [jobCheckedValue]);
 
   const renderJobs = useMemo(() => {
-    let body = null;
-    body = (
+    return (
       <div className={styles.accordionContainerContent}>
         <p className={styles.accordionContainerContentTitle}>
           직업 <span>(선택)</span>
@@ -534,7 +525,6 @@ const Accordion = () => {
         </div>
       </div>
     );
-    return body;
   }, [jobCheckedValue]);
 
   const purposes = useMemo(() => {
@@ -599,10 +589,11 @@ const Accordion = () => {
   }, [purposeCheckedValue]);
 
   const renderPurposes = useMemo(() => {
-    let body = null;
-    body = (
+    return (
       <div className={styles.accordionContainerContent}>
-        <p className={styles.accordionContainerContentTitle}>선물 목적</p>
+        <p className={styles.accordionContainerContentTitle}>
+          선물 목적 <span className={styles.required}>*</span>
+        </p>
         <div className={styles.accordionContainerContentCheck}>
           {purposes.map((purpose: RadioButton) => {
             return (
@@ -620,7 +611,6 @@ const Accordion = () => {
         </div>
       </div>
     );
-    return body;
   }, [purposeCheckedValue]);
 
   const relationships = useMemo(() => {
@@ -671,10 +661,11 @@ const Accordion = () => {
   }, [relationshipCheckedValue]);
 
   const renderRelationships = useMemo(() => {
-    let body = null;
-    body = (
+    return (
       <div className={styles.accordionContainerContent}>
-        <p className={styles.accordionContainerContentTitle}>나와의 관계</p>
+        <p className={styles.accordionContainerContentTitle}>
+          나와의 관계 <span className={styles.required}>*</span>
+        </p>
         <div className={styles.accordionContainerContentCheck}>
           {relationships.map((relationship: RadioButton) => {
             return (
@@ -692,7 +683,6 @@ const Accordion = () => {
         </div>
       </div>
     );
-    return body;
   }, [relationshipCheckedValue]);
 
   const presentTypes = useMemo(() => {
@@ -749,8 +739,7 @@ const Accordion = () => {
   }, [checkedList]);
 
   const renderPresentTypes = useMemo(() => {
-    let body = null;
-    body = (
+    return (
       <div className={styles.accordionContainerContent}>
         <p className={styles.accordionContainerContentTitle}>
           상품 종류 <span>(선택)</span>
@@ -773,7 +762,6 @@ const Accordion = () => {
         </div>
       </div>
     );
-    return body;
   }, [checkedList]);
 
   const emotions = useMemo(() => {
@@ -782,7 +770,7 @@ const Accordion = () => {
         name: 'emotions',
         id: 'respect',
         value: 'respect',
-        label: '식품',
+        label: '존경',
         checked: emotionsCheckedValue === 'respect',
         checkOnlyOne: checkOnlyOne,
       },
@@ -814,11 +802,10 @@ const Accordion = () => {
   }, [emotionsCheckedValue]);
 
   const renderEmotions = useMemo(() => {
-    let body = null;
-    body = (
+    return (
       <div className={styles.accordionContainerContent}>
         <p className={styles.accordionContainerContentTitle}>
-          감정<span>(선택)</span>
+          감정 <span>(선택)</span>
         </p>
         <div className={styles.accordionContainerContentCheck}>
           {emotions.map((emotion: CheckBox) => {
@@ -838,7 +825,6 @@ const Accordion = () => {
         </div>
       </div>
     );
-    return body;
   }, [emotionsCheckedValue]);
 
   const handleResetValues = useCallback(() => {
@@ -854,6 +840,7 @@ const Accordion = () => {
   //TODO : POST API (선물 추천받기)
   const getRecommendedPresents = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
+
     if (
       personCheckedValue === '' ||
       purposeCheckedValue === '' ||
@@ -863,15 +850,15 @@ const Accordion = () => {
       alert('필수 항목들을 선택해 주세요.');
       return;
     }
-
+    setLoader(true);
     try {
       //넘길 값
-      const optionalValuesObj = {
+      let optionalValuesObj = {
         person: optionalPersonCheckedValue,
         age: optionalAge,
         jobs: optionalJobCheckedValue,
       };
-      const valuesObj = {
+      let valuesObj = {
         person: personCheckedValue,
         age: age,
         jobs: jobCheckedValue,
@@ -881,7 +868,15 @@ const Accordion = () => {
         productType: checkedList,
         emotion: emotionsCheckedValue,
       };
-      // console.log(optionalValuesObj, valuesObj);
+
+      //res.json이 200일 때 처리로 변경 필요.
+      //현재는 단순 로직 보여주기 위해 타임아웃을 걸었음
+      setTimeout(() => {
+        setLoader(false);
+        console.log(optionalValuesObj, valuesObj);
+        location.href = '/curation/present/recommendation';
+      }, 5000);
+
       //성공 시 초기화
       handleResetValues();
     } catch (err) {
@@ -957,6 +952,16 @@ const Accordion = () => {
           선물 추천받기
         </button>
       </div>
+      {loader && (
+        <div className={styles.accordionLoader}>
+          <img src={PresentLoader} alt="present-loader" className={styles.accordionLoaderIcon} />
+          <p className={styles.accordionLoaderText}>
+            소중한 당신을 위해
+            <br />
+            선물을 고르고 있어요.
+          </p>
+        </div>
+      )}
     </div>
   );
 };

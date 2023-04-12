@@ -7,6 +7,9 @@ body {
 .slider {
   padding-top: 23px;
   padding-bottom: 10px;
+  .required {
+    color: $color-primary;
+  }
   &Content {
     &Container {
       display: flex;
