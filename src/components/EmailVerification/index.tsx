@@ -12,7 +12,13 @@ import {
 import { Timer, AlertModal, InputForm, ToastModal } from '@/components';
 import { XSSCheck } from '@/pages/LogIn/index';
 import { getToastModalPosition } from '@/pages/SignUp/functions';
-import { ERROR_MSG, InputDataType, initialInputData } from '@/pages/SignUp/signUpTypes';
+import {
+  ERROR_MSG,
+  INPUT_FORM_ID,
+  InputDataType,
+  InputFormIdType,
+  initialInputData,
+} from '@/pages/SignUp/signUpTypes';
 
 import './style.scss';
 import { ToastModalType } from '../Modals/modalTypes';
@@ -109,7 +115,6 @@ const EmailVerification = ({
     const text = XSSCheck(event.target.value, undefined);
     setAuthNumber({
       value: text,
-      errorMsg: null,
     });
   };
   //서버에서 받은 데이터
@@ -206,7 +211,7 @@ const EmailVerification = ({
       <section className="email-form">
         <InputForm
           additionOfLabel={additionOfLabel}
-          id="email"
+          id={INPUT_FORM_ID.email as InputFormIdType}
           data={email}
           setData={setEmail}
           disabled={openAuthNumberForm}

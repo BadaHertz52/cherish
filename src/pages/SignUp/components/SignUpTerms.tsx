@@ -8,7 +8,10 @@ import { TermsOfUse, Marketing, PersonalInformation } from '@/pages/SignUp/compo
 
 import {
   AgreementStateType,
+  SIGN_UP_PROGRESS,
   SignUpStateType,
+  TERMS_CHECK_BOX_NAME,
+  TERMS_CONTENTS_NAME,
   TermsCheckBoxNameType,
   TermsContentsNameType,
 } from '../signUpTypes';
@@ -52,7 +55,9 @@ const SignUpTerms = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
   const [agreement, setAgreement] = useState<AgreementStateType>(signUpState.agreeToTerms);
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [openTargetTerms, setOpenTargetTerms] = useState<TermsContentsNameType>('termsOfUse');
+  const [openTargetTerms, setOpenTargetTerms] = useState<TermsContentsNameType>(
+    TERMS_CONTENTS_NAME.termsOfUse,
+  );
   // NextBtn 비활성화 여부
   const [disableBtn, setDisableBtn] = useState<boolean>(true);
   const NO_BTN_VALUE: ConfirmModalBtnType = {
@@ -62,19 +67,19 @@ const SignUpTerms = () => {
   const MODAL_TERMS_OF_USE: Omit<ConfirmModalProps, 'closeModal'> = {
     title: '이용약관(필수)',
     children: <TermsOfUse />,
-    yesBtn: makeYestBtnValue('termsOfUse'),
+    yesBtn: makeYestBtnValue(TERMS_CONTENTS_NAME.termsOfUse),
     noBtn: NO_BTN_VALUE,
   };
   const MODAL_PERSONAL_INFORMATION: Omit<ConfirmModalProps, 'closeModal'> = {
     title: '개인정보 수집 및 이용(필수)',
     children: <PersonalInformation />,
-    yesBtn: makeYestBtnValue('personalInformation'),
+    yesBtn: makeYestBtnValue(TERMS_CONTENTS_NAME.personalInformation),
     noBtn: NO_BTN_VALUE,
   };
   const MODAL_MARKETING: Omit<ConfirmModalProps, 'closeModal'> = {
     title: '마케팅 정보 활용 동의(선택)',
     children: <Marketing />,
-    yesBtn: makeYestBtnValue('marketing'),
+    yesBtn: makeYestBtnValue(TERMS_CONTENTS_NAME.marketing),
     noBtn: NO_BTN_VALUE,
   };
   const TERMS = {
@@ -95,7 +100,7 @@ const SignUpTerms = () => {
     setSignUpState((prevState: SignUpStateType) => {
       const newState: SignUpStateType = {
         ...prevState,
-        progress: 'nameAndNickName',
+        progress: SIGN_UP_PROGRESS.nameAndNickName,
         agreeToTerms: agreement,
       };
       return newState;
@@ -124,25 +129,25 @@ const SignUpTerms = () => {
   };
   function changeAgreement(name: TermsCheckBoxNameType, agree: boolean) {
     switch (name) {
-      case 'ageCondition':
+      case TERMS_CHECK_BOX_NAME.ageCondition:
         setAgreement((prev: AgreementStateType) => ({
           ...prev,
           ageCondition: agree,
         }));
         break;
-      case 'termsOfUse':
+      case TERMS_CHECK_BOX_NAME.termsOfUse:
         setAgreement((prev: AgreementStateType) => ({
           ...prev,
           termsOfUse: agree,
         }));
         break;
-      case 'personalInformation':
+      case TERMS_CHECK_BOX_NAME.personalInformation:
         setAgreement((prev: AgreementStateType) => ({
           ...prev,
           personalInformation: !prev.personalInformation,
         }));
         break;
-      case 'marketing':
+      case TERMS_CHECK_BOX_NAME.marketing:
         setAgreement((prev: AgreementStateType) => ({
           ...prev,
           marketing: agree,
@@ -158,7 +163,7 @@ const SignUpTerms = () => {
   }
   const onClickToShowTerm = (name: TermsContentsNameType) => {
     setOpenModal(true);
-    setOpenTargetTerms(name);
+    setOpenTargetTerms(TERMS_CONTENTS_NAME[name]);
   };
 
   //agreement 의 상태 변화에 따라 disableBtn 상태 변경
@@ -192,34 +197,43 @@ const SignUpTerms = () => {
         </div>
         <section className="terms-group">
           <SignUpTerm
-            id="termsOfUse"
+            id={TERMS_CHECK_BOX_NAME.termsOfUse}
             label="이용약관(필수)"
             isChecked={agreement.termsOfUse}
-            handleChange={() => changeAgreement('termsOfUse', !agreement.termsOfUse)}
-            onClickBtn={() => onClickToShowTerm('termsOfUse')}
+            handleChange={() =>
+              changeAgreement(TERMS_CHECK_BOX_NAME.termsOfUse, !agreement.termsOfUse)
+            }
+            onClickBtn={() => onClickToShowTerm(TERMS_CONTENTS_NAME.termsOfUse)}
           />
           <SignUpTerm
-            id="personalInformation"
+            id={TERMS_CHECK_BOX_NAME.personalInformation}
             label="개인정보 수집 및 이용(필수)"
             isChecked={agreement.personalInformation}
             handleChange={() =>
-              changeAgreement('personalInformation', !agreement.personalInformation)
+              changeAgreement(
+                TERMS_CHECK_BOX_NAME.personalInformation,
+                !agreement.personalInformation,
+              )
             }
-            onClickBtn={() => onClickToShowTerm('personalInformation')}
+            onClickBtn={() => onClickToShowTerm(TERMS_CONTENTS_NAME.personalInformation)}
           />
           <SignUpTerm
-            id="ageCondition"
+            id={TERMS_CHECK_BOX_NAME.ageCondition}
             label="14세 이상 이용 동의(필수)"
             isChecked={agreement.ageCondition}
-            handleChange={() => changeAgreement('ageCondition', !agreement.ageCondition)}
+            handleChange={() =>
+              changeAgreement(TERMS_CHECK_BOX_NAME.ageCondition, !agreement.ageCondition)
+            }
             onClickBtn={null}
           />
           <SignUpTerm
-            id="marketing"
+            id={TERMS_CHECK_BOX_NAME.marketing}
             label="마케팅 정보 활용 동의(선택)"
             isChecked={agreement.marketing}
-            handleChange={() => changeAgreement('marketing', !agreement.marketing)}
-            onClickBtn={() => onClickToShowTerm('marketing')}
+            handleChange={() =>
+              changeAgreement(TERMS_CHECK_BOX_NAME.marketing, !agreement.marketing)
+            }
+            onClickBtn={() => onClickToShowTerm(TERMS_CONTENTS_NAME.marketing)}
           />
         </section>
       </StepInner>

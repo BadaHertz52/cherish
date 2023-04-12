@@ -82,7 +82,12 @@ const BottomNavModal = ({
   const [targetCondition, setTargetCondition] = useState<ConditionType>(
     filteringCondition[category],
   );
-  const categoryArr: CategoryType[] = ['productType', 'gender', 'job', 'situation'];
+  const categoryArr: CategoryType[] = [
+    CATEGORY.productType,
+    CATEGORY.gender,
+    CATEGORY.job,
+    CATEGORY.situation,
+  ];
   const categoryBtnTextArr = ['상품유형', '성별', '직업', '상황'];
   const arrOfCheckBoxArr = [
     PRODUCT_TYPE_CHECK_BOX_ARR,
