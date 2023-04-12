@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import styles from './style.module.scss';
 type CheckBoxProps = {
   id: string;
   name: string;
+  value: string;
   label: string;
   // checked인 input 의 name을 모아 둔 state에 해당 input의 name이  있는 지 여부
-  isChecked: (name?: string) => boolean;
   onChange?: () => void;
 };
-const RadioBtn = ({ id, name, label, isChecked, onChange }: CheckBoxProps) => {
+const RadioBtn = ({ id, name, value, label, onChange }: CheckBoxProps) => {
+  const radioBtnRef = useRef<HTMLInputElement>(null);
   const handleChange = () => {
     onChange && onChange();
   };
@@ -18,20 +19,22 @@ const RadioBtn = ({ id, name, label, isChecked, onChange }: CheckBoxProps) => {
       <div className={styles.radioBtnInner}>
         <input
           type="radio"
-          checked={isChecked(name)}
           id={id}
+          ref={radioBtnRef}
           className={styles.radioBtnInput}
           name={name}
-          value={name}
+          value={value}
           onChange={handleChange}
         />
         <label
           htmlFor={id}
-          className={isChecked(name) ? styles.radioBtnCheckOn : styles.radioBtnCheckOff}
+          className={
+            radioBtnRef.current?.checked ? styles.radioBtnCheckOn : styles.radioBtnCheckOff
+          }
         ></label>
         <label
           htmlFor={id}
-          className={isChecked(name) ? styles.radioBtnLabelOn : styles.radioBtnLabel}
+          className={radioBtnRef.current?.checked ? styles.radioBtnLabelOn : styles.radioBtnLabel}
         >
           <span>{label}</span>
         </label>

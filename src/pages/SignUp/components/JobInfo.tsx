@@ -25,6 +25,7 @@ const JobInfo = () => {
   const handleChange = (name: JobType) => {
     setJob({
       value: name,
+      errorMsg: null,
     });
     setDisableBtn(false);
   };
@@ -49,18 +50,18 @@ const JobInfo = () => {
     <div id="job-info">
       <StepInner disableBtn={disableBtn} onClickNextBtn={onClickNextBtn}>
         <h3>직업</h3>
-        <section className="radio-btn-group">
+        <fieldset className="radio-btn-group">
           {jobCheckBoxArr.map(i => (
             <RadioBtn
               key={i.name}
               id={`job-info-${i.name}`}
-              name={i.name}
+              name="job"
+              value={i.name}
               label={i.label}
-              isChecked={() => job.value === i.name}
               onChange={() => handleChange(i.name)}
             />
           ))}
-        </section>
+        </fieldset>
         <div className="msg">{job.value === '' && ERROR_MSG.required}</div>
       </StepInner>
     </div>
