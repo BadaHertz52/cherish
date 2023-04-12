@@ -11,10 +11,10 @@ import {
   JobInfo,
 } from './components';
 import './style.scss';
-import { SignUpStateType } from './signUpTypes';
+import { SIGN_UP_PROGRESS, SignUpStateType } from './signUpTypes';
 
 export const initialSignUpState: SignUpStateType = {
-  progress: 'job',
+  progress: SIGN_UP_PROGRESS.agreeToTerms,
   agreeToTerms: {
     termsOfUse: false,
     ageCondition: false,
