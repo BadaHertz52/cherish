@@ -1,5 +1,6 @@
 import React from 'react';
-import './style.scss';
+
+import styles from './style.module.scss';
 type CheckBoxProps = {
   id: string;
   name: string;
@@ -9,21 +10,30 @@ type CheckBoxProps = {
   onChange?: () => void;
 };
 const CheckBox = ({ id, name, label, isChecked, onChange }: CheckBoxProps) => {
+  console.log(name, isChecked());
   const handleChange = () => {
     onChange && onChange();
   };
   return (
-    <div className="check-box">
-      <div className="check-box__inner">
+    <div className={styles.radioBtn}>
+      <div className={styles.radioBtnInner}>
         <input
-          type="checkbox"
+          type="radio"
           checked={isChecked(name)}
           id={id}
+          className={styles.radioBtnInput}
           name={name}
+          value={name}
           onChange={handleChange}
         />
-        <label htmlFor={id} className="check"></label>
-        <label htmlFor={id} className={`check-box__label ${isChecked(name) ? 'on' : ''}`}>
+        <label
+          htmlFor={id}
+          className={isChecked(name) ? styles.radioBtnCheckOn : styles.radioBtnCheckOff}
+        ></label>
+        <label
+          htmlFor={id}
+          className={isChecked(name) ? styles.radioBtnLabelOn : styles.radioBtnLabel}
+        >
           <span>{label}</span>
         </label>
       </div>
