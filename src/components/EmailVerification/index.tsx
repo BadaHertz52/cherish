@@ -206,7 +206,7 @@ const EmailVerification = ({
       <section className="email-form">
         <InputForm
           additionOfLabel={additionOfLabel}
-          id={'email'}
+          id="email"
           data={email}
           setData={setEmail}
           disabled={openAuthNumberForm}

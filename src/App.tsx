@@ -1,10 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
 
 import { BottomNav } from './components';
+// import ModalTest from './examples/modalTest';
 import Curation from './pages/Curation';
 import FindPw from './pages/FindPw';
 import Fourth from './pages/Fourth';
-// import ModalTest from './examples/modalTest';
 import Home from './pages/Home';
 import LogIn from './pages/LogIn';
 import SignUp from './pages/SignUp';
