@@ -8,6 +8,7 @@ import './style.scss';
 import { onLogIn } from '@/api/auth/logIn';
 import { LogInAPIParams } from '@/api/auth/types';
 import { BtnShowPw, CheckBox } from '@/components';
+import { REGEX } from '@/components/InputForm';
 
 export const XSSCheck = (str: string, level?: number) => {
   if (!level || level == 0) {
@@ -31,11 +32,6 @@ const LogIn = () => {
     pw: 'pw',
   } as const;
   type InputTargetType = keyof typeof INPUT_TARGET;
-  const REGEX = {
-    email: new RegExp('[a-z0-9]+@[a-z]+.[a-z]{2,3}'),
-    //8~20자 (영문 + 숫자 + 특수기호(!@^))
-    pw: new RegExp('^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@^])[a-zA-z0-9!@^]{8,20}$'),
-  };
   const handleTouchOfLink = (event: TouchEvent<HTMLElement>) => {
     const target = event.currentTarget;
     target.classList.toggle('on');
