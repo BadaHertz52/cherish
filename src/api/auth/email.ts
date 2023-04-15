@@ -2,9 +2,11 @@ import { AxiosError } from 'axios';
 
 import {
   APIErrorData,
+  AuthNumberAPIParams,
+  AuthNumberAPIResult,
   EMAIL_API_RESULT_TYPE,
   EmailAPIResultType,
-  EmailVerificationParams,
+  EmailVerificationAPIParams,
 } from './types';
 
 import { httpClient } from '.';
@@ -13,9 +15,10 @@ const EMAIL_VERIFICATION_PATH = {
   signUp: '/public/member/register/code',
   findPw: '/public/member/change-password/code',
 };
+const AUTH_NUMBER_PATH = '/public/member/code-valid';
 
 export const onEmailVerification = async (
-  params: EmailVerificationParams,
+  params: EmailVerificationAPIParams,
   isInFindPw: boolean,
 ): Promise<EmailAPIResultType> => {
   let result: EmailAPIResultType = EMAIL_API_RESULT_TYPE.axiosError;
@@ -49,6 +52,21 @@ export const onEmailVerification = async (
     } else {
       result = EMAIL_API_RESULT_TYPE.axiosError;
     }
+  }
+  return result;
+};
+
+export const onAuthNumber = async (params: AuthNumberAPIParams): Promise<AuthNumberAPIResult> => {
+  let result: AuthNumberAPIResult = { success: false };
+  try {
+    const response = await httpClient.post(AUTH_NUMBER_PATH, params);
+    if (response.status === 200) {
+      result = { success: true };
+    }
+  } catch (error) {
+    const axiosError = error as AxiosError;
+    console.error(axiosError);
+    result = { success: false };
   }
   return result;
 };

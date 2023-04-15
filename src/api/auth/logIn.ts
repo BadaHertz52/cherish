@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 
-import { LogInParams } from './types';
+import { LogInAPIParams } from './types';
 
 import { httpClient } from '.';
 const LOG_IN_PATH = '/public/member/login';
@@ -41,7 +41,7 @@ export const onSilentRefresh = async (keepLogIn: boolean) => {
     }
   } catch (error) {}
 };
-export const onLogIn = async (params: LogInParams, keepLogIn: boolean) => {
+export const onLogIn = async (params: LogInAPIParams, keepLogIn: boolean) => {
   try {
     const response = await httpClient.post(LOG_IN_PATH, params, { withCredentials: true });
     if (response.status === 200) {

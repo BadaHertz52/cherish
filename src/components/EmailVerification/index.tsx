@@ -9,8 +9,13 @@ import {
   useState,
 } from 'react';
 
-import { onEmailVerification } from '@/api/email';
-import { EMAIL_API_RESULT_TYPE, EmailAPIResultType } from '@/api/types';
+import { onAuthNumber, onEmailVerification } from '@/api/auth/email';
+import {
+  AuthNumberAPIParams,
+  APIResult,
+  EMAIL_API_RESULT_TYPE,
+  EmailAPIResultType,
+} from '@/api/auth/types';
 import { Timer, AlertModal, InputForm, ToastModal } from '@/components';
 import { XSSCheck } from '@/pages/LogIn/index';
 import { getToastModalPosition } from '@/pages/SignUp/functions';
@@ -117,17 +122,15 @@ const EmailVerification = ({
       value: text,
     });
   };
-  //서버에서 받은 데이터
-  const getAuthNumber = () => {
-    const result = '111111';
-    //[api]
-    return result;
-  };
   const onClickAuthNumberBtn = async () => {
     //백엔드에 이메인 인증 번호 확인
-    const result = getAuthNumber();
+    const params: AuthNumberAPIParams = {
+      email: email.value,
+      code: authNumber.value,
+    };
+    const result: APIResult = await onAuthNumber(params);
     //data는  string type으로
-    if (authNumber.value && result === authNumber.value) {
+    if (result.success) {
       //서버에서 받은 인증 번호와 사용자가 입력한 인증 번호가 일치할 경우
       setOpenTimer(false);
       verifiedEmail.current = email.value;

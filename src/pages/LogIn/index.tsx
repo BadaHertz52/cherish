@@ -5,8 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useNavigate } from 'react-router-dom';
 
 import './style.scss';
-import { onLogIn } from '@/api/logIn';
-import { LogInParams } from '@/api/types';
+import { onLogIn } from '@/api/auth/logIn';
+import { LogInAPIParams } from '@/api/auth/types';
 import { BtnShowPw, CheckBox } from '@/components';
 
 export const XSSCheck = (str: string, level?: number) => {
@@ -60,7 +60,7 @@ const LogIn = () => {
   const sendLogInData = async () => {
     //[todo -api]
     // data 서버에 전송
-    const data: LogInParams = { email: email, password: pw };
+    const data: LogInAPIParams = { email: email, password: pw };
     onLogIn(data, keepLogin);
   };
   const handleClickLogInBtn = () => {
