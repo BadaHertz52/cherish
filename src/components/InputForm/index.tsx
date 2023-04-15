@@ -49,7 +49,9 @@ const InputForm = ({ id, data, setData, additionOfLabel, disabled }: InputFormPr
     name: new RegExp('^[ㄱ-ㅎ가-힣a-zA-Z]{2,20}$'),
     //3~10자 (한글, 영문, 숫자)
     nickName: new RegExp('^[ㄱ-ㅎ가-힣a-zA-Z0-9]{3,10}$'),
-    email: new RegExp('[a-z0-9]+@[a-z]+.[a-z]{2,3}'),
+    email: new RegExp(
+      '^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$',
+    ),
     //8~20자 (영문 + 숫자 + 특수기호(!@^))
     pw: new RegExp('^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@^])[a-zA-z0-9!@^]{8,20}$'),
   };
