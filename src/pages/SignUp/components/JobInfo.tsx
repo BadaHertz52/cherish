@@ -8,7 +8,7 @@ import {
   InputDataType,
   SignUpStateType,
   initialInputData,
-  jobCheckBoxArr,
+  JOB_ARR,
   JobType,
   SIGN_UP_SESSION_DATA_KEY,
   SignUpSessionDataKeyType,
@@ -51,7 +51,7 @@ const JobInfo = () => {
       <StepInner disableBtn={disableBtn} onClickNextBtn={onClickNextBtn}>
         <h3>직업</h3>
         <fieldset className="radio-btn-group">
-          {jobCheckBoxArr.map(i => (
+          {JOB_ARR.map(i => (
             <RadioBtn
               key={i.name}
               id={`job-info-${i.name}`}

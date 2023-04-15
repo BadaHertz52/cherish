@@ -1,3 +1,5 @@
+import { GENDER_TYPE, JOB_TYPE } from '@/pages/SignUp/signUpTypes';
+
 /**
  * confirm modal의 yes/no 버튼 type
  */
@@ -21,25 +23,15 @@ export type ToastModalType = ModalCommonType & {
   top: string; // unit: px
   left: string;
 };
-const conditionName = {
+export const CONDITION_NAME = {
+  ...JOB_TYPE,
+  ...GENDER_TYPE,
   food: 'food',
   beauty: 'beauty',
   living: 'living',
   digital: 'digital',
   productEtc: 'productEtc',
-  male: 'male',
-  female: 'female',
   irrelevant: 'irrelevant', //무관
-  profession: 'profession',
-  management: 'management',
-  desk: 'desk',
-  service: 'service',
-  blueCollar: 'blueCollar',
-  selfEmployment: 'selfEmployment',
-  student: 'student',
-  homemaker: 'homemaker',
-  outOfWork: ' outOfWork', //무직
-  jobEtc: 'jobEtc',
   birthday: 'birthday',
   moveHousewarming: 'moveHousewarming',
   admissionAndGraduation: 'admissionAndGraduation',
@@ -47,8 +39,8 @@ const conditionName = {
   employmentAndJobChange: 'employmentAndJobChange',
   discharge: 'discharge', //전역
   getWellVisit: 'getWellVisit', //병문안
-} as const;
-export type ConditionName = keyof typeof conditionName;
+};
+export type ConditionName = keyof typeof CONDITION_NAME;
 export type ConditionType = ConditionName[] | null;
 export type FilteringConditionType = {
   productType: ConditionType;
