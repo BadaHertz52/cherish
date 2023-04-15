@@ -23,31 +23,33 @@ const CATEGORY = {
 type CategoryType = keyof typeof CATEGORY;
 type CheckBoxType = {
   name: ConditionName;
-  label: string;
 };
 
 // CheckBoxType 의 name은 추후 필터링 조건명에 따라 수정
 const PRODUCT_TYPE_CHECK_BOX_ARR: CheckBoxType[] = [
-  { name: CONDITION_NAME.food as ConditionName, label: '식품' },
-  { name: CONDITION_NAME.beauty as ConditionName, label: '뷰티' },
-  { name: CONDITION_NAME.living as ConditionName, label: '리빙/주방' },
-  { name: CONDITION_NAME.digital as ConditionName, label: '디지털/가전' },
-  { name: CONDITION_NAME.productEtc as ConditionName, label: '기타' },
+  { name: CONDITION_NAME.food as ConditionName },
+  { name: CONDITION_NAME.beauty as ConditionName },
+  { name: CONDITION_NAME.living as ConditionName },
+  { name: CONDITION_NAME.digital as ConditionName },
+  { name: CONDITION_NAME.clothingAndStuff as ConditionName },
+  { name: CONDITION_NAME.productEtc as ConditionName },
 ];
 const GENDER_CHECK_BOX_ARR: CheckBoxType[] = [
-  { name: CONDITION_NAME.male as ConditionName, label: '남' },
-  { name: CONDITION_NAME.female as ConditionName, label: '여' },
-  { name: CONDITION_NAME.irrelevant as ConditionName, label: '무관' },
+  { name: CONDITION_NAME.male as ConditionName },
+  { name: CONDITION_NAME.female as ConditionName },
 ];
 const JOB_CHECK_BOX_ARR: CheckBoxType[] = JOB_ARR;
 const SITUATION_CHECK_BOX_ARR: CheckBoxType[] = [
-  { name: CONDITION_NAME.birthday as ConditionName, label: '생일' },
-  { name: CONDITION_NAME.moveHousewarming as ConditionName, label: '이사/집들이' },
-  { name: CONDITION_NAME.admissionAndGraduation as ConditionName, label: '입학/졸업' },
-  { name: CONDITION_NAME.leave as ConditionName, label: '퇴사/퇴직' },
-  { name: CONDITION_NAME.employmentAndJobChange as ConditionName, label: '취업/이직' },
-  { name: CONDITION_NAME.discharge as ConditionName, label: '전역' },
-  { name: CONDITION_NAME.getWellVisit as ConditionName, label: '병문안' },
+  { name: CONDITION_NAME.birthday as ConditionName },
+  { name: CONDITION_NAME.moveHousewarming as ConditionName },
+  { name: CONDITION_NAME.admissionAndGraduation as ConditionName },
+  { name: CONDITION_NAME.leave as ConditionName },
+  { name: CONDITION_NAME.employmentAndJobChange as ConditionName },
+  { name: CONDITION_NAME.discharge as ConditionName },
+  { name: CONDITION_NAME.getWellVisit as ConditionName },
+  { name: CONDITION_NAME.anniversary as ConditionName },
+  { name: CONDITION_NAME.parenting as ConditionName },
+  { name: CONDITION_NAME.situationEtc as ConditionName },
 ];
 /**
  * sendData:서버에 새로운 필터링 조건 보내고 서버에서 받은 새로운 필터링 결과를 검색 결과 페이지에 보여주는 기능
@@ -209,7 +211,7 @@ const BottomNavModal = ({
                 key={`checkbox_${i}`}
                 id={v.name}
                 name={v.name}
-                label={v.label}
+                label={v.name}
                 isChecked={targetCondition ? () => targetCondition.includes(v.name) : () => false}
                 onChange={() => onChangeCheckBox(v.name)}
               />
