@@ -21,7 +21,6 @@ export const EMAIL_API_RESULT_TYPE = {
   duplicate: 'duplicate', //이메일 중복
   success: 'success',
   serverError: 'serverError',
-  axiosError: 'axiosError',
 } as const;
 
 export type EmailAPIResultType = keyof typeof EMAIL_API_RESULT_TYPE;
