@@ -8,7 +8,9 @@ import {
   ConditionType,
   FilteringConditionType,
   ConditionName,
+  CONDITION_NAME,
 } from '@/components/Modals/modalTypes';
+import { JOB_ARR } from '@/pages/SignUp/signUpTypes';
 
 import BottomNavModalPortal from '../BottomNavModalPortal';
 import './style.scss';
@@ -26,37 +28,26 @@ type CheckBoxType = {
 
 // CheckBoxType 의 name은 추후 필터링 조건명에 따라 수정
 const PRODUCT_TYPE_CHECK_BOX_ARR: CheckBoxType[] = [
-  { name: 'food', label: '식품' },
-  { name: 'beauty', label: '뷰티' },
-  { name: 'living', label: '리빙/주방' },
-  { name: 'digital', label: '디지털/가전' },
-  { name: 'productEtc', label: '기타' },
+  { name: CONDITION_NAME.food as ConditionName, label: '식품' },
+  { name: CONDITION_NAME.beauty as ConditionName, label: '뷰티' },
+  { name: CONDITION_NAME.living as ConditionName, label: '리빙/주방' },
+  { name: CONDITION_NAME.digital as ConditionName, label: '디지털/가전' },
+  { name: CONDITION_NAME.productEtc as ConditionName, label: '기타' },
 ];
 const GENDER_CHECK_BOX_ARR: CheckBoxType[] = [
-  { name: 'male', label: '남' },
-  { name: 'female', label: '여' },
-  { name: 'irrelevant', label: '무관' },
+  { name: CONDITION_NAME.male as ConditionName, label: '남' },
+  { name: CONDITION_NAME.female as ConditionName, label: '여' },
+  { name: CONDITION_NAME.irrelevant as ConditionName, label: '무관' },
 ];
-const JOB_CHECK_BOX_ARR: CheckBoxType[] = [
-  { name: 'profession', label: '전문직' },
-  { name: 'management', label: '경영/관리직' },
-  { name: 'desk', label: '사무직' },
-  { name: 'service', label: '판매/서비스직' },
-  { name: 'blueCollar', label: '노동/생산직' },
-  { name: 'selfEmployment', label: '자영업' },
-  { name: 'student', label: '학생' },
-  { name: 'homemaker', label: '전업주부' },
-  { name: 'outOfWork', label: '무직' },
-  { name: 'jobEtc', label: '기타' },
-];
+const JOB_CHECK_BOX_ARR: CheckBoxType[] = JOB_ARR;
 const SITUATION_CHECK_BOX_ARR: CheckBoxType[] = [
-  { name: 'birthday', label: '생일' },
-  { name: 'moveHousewarming', label: '이사/집들이' },
-  { name: 'admissionAndGraduation', label: '입학/졸업' },
-  { name: 'leave', label: '퇴사/퇴직' },
-  { name: 'employmentAndJobChange', label: '취업/이직' },
-  { name: 'discharge', label: '전역' },
-  { name: 'getWellVisit', label: '병문안' },
+  { name: CONDITION_NAME.birthday as ConditionName, label: '생일' },
+  { name: CONDITION_NAME.moveHousewarming as ConditionName, label: '이사/집들이' },
+  { name: CONDITION_NAME.admissionAndGraduation as ConditionName, label: '입학/졸업' },
+  { name: CONDITION_NAME.leave as ConditionName, label: '퇴사/퇴직' },
+  { name: CONDITION_NAME.employmentAndJobChange as ConditionName, label: '취업/이직' },
+  { name: CONDITION_NAME.discharge as ConditionName, label: '전역' },
+  { name: CONDITION_NAME.getWellVisit as ConditionName, label: '병문안' },
 ];
 /**
  * sendData:서버에 새로운 필터링 조건 보내고 서버에서 받은 새로운 필터링 결과를 검색 결과 페이지에 보여주는 기능
