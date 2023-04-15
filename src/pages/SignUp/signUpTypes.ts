@@ -56,20 +56,20 @@ export type SignUpSessionDataType = {
   value: string;
 };
 export const GENDER_TYPE = {
-  male: 'male',
-  female: 'female',
+  male: '여성',
+  female: '남성',
 };
 export type GenderType = keyof typeof GENDER_TYPE;
 export const JOB_TYPE = {
-  profession: 'profession', //전문직
-  managementAndDesk: 'managementAndDesk', // 관리 /사무직
-  service: 'service', // 판매/서비스직
-  blueCollar: 'blueCollar', //노동 생산직
-  selfEmployment: 'selfEmployment', //자영업자
-  student: 'student', //학생
-  homemaker: 'homemaker', // 가정주부
-  inoccupation: 'inoccupation', // 무직
-  jobEtc: 'jobEtc', //기타
+  profession: '전문직', //전문직
+  managementAndDesk: '관리/사무직', // 관리 /사무직
+  service: '판매/서비스직', // 판매/서비스직
+  blueCollar: '노동/생산직', //노동 생산직
+  selfEmployment: '자영업', //자영업자
+  student: '학생', //학생
+  homemaker: '전업주부', // 가정주부
+  inoccupation: '무직', // 무직
+  jobEtc: '기타', //기타
 } as const;
 export type JobType = keyof typeof JOB_TYPE;
 type JobCheckBoxType = {

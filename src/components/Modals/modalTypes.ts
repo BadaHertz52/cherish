@@ -26,19 +26,24 @@ export type ToastModalType = ModalCommonType & {
 export const CONDITION_NAME = {
   ...JOB_TYPE,
   ...GENDER_TYPE,
-  food: 'food',
-  beauty: 'beauty',
-  living: 'living',
-  digital: 'digital',
-  productEtc: 'productEtc',
-  irrelevant: 'irrelevant', //무관
-  birthday: 'birthday',
-  moveHousewarming: 'moveHousewarming',
-  admissionAndGraduation: 'admissionAndGraduation',
-  leave: 'leave',
-  employmentAndJobChange: 'employmentAndJobChange',
-  discharge: 'discharge', //전역
-  getWellVisit: 'getWellVisit', //병문안
+  //상품 종류
+  food: '식품',
+  beauty: '뷰티',
+  living: '리빙/주방',
+  digital: '디지털',
+  clothingAndStuff: '의류/잡화',
+  productEtc: '기타',
+  // 상황 (목적)
+  birthday: '생일',
+  moveHousewarming: '이사/집들이',
+  admissionAndGraduation: '입학/졸업',
+  leave: '퇴사/퇴직',
+  employmentAndJobChange: '취업/이직',
+  discharge: '전역',
+  getWellVisit: '병문안',
+  anniversary: '기념일',
+  parenting: '출산/육아',
+  situationEtc: '무관',
 };
 export type ConditionName = keyof typeof CONDITION_NAME;
 export type ConditionType = ConditionName[] | null;
