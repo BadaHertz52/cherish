@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useNavigate } from 'react-router-dom';
 
 import './style.scss';
-//import { LogInParams, onLogIn } from '@/api/logIn';
+import { onLogIn } from '@/api/logIn';
+import { LogInParams } from '@/api/types';
 import { BtnShowPw, CheckBox } from '@/components';
 
 export const XSSCheck = (str: string, level?: number) => {
@@ -57,10 +58,10 @@ const LogIn = () => {
     return REGEX.email.test(email) && REGEX.pw.test(pw);
   };
   const sendLogInData = async () => {
-    //const data: LogInParams = { email: email, password: pw };
     //[todo -api]
     // data 서버에 전송
-    //onLogIn(data, keepLogin);
+    const data: LogInParams = { email: email, password: pw };
+    onLogIn(data, keepLogin);
   };
   const handleClickLogInBtn = () => {
     if (checkRegex()) {

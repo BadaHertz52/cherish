@@ -1,17 +1,10 @@
 import axios, { AxiosResponse } from 'axios';
 
+import { LogInParams } from './types';
+
 import { httpClient } from '.';
 const LOG_IN_PATH = '/public/member/login';
 const TOKEN_REFRESH_PATH = '/public/token/refresh';
-
-export type LogInParams = {
-  email: string;
-  password: string;
-};
-export type LogInData = {
-  accessToken: string;
-  refreshToken: string;
-};
 
 // 로그인 성공 시 token 처리
 export const onLogInSuccess = (response: AxiosResponse, keepLogIn: boolean) => {
@@ -19,6 +12,7 @@ export const onLogInSuccess = (response: AxiosResponse, keepLogIn: boolean) => {
   console.log('access token', accessToken);
   //access token - 로컬 변수로 이용
   axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+  axios.defaults.withCredentials = true;
   // refresh token -httpOnly Cookie 에 저장할  경우
   //자동 로그인 여부를 localStorage에 저장해 ,  나중에 사이트 방문 시 로그인 자동 여부를 판별할 수 있도록 함
   if (keepLogIn) {
@@ -49,7 +43,7 @@ export const onSilentRefresh = async (keepLogIn: boolean) => {
 };
 export const onLogIn = async (params: LogInParams, keepLogIn: boolean) => {
   try {
-    const response = await httpClient.post(LOG_IN_PATH, params);
+    const response = await httpClient.post(LOG_IN_PATH, params, { withCredentials: true });
     if (response.status === 200) {
       onLogInSuccess(response, keepLogIn);
     }
