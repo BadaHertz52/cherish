@@ -58,36 +58,34 @@ export type SignUpSessionDataType = {
 export const GENDER_TYPE = {
   male: 'male',
   female: 'female',
-} as const;
+};
 export type GenderType = keyof typeof GENDER_TYPE;
-export const job = {
+export const JOB_TYPE = {
   profession: 'profession', //전문직
-  management: 'management', //경영 관리
-  desk: 'desk', //사무직
-  service: 'service', // 서비스직
-  'blue-collar': 'blue-collar', //노동 생산직
-  'self-employment': 'self-employment', //자영업자
-  student: 'student', //삭생
+  managementAndDesk: 'managementAndDesk', // 관리 /사무직
+  service: 'service', // 판매/서비스직
+  blueCollar: 'blueCollar', //노동 생산직
+  selfEmployment: 'selfEmployment', //자영업자
+  student: 'student', //학생
   homemaker: 'homemaker', // 가정주부
   inoccupation: 'inoccupation', // 무직
-  etc: 'etc', //기타
+  jobEtc: 'jobEtc', //기타
 } as const;
-export type JobType = keyof typeof job;
+export type JobType = keyof typeof JOB_TYPE;
 type JobCheckBoxType = {
   name: JobType;
   label: string;
 };
-export const jobCheckBoxArr: JobCheckBoxType[] = [
-  { name: 'profession', label: '전문직' },
-  { name: 'management', label: '경영/관리직' },
-  { name: 'desk', label: '사무직' },
-  { name: 'service', label: '판매/서비스직' },
-  { name: 'blue-collar', label: '노동/생산직' },
-  { name: 'self-employment', label: '자영업' },
-  { name: 'student', label: '학생' },
-  { name: 'homemaker', label: '전업주부' },
-  { name: 'inoccupation', label: '무직' },
-  { name: 'etc', label: '기타' },
+export const JOB_ARR: JobCheckBoxType[] = [
+  { name: JOB_TYPE.profession as JobType, label: '전문직' },
+  { name: JOB_TYPE.managementAndDesk as JobType, label: '관리/사무직' },
+  { name: JOB_TYPE.service as JobType, label: '판매/서비스직' },
+  { name: JOB_TYPE.blueCollar as JobType, label: '노동/생산직' },
+  { name: JOB_TYPE.selfEmployment as JobType, label: '자영업' },
+  { name: JOB_TYPE.student as JobType, label: '학생' },
+  { name: JOB_TYPE.homemaker as JobType, label: '전업주부' },
+  { name: JOB_TYPE.inoccupation as JobType, label: '무직' },
+  { name: JOB_TYPE.jobEtc as JobType, label: '기타' },
 ];
 export type BirthDateType = {
   year: string;
