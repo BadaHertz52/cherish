@@ -16,6 +16,7 @@ export type LogInData = {
 // 로그인 성공 시 token 처리
 export const onLogInSuccess = (response: AxiosResponse, keepLogIn: boolean) => {
   const { accessToken } = response.data;
+  console.log('access token', accessToken);
   //access token - 로컬 변수로 이용
   axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
   // refresh token -httpOnly Cookie 에 저장할  경우
@@ -36,6 +37,7 @@ export const onSilentRefresh = async (keepLogIn: boolean) => {
     };
     const response = await httpClient.post(TOKEN_REFRESH_PATH, data);
     if (response.status === 200) {
+      console.log('repsonse', response);
       onLogInSuccess(response, keepLogIn);
     }
     if (response.status === 401) {
