@@ -14,6 +14,18 @@ import {
   TestResultType,
 } from '@/pages/SignUp/signUpTypes';
 import './style.scss';
+
+export const REGEX = {
+  //2~20자 (한글, 영문)
+  name: new RegExp('^[ㄱ-ㅎ가-힣a-zA-Z]{2,20}$'),
+  //3~10자 (한글, 영문, 숫자)
+  nickName: new RegExp('^[ㄱ-ㅎ가-힣a-zA-Z0-9]{3,10}$'),
+  email: new RegExp(
+    '^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$',
+  ),
+  //8~20자 (영문 + 숫자 + 특수기호(!@^))
+  pw: new RegExp('^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@^])[a-zA-z0-9!@^]{8,20}$'),
+};
 type InputFormProps = {
   id: InputFormIdType;
   data: InputDataType;
@@ -44,17 +56,7 @@ const InputForm = ({ id, data, setData, additionOfLabel, disabled }: InputFormPr
     email: '이메일을 입력해주세요.',
     pw: '비밀번호를 입력해주세요',
   };
-  const REGEX = {
-    //2~20자 (한글, 영문)
-    name: new RegExp('^[ㄱ-ㅎ가-힣a-zA-Z]{2,20}$'),
-    //3~10자 (한글, 영문, 숫자)
-    nickName: new RegExp('^[ㄱ-ㅎ가-힣a-zA-Z0-9]{3,10}$'),
-    email: new RegExp(
-      '^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$',
-    ),
-    //8~20자 (영문 + 숫자 + 특수기호(!@^))
-    pw: new RegExp('^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@^])[a-zA-z0-9!@^]{8,20}$'),
-  };
+
   /**
    * name, nickName, email,pw의 유효성을 검사하는 함수
    * @param text
