@@ -9,6 +9,8 @@ import {
   useState,
 } from 'react';
 
+import { onEmailVerification } from '@/api/email';
+import { EMAIL_API_RESULT_TYPE, EmailAPIResultType } from '@/api/types';
 import { Timer, AlertModal, InputForm, ToastModal } from '@/components';
 import { XSSCheck } from '@/pages/LogIn/index';
 import { getToastModalPosition } from '@/pages/SignUp/functions';
@@ -23,8 +25,6 @@ import {
 import './style.scss';
 import { ToastModalType } from '../Modals/modalTypes';
 
-import { EMAIL_API_RESULT_TYPE, EmailAPIResult } from './types';
-
 type EmailVerificationProps = {
   additionOfLabel?: string; // InputForm의 additionOfLabel
   setDisableBtn: Dispatch<SetStateAction<boolean>>;
@@ -33,8 +33,7 @@ type EmailVerificationProps = {
   openAuthNumberForm: boolean;
   setOpenAuthNumberForm: Dispatch<SetStateAction<boolean>>;
   toastModalPositionTargetEl: HTMLElement | null; // toastModal 위치,
-  inFindPw?: boolean; // 비밀번호 찾기 페이지에서 사용하는 지 여부
-  sendVerificationEmail: () => Promise<EmailAPIResult>; // 이메일 전송 api 진행
+  isInFindPw?: boolean; // 비밀번호 찾기 페이지에서 사용하는 지 여부
 };
 const EmailVerification = ({
   additionOfLabel,
@@ -44,8 +43,7 @@ const EmailVerification = ({
   openAuthNumberForm,
   setOpenAuthNumberForm,
   toastModalPositionTargetEl,
-  inFindPw,
-  sendVerificationEmail,
+  isInFindPw,
 }: EmailVerificationProps) => {
   const [openAlertModal, setOpenAlertModal] = useState<boolean>(false);
   const [openToastModal, setOpenToastModal] = useState<boolean>(false);
@@ -72,8 +70,11 @@ const EmailVerification = ({
   const [overTime, setOverTime] = useState<boolean>(false);
   const onClickEmailBtn = async () => {
     try {
-      const result = await sendVerificationEmail();
-      switch (result.type) {
+      const result: EmailAPIResultType = await onEmailVerification(
+        { email: email.value },
+        isInFindPw === true,
+      );
+      switch (result) {
         case EMAIL_API_RESULT_TYPE.duplicate:
           setEmail((prev: InputDataType) => ({
             ...prev,
@@ -95,7 +96,6 @@ const EmailVerification = ({
           }, 100);
           break;
         case EMAIL_API_RESULT_TYPE.serverError:
-          console.error(result.msg);
           break;
         case EMAIL_API_RESULT_TYPE.success:
           setOpenTimer(true);
@@ -132,7 +132,7 @@ const EmailVerification = ({
       setOpenTimer(false);
       verifiedEmail.current = email.value;
       setOpenToastModal(true);
-      if (inFindPw) {
+      if (isInFindPw) {
         setTimeout(() => {
           setDisableBtn(false);
           setOpenToastModal(false);
@@ -226,7 +226,7 @@ const EmailVerification = ({
             >
               이메일 인증하기
             </button>
-            {!inFindPw && <div className="alert">이메일은 회원가입 후 변경하실 수 없어요.</div>}
+            {!isInFindPw && <div className="alert">이메일은 회원가입 후 변경하실 수 없어요.</div>}
           </>
         )}
       </section>

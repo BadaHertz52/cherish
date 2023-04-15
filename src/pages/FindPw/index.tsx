@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
 
 import { PasswordForm, EmailVerification, ToastModal } from '@/components';
-import { EMAIL_API_RESULT_TYPE, EmailAPIResult } from '@/components/EmailVerification/types';
 import { ToastModalType } from '@/components/Modals/modalTypes';
 
 import { getToastModalPosition } from '../SignUp/functions';
@@ -42,23 +41,6 @@ const FindPw = () => {
       }));
       setOpenToastModal(true);
     }
-  };
-  const sendVerificationEmail = async (): Promise<EmailAPIResult> => {
-    const result: EmailAPIResult = {
-      type: EMAIL_API_RESULT_TYPE.success,
-    };
-    // try {
-    //   const response = await axios.post('', { email: email });
-    //   if (response.status === 200) {
-    //     result = { type: 'success' };
-    //   }
-    //   if (response.status === 400) {
-    //     result = { type: 'overSending' };
-    //   }
-    // } catch (error) {
-    //   result = { type: 'serverError' };
-    // }
-    return result;
   };
   const handleClickBtn = () => {
     //change pw
@@ -100,8 +82,7 @@ const FindPw = () => {
               openAuthNumberForm={openAuthNumberForm}
               setOpenAuthNumberForm={setOpenAuthNumberForm}
               toastModalPositionTargetEl={null}
-              inFindPw={true}
-              sendVerificationEmail={sendVerificationEmail}
+              isInFindPw={true}
             />
           </>
         ) : (
