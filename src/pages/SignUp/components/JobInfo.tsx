@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
+import { onLogIn } from '@/api/auth/logIn';
 import { onSignUp } from '@/api/auth/signUp';
 import { SignUpAPIParams } from '@/api/auth/types';
 import { RadioBtn } from '@/components';
@@ -55,14 +56,16 @@ const JobInfo = () => {
       job: job.value as JobType,
     };
     setSignUpState(newState);
-    // 서버에 간편가입
+    //간편가입 api
     const params = changeSignUpStateToParams(newState);
     if (params) {
       const result = await onSignUp(params);
-      if (result.success) {
-        //[to do = 월별 큐레이션 경로 나오면 수정 ]
-        navigate('/월별큐레이션');
-        sessionStorage.setItem('new member', 'true');
+      if (result.success && newState.email && newState.pw) {
+        //간편 가입 성공 시 자동 로그인
+        const logInResult = await onLogIn({ email: newState.email, password: newState.pw }, false);
+        if (logInResult.success) {
+          sessionStorage.setItem('new member', 'true');
+        }
       }
     }
     // 간편 가입 성공 시 1.1 로 이동
