@@ -2,8 +2,8 @@ import { AxiosError, AxiosResponse } from 'axios';
 
 import {
   APIErrorData,
+  APIResult,
   AuthNumberAPIParams,
-  AuthNumberAPIResult,
   EMAIL_API_RESULT_TYPE,
   EmailAPIResultType,
   EmailVerificationAPIParams,
@@ -17,7 +17,8 @@ const EMAIL_VERIFICATION_PATH = {
 };
 const AUTH_NUMBER_PATH = '/public/member/code-valid';
 
-const handleError = (errorResponse: AxiosResponse | undefined, result: EmailAPIResultType) => {
+const handleError = (errorResponse: AxiosResponse | undefined) => {
+  let result: EmailAPIResultType = EMAIL_API_RESULT_TYPE.serverError;
   if (errorResponse && errorResponse.status === 400) {
     const { message } = errorResponse.data as APIErrorData;
     if (message.includes('가입')) {
@@ -37,6 +38,7 @@ const handleError = (errorResponse: AxiosResponse | undefined, result: EmailAPIR
       result = EMAIL_API_RESULT_TYPE.serverError;
     }
   }
+  return result;
 };
 export const onEmailVerification = async (
   params: EmailVerificationAPIParams,
@@ -52,13 +54,15 @@ export const onEmailVerification = async (
   } catch (error) {
     const axiosError = error as AxiosError;
     const errorResponse = axiosError.response;
-    handleAxiosError(axiosError, () => handleError(errorResponse, result));
+    handleAxiosError(axiosError, () => {
+      result = handleError(errorResponse);
+    });
   }
   return result;
 };
 
-export const onAuthNumber = async (params: AuthNumberAPIParams): Promise<AuthNumberAPIResult> => {
-  let result: AuthNumberAPIResult = { success: false };
+export const onAuthNumber = async (params: AuthNumberAPIParams): Promise<APIResult> => {
+  let result: APIResult = { success: false };
   try {
     const response = await httpClient.post(AUTH_NUMBER_PATH, params);
     if (response.status === 200) {
