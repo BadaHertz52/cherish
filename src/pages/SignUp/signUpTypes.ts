@@ -56,8 +56,8 @@ export type SignUpSessionDataType = {
   value: string;
 };
 export const GENDER_TYPE = {
-  male: '여성',
-  female: '남성',
+  male: '남성',
+  female: '여성',
 };
 export type GenderType = keyof typeof GENDER_TYPE;
 export const JOB_TYPE = {
