@@ -27,7 +27,7 @@ const PasswordForm = ({
 }: PasswordFormProps) => {
   //pw, confirmPw 의 변화에 따라 disableBtn 상태 변경
   useEffect(() => {
-    if (confirmPw.value !== '' && pw.value !== '') {
+    if (confirmPw.value && pw.value) {
       if (pw.value !== confirmPw.value && !confirmPw.errorMsg) {
         setConfirmPw((prev: InputDataType) => ({
           ...prev,
@@ -39,14 +39,12 @@ const PasswordForm = ({
           ...prev,
           errorMsg: undefined,
         }));
-      }
-      if (pw.value === confirmPw.value && !pw.errorMsg && !confirmPw.errorMsg) {
         setDisableBtn(false);
       } else {
         setDisableBtn(true);
       }
     }
-  }, [pw, confirmPw]);
+  }, [pw.value, confirmPw.value]);
   return (
     <div className="pw-form">
       <InputForm
