@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
-import { LogInAPIParams } from './types';
+import { APIResult, LogInAPIParams } from './types';
 
 import { handleAxiosError, httpClient } from '.';
 const LOG_IN_PATH = '/public/member/login';
@@ -62,16 +62,20 @@ export const onLogInSuccess = (response: AxiosResponse, keepLogIn: boolean) => {
 };
 
 export const onLogIn = async (params: LogInAPIParams, keepLogIn: boolean) => {
+  let result: APIResult = { success: false };
   try {
     // [to do : widthCredentias :true 시 CORS 오류 해결]
     const response = await httpClient.post(LOG_IN_PATH, params);
     if (response.status === 200) {
       onLogInSuccess(response, keepLogIn);
+      result = { success: true };
     }
   } catch (error) {
     const axiosError = error as AxiosError;
     handleAxiosError(axiosError);
+    result = { success: false };
   }
+  return result;
 };
 
 window.onload = () => {
