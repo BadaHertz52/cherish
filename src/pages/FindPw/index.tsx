@@ -5,8 +5,8 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
 
+import { onFindPw } from '@/api/auth/findPwAPI';
 import { PasswordForm, EmailVerification, ToastModal } from '@/components';
-import { EMAIL_API_RESULT_TYPE, EmailAPIResult } from '@/components/EmailVerification/types';
 import { ToastModalType } from '@/components/Modals/modalTypes';
 
 import { getToastModalPosition } from '../SignUp/functions';
@@ -43,31 +43,15 @@ const FindPw = () => {
       setOpenToastModal(true);
     }
   };
-  const sendVerificationEmail = async (): Promise<EmailAPIResult> => {
-    const result: EmailAPIResult = {
-      type: EMAIL_API_RESULT_TYPE.success,
-    };
-    // try {
-    //   const response = await axios.post('', { email: email });
-    //   if (response.status === 200) {
-    //     result = { type: 'success' };
-    //   }
-    //   if (response.status === 400) {
-    //     result = { type: 'overSending' };
-    //   }
-    // } catch (error) {
-    //   result = { type: 'serverError' };
-    // }
-    return result;
-  };
-  const handleClickBtn = () => {
-    //change pw
-    // 서버 연동 후
-    //open toast modal
-    handleToastModal();
-    setTimeout(() => {
-      navigate('/login');
-    }, 2100);
+  const handleClickBtn = async () => {
+    const result = await onFindPw({ password: pw.value });
+    if (result.success) {
+      //open toast modal
+      handleToastModal();
+      setTimeout(() => {
+        navigate('/login');
+      }, 2100);
+    }
   };
   const onClickPrevBtn = () => {
     if (openEmailForm) {
@@ -100,8 +84,7 @@ const FindPw = () => {
               openAuthNumberForm={openAuthNumberForm}
               setOpenAuthNumberForm={setOpenAuthNumberForm}
               toastModalPositionTargetEl={null}
-              inFindPw={true}
-              sendVerificationEmail={sendVerificationEmail}
+              isInFindPw={true}
             />
           </>
         ) : (

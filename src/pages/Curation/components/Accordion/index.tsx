@@ -1,14 +1,11 @@
 import { useState, useCallback, useEffect, useMemo, memo } from 'react';
-
-import PresentLoader from '@/assets/icons/present-loader.png';
-import ActiveUpArrow from '@/assets/svgs/active-up-arrow.svg';
-import DownArrow from '@/assets/svgs/down-arrow.svg';
-
-import CheckBox from '../CheckButton';
-import PriceSlider from '../PriceSlider';
-import RadioButton from '../RadioButton';
-
 import styles from './style.module.scss';
+import DownArrow from '@/assets/svgs/down-arrow.svg';
+import ActiveUpArrow from '@/assets/svgs/active-up-arrow.svg';
+import PresentLoader from '@/assets/icons/present-loader.png';
+import CheckBox from '../CheckButton';
+import RadioButton from '../RadioButton';
+import PriceSlider from '../PriceSlider';
 
 interface CheckBox {
   name: string;
@@ -856,12 +853,12 @@ const Accordion = () => {
     setLoader(true);
     try {
       //넘길 값
-      const optionalValuesObj = {
+      let optionalValuesObj = {
         person: optionalPersonCheckedValue,
         age: optionalAge,
         jobs: optionalJobCheckedValue,
       };
-      const valuesObj = {
+      let valuesObj = {
         person: personCheckedValue,
         age: age,
         jobs: jobCheckedValue,

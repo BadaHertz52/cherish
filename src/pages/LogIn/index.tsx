@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useNavigate } from 'react-router-dom';
 
 import './style.scss';
-//import { LogInParams, onLogIn } from '@/api/logIn';
+import { LOG_IN_API_ITEM_KEY, onLogIn } from '@/api/auth/logIn';
+import { LogInAPIParams } from '@/api/auth/types';
 import { BtnShowPw, CheckBox } from '@/components';
 import { REGEX } from '@/components/InputForm';
 
@@ -52,10 +53,10 @@ const LogIn = () => {
     return REGEX.email.test(email) && REGEX.pw.test(pw);
   };
   const sendLogInData = async () => {
-    //const data: LogInParams = { email: email, password: pw };
     //[todo -api]
     // data 서버에 전송
-    //onLogIn(data, keepLogin);
+    const data: LogInAPIParams = { email: email, password: pw };
+    onLogIn(data, keepLogin);
   };
   const handleClickLogInBtn = () => {
     if (checkRegex()) {
@@ -68,6 +69,23 @@ const LogIn = () => {
   const onClickSignUpBtn = () => {
     navigate('/signup');
   };
+  
+  useEffect(() => {
+    if (sessionStorage.getItem(LOG_IN_API_ITEM_KEY.reLogIn)) {
+      setReLogIn(true);
+      sessionStorage.removeItem(LOG_IN_API_ITEM_KEY.reLogIn);
+    }
+  }, [sessionStorage.getItem(LOG_IN_API_ITEM_KEY.reLogIn)]);
+  
+  useEffect(() => {
+    localStorage.getItem(LOG_IN_API_ITEM_KEY.keepLogIn) &&
+      localStorage.removeItem(LOG_IN_API_ITEM_KEY.keepLogIn);
+    sessionStorage.getItem(LOG_IN_API_ITEM_KEY.logIn) &&
+      sessionStorage.removeItem(LOG_IN_API_ITEM_KEY.logIn);
+    sessionStorage.getItem(LOG_IN_API_ITEM_KEY.logInNow) &&
+      sessionStorage.removeItem(LOG_IN_API_ITEM_KEY.logInNow);
+  }, []);
+
   return (
     <div id="log-in">
       <div className="inner">

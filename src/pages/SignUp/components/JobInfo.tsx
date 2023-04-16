@@ -1,5 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
+import { onLogIn } from '@/api/auth/logIn';
+import { onSignUp } from '@/api/auth/signUp';
+import { SignUpAPIParams } from '@/api/auth/types';
 import { RadioBtn } from '@/components';
 import { SignUpContext } from '@/pages/SignUp';
 
@@ -21,7 +26,7 @@ const JobInfo = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
   const [disableBtn, setDisableBtn] = useState<boolean>(true);
   const [job, setJob] = useState<InputDataType>(initialInputData);
-
+  const navigate = useNavigate();
   const handleChange = (name: JobType) => {
     setJob({
       value: name,
@@ -29,13 +34,40 @@ const JobInfo = () => {
     });
     setDisableBtn(false);
   };
-  const onClickNextBtn = () => {
+  const changeSignUpStateToParams = (state: SignUpStateType) => {
+    if (state.birth && state.email && state.job && state.name && state.nickname && state.pw) {
+      const { year, month, date } = state.birth;
+      const params: SignUpAPIParams = {
+        name: state.name,
+        nickName: state.nickname,
+        email: state.email,
+        password: state.pw,
+        infoCheck: state.agreeToTerms.marketing,
+        gender: state.gender ? (state.gender === 'female' ? 'FEMALE' : 'MALE') : 'NONE',
+        birth: new Date(`${year}-${month}-${date}`),
+        job: state.job,
+      };
+      return params;
+    }
+  };
+  const onClickNextBtn = async () => {
     const newState: SignUpStateType = {
       ...signUpState,
       job: job.value as JobType,
     };
     setSignUpState(newState);
-    // 서버에 간편가입
+    //간편가입 api
+    const params = changeSignUpStateToParams(newState);
+    if (params) {
+      const result = await onSignUp(params);
+      if (result.success && newState.email && newState.pw) {
+        //간편 가입 성공 시 자동 로그인
+        const logInResult = await onLogIn({ email: newState.email, password: newState.pw }, false);
+        if (logInResult.success) {
+          sessionStorage.setItem('new member', 'true');
+        }
+      }
+    }
     // 간편 가입 성공 시 1.1 로 이동
   };
   useEffect(() => {
