@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom';
 import { BottomNav } from './components';
 // import ModalTest from './examples/modalTest';
 import Curation from './pages/Curation';
-import Curation from './pages/Curation';
 import PresentRecommendation from './pages/Curation/components/PresentRecommendation';
 import FindPw from './pages/FindPw';
 import Fourth from './pages/Fourth';
