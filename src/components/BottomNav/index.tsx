@@ -13,10 +13,10 @@ const BottomNav = () => {
 
   // 각 페이지별 상태를 나타내는 변수
   const tags = [
-    { id: 1, icon: faHome, title: '홈', link: '/first' },
-    { id: 2, icon: faCompass, title: '큐레이션', link: '/second' },
+    { id: 1, icon: faHome, title: '홈', link: '/' },
+    { id: 2, icon: faCompass, title: '큐레이션', link: '/curation' },
     { id: 3, icon: faPlus, title: '카테고리', link: '/third' },
-    { id: 4, icon: faMedal, title: '저장목록', link: '/fourth' },
+    { id: 4, icon: faMedal, title: '저장목록', link: '/bookmark' },
   ];
 
   // 스크롤 감지를 관리하는 state

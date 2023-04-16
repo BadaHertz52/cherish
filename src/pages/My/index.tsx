@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react';
-import styles from './style.module.scss';
-import Header from '@/components/common/Header';
+
 import MenuMoveSvg from '@/assets/svgs/menu-move.svg';
+import Header from '@/components/common/Header';
 import AlertModal from '@/components/Modals/AlertModal';
-import { RecentlyViewProductPage } from '../RecentlyViewProduct';
-import { NoticePage } from '../Notice';
-import { TermsOfServicePage } from '../TermsOfService';
 import ConfirmModal from '@/components/Modals/ConfirmModal';
-import { WithdrawalPage } from '../Withdrawal';
 import { DrawerScreen } from '@/layouts/DrawerScreen';
+
+import { NoticePage } from '../Notice';
+import { RecentlyViewProductPage } from '../RecentlyViewProduct';
+import { TermsOfServicePage } from '../TermsOfService';
+import { WithdrawalPage } from '../Withdrawal';
+
+import styles from './style.module.scss';
 
 export type MenuProps = {
   title: string;

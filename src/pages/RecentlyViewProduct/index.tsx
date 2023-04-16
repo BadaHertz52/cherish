@@ -1,8 +1,10 @@
-import styles from './style.module.scss';
-import { ItemCard } from '@/components';
 import { useState, useEffect } from 'react';
-import { DrawerScreen } from '@/layouts/DrawerScreen';
+
+import { ItemCard } from '@/components';
 import type { Item } from '@/components/ItemCard';
+import { DrawerScreen } from '@/layouts/DrawerScreen';
+
+import styles from './style.module.scss';
 
 export type RecentlyViewProductPageProps = {
   handleBackButton: () => void;

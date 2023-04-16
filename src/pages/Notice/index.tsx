@@ -1,8 +1,10 @@
-import styles from './style.module.scss';
 import { useState, useEffect } from 'react';
-import { DrawerScreen } from '@/layouts/DrawerScreen';
+
 import MenuMoveSvg from '@/assets/svgs/menu-move.svg';
 import AlertModal from '@/components/Modals/AlertModal';
+import { DrawerScreen } from '@/layouts/DrawerScreen';
+
+import styles from './style.module.scss';
 
 export type NoticePageProps = {
   handleBackButton: () => void;
@@ -14,6 +16,10 @@ export type Notice = {
   content: string;
   date: string;
 };
+
+const MenuMoveSvgWithOnClick = MenuMoveSvg as unknown as React.FC<
+  React.SVGProps<SVGSVGElement> & { onClick?: () => void }
+>;
 
 export const NoticePage = ({ handleBackButton }: NoticePageProps) => {
   const [notices, setNotices] = useState<Notice[]>([]);
@@ -50,7 +56,7 @@ export const NoticePage = ({ handleBackButton }: NoticePageProps) => {
           <div className={styles.notice} key={notice.id}>
             <div className={styles.title}>{notice.title}</div>
             <div className={styles.date}>{notice.date}</div>
-            <MenuMoveSvg onClick={() => setNotice(notice)} />
+            <MenuMoveSvgWithOnClick onClick={() => setNotice(notice)} />
           </div>
         ))}
         {notice && (

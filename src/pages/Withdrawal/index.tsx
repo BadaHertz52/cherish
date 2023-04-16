@@ -1,19 +1,21 @@
-import ConfirmModal from '@/components/Modals/ConfirmModal';
-import styles from './style.module.scss';
-import { DrawerScreen } from '@/layouts/DrawerScreen';
 import { useState } from 'react';
+
+import ConfirmModal from '@/components/Modals/ConfirmModal';
+import { DrawerScreen } from '@/layouts/DrawerScreen';
+
+import styles from './style.module.scss';
 
 export type WithdrawalPageProps = {
   handleBackButton: () => void;
 };
 
 export const WithdrawalPage = ({ handleBackButton }: WithdrawalPageProps) => {
-  const [checked, useChecked] = useState(false);
+  const [checked, setChecked] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const handleChange = ({ target }: { target: HTMLInputElement }) => {
     const ischecked = target.checked;
-    useChecked(ischecked);
+    setChecked(ischecked);
   };
 
   const handleWithdrawal = () => {

@@ -1,4 +1,4 @@
-import { TouchEvent, ChangeEvent, useState } from 'react';
+import { TouchEvent, ChangeEvent, useState, useEffect } from 'react';
 
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -69,14 +69,15 @@ const LogIn = () => {
   const onClickSignUpBtn = () => {
     navigate('/signup');
   };
-  
+
   useEffect(() => {
     if (sessionStorage.getItem(LOG_IN_API_ITEM_KEY.reLogIn)) {
-      setReLogIn(true);
+      setKeepLogin(true);
       sessionStorage.removeItem(LOG_IN_API_ITEM_KEY.reLogIn);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sessionStorage.getItem(LOG_IN_API_ITEM_KEY.reLogIn)]);
-  
+
   useEffect(() => {
     localStorage.getItem(LOG_IN_API_ITEM_KEY.keepLogIn) &&
       localStorage.removeItem(LOG_IN_API_ITEM_KEY.keepLogIn);

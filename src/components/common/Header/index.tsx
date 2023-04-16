@@ -1,5 +1,6 @@
-import styles from './style.module.scss';
 import BackButtonSvg from '@/assets/svgs/back-button.svg';
+
+import styles from './style.module.scss';
 
 export type HeaderProps = {
   title: string;

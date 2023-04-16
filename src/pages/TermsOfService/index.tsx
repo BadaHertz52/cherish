@@ -1,5 +1,6 @@
-import styles from './style.module.scss';
 import { DrawerScreen } from '@/layouts/DrawerScreen';
+
+import styles from './style.module.scss';
 
 export type TermsOfServicePageProps = {
   handleBackButton: () => void;

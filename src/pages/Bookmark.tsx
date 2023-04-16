@@ -1,4 +1,4 @@
-const fourth = () => {
+const Bookmark = () => {
   return (
     <>
       <h1>로그인부터 해주세요 ~ ^^</h1>
@@ -6,4 +6,4 @@ const fourth = () => {
     </>
   );
 };
-export default fourth;
+export default Bookmark;
