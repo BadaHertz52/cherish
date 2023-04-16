@@ -5,7 +5,7 @@ import { GENDER_TYPE, JOB_TYPE } from '@/pages/SignUp/signUpTypes';
  */
 export type ConfirmModalBtnType = {
   //btn 의 text node
-  text: string;
+  text?: string;
   //btn 클릭 시 이동해야 할 페이지의 경로
   path?: string;
   //btn 클릭 시 이동/창 닫기 외의 필요한 기능

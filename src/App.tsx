@@ -8,6 +8,7 @@ import FindPw from './pages/FindPw';
 import Fourth from './pages/Fourth';
 import Home from './pages/Home';
 import LogIn from './pages/LogIn';
+import SearchPage from './pages/Search';
 import SignUp from './pages/SignUp';
 import Third from './pages/Third';
 
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         {/* <Route path="/first" element={<First />} /> */}
+        <Route path="/search" element={<SearchPage />} />
         <Route path="/curation" element={<Curation />} />
         <Route path="/curation/present/recommendation" element={<PresentRecommendation />} />
         <Route path="/third" element={<Third />} />

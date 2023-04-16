@@ -1,0 +1,16 @@
+@import '@/assets/styles/common.scss';
+
+.recentlyViewProductPage {
+  > h2 {
+    @include bd1-font;
+    color: #121212;
+    margin-bottom: 10px;
+  }
+
+  .productSection {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 16px;
+    row-gap: 27px;
+  }
+}
