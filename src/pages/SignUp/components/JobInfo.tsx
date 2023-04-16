@@ -61,7 +61,7 @@ const JobInfo = () => {
       const result = await onSignUp(params);
       if (result.success) {
         //[to do = 월별 큐레이션 경로 나오면 수정 ]
-        navigate('/curation');
+        navigate('/월별큐레이션');
         sessionStorage.setItem('new member', 'true');
       }
     }
