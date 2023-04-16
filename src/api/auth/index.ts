@@ -6,11 +6,10 @@ export const httpClient = axios.create({
   baseURL: import.meta.env.VITE_MOCK_SERVER_URL,
 });
 
-export const handleAxiosError = (axiosError: AxiosError, handleError?: () => void) => {
+export const handleAxiosError = (axiosError: AxiosError) => {
   const errorResponse = axiosError.response;
   if (errorResponse && errorResponse.status === 400) {
     const { message } = errorResponse.data as APIErrorData;
     console.error(message);
-    handleError && handleError();
   }
 };

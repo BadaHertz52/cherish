@@ -54,9 +54,8 @@ export const onEmailVerification = async (
   } catch (error) {
     const axiosError = error as AxiosError;
     const errorResponse = axiosError.response;
-    handleAxiosError(axiosError, () => {
-      result = handleError(errorResponse);
-    });
+    handleAxiosError(axiosError);
+    result = handleError(errorResponse);
   }
   return result;
 };

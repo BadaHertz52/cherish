@@ -15,9 +15,8 @@ export const onSignUp = async (params: SignUpAPIParams) => {
     }
   } catch (error) {
     const axiosError = error as AxiosError;
-    handleAxiosError(axiosError, () => {
-      result = { success: false };
-    });
+    handleAxiosError(axiosError);
+    result = { success: false };
   }
   return result;
 };
