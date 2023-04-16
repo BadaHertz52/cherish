@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 import './style.scss';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
 
+import { onFindPw } from '@/api/auth/findPwAPI';
 import { PasswordForm, EmailVerification, ToastModal } from '@/components';
 import { ToastModalType } from '@/components/Modals/modalTypes';
 
@@ -42,20 +43,22 @@ const FindPw = () => {
       setOpenToastModal(true);
     }
   };
-  const handleClickBtn = () => {
-    //change pw
-    // 서버 연동 후
-    //open toast modal
-    handleToastModal();
-    setTimeout(() => {
-      navigate('/login');
-    }, 2100);
+  const handleClickBtn = async () => {
+    const result = await onFindPw({ password: pw.value });
+    if (result.success) {
+      //open toast modal
+      handleToastModal();
+      setTimeout(() => {
+        navigate('/login');
+      }, 2100);
+    }
   };
   const onClickPrevBtn = () => {
     if (openEmailForm) {
-      navigate('/login');
+      openAuthNumberForm ? setOpenAuthNumberForm(false) : navigate('/login');
     } else {
       setOpenEmailForm(true);
+      setOpenAuthNumberForm(true);
     }
   };
   return (
@@ -67,25 +70,30 @@ const FindPw = () => {
         <h2>비밀번호 찾기</h2>
       </div>
       <div className={styles.inner}>
-        <h3>
-          <p>회원님의 비밀번호를 찾을 수 있도록</p>
-          <p>가입하신 이메일을 입력해 주세요.</p>
-        </h3>
         {openEmailForm ? (
-          <EmailVerification
-            additionOfLabel="가입하신"
-            setDisableBtn={setOpenEmailForm}
-            email={email}
-            setEmail={setEmail}
-            emailDuplicationChecker={false}
-            openAuthNumberForm={openAuthNumberForm}
-            setOpenAuthNumberForm={setOpenAuthNumberForm}
-            toastModalPositionTargetEl={null}
-            inFindPw={true}
-          />
+          <>
+            <h3>
+              <p>회원님의 비밀번호를 찾을 수 있도록</p>
+              <p>가입하신 이메일을 입력해 주세요.</p>
+            </h3>
+            <EmailVerification
+              additionOfLabel="가입하신"
+              setDisableBtn={setOpenEmailForm}
+              email={email}
+              setEmail={setEmail}
+              openAuthNumberForm={openAuthNumberForm}
+              setOpenAuthNumberForm={setOpenAuthNumberForm}
+              toastModalPositionTargetEl={null}
+              isInFindPw={true}
+            />
+          </>
         ) : (
           <>
+            <h3>
+              <p>비밀번호 재설정</p>
+            </h3>
             <PasswordForm
+              additionOfLabel="신규"
               confirmPw={confirmPw}
               setConfirmPw={setConfirmPw}
               pw={pw}

@@ -1,6 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import { CheckBox } from '@/components';
+import { useNavigate } from 'react-router-dom';
+
+import { onSignUp } from '@/api/auth/signUp';
+import { SignUpAPIParams } from '@/api/auth/types';
+import { RadioBtn } from '@/components';
 import { SignUpContext } from '@/pages/SignUp';
 
 import {
@@ -8,8 +12,10 @@ import {
   InputDataType,
   SignUpStateType,
   initialInputData,
-  jobCheckBoxArr,
+  JOB_ARR,
   JobType,
+  SIGN_UP_SESSION_DATA_KEY,
+  SignUpSessionDataKeyType,
 } from '../signUpTypes';
 
 import { getPrevData } from './SignUpTopBar';
@@ -19,41 +25,72 @@ const JobInfo = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
   const [disableBtn, setDisableBtn] = useState<boolean>(true);
   const [job, setJob] = useState<InputDataType>(initialInputData);
-
+  const navigate = useNavigate();
   const handleChange = (name: JobType) => {
     setJob({
       value: name,
-      errorMsg: null,
+      errorMsg: undefined,
     });
     setDisableBtn(false);
   };
-  const onClickNextBtn = () => {
+  const changeSignUpStateToParams = (state: SignUpStateType) => {
+    if (state.birth && state.email && state.job && state.name && state.nickname && state.pw) {
+      const { year, month, date } = state.birth;
+      const params: SignUpAPIParams = {
+        name: state.name,
+        nickName: state.nickname,
+        email: state.email,
+        password: state.pw,
+        infoCheck: state.agreeToTerms.marketing,
+        gender: state.gender ? (state.gender === 'female' ? 'FEMALE' : 'MALE') : 'NONE',
+        birth: new Date(`${year}-${month}-${date}`),
+        job: state.job,
+      };
+      return params;
+    }
+  };
+  const onClickNextBtn = async () => {
     const newState: SignUpStateType = {
       ...signUpState,
       job: job.value as JobType,
     };
     setSignUpState(newState);
     // 서버에 간편가입
+    const params = changeSignUpStateToParams(newState);
+    if (params) {
+      const result = await onSignUp(params);
+      if (result.success) {
+        //[to do = 월별 큐레이션 경로 나오면 수정 ]
+        navigate('/월별큐레이션');
+        sessionStorage.setItem('new member', 'true');
+      }
+    }
     // 간편 가입 성공 시 1.1 로 이동
   };
   useEffect(() => {
-    getPrevData('job', setJob, undefined, undefined);
+    getPrevData(
+      SIGN_UP_SESSION_DATA_KEY.job as SignUpSessionDataKeyType,
+      setJob,
+      undefined,
+      undefined,
+    );
   }, []);
   return (
     <div id="job-info">
       <StepInner disableBtn={disableBtn} onClickNextBtn={onClickNextBtn}>
         <h3>직업</h3>
-        <section className="check-box-group">
-          {jobCheckBoxArr.map(i => (
-            <CheckBox
+        <fieldset className="radio-btn-group">
+          {JOB_ARR.map(i => (
+            <RadioBtn
+              key={i.name}
               id={`job-info-${i.name}`}
-              name={i.name}
+              name="job"
+              value={i.name}
               label={i.label}
-              isChecked={() => job.value === i.name}
               onChange={() => handleChange(i.name)}
             />
           ))}
-        </section>
+        </fieldset>
         <div className="msg">{job.value === '' && ERROR_MSG.required}</div>
       </StepInner>
     </div>

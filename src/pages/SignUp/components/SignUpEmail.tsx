@@ -1,17 +1,28 @@
-import { useContext, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 
 import { EmailVerification } from '@/components';
 
 import { SignUpContext } from '..';
-import { initialInputData, InputDataType, SignUpStateType } from '../signUpTypes';
+import {
+  initialInputData,
+  InputDataType,
+  SIGN_UP_SESSION_DATA_KEY,
+  SignUpSessionDataKeyType,
+  SignUpStateType,
+} from '../signUpTypes';
 
 import { getPrevData } from './SignUpTopBar';
 import StepInner from './StepInner';
-const SignUpEmail = () => {
+
+type SignUpEmailProps = {
+  openAuthNumberForm: boolean;
+  setOpenAuthNumberForm: Dispatch<SetStateAction<boolean>>;
+};
+const SignUpEmail = ({ openAuthNumberForm, setOpenAuthNumberForm }: SignUpEmailProps) => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
   const [email, setEmail] = useState<InputDataType>(initialInputData);
   const [disableBtn, setDisableBtn] = useState<boolean>(true);
-  const [openAuthNumberForm, setOpenAuthNumberForm] = useState<boolean>(false);
+
   const nextBtnEl = document.querySelector('.next-btn') as HTMLElement | null;
   const onClickNextBtn = () => {
     setSignUpState((prev: SignUpStateType) => ({
@@ -21,14 +32,20 @@ const SignUpEmail = () => {
     }));
   };
   useEffect(() => {
-    getPrevData('email', setEmail, undefined, undefined);
+    getPrevData(
+      SIGN_UP_SESSION_DATA_KEY.email as SignUpSessionDataKeyType,
+      setEmail,
+      undefined,
+      undefined,
+    );
     if (signUpState.email) {
       setEmail({
         value: signUpState.email,
-        errorMsg: null,
+        errorMsg: undefined,
       });
       // 이미 인증이 완료 된 경우에 다음 버튼 클릭 가능
       setDisableBtn(false);
+      setOpenAuthNumberForm(true);
     }
   }, []);
   return (
@@ -43,7 +60,6 @@ const SignUpEmail = () => {
           setDisableBtn={setDisableBtn}
           email={email}
           setEmail={setEmail}
-          emailDuplicationChecker={true}
           openAuthNumberForm={openAuthNumberForm}
           setOpenAuthNumberForm={setOpenAuthNumberForm}
           toastModalPositionTargetEl={nextBtnEl}

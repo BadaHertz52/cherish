@@ -1,0 +1,49 @@
+@import '@/assets/styles/common.scss';
+
+.radioBtn {
+  position: relative;
+}
+.radioBtnInner {
+  // 상황에 맞게 조정가능
+  height: 14px;
+  display: flex;
+  align-items: center;
+}
+.radioBtnInput {
+  display: none;
+}
+@mixin radioBtnCheckStyle {
+  &:before {
+    z-index: 1;
+    font-family: 'Font Awesome 5 free';
+    display: inline-block;
+    content: '\f058';
+    font-size: 16px;
+  }
+}
+.radioBtnCheckOn {
+  @include radioBtnCheckStyle;
+  &:before {
+    color: $color-primary;
+  }
+}
+.radioBtnCheckOff {
+  @include radioBtnCheckStyle;
+  &:before {
+    color: $color-light-black;
+  }
+}
+@mixin radioLabelStyle {
+  margin-left: 16px;
+  @include bd2-font;
+  // 상황에 맞게 조정가능
+  line-height: 14px;
+  text-align: center;
+}
+.radioBtnLabel {
+  @include radioLabelStyle;
+}
+.radioBtnLabelOn {
+  @include radioLabelStyle;
+  font-weight: bold;
+}

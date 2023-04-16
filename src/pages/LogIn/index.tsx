@@ -1,11 +1,15 @@
-import { TouchEvent, ChangeEvent, useState } from 'react';
+import { TouchEvent, ChangeEvent, useState, useEffect } from 'react';
 
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useNavigate } from 'react-router-dom';
 
 import './style.scss';
+import { LOG_IN_API_ITEM_KEY, onLogIn } from '@/api/auth/logIn';
+import { LogInAPIParams } from '@/api/auth/types';
 import { BtnShowPw, CheckBox } from '@/components';
+import { REGEX } from '@/components/InputForm';
+
 export const XSSCheck = (str: string, level?: number) => {
   if (!level || level == 0) {
     str = str.replace(/\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-/g, '');
@@ -22,23 +26,19 @@ const LogIn = () => {
   const [hiddenPw, setHiddenPw] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
   const [keepLogin, setKeepLogin] = useState<boolean>(false);
-  const inputTarget = {
+  const [reLogIn, setReLogIn] = useState<boolean>(false);
+  const INPUT_TARGET = {
     email: 'email',
     pw: 'pw',
   } as const;
-  type InputTargetType = keyof typeof inputTarget;
-  const REGEX = {
-    email: new RegExp('[a-z0-9]+@[a-z]+.[a-z]{2,3}'),
-    //8~20자 (영문 + 숫자 + 특수기호(!@^))
-    pw: new RegExp('^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@^])[a-zA-z0-9!@^]{8,20}$'),
-  };
+  type InputTargetType = keyof typeof INPUT_TARGET;
   const handleTouchOfLink = (event: TouchEvent<HTMLElement>) => {
     const target = event.currentTarget;
     target.classList.toggle('on');
   };
   const handleChangeOfValue = (event: ChangeEvent<HTMLInputElement>, target: InputTargetType) => {
     const value = XSSCheck(event.target.value);
-    if (target === 'email') {
+    if (target === INPUT_TARGET.email) {
       setEmail(value);
     } else {
       setPw(value);
@@ -54,35 +54,10 @@ const LogIn = () => {
     return REGEX.email.test(email) && REGEX.pw.test(pw);
   };
   const sendLogInData = async () => {
-    const data = { email: email, pw: pw };
     //[todo -api]
     // data 서버에 전송
-    try {
-      const response = await fetch('', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-      if (!response.ok) {
-        throw new Error('Server response was not ok');
-      }
-      const result = await response.json();
-      //result 값에 따라 login / 오류 메세지
-      // if(login === success){
-      //   navigate('/main');
-      //   if(keepLogin){
-      //     //로그인 유지
-      //   }
-      // }
-      // else{setError(true)}
-    } catch (e) {
-      // error message
-      console.error('Error sending POST request:', e);
-      // fetch 실패 시 오류 메세지.... 어떻게....???
-      throw error;
-    }
+    const data: LogInAPIParams = { email: email, password: pw };
+    onLogIn(data, keepLogin);
   };
   const handleClickLogInBtn = () => {
     if (checkRegex()) {
@@ -95,6 +70,20 @@ const LogIn = () => {
   const onClickSignUpBtn = () => {
     navigate('/signup');
   };
+  useEffect(() => {
+    if (sessionStorage.getItem(LOG_IN_API_ITEM_KEY.reLogIn)) {
+      setReLogIn(true);
+      sessionStorage.removeItem(LOG_IN_API_ITEM_KEY.reLogIn);
+    }
+  }, [sessionStorage.getItem(LOG_IN_API_ITEM_KEY.reLogIn)]);
+  useEffect(() => {
+    localStorage.getItem(LOG_IN_API_ITEM_KEY.keepLogIn) &&
+      localStorage.removeItem(LOG_IN_API_ITEM_KEY.keepLogIn);
+    sessionStorage.getItem(LOG_IN_API_ITEM_KEY.logIn) &&
+      sessionStorage.removeItem(LOG_IN_API_ITEM_KEY.logIn);
+    sessionStorage.getItem(LOG_IN_API_ITEM_KEY.logInNow) &&
+      sessionStorage.removeItem(LOG_IN_API_ITEM_KEY.logInNow);
+  }, []);
   return (
     <div id="log-in">
       <div className="inner">
@@ -106,7 +95,7 @@ const LogIn = () => {
               value={email}
               type="text"
               placeholder="이메일을 입력해주세요"
-              onChange={event => handleChangeOfValue(event, 'email')}
+              onChange={event => handleChangeOfValue(event, INPUT_TARGET.email)}
             />
             <button type="button" title="btn-remove-email" onClick={handleClickRemoveBtn}>
               <FontAwesomeIcon icon={faCircleXmark} />
@@ -117,7 +106,7 @@ const LogIn = () => {
               value={pw}
               type={!hiddenPw ? 'text' : 'password'}
               placeholder="비밀번호을 입력해주세요"
-              onChange={event => handleChangeOfValue(event, 'pw')}
+              onChange={event => handleChangeOfValue(event, INPUT_TARGET.pw)}
             />
             <BtnShowPw hiddenPw={hiddenPw} setHiddenPw={setHiddenPw} />
           </div>
@@ -159,7 +148,9 @@ const LogIn = () => {
           간편가입
         </button>
         <div className="banner">
-          <div>결제정보 입력 없이 1분만에 회원가입하세요!</div>
+          <div>
+            {reLogIn ? '다시 로그인 해주세요.' : '결제정보 입력 없이 1분만에 회원가입하세요!'}
+          </div>
         </div>
       </div>
     </div>

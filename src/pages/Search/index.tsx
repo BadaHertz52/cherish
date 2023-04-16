@@ -1,7 +1,9 @@
-import styles from './style.module.scss';
 import { useState, useEffect } from 'react';
+
 import { SearchKeywordSection, SearchHeader, ItemCard } from '@/components';
 import type { Item } from '@/components/ItemCard';
+
+import styles from './style.module.scss';
 
 const SearchPage = () => {
   const [recentKeywords, setRecentKeywords] = useState<string[]>([]);
