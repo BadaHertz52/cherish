@@ -8,7 +8,9 @@ import {
   ConditionType,
   FilteringConditionType,
   ConditionName,
+  CONDITION_NAME,
 } from '@/components/Modals/modalTypes';
+import { JOB_ARR } from '@/pages/SignUp/signUpTypes';
 
 import BottomNavModalPortal from '../BottomNavModalPortal';
 import './style.scss';
@@ -21,42 +23,33 @@ const CATEGORY = {
 type CategoryType = keyof typeof CATEGORY;
 type CheckBoxType = {
   name: ConditionName;
-  label: string;
 };
 
 // CheckBoxType 의 name은 추후 필터링 조건명에 따라 수정
 const PRODUCT_TYPE_CHECK_BOX_ARR: CheckBoxType[] = [
-  { name: 'food', label: '식품' },
-  { name: 'beauty', label: '뷰티' },
-  { name: 'living', label: '리빙/주방' },
-  { name: 'digital', label: '디지털/가전' },
-  { name: 'productEtc', label: '기타' },
+  { name: CONDITION_NAME.food as ConditionName },
+  { name: CONDITION_NAME.beauty as ConditionName },
+  { name: CONDITION_NAME.living as ConditionName },
+  { name: CONDITION_NAME.digital as ConditionName },
+  { name: CONDITION_NAME.clothingAndStuff as ConditionName },
+  { name: CONDITION_NAME.productEtc as ConditionName },
 ];
 const GENDER_CHECK_BOX_ARR: CheckBoxType[] = [
-  { name: 'male', label: '남' },
-  { name: 'female', label: '여' },
-  { name: 'irrelevant', label: '무관' },
+  { name: CONDITION_NAME.male as ConditionName },
+  { name: CONDITION_NAME.female as ConditionName },
 ];
-const JOB_CHECK_BOX_ARR: CheckBoxType[] = [
-  { name: 'profession', label: '전문직' },
-  { name: 'management', label: '경영/관리직' },
-  { name: 'desk', label: '사무직' },
-  { name: 'service', label: '판매/서비스직' },
-  { name: 'blueCollar', label: '노동/생산직' },
-  { name: 'selfEmployment', label: '자영업' },
-  { name: 'student', label: '학생' },
-  { name: 'homemaker', label: '전업주부' },
-  { name: 'outOfWork', label: '무직' },
-  { name: 'jobEtc', label: '기타' },
-];
+const JOB_CHECK_BOX_ARR: CheckBoxType[] = JOB_ARR;
 const SITUATION_CHECK_BOX_ARR: CheckBoxType[] = [
-  { name: 'birthday', label: '생일' },
-  { name: 'moveHousewarming', label: '이사/집들이' },
-  { name: 'admissionAndGraduation', label: '입학/졸업' },
-  { name: 'leave', label: '퇴사/퇴직' },
-  { name: 'employmentAndJobChange', label: '취업/이직' },
-  { name: 'discharge', label: '전역' },
-  { name: 'getWellVisit', label: '병문안' },
+  { name: CONDITION_NAME.birthday as ConditionName },
+  { name: CONDITION_NAME.moveHousewarming as ConditionName },
+  { name: CONDITION_NAME.admissionAndGraduation as ConditionName },
+  { name: CONDITION_NAME.leave as ConditionName },
+  { name: CONDITION_NAME.employmentAndJobChange as ConditionName },
+  { name: CONDITION_NAME.discharge as ConditionName },
+  { name: CONDITION_NAME.getWellVisit as ConditionName },
+  { name: CONDITION_NAME.anniversary as ConditionName },
+  { name: CONDITION_NAME.parenting as ConditionName },
+  { name: CONDITION_NAME.situationEtc as ConditionName },
 ];
 /**
  * sendData:서버에 새로운 필터링 조건 보내고 서버에서 받은 새로운 필터링 결과를 검색 결과 페이지에 보여주는 기능
@@ -82,7 +75,12 @@ const BottomNavModal = ({
   const [targetCondition, setTargetCondition] = useState<ConditionType>(
     filteringCondition[category],
   );
-  const categoryArr: CategoryType[] = ['productType', 'gender', 'job', 'situation'];
+  const categoryArr: CategoryType[] = [
+    CATEGORY.productType,
+    CATEGORY.gender,
+    CATEGORY.job,
+    CATEGORY.situation,
+  ];
   const categoryBtnTextArr = ['상품유형', '성별', '직업', '상황'];
   const arrOfCheckBoxArr = [
     PRODUCT_TYPE_CHECK_BOX_ARR,
@@ -161,7 +159,7 @@ const BottomNavModal = ({
       BOTTOM_MODAL_El?.classList.add('on');
       setTimeout(() => {
         if (MODAL_EL) {
-          MODAL_EL.style.top = `54vh`;
+          MODAL_EL.style.top = `56vh`;
         }
       }, 50);
       MODAL_BACKGROUND_EL?.addEventListener('click', event => closeBottomNavModal(event));
@@ -206,14 +204,14 @@ const BottomNavModal = ({
           </div>
           <div className="bar"></div>
         </div>
-        <div className="check-box-group-container">
+        <div className={`check-box-group-container ${checkBoxArr.length > 8 ? 'scroll' : ''}`}>
           <div className="checkbox-group">
             {checkBoxArr.map((v, i) => (
               <Checkbox
                 key={`checkbox_${i}`}
                 id={v.name}
                 name={v.name}
-                label={v.label}
+                label={v.name}
                 isChecked={targetCondition ? () => targetCondition.includes(v.name) : () => false}
                 onChange={() => onChangeCheckBox(v.name)}
               />

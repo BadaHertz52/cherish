@@ -1,8 +1,19 @@
 import { useContext, useEffect, useState } from 'react';
-import { SignUpContext } from '@/pages/SignUp';
+
 import { InputForm } from '@/components';
+import { SignUpContext } from '@/pages/SignUp';
+
+import {
+  initialInputData,
+  INPUT_FORM_ID,
+  InputDataType,
+  InputFormIdType,
+  SIGN_UP_SESSION_DATA_KEY,
+  SignUpSessionDataKeyType,
+  SignUpStateType,
+} from '../signUpTypes';
+
 import { getPrevData } from './SignUpTopBar';
-import { initialInputData, InputDataType, SignUpStateType } from '../signUpTypes';
 import StepInner from './StepInner';
 
 const NameAndNickName = () => {
@@ -20,16 +31,24 @@ const NameAndNickName = () => {
   };
   useEffect(() => {
     // sessionStorage
-    getPrevData('name', setName, undefined, undefined);
-    getPrevData('nickName', setNickName, undefined, undefined);
+    getPrevData(
+      SIGN_UP_SESSION_DATA_KEY.name as SignUpSessionDataKeyType,
+      setName,
+      undefined,
+      undefined,
+    );
+    getPrevData(
+      SIGN_UP_SESSION_DATA_KEY.nickName as SignUpSessionDataKeyType,
+      setNickName,
+      undefined,
+      undefined,
+    );
     if (signUpState.name && signUpState.nickname) {
       setName({
         value: signUpState.name,
-        errorMsg: null,
       });
       setNickName({
         value: signUpState.nickname,
-        errorMsg: null,
       });
     }
   }, []);
@@ -43,8 +62,12 @@ const NameAndNickName = () => {
   return (
     <div id="nameAndNickName">
       <StepInner disableBtn={disableBtn} onClickNextBtn={onClickNextBtn}>
-        <InputForm id="name" data={name} setData={setName} />
-        <InputForm id="nickName" data={nickName} setData={setNickName} />
+        <InputForm id={INPUT_FORM_ID.name as InputFormIdType} data={name} setData={setName} />
+        <InputForm
+          id={INPUT_FORM_ID.nickName as InputFormIdType}
+          data={nickName}
+          setData={setNickName}
+        />
       </StepInner>
     </div>
   );

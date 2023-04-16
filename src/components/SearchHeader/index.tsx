@@ -1,7 +1,9 @@
-import styles from './style.module.scss';
+import { useState } from 'react';
+
 import BackButtonSvg from '@/assets/svgs/back-button.svg';
 import SearchSvg from '@/assets/svgs/search.svg';
-import { useState } from 'react';
+
+import styles from './style.module.scss';
 
 type SearchHeaderProps = {
   handleSearch: (keyword: string) => void;

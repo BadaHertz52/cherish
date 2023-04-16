@@ -1,15 +1,16 @@
 import React from 'react';
-import { SignUpProgressType, progressArr } from '../signUpTypes';
+
+import { SignUpProgressType, PROGRESS_ARR } from '../signUpTypes';
 
 export const moveProgressBar = (progress: SignUpProgressType, forward: boolean) => {
   const progressEl = document.querySelector('.progress') as HTMLElement | null;
-  const progressIndex = progressArr.indexOf(progress);
+  const progressIndex = PROGRESS_ARR.indexOf(progress);
   if (progressEl) {
     const number: number = forward ? progressIndex + 1 : progressIndex;
-    if (progressIndex === progressArr.length - 1 && forward) {
+    if (progressIndex === PROGRESS_ARR.length - 1 && forward) {
       progressEl.style.left = '0';
     } else {
-      const left = `-${((progressArr.length - number) / progressArr.length) * 100}%`;
+      const left = `-${((PROGRESS_ARR.length - number) / PROGRESS_ARR.length) * 100}%`;
       progressEl.style.left = left;
     }
   }

@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+
 import style from './style.module.scss';
 type TimerProps = {
   setOverTime: Dispatch<SetStateAction<boolean>>;

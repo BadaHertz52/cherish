@@ -1,12 +1,13 @@
 import { Route, Routes } from 'react-router-dom';
 
-import Fourth from './pages/Fourth';
-// import ModalTest from './components/modals/ModalTest';
 import { BottomNav } from './components';
-import Home from './pages/Home';
-import LogIn from './pages/LogIn';
+// import ModalTest from './examples/modalTest';
 import Curation from './pages/Curation';
 import PresentRecommendation from './pages/Curation/components/PresentRecommendation';
+import FindPw from './pages/FindPw';
+import Fourth from './pages/Fourth';
+import Home from './pages/Home';
+import LogIn from './pages/LogIn';
 import SignUp from './pages/SignUp';
 import Third from './pages/Third';
 
@@ -26,6 +27,7 @@ function App() {
         {/* <Route path="modaltest" element={<ModalTest />} /> */}
         <Route path="login" element={<LogIn />} />
         <Route path="signup" element={<SignUp />} />
+        <Route path="findpw" element={<FindPw />} />
       </Routes>
       <BottomNav />
     </div>
