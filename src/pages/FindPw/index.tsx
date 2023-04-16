@@ -5,6 +5,7 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
 
+import { onFindPw } from '@/api/auth/findPwAPI';
 import { PasswordForm, EmailVerification, ToastModal } from '@/components';
 import { ToastModalType } from '@/components/Modals/modalTypes';
 
@@ -42,14 +43,15 @@ const FindPw = () => {
       setOpenToastModal(true);
     }
   };
-  const handleClickBtn = () => {
-    //change pw
-    // 서버 연동 후
-    //open toast modal
-    handleToastModal();
-    setTimeout(() => {
-      navigate('/login');
-    }, 2100);
+  const handleClickBtn = async () => {
+    const result = await onFindPw({ password: pw.value });
+    if (result.success) {
+      //open toast modal
+      handleToastModal();
+      setTimeout(() => {
+        navigate('/login');
+      }, 2100);
+    }
   };
   const onClickPrevBtn = () => {
     if (openEmailForm) {

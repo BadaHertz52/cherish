@@ -25,6 +25,9 @@ export const EMAIL_API_RESULT_TYPE = {
 
 export type EmailAPIResultType = keyof typeof EMAIL_API_RESULT_TYPE;
 
+export type FindPwAPIParams = {
+  password: string;
+};
 export type LogInAPIParams = {
   email: string;
   password: string;
@@ -32,7 +35,6 @@ export type LogInAPIParams = {
 export type LogInAPIResultData = {
   accessToken: string;
 };
-
 export type SignUpAPIParams = {
   name: string;
   nickName: string;
