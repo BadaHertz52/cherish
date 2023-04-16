@@ -26,20 +26,18 @@ export const onLogInSuccess = (response: AxiosResponse, keepLogIn: boolean) => {
 // token refresh (refresh token을 클라이언트에 접근할 수 있는 경우를 가정해 작성했음)
 export const onSilentRefresh = async (keepLogIn: boolean) => {
   try {
-    const data = {
-      refreshToken: '',
-    };
-    const response = await httpClient.post(TOKEN_REFRESH_PATH, data);
+    const response = await httpClient.post(TOKEN_REFRESH_PATH);
     if (response.status === 200) {
-      console.log('repsonse', response);
       onLogInSuccess(response, keepLogIn);
     }
-    if (response.status === 401) {
+  } catch (error) {
+    const axiosError = error as AxiosError;
+    if (axiosError.response?.status === 401) {
       // refresh token 만료 - 로그인 페이지 이동
       sessionStorage.setItem('reLogIn', JSON.stringify(true));
       location.href = window.location.protocol + '//' + window.location.host + '/' + 'login';
     }
-  } catch (error) {}
+  }
 };
 export const onLogIn = async (params: LogInAPIParams, keepLogIn: boolean) => {
   try {

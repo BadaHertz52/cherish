@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 
-import { APIErrorData, APIResult, SignUpAPIParams } from './types';
+import { APIResult, SignUpAPIParams } from './types';
 
 import { handleAxiosError, httpClient } from '.';
 
