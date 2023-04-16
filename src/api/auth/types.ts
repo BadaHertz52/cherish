@@ -36,10 +36,10 @@ export type LogInAPIResultData = {
 export type SignUpAPIParams = {
   name: string;
   nickName: string;
-  email: string; // 이메일
-  password: string; // 패스워드
-  infoCheck: boolean; // 광고성 동의
-  gender: 'NONE' | GenderType; //nullable
-  birth: Date; // 생일; nullable
-  job: string; //nullable
+  email: string;
+  password: string;
+  infoCheck: boolean;
+  gender: 'NONE' | 'MALE' | 'FEMALE';
+  birth: Date | string; // [to do]
+  job: string;
 };
