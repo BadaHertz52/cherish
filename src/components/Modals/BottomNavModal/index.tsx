@@ -159,7 +159,7 @@ const BottomNavModal = ({
       BOTTOM_MODAL_El?.classList.add('on');
       setTimeout(() => {
         if (MODAL_EL) {
-          MODAL_EL.style.top = `54vh`;
+          MODAL_EL.style.top = `56vh`;
         }
       }, 50);
       MODAL_BACKGROUND_EL?.addEventListener('click', event => closeBottomNavModal(event));
@@ -204,7 +204,7 @@ const BottomNavModal = ({
           </div>
           <div className="bar"></div>
         </div>
-        <div className="check-box-group-container">
+        <div className={`check-box-group-container ${checkBoxArr.length > 8 ? 'scroll' : ''}`}>
           <div className="checkbox-group">
             {checkBoxArr.map((v, i) => (
               <Checkbox
