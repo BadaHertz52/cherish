@@ -10,6 +10,7 @@ import {
   GenderAndBirth,
   JobInfo,
 } from './components';
+import { SignUpStateType } from './signUpTypes';
 import './style.scss';
 import { SIGN_UP_PROGRESS, SignUpStateType } from './signUpTypes';
 

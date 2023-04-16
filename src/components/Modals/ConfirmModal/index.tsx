@@ -14,7 +14,7 @@ export type ConfirmModalProps = {
 const ConfirmModal = ({ title, children, yesBtn, noBtn, closeModal }: ConfirmModalProps) => {
   const onClickYesBtn = () => {
     if (yesBtn?.otherFn) {
-      yesBtn.otherFn();
+      yesBtn?.otherFn();
     }
     closeModal();
   };
@@ -34,10 +34,10 @@ const ConfirmModal = ({ title, children, yesBtn, noBtn, closeModal }: ConfirmMod
       <section className="confirm-modal__contents">{children}</section>
       <section className="confirm-modal__btn-group">
         <button type="button" className="btn-yes" onClick={onClickYesBtn}>
-          {yesBtn?.text || '네'}
+          {yesBtn?.text || '확인'}
         </button>
         <button type="button" className="btn-no" onClick={onClickNoBtn}>
-          {noBtn?.text || '아니오'}
+          {noBtn?.text || '취소'}
         </button>
       </section>
     </ModalPortal>

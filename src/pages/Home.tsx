@@ -1,6 +1,12 @@
+import { useState } from 'react';
+
+import { useNavigate } from 'react-router-dom';
+
 import '../assets/styles/Home.scss';
 import { ItemCard } from '../components';
 import type { Item } from '../components/ItemCard';
+
+import MyPage from './My';
 
 interface Category {
   title: string;
@@ -95,32 +101,38 @@ const categoryList: Array<Category> = [
   },
 ];
 
-const NavIcon = ({ src, link }: { src: string; link: string }) => (
-  <img
-    src={src}
-    width="14px"
-    onClick={() => {
-      window.location.href = link;
-    }}
-    style={{ cursor: 'pointer' }}
-  />
+const NavIcon = ({ src, onClick }: { src: string; onClick: () => void }) => (
+  <img src={src} width="14px" onClick={onClick} style={{ cursor: 'pointer' }} />
 );
 
 function Home() {
+  const navigate = useNavigate();
+  const [showMyPage, setShowMyPage] = useState(false);
+
+  const handleShowMyPage = () => {
+    // TODO: 로그인 전 상태에서는 로그인 페이지로 이동
+    setShowMyPage(true);
+  };
+
+  const handleShowSearchPage = () => {
+    navigate('/search');
+  };
+
   return (
     <>
       <div className="header">
         <div className="logo-text">Cherishu</div>
         <div className="icons">
-          <NavIcon src="/icons/search.png" link="/search" />
-          <NavIcon src="/icons/profile.png" link="/profile" />
+          {/* <img src="/icons/profile.png" width="14px"  /> */}
+          <NavIcon src="/icons/search.png" onClick={handleShowSearchPage} />
+          <NavIcon src="/icons/profile.png" onClick={handleShowMyPage} />
         </div>
       </div>
       <div className="main-image"></div>
       <div className="container">
         <div className="category-header">요즘 핫한 선물 추천</div>
         {[...categoryList].map(category => (
-          <div className="category">
+          <div className="category" key={category.title}>
             <div className="category-title">
               {category.title}
               <div className="right-arrow">
@@ -137,6 +149,7 @@ function Home() {
           </div>
         ))}
       </div>
+      {showMyPage && <MyPage handleBackButton={() => setShowMyPage(false)} />}
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { TouchEvent, ChangeEvent, useState, useEffect } from 'react';
+import { TouchEvent, ChangeEvent, useState } from 'react';
 
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -26,7 +26,6 @@ const LogIn = () => {
   const [hiddenPw, setHiddenPw] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
   const [keepLogin, setKeepLogin] = useState<boolean>(false);
-  const [reLogIn, setReLogIn] = useState<boolean>(false);
   const INPUT_TARGET = {
     email: 'email',
     pw: 'pw',
@@ -70,12 +69,14 @@ const LogIn = () => {
   const onClickSignUpBtn = () => {
     navigate('/signup');
   };
+  
   useEffect(() => {
     if (sessionStorage.getItem(LOG_IN_API_ITEM_KEY.reLogIn)) {
       setReLogIn(true);
       sessionStorage.removeItem(LOG_IN_API_ITEM_KEY.reLogIn);
     }
   }, [sessionStorage.getItem(LOG_IN_API_ITEM_KEY.reLogIn)]);
+  
   useEffect(() => {
     localStorage.getItem(LOG_IN_API_ITEM_KEY.keepLogIn) &&
       localStorage.removeItem(LOG_IN_API_ITEM_KEY.keepLogIn);
@@ -84,6 +85,7 @@ const LogIn = () => {
     sessionStorage.getItem(LOG_IN_API_ITEM_KEY.logInNow) &&
       sessionStorage.removeItem(LOG_IN_API_ITEM_KEY.logInNow);
   }, []);
+
   return (
     <div id="log-in">
       <div className="inner">
@@ -148,9 +150,7 @@ const LogIn = () => {
           간편가입
         </button>
         <div className="banner">
-          <div>
-            {reLogIn ? '다시 로그인 해주세요.' : '결제정보 입력 없이 1분만에 회원가입하세요!'}
-          </div>
+          <div>결제정보 입력 없이 1분만에 회원가입하세요!</div>
         </div>
       </div>
     </div>

@@ -1,7 +1,8 @@
-import styles from './style.module.scss';
 import BackIcon from '@/assets/svgs/back-button.svg';
-import SearchIcon from '@/assets/svgs/search.svg';
 import MyPageIcon from '@/assets/svgs/mypage.svg';
+import SearchIcon from '@/assets/svgs/search.svg';
+
+import styles from './style.module.scss';
 
 const PresentRecommendation = () => {
   const handleGoBack = () => {
