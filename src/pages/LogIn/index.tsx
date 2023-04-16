@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useNavigate } from 'react-router-dom';
 
 import './style.scss';
-import { onLogIn } from '@/api/auth/logIn';
+import { LOG_IN_API_ITEM_KEY, onLogIn } from '@/api/auth/logIn';
 import { LogInAPIParams } from '@/api/auth/types';
 import { BtnShowPw, CheckBox } from '@/components';
 import { REGEX } from '@/components/InputForm';
@@ -71,11 +71,19 @@ const LogIn = () => {
     navigate('/signup');
   };
   useEffect(() => {
-    if (sessionStorage.getItem('reLogIn')) {
+    if (sessionStorage.getItem(LOG_IN_API_ITEM_KEY.reLogIn)) {
       setReLogIn(true);
-      sessionStorage.removeItem('reLogIn');
+      sessionStorage.removeItem(LOG_IN_API_ITEM_KEY.reLogIn);
     }
-  }, [sessionStorage.getItem('reLogIn')]);
+  }, [sessionStorage.getItem(LOG_IN_API_ITEM_KEY.reLogIn)]);
+  useEffect(() => {
+    localStorage.getItem(LOG_IN_API_ITEM_KEY.keepLogIn) &&
+      localStorage.removeItem(LOG_IN_API_ITEM_KEY.keepLogIn);
+    sessionStorage.getItem(LOG_IN_API_ITEM_KEY.logIn) &&
+      sessionStorage.removeItem(LOG_IN_API_ITEM_KEY.logIn);
+    sessionStorage.getItem(LOG_IN_API_ITEM_KEY.logInNow) &&
+      sessionStorage.removeItem(LOG_IN_API_ITEM_KEY.logInNow);
+  }, []);
   return (
     <div id="log-in">
       <div className="inner">
