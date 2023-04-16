@@ -1,17 +1,31 @@
-import { useContext, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
+
+import axios, { AxiosError } from 'axios';
 
 import { EmailVerification } from '@/components';
+import { EMAIL_API_RESULT_TYPE, EmailAPIResult } from '@/components/EmailVerification/types';
 
 import { SignUpContext } from '..';
-import { initialInputData, InputDataType, SignUpStateType } from '../signUpTypes';
+import {
+  initialInputData,
+  InputDataType,
+  SIGN_UP_SESSION_DATA_KEY,
+  SignUpSessionDataKeyType,
+  SignUpStateType,
+} from '../signUpTypes';
 
 import { getPrevData } from './SignUpTopBar';
 import StepInner from './StepInner';
-const SignUpEmail = () => {
+
+type SignUpEmailProps = {
+  openAuthNumberForm: boolean;
+  setOpenAuthNumberForm: Dispatch<SetStateAction<boolean>>;
+};
+const SignUpEmail = ({ openAuthNumberForm, setOpenAuthNumberForm }: SignUpEmailProps) => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
   const [email, setEmail] = useState<InputDataType>(initialInputData);
   const [disableBtn, setDisableBtn] = useState<boolean>(true);
-  const [openAuthNumberForm, setOpenAuthNumberForm] = useState<boolean>(false);
+
   const nextBtnEl = document.querySelector('.next-btn') as HTMLElement | null;
   const onClickNextBtn = () => {
     setSignUpState((prev: SignUpStateType) => ({
@@ -20,15 +34,59 @@ const SignUpEmail = () => {
       email: email.value,
     }));
   };
+  const sendVerificationEmail = async (): Promise<EmailAPIResult> => {
+    const result: EmailAPIResult = {
+      type: EMAIL_API_RESULT_TYPE.success,
+    };
+    //[api ]
+    // try {
+    //   const response = await axios.post('', { email: email });
+    //   if (response.status === 200) {
+    //     result = { type: 'success' };
+    //   }
+    // } catch (error) {
+    //   const axiosError = error as AxiosError;
+    //   if (axiosError.response) {
+    //     console.log('axios error', axiosError);
+    //     const msg = axiosError.response.statusText;
+    //     if (msg.includes('가입')) {
+    //       //중복 이메일
+    //       result = { type: 'duplicate' };
+    //     }
+    //     if (msg.includes('5분')) {
+    //       //5분간 이메일 전송 금지
+    //       result = { type: 'pause' };
+    //     }
+    //     if (msg.includes('초과')) {
+    //       // 하루 인증 횟수 초과
+    //       result = { type: 'overSending' };
+    //     }
+    //     if (msg.includes('에러')) {
+    //       // 알 수 없는 서버 에러
+    //       result = { type: 'serverError', msg: axiosError.message };
+    //     }
+    //   } else {
+    //     result = { type: 'serverError', msg: axiosError.message };
+    //   }
+    // }
+
+    return result;
+  };
   useEffect(() => {
-    getPrevData('email', setEmail, undefined, undefined);
+    getPrevData(
+      SIGN_UP_SESSION_DATA_KEY.email as SignUpSessionDataKeyType,
+      setEmail,
+      undefined,
+      undefined,
+    );
     if (signUpState.email) {
       setEmail({
         value: signUpState.email,
-        errorMsg: null,
+        errorMsg: undefined,
       });
       // 이미 인증이 완료 된 경우에 다음 버튼 클릭 가능
       setDisableBtn(false);
+      setOpenAuthNumberForm(true);
     }
   }, []);
   return (
@@ -43,10 +101,10 @@ const SignUpEmail = () => {
           setDisableBtn={setDisableBtn}
           email={email}
           setEmail={setEmail}
-          emailDuplicationChecker={true}
           openAuthNumberForm={openAuthNumberForm}
           setOpenAuthNumberForm={setOpenAuthNumberForm}
           toastModalPositionTargetEl={nextBtnEl}
+          sendVerificationEmail={sendVerificationEmail}
         />
       </StepInner>
     </div>
