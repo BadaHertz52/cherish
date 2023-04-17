@@ -2,7 +2,9 @@
 name: Automatically Deployment
 
 on: [push]
-
+env:  
+   VITE_SERVER_API_URL: ${{secrets.VITE_SERVER_API_URL}}
+   VITE_MOCK_SERVER_URL : ${{secrets.VITE_MOCK_SERVER_URL}}
 jobs:
  deployment:
   runs-on: ubuntu-latest
