@@ -15,7 +15,9 @@
     "lint-staged": "lint-staged",
     "lint": "eslint 'src/**/*.{ts,tsx}' --fix",
     "lint:check": "eslint 'src/**/*.{ts,tsx}'",
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.3.0",
@@ -56,6 +58,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "gh-pages": "^5.0.0",
     "happy-dom": "^8.9.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.1",
