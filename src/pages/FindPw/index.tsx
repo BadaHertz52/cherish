@@ -3,7 +3,6 @@ import React, { useRef, useState } from 'react';
 import './style.scss';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useNavigate } from 'react-router-dom';
 
 import { onFindPw } from '@/api/auth/findPwAPI';
 import { PasswordForm, EmailVerification, ToastModal } from '@/components';
@@ -29,7 +28,6 @@ const FindPw = () => {
     left: '0',
   });
   const btnChangePwRef = useRef<HTMLButtonElement>(null);
-  const navigate = useNavigate();
   const handleToastModal = () => {
     const position = getToastModalPosition();
     if (position && btnChangePwRef.current) {
@@ -49,13 +47,13 @@ const FindPw = () => {
       //open toast modal
       handleToastModal();
       setTimeout(() => {
-        navigate('/login');
+        window.location.pathname = '/login';
       }, 2100);
     }
   };
   const onClickPrevBtn = () => {
     if (openEmailForm) {
-      openAuthNumberForm ? setOpenAuthNumberForm(false) : navigate('/login');
+      openAuthNumberForm ? setOpenAuthNumberForm(false) : (window.location.pathname = '/login');
     } else {
       setOpenEmailForm(true);
       setOpenAuthNumberForm(true);

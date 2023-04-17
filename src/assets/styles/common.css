@@ -1,0 +1,10 @@
+@font-face {
+  font-family: "sofia-pro-bold";
+  src: url("@/assets/fonts/Sofia Pro Bold.ttf");
+  font-style: normal;
+}
+@font-face {
+  font-family: "sofia-pro-light";
+  src: url("@/assets/fonts/sofiapro-light.otf");
+  font-style: normal;
+}/*# sourceMappingURL=common.css.map */
