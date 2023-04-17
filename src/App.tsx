@@ -16,16 +16,16 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/cherish/" element={<Home />} />
+        <Route path="/" element={<Home />} />
         {/* <Route path="/first" element={<First />} /> */}
         <Route path="/curation" element={<Curation />} />
         <Route path="/third" element={<Third />} />
         {/* <Route path="/fourth" element={<Fourth />} /> */}
         {/* modal 테스트를 위해 route 추가 , 추후 삭제 예정*/}
         {/* <Route path="modaltest" element={<ModalTest />} /> */}
-        <Route path="/cherish/login" element={<LogIn />} />
-        <Route path="/cherish/signup" element={<SignUp />} />
-        <Route path="/cherish/findpw" element={<FindPw />} />
+        <Route path="/login" element={<LogIn />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/findpw" element={<FindPw />} />
       </Routes>
       <BottomNav />
     </div>
