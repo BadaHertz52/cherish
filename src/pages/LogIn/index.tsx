@@ -2,7 +2,7 @@ import { TouchEvent, ChangeEvent, useState, useEffect } from 'react';
 
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import './style.scss';
 import { LOG_IN_API_ITEM_KEY, onLogIn } from '@/api/auth/logIn';
@@ -20,7 +20,6 @@ export const XSSCheck = (str: string, level?: number) => {
   return str;
 };
 const LogIn = () => {
-  const navigate = useNavigate();
   const [email, setEmail] = useState<string>('');
   const [pw, setPw] = useState<string>('');
   const [hiddenPw, setHiddenPw] = useState<boolean>(true);
@@ -68,7 +67,7 @@ const LogIn = () => {
     }
   };
   const onClickSignUpBtn = () => {
-    navigate('/signup');
+    window.location.pathname = '/signup';
   };
   useEffect(() => {
     if (sessionStorage.getItem(LOG_IN_API_ITEM_KEY.reLogIn)) {

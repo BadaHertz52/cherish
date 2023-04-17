@@ -26,7 +26,7 @@ const JobInfo = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
   const [disableBtn, setDisableBtn] = useState<boolean>(true);
   const [job, setJob] = useState<InputDataType>(initialInputData);
-  const navigate = useNavigate();
+
   const handleChange = (name: JobType) => {
     setJob({
       value: name,
