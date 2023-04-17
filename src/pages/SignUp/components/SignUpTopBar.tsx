@@ -2,7 +2,6 @@ import { Dispatch, SetStateAction, useContext } from 'react';
 
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useNavigate } from 'react-router-dom';
 
 import { SignUpContext } from '@/pages/SignUp';
 
@@ -63,7 +62,6 @@ type SignUpTopBarProps = {
 };
 const SignUpTopBar = ({ openAuthNumberForm, setOpenAuthNumberForm }: SignUpTopBarProps) => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
-  const navigate = useNavigate();
   const setItem = (item: SignUpSessionDataType[]) => {
     sessionStorage.setItem('signUpBackUpData', JSON.stringify(item));
   };
@@ -130,7 +128,7 @@ const SignUpTopBar = ({ openAuthNumberForm, setOpenAuthNumberForm }: SignUpTopBa
   const onClickPrevBtn = () => {
     const conditionToCloseAuthNumberForm = signUpState.progress === 'email' && openAuthNumberForm;
     if (signUpState.progress === 'agreeToTerms') {
-      navigate('/login');
+      window.location.pathname = '/login';
     }
     if (conditionToCloseAuthNumberForm) {
       setOpenAuthNumberForm(false);
