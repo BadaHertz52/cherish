@@ -32,7 +32,7 @@ const LogIn = () => {
   type InputTargetType = keyof typeof INPUT_TARGET;
   const handleTouchOfLink = (event: TouchEvent<HTMLElement>) => {
     const target = event.currentTarget;
-    target.classList.toggle('on');
+    target?.classList.toggle('on');
   };
   const handleChangeOfValue = (event: ChangeEvent<HTMLInputElement>, target: InputTargetType) => {
     const value = XSSCheck(event.target.value);
