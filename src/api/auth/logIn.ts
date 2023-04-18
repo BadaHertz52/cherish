@@ -63,12 +63,6 @@ export const onLogInSuccess = (response: AxiosResponse, keepLogIn: boolean) => {
 
 export const onLogIn = async (params: LogInAPIParams, keepLogIn: boolean) => {
   let result: APIResult = { success: false };
-  console.log(
-    'env',
-    import.meta.env.VITE_MOCK_SERVER_URL,
-    import.meta.env.VITE_SERVER_API_URL,
-    process.env.VITE_MOCK_SERVER_URL,
-  );
   try {
     // [to do : widthCredentias :true 시 CORS 오류 해결]
     const response = await httpClient.post(LOG_IN_PATH, params, { withCredentials: true });

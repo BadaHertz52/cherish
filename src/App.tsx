@@ -1,8 +1,9 @@
-import { BottomNav } from './components';
-import './assets/main.scss';
-import Router from './Router';
+import { BottomNav } from '@/components';
+import Router from '@/Router';
 
-function App() {
+import './assets/main.scss';
+
+function App(): JSX.Element {
   return (
     <div className="App">
       <Router />
