@@ -19,7 +19,7 @@ export const onSilentRefresh = async (keepLogIn: boolean) => {
   //  사용자가 로그인 상태  일때만 실행
   if (sessionStorage.getItem(LOG_IN_API_ITEM_KEY.logIn)) {
     try {
-      const response = await httpClient.post(TOKEN_REFRESH_PATH + '/fail');
+      const response = await httpClient.post(TOKEN_REFRESH_PATH);
       if (response.status === 200) {
         onLogInSuccess(response, keepLogIn);
       }
@@ -39,7 +39,7 @@ export const onLogInSuccess = (response: AxiosResponse, keepLogIn: boolean) => {
   sessionStorage.setItem(LOG_IN_API_ITEM_KEY.logIn, 'true');
   //access token - 로컬 변수로 이용
   axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-  //axios.defaults.withCredentials = true; [to do - fix CORS ERROR ]
+  axios.defaults.withCredentials = true; //[to do - fix CORS ERROR ]
 
   //accessToken 만료 시간 1분 전 저장
   const expireTime = new Date(new Date().getTime() + 29 * 60 * 1000);
@@ -63,9 +63,15 @@ export const onLogInSuccess = (response: AxiosResponse, keepLogIn: boolean) => {
 
 export const onLogIn = async (params: LogInAPIParams, keepLogIn: boolean) => {
   let result: APIResult = { success: false };
+  console.log(
+    'env',
+    import.meta.env.VITE_MOCK_SERVER_URL,
+    import.meta.env.VITE_SERVER_API_URL,
+    process.env.VITE_MOCK_SERVER_URL,
+  );
   try {
     // [to do : widthCredentias :true 시 CORS 오류 해결]
-    const response = await httpClient.post(LOG_IN_PATH, params);
+    const response = await httpClient.post(LOG_IN_PATH, params, { withCredentials: true });
     if (response.status === 200) {
       onLogInSuccess(response, keepLogIn);
       result = { success: true };
