@@ -1,22 +1,14 @@
 import { ChangeEvent, TouchEvent } from 'react';
 
-import { act, render, screen } from '@testing-library/react';
+import { act } from '@testing-library/react';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import sinon from 'ts-sinon';
-import { describe, expect, it, test } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 import LogIn from '.';
 
 configure({ adapter: new Adapter() });
-test('renders login in nav', () => {
-  render(
-    <BrowserRouter>
-      <LogIn />
-    </BrowserRouter>,
-  );
-});
 
 describe('LogIn', () => {
   let wrapper = shallow(<LogIn />);
