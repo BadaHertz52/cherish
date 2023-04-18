@@ -19,9 +19,9 @@ export default function Router() {
       <Route path="/curation/present/recommendation" element={<PresentRecommendation />} />
       <Route path="/third" element={<Third />} />
       <Route path="/bookmark" element={<Bookmark />} />
-      <Route path="login" element={<LogIn />} />
-      <Route path="signup" element={<SignUp />} />
-      <Route path="findpw" element={<FindPw />} />
+      <Route path="/login" element={<LogIn />} />
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/findpw" element={<FindPw />} />
     </Routes>
   );
 }
