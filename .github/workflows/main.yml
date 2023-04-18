@@ -12,7 +12,7 @@ jobs:
      with:
        node-version: '16'
      
-   - name: Setting .env
+   - name: setting .env
      run: |
         echo "VITE_SERVER_API_URL =$VITE_SERVER_API_URL" >> .env
         echo "VITE_MOCK_SERVER_URL = $VITE_MOCK_SERVER_URL" >> .env
