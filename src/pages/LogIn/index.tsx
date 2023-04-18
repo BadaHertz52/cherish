@@ -51,9 +51,7 @@ const LogIn = () => {
   const checkRegex = () => {
     return REGEX.email.test(email) && REGEX.pw.test(pw);
   };
-  const sendLogInData = async () => {
-    //[todo -api]
-    // data 서버에 전송
+  const sendLogInData = () => {
     const data: LogInAPIParams = { email: email, password: pw };
     onLogIn(data, keepLogin);
   };

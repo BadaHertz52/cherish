@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios';
 
 import { APIErrorData } from './types';
 export const httpClient = axios.create({
-  baseURL: import.meta.env.VITE_MOCK_SERVER_URL,
+  //baseURL: import.meta.env.VITE_SERVER_API_URL,
   //import.meta.env.VITE_SERVER_API_URL,
   // mock server test- >import.meta.env.VITE_MOCK_SERVER_URL,
 });
