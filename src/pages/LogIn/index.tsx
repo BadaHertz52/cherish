@@ -71,10 +71,6 @@ const LogIn = () => {
       setError(true);
     }
   };
-  const onClickSignUpBtn = () => {
-    window.location.pathname = '/signup';
-  };
-
   useEffect(() => {
     localStorage.getItem(LOG_IN_API_ITEM_KEY.keepLogIn) &&
       localStorage.removeItem(LOG_IN_API_ITEM_KEY.keepLogIn);
@@ -146,9 +142,9 @@ const LogIn = () => {
         <button type="button" className="btn-log-in" onClick={handleClickLogInBtn}>
           로그인
         </button>
-        <button type="button" className="btn-sign-up" onClick={onClickSignUpBtn}>
-          간편가입
-        </button>
+        <Link to={'/signup'} className="link-sign-up">
+          <div>간편가입</div>
+        </Link>
         <div className="banner">
           <div>
             {sessionStorage.getItem(LOG_IN_API_ITEM_KEY.reLogIn)

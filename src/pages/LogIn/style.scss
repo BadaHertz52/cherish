@@ -7,9 +7,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  a {
-    @include clean-a-style;
-  }
   button {
     @include clean-btn-style;
   }
@@ -35,7 +32,7 @@
   .log-in__data__email,
   .log-in__data__pw,
   .btn-log-in,
-  .btn-sign-up,
+  .link-sign-up,
   .error-msg {
     height: 6vh;
   }
@@ -94,6 +91,7 @@
     }
   }
   .link-find-pw {
+    @include clean-a-style;
     @include bd2-font;
     color: $color-light-black;
     &:hover,
@@ -104,7 +102,7 @@
 
   //btn -log-in , btn -sign-up
   .btn-log-in,
-  .btn-sign-up {
+  .link-sign-up {
     @include h2-font;
     width: 100%;
     border-radius: 5px;
@@ -113,8 +111,15 @@
     @include btn-selected-full-style;
     margin-bottom: 16px;
   }
-  .btn-sign-up {
+  .link-sign-up {
+    @include clean-a-style;
     @include btn-selected-border-style;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    div {
+      color: $color-primary;
+    }
   }
   // error msg , banner
   .error-msg,
