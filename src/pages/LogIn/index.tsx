@@ -59,12 +59,14 @@ const LogIn = () => {
       if (keepLogIn) {
         localStorage.setItem(LOG_IN_API_ITEM_KEY.keepLogIn, 'true');
       }
+    } else {
+      setError(true);
     }
   };
-  const handleClickLogInBtn = async () => {
+  const handleClickLogInBtn = () => {
     if (checkRegex()) {
       setError(false);
-      await sendLogInData();
+      sendLogInData();
     } else {
       setError(true);
     }
