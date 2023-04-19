@@ -24,7 +24,7 @@ const LogIn = () => {
   const [pw, setPw] = useState<string>('');
   const [hiddenPw, setHiddenPw] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
-  const [keepLogin, setKeepLogin] = useState<boolean>(false);
+  const [keepLogIn, setKeepLogin] = useState<boolean>(false);
   const INPUT_TARGET = {
     email: 'email',
     pw: 'pw',
@@ -46,19 +46,25 @@ const LogIn = () => {
     setEmail('');
   };
   const handleChangeOfKeep = () => {
-    setKeepLogin(!keepLogin);
+    setKeepLogin(!keepLogIn);
   };
   const checkRegex = () => {
     return REGEX.email.test(email) && REGEX.pw.test(pw);
   };
-  const sendLogInData = () => {
+  const sendLogInData = async () => {
     const data: LogInAPIParams = { email: email, password: pw };
-    onLogIn(data, keepLogin);
+    const result = await onLogIn(data);
+    if (result.success) {
+      //자동 로그인 여부를 localStorage에 저장해 ,  나중에 사이트 방문 시 로그인 자동 여부를 판별할 수 있도록 함
+      if (keepLogIn) {
+        localStorage.setItem(LOG_IN_API_ITEM_KEY.keepLogIn, 'true');
+      }
+    }
   };
-  const handleClickLogInBtn = () => {
+  const handleClickLogInBtn = async () => {
     if (checkRegex()) {
       setError(false);
-      sendLogInData();
+      await sendLogInData();
     } else {
       setError(true);
     }
@@ -68,20 +74,14 @@ const LogIn = () => {
   };
 
   useEffect(() => {
-    if (sessionStorage.getItem(LOG_IN_API_ITEM_KEY.reLogIn)) {
-      setKeepLogin(true);
-      sessionStorage.removeItem(LOG_IN_API_ITEM_KEY.reLogIn);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sessionStorage.getItem(LOG_IN_API_ITEM_KEY.reLogIn)]);
-
-  useEffect(() => {
     localStorage.getItem(LOG_IN_API_ITEM_KEY.keepLogIn) &&
       localStorage.removeItem(LOG_IN_API_ITEM_KEY.keepLogIn);
     sessionStorage.getItem(LOG_IN_API_ITEM_KEY.logIn) &&
       sessionStorage.removeItem(LOG_IN_API_ITEM_KEY.logIn);
-    sessionStorage.getItem(LOG_IN_API_ITEM_KEY.logInNow) &&
-      sessionStorage.removeItem(LOG_IN_API_ITEM_KEY.logInNow);
+    return () => {
+      sessionStorage.getItem(LOG_IN_API_ITEM_KEY.reLogIn) &&
+        sessionStorage.removeItem(LOG_IN_API_ITEM_KEY.reLogIn);
+    };
   }, []);
 
   return (
@@ -116,7 +116,7 @@ const LogIn = () => {
             <CheckBox
               id="checkboxKeep"
               name="autoLogIn"
-              isChecked={() => keepLogin}
+              isChecked={() => keepLogIn}
               label="자동 로그인 하기"
               onChange={handleChangeOfKeep}
             />

@@ -42,13 +42,13 @@ const FindPw = () => {
     }
   };
   const handleClickBtn = async () => {
-    const result = await onFindPw({ password: pw.value });
+    const result = await onFindPw({ email: email.value, password: pw.value });
     if (result.success) {
       //open toast modal
       handleToastModal();
       setTimeout(() => {
         window.location.pathname = '/login';
-      }, 2100);
+      }, 1000);
     }
   };
   const onClickPrevBtn = () => {

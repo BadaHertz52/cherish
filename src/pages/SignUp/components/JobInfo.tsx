@@ -61,7 +61,7 @@ const JobInfo = () => {
       const result = await onSignUp(params);
       if (result.success && newState.email && newState.pw) {
         //간편 가입 성공 시 자동 로그인
-        const logInResult = await onLogIn({ email: newState.email, password: newState.pw }, false);
+        const logInResult = await onLogIn({ email: newState.email, password: newState.pw });
         if (logInResult.success) {
           sessionStorage.setItem('new member', 'true');
         }

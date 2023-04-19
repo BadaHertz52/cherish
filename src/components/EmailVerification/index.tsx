@@ -86,6 +86,11 @@ const EmailVerification = ({
             errorMsg: '이미 회원가입된 이메일이에요.',
           }));
           break;
+        case EMAIL_API_RESULT_TYPE.noUser:
+          setEmail(prev => ({
+            ...prev,
+            errorMsg: '해당 이메일이 존재하지 않아요.',
+          }));
         case EMAIL_API_RESULT_TYPE.pause:
           setOpenToastModal(false);
           setAlertModalChilde(childOfModalForPause);
@@ -103,9 +108,9 @@ const EmailVerification = ({
         case EMAIL_API_RESULT_TYPE.serverError:
           break;
         case EMAIL_API_RESULT_TYPE.success:
-          setOpenTimer(true);
           setOpenToastModal(true);
           setTimeout(() => {
+            setOpenTimer(true);
             setOpenAuthNumberForm(true);
             setOpenToastModal(false);
           }, 1000);
