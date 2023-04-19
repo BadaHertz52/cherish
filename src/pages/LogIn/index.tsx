@@ -150,7 +150,11 @@ const LogIn = () => {
           간편가입
         </button>
         <div className="banner">
-          <div>결제정보 입력 없이 1분만에 회원가입하세요!</div>
+          <div>
+            {sessionStorage.getItem(LOG_IN_API_ITEM_KEY.reLogIn)
+              ? '다시 로그인 해주세요.'
+              : '결제정보 입력 없이 1분만에 회원가입하세요!'}
+          </div>
         </div>
       </div>
     </div>
