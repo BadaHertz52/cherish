@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
 import MenuMoveSvg from '@/assets/svgs/menu-move.svg';
-import Header from '@/components/common/Header';
 import AlertModal from '@/components/Modals/AlertModal';
 import ConfirmModal from '@/components/Modals/ConfirmModal';
 import { DrawerScreen } from '@/layouts/DrawerScreen';
 
 import { NoticePage } from '../Notice';
+import { PrivacyPolicyPage } from '../PrivacyPolicy';
 import { RecentlyViewProductPage } from '../RecentlyViewProduct';
 import { TermsOfServicePage } from '../TermsOfService';
 import { WithdrawalPage } from '../Withdrawal';
@@ -54,7 +54,9 @@ const MyPage = ({ handleBackButton: handleCloseMyPage }: MyPageProps) => {
     },
     {
       title: '개인정보보호정책',
-      handleClick: () => {},
+      handleClick: () => {
+        setCurrentScreen(<PrivacyPolicyPage handleBackButton={handleBackButton} />);
+      },
     },
   ];
 
