@@ -37,7 +37,6 @@
     "reset-css": "^5.0.1",
     "sass": "^1.59.2",
     "styled-components": "^5.3.9",
-    "ts-sinon": "^2.0.2",
     "vite-plugin-svgr": "^2.4.0"
   },
   "packageManager": "yarn@3.4.1",
