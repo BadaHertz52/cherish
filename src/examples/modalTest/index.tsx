@@ -10,6 +10,7 @@ import {
   ToastModalType,
 } from '@/components/Modals/modalTypes';
 import ToastModal from '@/components/Modals/ToastModal';
+import { getToastModalPosition } from '@/pages/SignUp/functions';
 
 import product_sampleImg from './product_sample.jpg';
 import './style.scss';
@@ -38,12 +39,12 @@ const ModalTest = () => {
         <p className="day">2024.02.20</p>
         <p>안녕하세요.</p>
         <div>
-          본 이용약관은 크로키닷컴 주식회사(이하 "회사"라 합니다)가 운영하는 “지그재그(ZIGZAG)”
-          서비스 (이하 "지그재그"라 합니다)와 그 외 다양한 인터넷 웹사이트 및
-          응용프로그램(어플리케이션, 앱)인 “지그재그 외 플랫폼” 서비스를 통해서 제공되는 전자상거래
-          관련 서비스 및 기타 서비스(이하 “서비스”라 합니다)를 이용하는 자(이하 “이용자”라 합니다)
-          사이의 권리, 의무, 기타 필요한 사항을 정함으로써 상호 이익을 도모하는 것을 그 목적으로
-          합니다.
+          본 이용약관은 크로키닷컴 주식회사(이하 &quot;회사 &quot;라 합니다)가 운영하는
+          &quot;지그재그(ZIGZAG) &quot; 서비스 (이하 &quot;지그재그 &quot;라 합니다)와 그 외 다양한
+          인터넷 웹사이트 및 응용프로그램(어플리케이션, 앱)인 &quot;지그재그 외 플랫폼 &quot;
+          서비스를 통해서 제공되는 전자상거래 관련 서비스 및 기타 서비스(이하 &quot;서비스 &quot;라
+          합니다)를 이용하는 자(이하 &quot;이용자 &quot;라 합니다) 사이의 권리, 의무, 기타 필요한
+          사항을 정함으로써 상호 이익을 도모하는 것을 그 목적으로 합니다.
         </div>
       </div>
     );
@@ -90,14 +91,12 @@ const ModalTest = () => {
     // toast modal
     if (openTarget === MODAL_TYPE.toast) {
       // toast modal이 열려야하는 위치에 해당하는 element의 domRect
-      const targetElDomRect = document
-        .getElementById('test__toast-modal-target')
-        ?.getBoundingClientRect();
-      if (targetElDomRect) {
+      const position = getToastModalPosition();
+      if (position) {
         setToastModalState({
           contents: 'toast modal!!!',
-          top: `${targetElDomRect.top}px`,
-          left: `${targetElDomRect.left}px`,
+          top: `${position.top}.px`,
+          left: position.left,
         });
       }
     }
@@ -137,7 +136,6 @@ const ModalTest = () => {
           open full screen modal
         </button>
       </div>
-      <div id="test__toast-modal-target">여기에 toast modal 열기</div>
       {openTarget === MODAL_TYPE.alert &&
         (alertModalChildren === 'alert01' ? (
           <AlertModal center={true} short={true} closeModal={() => setOpenTarget(null)}>
