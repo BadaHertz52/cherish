@@ -5,6 +5,7 @@ import AlertModal from '@/components/Modals/AlertModal';
 import ConfirmModal from '@/components/Modals/ConfirmModal';
 import { DrawerScreen } from '@/layouts/DrawerScreen';
 
+import { MemberModifyPage } from '../MemberModify';
 import { NoticePage } from '../Notice';
 import { PrivacyPolicyPage } from '../PrivacyPolicy';
 import { RecentlyViewProductPage } from '../RecentlyViewProduct';
@@ -63,7 +64,9 @@ const MyPage = ({ handleBackButton: handleCloseMyPage }: MyPageProps) => {
   const memberInfoManageMenus = [
     {
       title: '회원정보 수정',
-      handleClick: () => {},
+      handleClick: () => {
+        setCurrentScreen(<MemberModifyPage handleBackButton={handleBackButton} />);
+      },
     },
     {
       title: '로그아웃',
