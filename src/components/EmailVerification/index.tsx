@@ -17,8 +17,8 @@ import {
   EmailAPIResultType,
 } from '@/api/auth/types';
 import { Timer, AlertModal, InputForm, ToastModal } from '@/components';
+import { getToastModalPosition } from '@/components/Modals/functions';
 import { XSSCheck } from '@/pages/LogIn/index';
-import { getToastModalPosition } from '@/pages/SignUp/functions';
 import {
   ERROR_MSG,
   INPUT_FORM_ID,
@@ -196,7 +196,7 @@ const EmailVerification = ({
         setToastModalState(modalForSendingEmail);
       }
     }
-  }, [openToastModal]);
+  }, [openToastModal, openAuthNumberForm, toastModalPositionTargetEl]);
 
   useEffect(() => {
     // 타이머 시간을 경과한 경우, 이메일 작성란 다시 열기
@@ -205,7 +205,7 @@ const EmailVerification = ({
         setOpenAuthNumberForm(false);
       }, 500);
     }
-  }, [overTime]);
+  }, [overTime, setOpenAuthNumberForm]);
 
   useEffect(() => {
     if (openToastModal) {
@@ -213,7 +213,7 @@ const EmailVerification = ({
     } else {
       setToastModalState(initialToastModalState);
     }
-  }, [openToastModal]);
+  }, [openToastModal, changeToastModalState, initialToastModalState]);
   return (
     <div className="email-verification">
       <section className="email-form">

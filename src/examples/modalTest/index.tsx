@@ -4,13 +4,13 @@ import AlertModal from '@/components/Modals/AlertModal';
 import BottomNavModal from '@/components/Modals/BottomNavModal';
 import ConfirmModal from '@/components/Modals/ConfirmModal';
 import FullScreModal from '@/components/Modals/FullModal';
+import { getToastModalPosition } from '@/components/Modals/functions';
 import {
   FilteringConditionType,
   FullScreModalType,
   ToastModalType,
 } from '@/components/Modals/modalTypes';
 import ToastModal from '@/components/Modals/ToastModal';
-import { getToastModalPosition } from '@/pages/SignUp/functions';
 
 import product_sampleImg from './product_sample.jpg';
 import './style.scss';

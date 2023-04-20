@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
 
 import { PasswordForm, ToastModal } from '@/components';
+import { getToastModalPosition } from '@/components/Modals/functions';
 import { ToastModalType } from '@/components/Modals/modalTypes';
 import { SignUpContext } from '@/pages/SignUp';
 
-import { getToastModalPosition } from '../functions';
 import {
   InputDataType,
   SIGN_UP_SESSION_DATA_KEY,
@@ -66,7 +66,7 @@ const SignUpPw = () => {
         left: left,
       }));
     }
-  }, []);
+  }, [signUpState.pw]);
   useEffect(() => {
     if (toastModalState.top !== '') {
       setOpenToastModal(true);
