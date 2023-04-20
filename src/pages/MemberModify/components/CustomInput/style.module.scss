@@ -1,6 +1,8 @@
 @import '@/assets/styles/common.scss';
 
 .customInput {
+  position: relative;
+
   .title {
     @include bd1-font;
     color: #121212;
