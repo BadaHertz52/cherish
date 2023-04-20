@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
-import { DrawerScreen } from '@/layouts/DrawerScreen';
+import { ConfirmModal } from '@/components';
+import { DrawerScreen, DrawerScreenForward } from '@/layouts/DrawerScreen';
 
 import { CustomInput } from './components/CustomInput';
 import { DropdownBox } from './components/DropdownBox';
@@ -23,49 +24,84 @@ export const MemberModifyPage = ({ handleBackButton }: TermsOfServicePageProps) 
     '기타',
   ];
 
+  const drawerScreenRef = useRef<DrawerScreenForward>(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+
   const [nickname, setNickname] = useState('');
   const [job, setJob] = useState('학생');
 
+  const handleCancel = () => {
+    if (drawerScreenRef.current) {
+      drawerScreenRef.current.handleBackButtonClick();
+    }
+  };
+
+  const handleModify = () => {};
+
   return (
-    <DrawerScreen title="회원정보 수정" handleBackButton={handleBackButton}>
-      <div className={styles.memberModify}>
-        <ul>
-          <li>
-            <CustomInput
-              title="변경할 닉네임을 입력해 주세요."
-              type="text"
-              placeholder="기존 닉네임"
-              value={nickname}
-              setValue={setNickname}
-              errorMessage="hi"
-            />
-          </li>
-          <li>
-            <div className={styles.itemTitle}>변경할 직업을 입력해 주세요.</div>
-            <DropdownBox value={job} setValue={setJob} items={JOBS} />
-          </li>
-          <li>
-            <CustomInput
-              title="비밀번호 변경을 위해 기존 비밀번호를 입력해 주세요."
-              type="password"
-              placeholder="8~12자 영문 + 숫자를 포함하여 입력해 주세요."
-              value={nickname}
-              setValue={setNickname}
-              errorMessage="8~12자 영문 + 숫자를 포함하여 입력해 주세요."
-            />
-          </li>
-          <li>
-            <CustomInput
-              title="새 비밀번호를 입력해 주세요."
-              type="password"
-              placeholder="새 비밀번호"
-              value={nickname}
-              setValue={setNickname}
-              errorMessage="비밀번호가 일치하지 않습니다."
-            />
-          </li>
-        </ul>
-      </div>
+    <DrawerScreen title="회원정보 수정" handleBackButton={handleBackButton} ref={drawerScreenRef}>
+      <>
+        <div className={styles.memberModify}>
+          <ul>
+            <li>
+              <CustomInput
+                title="변경할 닉네임을 입력해 주세요."
+                type="text"
+                placeholder="기존 닉네임"
+                value={nickname}
+                setValue={setNickname}
+              />
+            </li>
+            <li>
+              <div className={styles.itemTitle}>변경할 직업을 입력해 주세요.</div>
+              <DropdownBox value={job} setValue={setJob} items={JOBS} />
+            </li>
+            <li>
+              <CustomInput
+                title="비밀번호 변경을 위해 기존 비밀번호를 입력해 주세요."
+                type="password"
+                placeholder="8~12자 영문 + 숫자를 포함하여 입력해 주세요."
+                value={nickname}
+                setValue={setNickname}
+                errorMessage="8~12자 영문 + 숫자를 포함하여 입력해 주세요."
+              />
+            </li>
+            <li>
+              <CustomInput
+                title="새 비밀번호를 입력해 주세요."
+                type="password"
+                placeholder="새 비밀번호"
+                value={nickname}
+                setValue={setNickname}
+                errorMessage="비밀번호가 일치하지 않습니다."
+              />
+            </li>
+            <li>
+              <CustomInput
+                title="새 비밀번호를 한번 더 입력해 주세요."
+                type="password"
+                placeholder="비밀번호 확인"
+                value={nickname}
+                setValue={setNickname}
+                errorMessage="비밀번호가 일치하지 않습니다."
+              />
+            </li>
+          </ul>
+          <div className={styles.buttons}>
+            <button onClick={() => setShowConfirmModal(true)}>취소</button>
+            <button onClick={handleModify}>회원정보 저장</button>
+          </div>
+        </div>
+        {showConfirmModal && (
+          <ConfirmModal
+            closeModal={() => setShowConfirmModal(false)}
+            yesBtn={{ text: '네', otherFn: handleCancel }}
+            noBtn={{ text: '아니오' }}
+          >
+            회원정보 수정을 취소하시겠어요?
+          </ConfirmModal>
+        )}
+      </>
     </DrawerScreen>
   );
 };

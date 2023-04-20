@@ -15,7 +15,7 @@
       @include bd1-font;
       color: #9e9e9e;
       padding: 13px 45px 13px 20px;
-      border: 1px solid #9e9e9e;
+      border: 0.6px solid #9e9e9e;
       border-radius: 5px;
 
       &::placeholder {
@@ -46,6 +46,7 @@
 
   .errorMessage {
     @include bd3-font;
+    position: absolute;
     margin-left: 2px;
     margin-top: 10px;
     color: #ff3939;
