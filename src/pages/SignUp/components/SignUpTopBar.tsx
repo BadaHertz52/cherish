@@ -10,6 +10,8 @@ import {
   GenderStateType,
   GenderType,
   InputDataType,
+  JobStateType,
+  JobType,
   PROGRESS_ARR,
   SignUpSessionDataKeyType,
   SignUpSessionDataType,
@@ -27,6 +29,7 @@ export const getPrevData = (
   setInputDataState?: Dispatch<SetStateAction<InputDataType>>,
   setGenderState?: Dispatch<SetStateAction<GenderStateType>>,
   setBirthState?: Dispatch<SetStateAction<BirthStateType>>,
+  setJob?: Dispatch<SetStateAction<JobStateType>>,
 ) => {
   const item = sessionStorage.getItem('signUpBackUpData');
   if (item) {
@@ -44,7 +47,7 @@ export const getPrevData = (
         });
       }
       if (setBirthState) {
-        const arr = prevState.value.split('/');
+        const arr = prevState.value.trim().split('.');
         setBirthState({
           value: {
             year: arr[0],
@@ -52,6 +55,9 @@ export const getPrevData = (
             date: arr[2],
           },
         });
+      }
+      if (setJob) {
+        setJob({ value: prevState.value as JobType });
       }
     }
   }
@@ -116,13 +122,15 @@ const SignUpTopBar = ({ openAuthNumberForm, setOpenAuthNumberForm }: SignUpTopBa
         '.radio-btn-group input',
       ) as NodeListOf<HTMLInputElement>;
       const checkedEl = [...listOfCheckBoxEl].filter(el => el.checked)[0];
-      const backUpData: SignUpSessionDataType[] = [
-        {
-          key: 'job',
-          value: checkedEl.name,
-        },
-      ];
-      setItem(backUpData);
+      if (checkedEl) {
+        const backUpData: SignUpSessionDataType[] = [
+          {
+            key: 'job',
+            value: checkedEl.name,
+          },
+        ];
+        setItem(backUpData);
+      }
     }
   };
   const onClickPrevBtn = () => {
