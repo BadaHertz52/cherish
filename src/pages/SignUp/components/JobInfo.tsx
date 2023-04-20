@@ -10,13 +10,12 @@ import { SignUpContext } from '@/pages/SignUp';
 
 import {
   ERROR_MSG,
-  InputDataType,
   SignUpStateType,
-  initialInputData,
   JOB_ARR,
   JobType,
   SIGN_UP_SESSION_DATA_KEY,
   SignUpSessionDataKeyType,
+  JobStateType,
 } from '../signUpTypes';
 
 import { getPrevData } from './SignUpTopBar';
@@ -25,11 +24,14 @@ import StepInner from './StepInner';
 const JobInfo = () => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
   const [disableBtn, setDisableBtn] = useState<boolean>(true);
-  const [job, setJob] = useState<InputDataType>(initialInputData);
+  const [job, setJob] = useState<JobStateType>({
+    value: undefined,
+    errorType: 'required',
+  });
   const handleChange = (name: JobType) => {
     setJob({
       value: name,
-      errorMsg: undefined,
+      errorType: undefined,
     });
     setDisableBtn(false);
   };
@@ -72,9 +74,10 @@ const JobInfo = () => {
   useEffect(() => {
     getPrevData(
       SIGN_UP_SESSION_DATA_KEY.job as SignUpSessionDataKeyType,
+      undefined,
+      undefined,
+      undefined,
       setJob,
-      undefined,
-      undefined,
     );
   }, []);
   return (
@@ -88,12 +91,12 @@ const JobInfo = () => {
               id={`job-info-${i.name}`}
               name="job"
               value={i.name}
-              label={i.label}
+              label={i.name}
               onChange={() => handleChange(i.name)}
             />
           ))}
         </fieldset>
-        <div className="msg">{job.value === '' && ERROR_MSG.required}</div>
+        <div className="msg">{job.errorType && ERROR_MSG[job.errorType]}</div>
       </StepInner>
     </div>
   );

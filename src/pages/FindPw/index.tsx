@@ -6,15 +6,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { onFindPw } from '@/api/auth/findPwAPI';
 import { PasswordForm, EmailVerification, ToastModal } from '@/components';
+import { getToastModalPosition } from '@/components/Modals/functions';
 import { ToastModalType } from '@/components/Modals/modalTypes';
 
-import { getToastModalPosition } from '../SignUp/functions';
 import { InputDataType, initialInputData } from '../SignUp/signUpTypes';
 
 import styles from './style.module.scss';
 
 const FindPw = () => {
-  // 이메일 인증 여부
   const [openEmailForm, setOpenEmailForm] = useState<boolean>(true);
   const [openAuthNumberForm, setOpenAuthNumberForm] = useState<boolean>(false);
   const [email, setEmail] = useState<InputDataType>(initialInputData);

@@ -41,10 +41,12 @@ const SignUpPw = () => {
       setPw,
       undefined,
       undefined,
+      undefined,
     );
     getPrevData(
       SIGN_UP_SESSION_DATA_KEY.confirmPw as SignUpSessionDataKeyType,
       setConfirmPw,
+      undefined,
       undefined,
       undefined,
     );

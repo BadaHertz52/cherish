@@ -83,13 +83,13 @@ const EmailVerification = ({
         case EMAIL_API_RESULT_TYPE.duplicate:
           setEmail((prev: InputDataType) => ({
             ...prev,
-            errorMsg: '이미 회원가입된 이메일이에요.',
+            errorType: 'duplicatedEmail',
           }));
           break;
         case EMAIL_API_RESULT_TYPE.noUser:
           setEmail(prev => ({
             ...prev,
-            errorMsg: '해당 이메일이 존재하지 않아요.',
+            errorType: 'notExistEmail',
           }));
         case EMAIL_API_RESULT_TYPE.pause:
           setOpenToastModal(false);
@@ -136,6 +136,11 @@ const EmailVerification = ({
     const result: APIResult = await onAuthNumber(params);
     //data는  string type으로
     if (result.success) {
+      authNumber.errorType &&
+        setAuthNumber(prev => ({
+          ...prev,
+          errorType: undefined,
+        }));
       //서버에서 받은 인증 번호와 사용자가 입력한 인증 번호가 일치할 경우
       setOpenTimer(false);
       verifiedEmail.current = email.value;
@@ -152,7 +157,7 @@ const EmailVerification = ({
       //인증 번호 불일치
       setAuthNumber(prev => ({
         ...prev,
-        errorMsg: ERROR_MSG.invalidAuthNumber,
+        errorType: 'invalidAuthNumber',
       }));
     }
   };
@@ -160,7 +165,7 @@ const EmailVerification = ({
     if (!authNumber.value) {
       setAuthNumber({
         ...authNumber,
-        errorMsg: ERROR_MSG.required,
+        errorType: 'required',
       });
     }
   };
@@ -177,7 +182,6 @@ const EmailVerification = ({
       const { top, left } = position;
       if (openAuthNumberForm) {
         // 비밀번호 찾기 페이지에서는 toastModalPositionTargetEl === null
-
         const newTop = toastModalPositionTargetEl
           ? toastModalPositionTargetEl.getClientRects()[0].top - 39 - 16
           : top;
@@ -228,7 +232,7 @@ const EmailVerification = ({
           <>
             <button
               className="btn-email"
-              disabled={!(email.value && !email.errorMsg)}
+              disabled={!(email.value && !email.errorType)}
               type="button"
               onClick={onClickEmailBtn}
             >
@@ -264,9 +268,9 @@ const EmailVerification = ({
           <div className="msg">
             {overTime ? (
               <p className="msg-over-time">인증 시간이 지났습니다.</p>
-            ) : authNumber.errorMsg ? (
+            ) : authNumber.errorType ? (
               <div className="error-msg">
-                <p>{authNumber.errorMsg}</p>
+                <p>{ERROR_MSG[authNumber.errorType]}</p>
                 <p>인증번호를 다시 확인해주세요.</p>
               </div>
             ) : (
