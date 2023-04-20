@@ -18,7 +18,6 @@ export type DrawerScreenForward = {
 export const DrawerScreen = forwardRef(
   ({ title, children, padding = true, handleBackButton }: DrawerScreenProps, ref) => {
     useImperativeHandle(ref, () => ({
-      // 부모 컴포넌트에서 사용할 함수를 선언
       handleBackButtonClick,
     }));
 
