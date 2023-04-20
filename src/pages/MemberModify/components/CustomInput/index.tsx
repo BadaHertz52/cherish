@@ -28,9 +28,9 @@ export const CustomInput = ({
     <div className={styles.customInput}>
       <div className={styles.title}>{title}</div>
       <div className={styles.inputForm}>
-        <input placeholder={placeholder} value={value} onChange={handleInputChange} />
+        <input type={type} placeholder={placeholder} value={value} onChange={handleInputChange} />
         {type === 'password' && (
-          <div className={styles.icon}>
+          <div className={`${styles.icon} ${errorMessage && styles.error}`}>
             <PasswordCheckSvg />
           </div>
         )}

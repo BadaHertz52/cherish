@@ -44,6 +44,14 @@
         stroke: #ff6b8f;
       }
     }
+
+    &.error {
+      svg {
+        path {
+          stroke: #9e9e9e;
+        }
+      }
+    }
   }
 
   .errorMessage {
