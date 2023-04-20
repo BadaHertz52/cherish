@@ -1,0 +1,14 @@
+@import '@/assets/styles/common.scss';
+
+.memberModify {
+  .itemTitle {
+    @include bd1-font;
+    margin-bottom: 10px;
+  }
+
+  > ul {
+    > li {
+      margin-bottom: 30px;
+    }
+  }
+}
