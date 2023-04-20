@@ -1,7 +1,10 @@
 import { useRef, useState } from 'react';
 
+import { modifyMemberInformation } from '@/api/auth/member';
 import { ConfirmModal } from '@/components';
+import { REGEX } from '@/components/InputForm';
 import { DrawerScreen, DrawerScreenForward } from '@/layouts/DrawerScreen';
+import { ERROR_MSG } from '@/pages/SignUp/signUpTypes';
 
 import { CustomInput } from './components/CustomInput';
 import { DropdownBox } from './components/DropdownBox';
@@ -28,6 +31,18 @@ export const MemberModifyPage = ({ handleBackButton }: TermsOfServicePageProps) 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const [nickname, setNickname] = useState('');
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [nextPassword, setNextPassword] = useState('');
+  const [nextPasswordConfirm, setNextPasswordConfirm] = useState('');
+
+  const [errorMessages, setErrorMessages] = useState({
+    nickname: '',
+    currentPassword: '',
+    nextPassword: '',
+    nextPasswordConfirm: '',
+  });
+
+  // TODO: 회원정보 불러오는 API 연결
   const [job, setJob] = useState('학생');
 
   const handleCancel = () => {
@@ -36,7 +51,30 @@ export const MemberModifyPage = ({ handleBackButton }: TermsOfServicePageProps) 
     }
   };
 
-  const handleModify = () => {};
+  const validate = () => {
+    const newErrorMessages = {
+      nickname: REGEX.nickName.test(nickname) ? '' : ERROR_MSG.invalidNickName,
+      currentPassword: REGEX.pw.test(currentPassword) ? '' : ERROR_MSG.invalidPw,
+      nextPassword: REGEX.pw.test(nextPassword) ? '' : ERROR_MSG.invalidPw,
+      nextPasswordConfirm: nextPassword === nextPasswordConfirm ? '' : ERROR_MSG.invalidConfirmPw,
+    };
+
+    setErrorMessages(newErrorMessages);
+
+    return Object.values(newErrorMessages).every(errorMessage => errorMessage === '');
+  };
+
+  const handleModify = () => {
+    if (!validate()) {
+      // TODO: API 형식 문의 및 후속 작업 정리
+      modifyMemberInformation({
+        nickName: nickname,
+        jobName: job,
+        currentPassword,
+        nextPassword,
+      });
+    }
+  };
 
   return (
     <DrawerScreen title="회원정보 수정" handleBackButton={handleBackButton} ref={drawerScreenRef}>
@@ -50,6 +88,7 @@ export const MemberModifyPage = ({ handleBackButton }: TermsOfServicePageProps) 
                 placeholder="기존 닉네임"
                 value={nickname}
                 setValue={setNickname}
+                errorMessage={errorMessages.nickname}
               />
             </li>
             <li>
@@ -61,9 +100,9 @@ export const MemberModifyPage = ({ handleBackButton }: TermsOfServicePageProps) 
                 title="비밀번호 변경을 위해 기존 비밀번호를 입력해 주세요."
                 type="password"
                 placeholder="8~12자 영문 + 숫자를 포함하여 입력해 주세요."
-                value={nickname}
-                setValue={setNickname}
-                errorMessage="8~12자 영문 + 숫자를 포함하여 입력해 주세요."
+                value={currentPassword}
+                setValue={setCurrentPassword}
+                errorMessage={errorMessages.currentPassword}
               />
             </li>
             <li>
@@ -71,9 +110,9 @@ export const MemberModifyPage = ({ handleBackButton }: TermsOfServicePageProps) 
                 title="새 비밀번호를 입력해 주세요."
                 type="password"
                 placeholder="새 비밀번호"
-                value={nickname}
-                setValue={setNickname}
-                errorMessage="비밀번호가 일치하지 않습니다."
+                value={nextPassword}
+                setValue={setNextPassword}
+                errorMessage={errorMessages.nextPassword}
               />
             </li>
             <li>
@@ -81,9 +120,9 @@ export const MemberModifyPage = ({ handleBackButton }: TermsOfServicePageProps) 
                 title="새 비밀번호를 한번 더 입력해 주세요."
                 type="password"
                 placeholder="비밀번호 확인"
-                value={nickname}
-                setValue={setNickname}
-                errorMessage="비밀번호가 일치하지 않습니다."
+                value={nextPasswordConfirm}
+                setValue={setNextPasswordConfirm}
+                errorMessage={errorMessages.nextPasswordConfirm}
               />
             </li>
           </ul>
