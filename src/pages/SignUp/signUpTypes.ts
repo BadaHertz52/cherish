@@ -102,18 +102,6 @@ export type SignUpStateType = {
   birth?: BirthDateType;
   job?: JobType;
 };
-export const ERROR_TYPE = {
-  required: 'required',
-  invalidName: 'invalidName',
-  invalidNickName: 'invalidNickName',
-  invalidEmail: 'invalidEmail',
-  invalidPw: 'invalidPw',
-  invalidConfirmPw: 'invalidConfirmPw',
-  invalidAuthNumber: 'invalidAuthNumber',
-  duplicatedEmail: 'duplicatedEmail',
-  notExistEmail: 'notExistEmail',
-} as const;
-
 export const ERROR_MSG = {
   required: '필수 입력 항목이에요.',
   invalidName: '한글,영문(대소문자)중 한 가지 이상을 사용하여 2-20자내로 입력하세요.',
@@ -134,7 +122,7 @@ export type InputDataType = {
 export const initialInputData: InputDataType = {
   value: '',
 };
-export type RequiredErrorMsgType = typeof ERROR_TYPE.required;
+export type RequiredErrorMsgType = 'required';
 export type GenderStateType = {
   value?: GenderType;
   errorType?: RequiredErrorMsgType;
