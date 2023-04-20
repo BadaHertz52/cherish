@@ -93,6 +93,20 @@ const MyPage = ({ handleBackButton: handleCloseMyPage }: MyPageProps) => {
 
   useEffect(() => {
     setTags(['직장인', '10대', '여성']);
+
+    const body = document.querySelector('body');
+    let overflowValue = '';
+
+    if (body) {
+      overflowValue = body.style.overflow;
+      body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      if (body) {
+        body.style.overflow = overflowValue;
+      }
+    };
   }, []);
 
   return (
