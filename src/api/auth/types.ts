@@ -1,8 +1,4 @@
 import { GenderType } from '@/pages/SignUp/signUpTypes';
-
-export type APIErrorData = {
-  message: string;
-};
 export type AuthNumberAPIParams = {
   email: string;
   code: string;

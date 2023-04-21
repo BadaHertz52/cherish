@@ -1,15 +1,14 @@
 import { AxiosError, AxiosResponse } from 'axios';
 
+import { handleAxiosError, httpClient, APIErrorData } from '../index';
+
 import {
-  APIErrorData,
   APIResult,
   AuthNumberAPIParams,
   EMAIL_API_RESULT_TYPE,
   EmailAPIResultType,
   EmailVerificationAPIParams,
 } from './types';
-
-import { handleAxiosError, httpClient } from '.';
 
 const EMAIL_VERIFICATION_PATH = {
   signUp: '/public/member/register/code',
