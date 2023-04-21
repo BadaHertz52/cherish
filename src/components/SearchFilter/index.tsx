@@ -59,7 +59,7 @@ const SearchFilter = ({
     closeFilter(() => setFilters(currentFilters));
   };
 
-  const closeFilter = (callback: Function) => {
+  const closeFilter = (callback: CallableFunction) => {
     setClosing(true);
     setTimeout(() => {
       callback();
