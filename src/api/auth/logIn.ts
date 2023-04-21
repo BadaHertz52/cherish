@@ -45,10 +45,8 @@ export const onLogInSuccess = (response: AxiosResponse) => {
   // 로그아웃시 , sessionStorage에서 LOG_IN_API_ITEM_KEY.logIn 삭제!!!
   !sessionStorage.getItem(LOG_IN_API_ITEM_KEY.logIn) &&
     sessionStorage.setItem(LOG_IN_API_ITEM_KEY.logIn, 'true');
-  // 월별 큐레이션 페이지로 이동
-  //[to do : 월별 큐레이션 경로 나오면 수정 ]
   if (location.pathname === '/login' || location.pathname === '/signup') {
-    window.location.pathname = '/월별큐레이션';
+    window.location.pathname = '/';
   }
   //accessToken 만료 시간 1분 전
   // access token 민료 시점에 onSilentRefresh 실행
