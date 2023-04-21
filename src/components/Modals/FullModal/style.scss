@@ -1,7 +1,6 @@
 @import '../modalCommon.scss';
 
 .full-scre-modal {
-  width: $app-max-width;
   button {
     @include clean-btn-style;
   }
@@ -33,7 +32,8 @@
   }
   .modal__box {
     position: relative;
-    width: $app-max-width;
+    widhth: 100vw;
+    max-width: $app-max-width;
     height: 100vh;
     overflow-y: scroll;
     background-color: $color-white;
@@ -65,6 +65,7 @@
     aspect-ratio: 3/2;
     @supports not (aspect-ratio: 16 / 9) {
       height: calc(100vw * (2 / 3));
+      max-height: calc($app-max-width * (2 / 3));
     }
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -180,16 +181,6 @@
   .site__link.hover {
     svg {
       color: $color-primary;
-    }
-  }
-}
-
-@media screen and (min-width: $app-max-width) {
-  .full-scre-modal {
-    .product-img {
-      @supports not (aspect-ratio: 16 / 9) {
-        height: calc($app-max-width * (2 / 3));
-      }
     }
   }
 }
