@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 
+import { searchByKeword } from '@/api/search';
 import { SearchKeywordSection, ItemCard } from '@/components';
 import type { Item } from '@/components/ItemCard';
 
@@ -11,7 +12,8 @@ const SearchPage = () => {
   const [recommendKeywords, setRecommendKeywords] = useState<string[]>([]);
   const [recentProducts, setRecentProducts] = useState<Item[]>([]);
 
-  const handleSearch = (keyword: string) => {
+  const handleSearch = async (keyword: string) => {
+    const contents = await searchByKeword(keyword);
     // TODO: search API
   };
 
