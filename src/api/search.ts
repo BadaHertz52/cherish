@@ -3,7 +3,7 @@ import { httpClient } from './index';
 export type SearchResponse = {
   content: [
     {
-      id: string;
+      id: number;
       name: string;
       brand: string;
       description: string;

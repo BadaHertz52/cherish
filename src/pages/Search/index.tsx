@@ -61,18 +61,14 @@ const SearchPage = () => {
   const [filterType, setFilterType] = useState<FilterType>(null);
 
   const handleSearch = async (keyword: string) => {
-    const contents = await searchByKeword(keyword);
-    // TODO: search API
-    setSearchedProducts(
-      Array.from({ length: 12 }, (_, index) => ({
-        id: index,
-        company: 'Aesop',
-        name: '검색된 상품',
-        price: 31000,
-        image: 'https://image.edaily.co.kr/images/photo/files/NP/S/2022/04/PS22042501396.jpg',
-        bookmarked: true,
-      })),
-    );
+    const contents = (await searchByKeword(keyword)).map(content => {
+      return {
+        ...content,
+        bookmarked: false,
+      };
+    });
+    // TODO: 예외처리
+    setSearchedProducts(contents);
     setIsSearch(true);
   };
 
@@ -96,10 +92,10 @@ const SearchPage = () => {
     setRecentProducts(
       Array.from({ length: 7 }, (_, index) => ({
         id: index,
-        company: 'Aesop',
+        brand: 'Aesop',
         name: '최근 본 상품',
         price: 31000,
-        image:
+        imgUrl:
           'https://ichef.bbci.co.uk/news/800/cpsprodpb/E172/production/_126241775_getty_cats.png',
         bookmarked: true,
       })),
