@@ -2,10 +2,14 @@ import { useState, useEffect } from 'react';
 
 import { searchByKeword } from '@/api/search';
 import FilterDropdownSvg from '@/assets/svgs/filter-dropdown.svg';
-import { ItemCard, SearchKeywordSection } from '@/components';
+import { ItemCard } from '@/components';
 import type { Item } from '@/components/ItemCard';
-import SearchFilter from '@/components/SearchFilter';
-import type { Filter, FilterType } from '@/components/SearchFilter';
+import type { Filter, FilterType } from '@/pages/Search/components/SearchFilter';
+
+import SearchFilter from './components/SearchFilter';
+import SearchHeader from './components/SearchHeader';
+import SearchKeywordSection from './components/SearchKeywordSection';
+import styles from './style.module.scss';
 
 const FILTERS: Filter[] = [
   {
@@ -46,10 +50,8 @@ const FILTERS: Filter[] = [
   },
 ];
 
-import SearchHeader from './components/SearchHeader';
-import styles from './style.module.scss';
-
 const SearchPage = () => {
+  const [keyword, setKeyword] = useState('');
   const [filters, setFilters] = useState(FILTERS);
 
   const [recentKeywords, setRecentKeywords] = useState<string[]>([]);
@@ -60,8 +62,10 @@ const SearchPage = () => {
   const [isSearch, setIsSearch] = useState(false);
   const [filterType, setFilterType] = useState<FilterType>(null);
 
-  const handleSearch = async (keyword: string) => {
-    const contents = (await searchByKeword(keyword)).map(content => {
+  const handleSearch = async (currentKeyword: string) => {
+    setKeyword(currentKeyword);
+
+    const contents = (await searchByKeword(currentKeyword)).map(content => {
       return {
         ...content,
         bookmarked: false,
@@ -104,7 +108,7 @@ const SearchPage = () => {
 
   return (
     <div className={styles.searchPage}>
-      <SearchHeader handleSearch={handleSearch} />
+      <SearchHeader keyword={keyword} setKeyword={setKeyword} handleSearch={handleSearch} />
       <section className={styles.contents}>
         {!isSearch ? (
           <>
