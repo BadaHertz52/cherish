@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 
 import MenuMoveSvg from '@/assets/svgs/menu-move.svg';
-import Header from '@/components/common/Header';
 import AlertModal from '@/components/Modals/AlertModal';
 import ConfirmModal from '@/components/Modals/ConfirmModal';
 import { DrawerScreen } from '@/layouts/DrawerScreen';
 
+import { MemberModifyPage } from '../MemberModify';
 import { NoticePage } from '../Notice';
+import { PrivacyPolicyPage } from '../PrivacyPolicy';
 import { RecentlyViewProductPage } from '../RecentlyViewProduct';
 import { TermsOfServicePage } from '../TermsOfService';
 import { WithdrawalPage } from '../Withdrawal';
@@ -54,14 +55,18 @@ const MyPage = ({ handleBackButton: handleCloseMyPage }: MyPageProps) => {
     },
     {
       title: '개인정보보호정책',
-      handleClick: () => {},
+      handleClick: () => {
+        setCurrentScreen(<PrivacyPolicyPage handleBackButton={handleBackButton} />);
+      },
     },
   ];
 
   const memberInfoManageMenus = [
     {
       title: '회원정보 수정',
-      handleClick: () => {},
+      handleClick: () => {
+        setCurrentScreen(<MemberModifyPage handleBackButton={handleBackButton} />);
+      },
     },
     {
       title: '로그아웃',
@@ -88,6 +93,20 @@ const MyPage = ({ handleBackButton: handleCloseMyPage }: MyPageProps) => {
 
   useEffect(() => {
     setTags(['직장인', '10대', '여성']);
+
+    const body = document.querySelector('body');
+    let overflowValue = '';
+
+    if (body) {
+      overflowValue = body.style.overflow;
+      body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      if (body) {
+        body.style.overflow = overflowValue;
+      }
+    };
   }, []);
 
   return (

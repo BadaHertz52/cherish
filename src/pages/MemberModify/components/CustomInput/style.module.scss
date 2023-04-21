@@ -1,0 +1,64 @@
+@import '@/assets/styles/common.scss';
+
+.customInput {
+  position: relative;
+
+  .title {
+    @include bd1-font;
+    color: #121212;
+    margin-bottom: 10px;
+  }
+
+  .inputForm {
+    position: relative;
+
+    > input {
+      width: 100%;
+      @include bd1-font;
+      color: #9e9e9e;
+      padding: 13px 45px 13px 20px;
+      border: 0.6px solid #9e9e9e;
+      border-radius: 5px;
+
+      &::placeholder {
+        color: #9e9e9e;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: #121212;
+      }
+    }
+  }
+
+  .icon {
+    display: flex;
+    align-items: center;
+    top: 50%;
+    right: 20px;
+    position: absolute;
+    transform: translate(0, -50%);
+
+    svg {
+      path {
+        stroke: #ff6b8f;
+      }
+    }
+
+    &.error {
+      svg {
+        path {
+          stroke: #9e9e9e;
+        }
+      }
+    }
+  }
+
+  .errorMessage {
+    @include bd3-font;
+    position: absolute;
+    margin-left: 2px;
+    margin-top: 10px;
+    color: #ff3939;
+  }
+}

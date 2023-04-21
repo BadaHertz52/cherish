@@ -1,0 +1,35 @@
+@import '@/assets/styles/common.scss';
+
+.memberModify {
+  .itemTitle {
+    @include bd1-font;
+    margin-bottom: 10px;
+  }
+
+  > ul {
+    > li {
+      margin-bottom: 50px;
+    }
+  }
+
+  .buttons {
+    margin-top: 40px;
+    display: flex;
+    gap: 10px;
+
+    > button {
+      cursor: pointer;
+      @include h3-font;
+      color: #9e9e9e;
+      height: 48px;
+      width: 100%;
+      border-radius: 5px;
+      border: none;
+
+      &:last-child {
+        background-color: #ff6b8f;
+        color: white;
+      }
+    }
+  }
+}
