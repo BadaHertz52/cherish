@@ -256,7 +256,7 @@ const EmailVerification = ({
             />
             {openTimer && <Timer setOpenTimer={setOpenTimer} setOverTime={setOverTime} />}
             <button
-              disabled={!(openTimer && authNumber)}
+              disabled={!(openTimer && authNumber.value)}
               className="btn-authNumber"
               type="button"
               onClick={onClickAuthNumberBtn}
