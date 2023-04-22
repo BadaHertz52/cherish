@@ -1,14 +1,24 @@
 @import '@/assets/styles/common.scss';
 
 .termsOfServicePage {
+  @include bd2-font;
   color: #595959;
   line-height: 22.4px;
 
   > h2 {
     @include bd1-font;
+    color: #121212;
   }
 
-  > div {
-    @include bd2-font;
+  > ol {
+    > li {
+      margin-bottom: 20px;
+
+      > ol {
+        > li {
+          margin-bottom: 10px;
+        }
+      }
+    }
   }
 }
