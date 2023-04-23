@@ -12,8 +12,6 @@ import FullModal from './Modals/FullModal';
 import ToastModal from './Modals/ToastModal';
 import PasswordForm from './PasswordForm';
 import RadioBtn from './RadioBtn';
-import SearchHeader from './SearchHeader';
-import SearchKeywordSection from './SearchKeywordSection';
 import Timer from './Timer';
 
 export {
@@ -28,8 +26,6 @@ export {
   FullModal,
   ItemCard,
   InputForm,
-  SearchKeywordSection,
-  SearchHeader,
   PasswordForm,
   RadioBtn,
   Timer,

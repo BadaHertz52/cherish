@@ -1,8 +1,8 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
-import { APIResult, LogInAPIParams } from './types';
+import { handleAxiosError, httpClient } from '../index';
 
-import { handleAxiosError, httpClient } from '.';
+import { APIResult, LogInAPIParams } from './types';
 
 const LOG_IN_PATH = '/public/member/login';
 const TOKEN_REFRESH_PATH = '/public/token/refresh';

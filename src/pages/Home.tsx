@@ -21,35 +21,35 @@ const categoryList: Array<Category> = [
       {
         id: 1,
         name: '레저렉션 아로마틱 핸드 밤',
-        image: 'https://img.marieclairekorea.com/2019/12/mck_5e1d183804e42.jpg',
-        company: 'Aesop',
+        imgUrl: 'https://img.marieclairekorea.com/2019/12/mck_5e1d183804e42.jpg',
+        brand: 'Aesop',
         price: 31000,
         bookmarked: false,
       },
       {
         id: 2,
         name: '졸업 축하 선물 2222',
-        image:
+        imgUrl:
           'https://cdn.shopify.com/s/files/1/0592/6181/2894/products/3348901571456_0.jpg?crop=center&height=800&v=1663826265&width=800',
-        company: 'Aesop',
+        brand: 'Aesop',
         price: 20000,
         bookmarked: false,
       },
       {
         id: 3,
         name: '졸업 축하 선물 2222',
-        image:
+        imgUrl:
           'https://cdn.shopify.com/s/files/1/0592/6181/2894/products/3348901571456_0.jpg?crop=center&height=800&v=1663826265&width=800',
-        company: 'Aesop',
+        brand: 'Aesop',
         price: 20000,
         bookmarked: false,
       },
       {
         id: 4,
         name: '졸업 축하 선물 2222',
-        image:
+        imgUrl:
           'https://cdn.shopify.com/s/files/1/0592/6181/2894/products/3348901571456_0.jpg?crop=center&height=800&v=1663826265&width=800',
-        company: 'Aesop',
+        brand: 'Aesop',
         price: 20000,
         bookmarked: false,
       },
@@ -61,17 +61,17 @@ const categoryList: Array<Category> = [
       {
         id: 5,
         name: '졸업 축하 선물',
-        image:
+        imgUrl:
           'https://image.jtbcplus.kr/data/contents/jam_photo/202201/03/1667c94e-1ef9-4949-8951-41a7b28212b7.jpg',
-        company: 'Aesop',
+        brand: 'Aesop',
         price: 49999,
         bookmarked: false,
       },
       {
         id: 6,
         name: '졸업 축하 선물 2222',
-        image: 'https://cdn.imweb.me/thumbnail/20220311/31e8480978fc8.jpg',
-        company: 'Aesop',
+        imgUrl: 'https://cdn.imweb.me/thumbnail/20220311/31e8480978fc8.jpg',
+        brand: 'Aesop',
         price: 39900,
         bookmarked: false,
       },
@@ -83,17 +83,17 @@ const categoryList: Array<Category> = [
       {
         id: 6,
         name: '졸업 축하 선물',
-        image:
+        imgUrl:
           'https://image.jtbcplus.kr/data/contents/jam_photo/202201/03/1667c94e-1ef9-4949-8951-41a7b28212b7.jpg',
-        company: 'Aesop',
+        brand: 'Aesop',
         price: 49999,
         bookmarked: false,
       },
       {
         id: 7,
         name: '졸업 축하 선물 2222',
-        image: 'https://cdn.imweb.me/thumbnail/20220311/31e8480978fc8.jpg',
-        company: 'Aesop',
+        imgUrl: 'https://cdn.imweb.me/thumbnail/20220311/31e8480978fc8.jpg',
+        brand: 'Aesop',
         price: 39900,
         bookmarked: false,
       },

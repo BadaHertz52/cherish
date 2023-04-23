@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { withdrawal } from '@/api/auth/member';
 import ConfirmModal from '@/components/Modals/ConfirmModal';
 import { DrawerScreen } from '@/layouts/DrawerScreen';
 
@@ -18,8 +19,9 @@ export const WithdrawalPage = ({ handleBackButton }: WithdrawalPageProps) => {
     setChecked(ischecked);
   };
 
-  const handleWithdrawal = () => {
-    // TODO: 회원 탈퇴 API 연결
+  const handleWithdrawal = async () => {
+    await withdrawal();
+    window.location.assign('/');
   };
 
   return (

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import BackButtonSvg from '@/assets/svgs/back-button.svg';
 import SearchSvg from '@/assets/svgs/search.svg';
@@ -6,11 +6,13 @@ import SearchSvg from '@/assets/svgs/search.svg';
 import styles from './style.module.scss';
 
 type SearchHeaderProps = {
+  keyword: string;
+  setKeyword: (keyword: string) => void;
   handleSearch: (keyword: string) => void;
 };
 
-const SearchHeader = ({ handleSearch }: SearchHeaderProps) => {
-  const [keyword, setKeyword] = useState('');
+const SearchHeader = ({ handleSearch, keyword, setKeyword }: SearchHeaderProps) => {
+  const navigate = useNavigate();
 
   const handleClickSearch = () => {
     handleSearch(keyword);
@@ -23,7 +25,7 @@ const SearchHeader = ({ handleSearch }: SearchHeaderProps) => {
   return (
     <>
       <div className={styles.searchHeader}>
-        <div className={styles.backButton}>
+        <div className={styles.backButton} onClick={() => navigate(-1)}>
           <BackButtonSvg />
         </div>
         <div className={styles.inputBox}>
