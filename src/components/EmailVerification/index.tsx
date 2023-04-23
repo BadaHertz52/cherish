@@ -58,7 +58,7 @@ const EmailVerification = ({
     left: '0',
   };
   const [toastModalState, setToastModalState] = useState<ToastModalType>(initialToastModalState);
-  const [alertModalChild, setAlertModalChilde] = useState<ReactNode>();
+  const [alertModalChild, setAlertModalChild] = useState<ReactNode>();
   const childOfModalForOverSending = (
     <div className="msg-over-sending">
       <p>해당 메일에 대한 인증 횟수를 초과했어요.</p>
@@ -93,14 +93,14 @@ const EmailVerification = ({
           }));
         case EMAIL_API_RESULT_TYPE.pause:
           setOpenToastModal(false);
-          setAlertModalChilde(childOfModalForPause);
+          setAlertModalChild(childOfModalForPause);
           setTimeout(() => {
             setOpenAlertModal(true);
           }, 100);
           break;
         case EMAIL_API_RESULT_TYPE.overSending:
           setOpenToastModal(false);
-          setAlertModalChilde(childOfModalForOverSending);
+          setAlertModalChild(childOfModalForOverSending);
           setTimeout(() => {
             setOpenAlertModal(true);
           }, 100);
@@ -172,7 +172,7 @@ const EmailVerification = ({
   //이메일 인증 5분간 중단/ 하루 인증 횟수 초과 시 , 이메일 작성 폼으로 돌아감
   const onClickCloseBtnInAlertModal = () => {
     setOpenAlertModal(false);
-    setAlertModalChilde('');
+    setAlertModalChild('');
     setOpenAuthNumberForm(false);
   };
 
