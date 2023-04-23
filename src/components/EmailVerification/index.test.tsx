@@ -2,9 +2,8 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { vi } from 'vitest';
 
+import { AuthNumberForm, EmailVerification } from '@/components';
 import { InputDataType } from '@/pages/SignUp/signUpTypes';
-
-import EmailVerification from '.';
 
 configure({ adapter: new Adapter() });
 
@@ -29,10 +28,24 @@ describe('EmailVerification', () => {
       toastModalPositionTargetEl={null}
     />,
   );
+  const authNumberFormProps = {
+    email: { value: 'test@email.coim' },
+    authNumber: { value: '' },
+    setAuthNumber: vi.fn(),
+    openTimer: true,
+    setOpenTimer: vi.fn(),
+    overTime: false,
+    setOverTime: vi.fn(),
+    setOpenToastModal: vi.fn(),
+    setDisableBtn: vi.fn(),
+    verifiedEmail: { current: undefined },
+    isInFindPw: false,
+  };
   it('should render without throwing an error and show btn-email  and  hide authNumberForm  when openAuthNumberForm is false', () => {
     expect(wrapper.exists()).toBe(true);
     expect(wrapper.find('.btn-email').exists()).toBe(true);
-    expect(wrapper.find('.authNumber-form').exists()).toBe(false);
+
+    expect(wrapper.find(AuthNumberForm).exists()).toBe(false);
   });
   it('should hide btn-email and show  authNumberForm is hidden when openAuthNumberForm is true', () => {
     const openAuthNumberWrapper = shallow(
@@ -47,7 +60,25 @@ describe('EmailVerification', () => {
     );
     expect(openAuthNumberWrapper.exists()).toBe(true);
     expect(openAuthNumberWrapper.find('.btn-email').exists()).toBe(false);
-    expect(openAuthNumberWrapper.find('.authNumber-form').exists()).toBe(true);
+    const authNumberWrapper = shallow(
+      <AuthNumberForm
+        email={email}
+        authNumber={authNumberFormProps.authNumber}
+        setAuthNumber={authNumberFormProps.setAuthNumber}
+        openTimer={authNumberFormProps.openTimer}
+        setOpenTimer={authNumberFormProps.setOpenTimer}
+        overTime={authNumberFormProps.overTime}
+        setOverTime={authNumberFormProps.setOverTime}
+        setOpenToastModal={authNumberFormProps.setOpenTimer}
+        setDisableBtn={authNumberFormProps.setDisableBtn}
+        verifiedEmail={authNumberFormProps.verifiedEmail}
+        isInFindPw={authNumberFormProps.isInFindPw}
+      />,
+    );
+    expect(authNumberWrapper.exists()).toBe(true);
+    expect(
+      openAuthNumberWrapper.find(AuthNumberForm).dive().find('.authNumber-form').exists(),
+    ).toBe(true);
   });
   it('should show or hide message that is "이메일은 회원가입 후 변경하실 수 없어요." according to value of isInFindPw ', () => {
     expect(wrapper.find('.email-form .alert').exists()).toBe(true);
