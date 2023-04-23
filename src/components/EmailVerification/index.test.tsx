@@ -1,17 +1,10 @@
-import React from 'react';
-
-import { render } from '@testing-library/react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { vi } from 'vitest';
 
-import { onEmailVerification } from '@/api/auth/email';
-import { EMAIL_API_RESULT_TYPE } from '@/api/auth/types';
 import { InputDataType } from '@/pages/SignUp/signUpTypes';
 
 import EmailVerification from '.';
-
-vi.mock('@/api/auth/email');
 
 configure({ adapter: new Adapter() });
 
@@ -25,20 +18,6 @@ describe('EmailVerification', () => {
     toastModalPositionTargetEl: null,
   };
   const { setDisableBtn, email, setEmail, setOpenAuthNumberForm } = props;
-  const makeComponent = (additionOfLabel?: string, isInFindPw?: boolean) => (
-    <EmailVerification
-      additionOfLabel={additionOfLabel}
-      setDisableBtn={setDisableBtn}
-      email={email}
-      setEmail={setEmail}
-      openAuthNumberForm={props.openAuthNumberForm}
-      setOpenAuthNumberForm={setOpenAuthNumberForm}
-      toastModalPositionTargetEl={props.toastModalPositionTargetEl}
-      isInFindPw={isInFindPw}
-    />
-  );
-  const getElement = (additionOfLabel?: string, isInFindPw?: boolean) =>
-    render(makeComponent(additionOfLabel, isInFindPw));
 
   const wrapper = shallow(
     <EmailVerification
@@ -122,23 +101,5 @@ describe('EmailVerification', () => {
     const btnEmail = wrapper.find('.btn-email');
     expect(btnEmail.props().disabled).toBe(false);
   });
-
-  // it('onClickEmailBtn should works properly when result is EMAIL_API_RESULT_TYPE.duplicate', async () => {
-  //   const onEmailVerificationMock = vi.fn().mockResolvedValue(EMAIL_API_RESULT_TYPE.duplicate);
-  //   // const { onEmailVerification } = await import('@/api/auth/email');
-  //   // onEmailVerification.mockResolvedValueOnce(EMAIL_API_RESULT_TYPE.duplicate);
-
-  //   act(() => {
-  //     getElement();
-  //   });
-
-  //   await act(async () => {
-  //     userEvent.click(screen.getByRole('button', { name: '인증 요청' }));
-  //   });
-
-  //   expect(setEmail).toHaveBeenCalledWith(prev => ({
-  //     ...prev,
-  //     errorType: 'duplicatedEmail',
-  //   }));
-  // });
+  // 이메일 인증 버튼 클릭 시 result 값에 따란 테스트
 });
