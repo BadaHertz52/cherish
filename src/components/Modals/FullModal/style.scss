@@ -1,21 +1,40 @@
 @import '../modalCommon.scss';
 
 .full-scre-modal {
-  $max-width: calc($app-max-width * 0.6);
   button {
     @include clean-btn-style;
   }
   h2 {
     @include h2-font;
   }
-  .modal__background {
-    @include background;
+  .full-scre-modal-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    padding: 14px 21px;
+    box-sizing: border-box;
+    border-bottom: 1px solid $color-light;
+    button,
+    .title {
+      height: 32px;
+      @include h2-font;
+      color: $color-black;
+    }
+    button {
+      @include clean-btn-style;
+      position: absolute;
+      top: calc((100% - 32px) / 2);
+      left: 21px;
+      width: 32px;
+    }
   }
   .modal__box {
     position: relative;
-    width: calc(100vw * 0.85);
-    max-width: $max-width;
-    height: calc(100vh * 0.65);
+    widhth: 100vw;
+    max-width: $app-max-width;
+    height: 100vh;
     overflow-y: scroll;
     background-color: $color-white;
     border-radius: 10px;
@@ -43,8 +62,11 @@
   }
   .product-img {
     width: 100%;
-    height: calc(100vw * (2 / 3));
-    max-height: calc($max-width * (2 / 3));
+    aspect-ratio: 3/2;
+    @supports not (aspect-ratio: 16 / 9) {
+      height: calc(100vw * (2 / 3));
+      max-height: calc($app-max-width * (2 / 3));
+    }
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
   }
@@ -76,9 +98,9 @@
     right: 4.4px;
     font-size: calc(100vw * 0.05);
     width: calc(100vw * 0.05);
-    max-width: calc($max-width * 0.05);
+    max-width: calc($app-max-width * 0.05);
     height: calc(100vw * 0.05);
-    max-height: calc($max-width * 0.05);
+    max-height: calc($app-max-width * 0.05);
     padding: 0;
     background-color: #06060600;
     color: $color-light-black;
@@ -127,24 +149,6 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    &::before,
-    &::after {
-      content: '';
-      position: absolute;
-      top: calc(50% - 8px);
-      border-top: 8px solid transparent;
-      border-bottom: 8px solid transparent;
-    }
-    &::before {
-      left: 0;
-      border-left: 8px solid $background-color;
-      border-right: 8px solid transparent;
-    }
-    &::after {
-      right: 0;
-      border-left: 8px solid transparent;
-      border-right: 8px solid $background-color;
-    }
     .bar {
       width: calc(100% - 36px);
       border-bottom: 1px dashed $color-dark-gray;

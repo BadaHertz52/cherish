@@ -25,12 +25,12 @@ const GenderAndBirth = () => {
   const [disableBtn, setDisableBtn] = useState<boolean>(false);
   const [birth, setBirth] = useState<BirthStateType>({
     value: undefined,
-    errorMsg: ERROR_MSG.required,
+    errorType: 'required',
   });
 
   const [gender, setGender] = useState<GenderStateType>({
     value: undefined,
-    errorMsg: ERROR_MSG.required,
+    errorType: 'required',
   });
   const [openDatePicker, setOpenDatePicker] = useState<boolean>(false);
   const onClickNextBtn = () => {
@@ -62,12 +62,14 @@ const GenderAndBirth = () => {
       undefined,
       setGender,
       undefined,
+      undefined,
     );
     getPrevData(
       SIGN_UP_SESSION_DATA_KEY.birth as SignUpSessionDataKeyType,
       undefined,
       undefined,
       setBirth,
+      undefined,
     );
     if (signUpState.gender) {
       setGender({
@@ -81,7 +83,7 @@ const GenderAndBirth = () => {
     }
   }, []);
   useEffect(() => {
-    if (gender.value && !gender.errorMsg && birth.value && !birth.errorMsg) {
+    if (gender.value && !gender.errorType && birth.value && !birth.errorType) {
       setDisableBtn(false);
     } else {
       setDisableBtn(true);
@@ -110,7 +112,9 @@ const GenderAndBirth = () => {
               남성
             </button>
           </div>
-          <div className="msg">{!gender.value && ERROR_MSG.required}</div>
+          <div className="msg">
+            {!gender.value && gender.errorType && ERROR_MSG[gender.errorType]}
+          </div>
         </section>
         <section className="birth">
           <h4>생년월일</h4>
@@ -125,7 +129,7 @@ const GenderAndBirth = () => {
             <FontAwesomeIcon icon={openDatePicker ? faSortUp : faSortDown} />
           </button>
           {openDatePicker && <DatePicker birth={birth} setBirth={setBirth} />}
-          <div className="msg">{birth.value === null && ERROR_MSG.required}</div>
+          <div className="msg">{birth.errorType && ERROR_MSG[birth.errorType]}</div>
         </section>
       </StepInner>
     </div>

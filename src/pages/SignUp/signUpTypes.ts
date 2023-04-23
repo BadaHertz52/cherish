@@ -72,20 +72,19 @@ export const JOB_TYPE = {
   jobEtc: '기타', //기타
 } as const;
 export type JobType = keyof typeof JOB_TYPE;
-type JobCheckBoxType = {
+type JobRadioBtnType = {
   name: JobType;
-  label: string;
 };
-export const JOB_ARR: JobCheckBoxType[] = [
-  { name: JOB_TYPE.profession as JobType, label: '전문직' },
-  { name: JOB_TYPE.managementAndDesk as JobType, label: '관리/사무직' },
-  { name: JOB_TYPE.service as JobType, label: '판매/서비스직' },
-  { name: JOB_TYPE.blueCollar as JobType, label: '노동/생산직' },
-  { name: JOB_TYPE.selfEmployment as JobType, label: '자영업' },
-  { name: JOB_TYPE.student as JobType, label: '학생' },
-  { name: JOB_TYPE.homemaker as JobType, label: '전업주부' },
-  { name: JOB_TYPE.inoccupation as JobType, label: '무직' },
-  { name: JOB_TYPE.jobEtc as JobType, label: '기타' },
+export const JOB_ARR: JobRadioBtnType[] = [
+  { name: JOB_TYPE.profession as JobType },
+  { name: JOB_TYPE.managementAndDesk as JobType },
+  { name: JOB_TYPE.service as JobType },
+  { name: JOB_TYPE.blueCollar as JobType },
+  { name: JOB_TYPE.selfEmployment as JobType },
+  { name: JOB_TYPE.student as JobType },
+  { name: JOB_TYPE.homemaker as JobType },
+  { name: JOB_TYPE.inoccupation as JobType },
+  { name: JOB_TYPE.jobEtc as JobType },
 ];
 export type BirthDateType = {
   year: string;
@@ -103,17 +102,6 @@ export type SignUpStateType = {
   birth?: BirthDateType;
   job?: JobType;
 };
-export const ERROR_TYPE = {
-  required: 'required',
-  invalidName: 'invalidName',
-  invalidNickName: 'invalidNickName',
-  invalidEmail: 'invalidEmail',
-  invalidPw: 'invalidPw',
-  invalidConfirmPw: 'invalidConfirmPw',
-} as const;
-export type ErrorType = keyof typeof ERROR_TYPE;
-export type TestResultType = ErrorType | 'pass';
-//⚠️ ErrorType 과 ERROR_MSG의 property 명은 같아야함
 export const ERROR_MSG = {
   required: '필수 입력 항목이에요.',
   invalidName: '한글,영문(대소문자)중 한 가지 이상을 사용하여 2-20자내로 입력하세요.',
@@ -122,20 +110,30 @@ export const ERROR_MSG = {
   invalidAuthNumber: '인증번호가 일치하지 않아요.',
   invalidPw: '영문(대소문자),숫자,특수기호(!,@,^)을 최소 한가지씩 사용하여 3~10자내로 입력하세요.',
   invalidConfirmPw: '비밀번호가 일치하지 않아요.',
+  duplicatedEmail: '이미 회원가입된 이메일이에요.',
+  notExistEmail: '해당 이메일로 가입한 이력이 없어요.',
 };
+export type ErrorType = keyof typeof ERROR_MSG;
+export type TestResultType = ErrorType | 'pass';
 export type InputDataType = {
   value: string | GenderType;
-  errorMsg?: string;
+  errorType?: ErrorType;
 };
 export const initialInputData: InputDataType = {
   value: '',
 };
+export type RequiredErrorMsgType = 'required';
 export type GenderStateType = {
   value?: GenderType;
-  errorMsg?: string;
+  errorType?: RequiredErrorMsgType;
 };
 
 export type BirthStateType = {
   value?: BirthDateType;
-  errorMsg?: string;
+  errorType?: RequiredErrorMsgType;
+};
+
+export type JobStateType = {
+  value?: JobType;
+  errorType?: RequiredErrorMsgType;
 };

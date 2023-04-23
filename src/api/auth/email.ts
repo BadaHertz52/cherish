@@ -37,6 +37,10 @@ const handleError = (errorResponse: AxiosResponse | undefined) => {
       // 알 수 없는 서버 에러
       result = EMAIL_API_RESULT_TYPE.serverError;
     }
+    if (message.includes('없습니다.')) {
+      // 해당 유저가 없음
+      result = EMAIL_API_RESULT_TYPE.noUser;
+    }
   }
   return result;
 };

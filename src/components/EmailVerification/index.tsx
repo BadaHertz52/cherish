@@ -1,5 +1,4 @@
 import {
-  ChangeEvent,
   Dispatch,
   ReactNode,
   SetStateAction,
@@ -9,18 +8,11 @@ import {
   useState,
 } from 'react';
 
-import { onAuthNumber, onEmailVerification } from '@/api/auth/email';
+import { onEmailVerification } from '@/api/auth/email';
+import { EMAIL_API_RESULT_TYPE, EmailAPIResultType } from '@/api/auth/types';
+import { AlertModal, InputForm, ToastModal, AuthNumberForm } from '@/components';
+import { getToastModalPosition } from '@/components/Modals/functions';
 import {
-  AuthNumberAPIParams,
-  APIResult,
-  EMAIL_API_RESULT_TYPE,
-  EmailAPIResultType,
-} from '@/api/auth/types';
-import { Timer, AlertModal, InputForm, ToastModal } from '@/components';
-import { XSSCheck } from '@/pages/LogIn/index';
-import { getToastModalPosition } from '@/pages/SignUp/functions';
-import {
-  ERROR_MSG,
   INPUT_FORM_ID,
   InputDataType,
   InputFormIdType,
@@ -58,7 +50,7 @@ const EmailVerification = ({
     left: '0',
   };
   const [toastModalState, setToastModalState] = useState<ToastModalType>(initialToastModalState);
-  const [alertModalChild, setAlertModalChilde] = useState<ReactNode>();
+  const [alertModalChild, setAlertModalChild] = useState<ReactNode>();
   const childOfModalForOverSending = (
     <div className="msg-over-sending">
       <p>해당 메일에 대한 인증 횟수를 초과했어요.</p>
@@ -83,19 +75,24 @@ const EmailVerification = ({
         case EMAIL_API_RESULT_TYPE.duplicate:
           setEmail((prev: InputDataType) => ({
             ...prev,
-            errorMsg: '이미 회원가입된 이메일이에요.',
+            errorType: 'duplicatedEmail',
           }));
           break;
+        case EMAIL_API_RESULT_TYPE.noUser:
+          setEmail(prev => ({
+            ...prev,
+            errorType: 'notExistEmail',
+          }));
         case EMAIL_API_RESULT_TYPE.pause:
           setOpenToastModal(false);
-          setAlertModalChilde(childOfModalForPause);
+          setAlertModalChild(childOfModalForPause);
           setTimeout(() => {
             setOpenAlertModal(true);
           }, 100);
           break;
         case EMAIL_API_RESULT_TYPE.overSending:
           setOpenToastModal(false);
-          setAlertModalChilde(childOfModalForOverSending);
+          setAlertModalChild(childOfModalForOverSending);
           setTimeout(() => {
             setOpenAlertModal(true);
           }, 100);
@@ -103,9 +100,9 @@ const EmailVerification = ({
         case EMAIL_API_RESULT_TYPE.serverError:
           break;
         case EMAIL_API_RESULT_TYPE.success:
-          setOpenTimer(true);
           setOpenToastModal(true);
           setTimeout(() => {
+            setOpenTimer(true);
             setOpenAuthNumberForm(true);
             setOpenToastModal(false);
           }, 1000);
@@ -116,53 +113,11 @@ const EmailVerification = ({
       console.error(error);
     }
   };
-  const onChangeAuthNumber = (event: ChangeEvent<HTMLInputElement>) => {
-    const text = XSSCheck(event.target.value, undefined);
-    setAuthNumber({
-      value: text,
-    });
-  };
-  const onClickAuthNumberBtn = async () => {
-    //백엔드에 이메인 인증 번호 확인
-    const params: AuthNumberAPIParams = {
-      email: email.value,
-      code: authNumber.value,
-    };
-    const result: APIResult = await onAuthNumber(params);
-    //data는  string type으로
-    if (result.success) {
-      //서버에서 받은 인증 번호와 사용자가 입력한 인증 번호가 일치할 경우
-      setOpenTimer(false);
-      verifiedEmail.current = email.value;
-      setOpenToastModal(true);
-      if (isInFindPw) {
-        setTimeout(() => {
-          setDisableBtn(false);
-          setOpenToastModal(false);
-        }, 1000);
-      } else {
-        setDisableBtn(false);
-      }
-    } else {
-      //인증 번호 불일치
-      setAuthNumber(prev => ({
-        ...prev,
-        errorMsg: ERROR_MSG.invalidAuthNumber,
-      }));
-    }
-  };
-  const handleBlurOfAuthNumber = () => {
-    if (!authNumber.value) {
-      setAuthNumber({
-        ...authNumber,
-        errorMsg: ERROR_MSG.required,
-      });
-    }
-  };
+
   //이메일 인증 5분간 중단/ 하루 인증 횟수 초과 시 , 이메일 작성 폼으로 돌아감
   const onClickCloseBtnInAlertModal = () => {
     setOpenAlertModal(false);
-    setAlertModalChilde('');
+    setAlertModalChild('');
     setOpenAuthNumberForm(false);
   };
 
@@ -172,7 +127,6 @@ const EmailVerification = ({
       const { top, left } = position;
       if (openAuthNumberForm) {
         // 비밀번호 찾기 페이지에서는 toastModalPositionTargetEl === null
-
         const newTop = toastModalPositionTargetEl
           ? toastModalPositionTargetEl.getClientRects()[0].top - 39 - 16
           : top;
@@ -191,7 +145,7 @@ const EmailVerification = ({
         setToastModalState(modalForSendingEmail);
       }
     }
-  }, [openToastModal]);
+  }, [openToastModal, openAuthNumberForm, toastModalPositionTargetEl]);
 
   useEffect(() => {
     // 타이머 시간을 경과한 경우, 이메일 작성란 다시 열기
@@ -208,7 +162,7 @@ const EmailVerification = ({
     } else {
       setToastModalState(initialToastModalState);
     }
-  }, [openToastModal]);
+  }, [openToastModal, changeToastModalState, initialToastModalState]);
   return (
     <div className="email-verification">
       <section className="email-form">
@@ -223,7 +177,7 @@ const EmailVerification = ({
           <>
             <button
               className="btn-email"
-              disabled={!(email.value && !email.errorMsg)}
+              disabled={!(email.value && !email.errorType)}
               type="button"
               onClick={onClickEmailBtn}
             >
@@ -234,44 +188,19 @@ const EmailVerification = ({
         )}
       </section>
       {openAuthNumberForm && (
-        <section className="authNumber-form">
-          <label htmlFor="authNumber">인증 번호</label>
-          <div className="authNumber-form__contents">
-            <input
-              id="authNumber"
-              name="authNumber"
-              value={authNumber.value}
-              onChange={onChangeAuthNumber}
-              onBlur={handleBlurOfAuthNumber}
-              placeholder="인증번호(6자리)"
-            />
-            {openTimer && <Timer setOpenTimer={setOpenTimer} setOverTime={setOverTime} />}
-            <button
-              disabled={!(openTimer && authNumber)}
-              className="btn-authNumber"
-              type="button"
-              onClick={onClickAuthNumberBtn}
-            >
-              확인
-            </button>
-          </div>
-
-          <div className="msg">
-            {overTime ? (
-              <p className="msg-over-time">인증 시간이 지났습니다.</p>
-            ) : authNumber.errorMsg ? (
-              <div className="error-msg">
-                <p>{authNumber.errorMsg}</p>
-                <p>인증번호를 다시 확인해주세요.</p>
-              </div>
-            ) : (
-              <div className="alert">
-                <p>이메일이 수신되지 않는 경우, 입력하신 이메일이 정확한지 확인해 주세요.</p>
-                <p>또는 스펨메일함과 메일함 용량을 확인해 주세요.</p>
-              </div>
-            )}
-          </div>
-        </section>
+        <AuthNumberForm
+          email={email}
+          authNumber={authNumber}
+          setAuthNumber={setAuthNumber}
+          openTimer={openTimer}
+          setOpenTimer={setOpenTimer}
+          overTime={overTime}
+          setOverTime={setOverTime}
+          setOpenToastModal={setOpenToastModal}
+          setDisableBtn={setDisableBtn}
+          verifiedEmail={verifiedEmail}
+          isInFindPw={isInFindPw}
+        />
       )}
       {openAlertModal && (
         <AlertModal center={true} short={true} closeModal={onClickCloseBtnInAlertModal}>
