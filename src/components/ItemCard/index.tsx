@@ -2,15 +2,15 @@ import './ItemCard.scss';
 
 export interface Item {
   id: number;
-  company: string;
   name: string;
   price: number;
-  image: string;
+  brand: string;
+  imgUrl: string;
   bookmarked: boolean;
 }
 
 export default function ItemCard(item: Item) {
-  const { company, name, price, image, bookmarked } = item;
+  const { brand, name, price, imgUrl, bookmarked } = item;
   // return item card with company, name, price, image, and bookmarked
   return (
     <div className="item-card">
@@ -21,10 +21,10 @@ export default function ItemCard(item: Item) {
         />
       </div>
       <div className="item-card__image">
-        <img src={image} alt="item" />
+        <img src={imgUrl} alt="item" />
       </div>
       <div className="item-card__info">
-        <div className="item-card__info__company">{company}</div>
+        <div className="item-card__info__company">{brand}</div>
         <div className="item-card__info__name">{name}</div>
         <div className="item-card__info__price">{price.toLocaleString()}</div>
       </div>

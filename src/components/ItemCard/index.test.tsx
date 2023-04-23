@@ -11,10 +11,10 @@ describe('Testing ItemCard component', () => {
   it('should have an image, company, name, price, and bookmarked', () => {
     const item = {
       id: 1,
-      company: 'company',
+      brand: 'company',
       name: 'name',
       price: 1000,
-      image: 'image',
+      imgUrl: 'image',
       bookmarked: false,
     };
     const wrapper = shallow(<ItemCard {...item} />);
@@ -28,10 +28,10 @@ describe('Testing ItemCard component', () => {
   it('should have a bookmarked image that is off if bookmarked is false', () => {
     const item = {
       id: 1,
-      company: 'company',
+      brand: 'company',
       name: 'name',
       price: 1000,
-      image: 'image',
+      imgUrl: 'image',
       bookmarked: false,
     };
     const wrapper = shallow(<ItemCard {...item} />);
@@ -41,10 +41,10 @@ describe('Testing ItemCard component', () => {
   it('should have a bookmarked image that is on if bookmarked is true', () => {
     const item = {
       id: 1,
-      company: 'company',
+      brand: 'company',
       name: 'name',
       price: 1000,
-      image: 'image',
+      imgUrl: 'image',
       bookmarked: true,
     };
     const wrapper = shallow(<ItemCard {...item} />);
@@ -54,10 +54,10 @@ describe('Testing ItemCard component', () => {
   it('should have a price that is formatted with comma', () => {
     const item = {
       id: 1,
-      company: 'company',
+      brand: 'company',
       name: 'name',
       price: 10000000,
-      image: 'image',
+      imgUrl: 'image',
       bookmarked: false,
     };
     const wrapper = shallow(<ItemCard {...item} />);

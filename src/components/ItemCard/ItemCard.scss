@@ -30,7 +30,8 @@
 
   /* text-clip */
   white-space: nowrap;
-  text-overflow: clip;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .item-card__info__price {

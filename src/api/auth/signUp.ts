@@ -1,8 +1,8 @@
 import { AxiosError } from 'axios';
 
-import { APIResult, SignUpAPIParams } from './types';
+import { handleAxiosError, httpClient } from '../index';
 
-import { handleAxiosError, httpClient } from '.';
+import { APIResult, SignUpAPIParams } from './types';
 
 const SIGN_UP_API_PATH = '/public/member/register';
 

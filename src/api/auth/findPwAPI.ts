@@ -1,8 +1,8 @@
 import { AxiosError } from 'axios';
 
-import { APIResult, FindPwAPIParams } from './types';
+import { handleAxiosError, httpClient } from '../index';
 
-import { handleAxiosError, httpClient } from '.';
+import { APIResult, FindPwAPIParams } from './types';
 
 const FIND_PW_API_PATH = '/public/member/change-password';
 

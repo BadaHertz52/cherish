@@ -18,10 +18,10 @@ export const RecentlyViewProductPage = ({ handleBackButton }: RecentlyViewProduc
     setRecentProducts(
       Array.from({ length: 12 }, (_, index) => ({
         id: index,
-        company: 'Aesop',
+        brand: 'Aesop',
         name: '최근 본 상품',
         price: 31000,
-        image:
+        imgUrl:
           'https://ichef.bbci.co.uk/news/800/cpsprodpb/E172/production/_126241775_getty_cats.png',
         bookmarked: true,
       })),

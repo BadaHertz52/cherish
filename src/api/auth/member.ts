@@ -1,4 +1,4 @@
-import { httpClient } from './index';
+import { httpClient } from '../index';
 
 export type ModifyMemberInformationParams = {
   nickName: string;
