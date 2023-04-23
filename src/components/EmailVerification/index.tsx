@@ -209,7 +209,7 @@ const EmailVerification = ({
         setOpenAuthNumberForm(false);
       }, 500);
     }
-  }, [overTime, setOpenAuthNumberForm]);
+  }, [overTime]);
 
   useEffect(() => {
     if (openToastModal) {
