@@ -10,7 +10,7 @@ import {
 
 import { onEmailVerification } from '@/api/auth/email';
 import { EMAIL_API_RESULT_TYPE, EmailAPIResultType } from '@/api/auth/types';
-import { AlertModal, InputForm, ToastModal } from '@/components';
+import { AlertModal, InputForm, ToastModal, AuthNumberForm } from '@/components';
 import { getToastModalPosition } from '@/components/Modals/functions';
 import {
   INPUT_FORM_ID,
@@ -20,7 +20,6 @@ import {
 } from '@/pages/SignUp/signUpTypes';
 
 import './style.scss';
-import AuthNumberForm from '../AuthNumberForm';
 import { ToastModalType } from '../Modals/modalTypes';
 
 type EmailVerificationProps = {
