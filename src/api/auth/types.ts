@@ -1,4 +1,3 @@
-import { GenderType } from '@/pages/SignUp/signUpTypes';
 export type AuthNumberAPIParams = {
   email: string;
   code: string;
