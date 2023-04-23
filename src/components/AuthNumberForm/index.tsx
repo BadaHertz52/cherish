@@ -39,20 +39,17 @@ const AuthNumberForm = ({
     });
   };
   const onClickAuthNumberBtn = async () => {
-    //백엔드에 이메인 인증 번호 확인
     const params: AuthNumberAPIParams = {
       email: email.value,
       code: authNumber.value,
     };
     const result: APIResult = await onAuthNumber(params);
-    //data는  string type으로
     if (result.success) {
       authNumber.errorType &&
         setAuthNumber(prev => ({
           ...prev,
           errorType: undefined,
         }));
-      //서버에서 받은 인증 번호와 사용자가 입력한 인증 번호가 일치할 경우
       setOpenTimer(false);
       verifiedEmail.current = email.value;
       setOpenToastModal(true);
