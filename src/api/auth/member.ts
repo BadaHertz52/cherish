@@ -1,5 +1,9 @@
 import { httpClient } from '../index';
 
+export const withdrawal = async () => {
+  await httpClient.delete(`/member/delete`);
+};
+
 export type ModifyMemberInformationParams = {
   nickName: string;
   jobName: string;

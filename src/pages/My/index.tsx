@@ -145,9 +145,8 @@ const MyPage = ({ handleBackButton: handleCloseMyPage }: MyPageProps) => {
           ))}
         </section>
         {showInquiry && (
-          // TODO: 이메일 주소 변경
           <AlertModal center short={false} closeModal={() => setShowInquiry(false)}>
-            <div className={styles.inquiry}>1111@naver.com으로 문의해 주세요.</div>
+            <div className={styles.inquiry}>cherishu.fullstack.@gmail.com으로 문의해 주세요.</div>
           </AlertModal>
         )}
         {showLogOutModal && (
