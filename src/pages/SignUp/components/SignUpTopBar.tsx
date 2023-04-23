@@ -2,7 +2,6 @@ import { Dispatch, SetStateAction, useContext } from 'react';
 
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useNavigate } from 'react-router-dom';
 
 import { SignUpContext } from '@/pages/SignUp';
 
@@ -11,6 +10,8 @@ import {
   GenderStateType,
   GenderType,
   InputDataType,
+  JobStateType,
+  JobType,
   PROGRESS_ARR,
   SignUpSessionDataKeyType,
   SignUpSessionDataType,
@@ -28,6 +29,7 @@ export const getPrevData = (
   setInputDataState?: Dispatch<SetStateAction<InputDataType>>,
   setGenderState?: Dispatch<SetStateAction<GenderStateType>>,
   setBirthState?: Dispatch<SetStateAction<BirthStateType>>,
+  setJob?: Dispatch<SetStateAction<JobStateType>>,
 ) => {
   const item = sessionStorage.getItem('signUpBackUpData');
   if (item) {
@@ -45,7 +47,7 @@ export const getPrevData = (
         });
       }
       if (setBirthState) {
-        const arr = prevState.value.split('/');
+        const arr = prevState.value.trim().split('.');
         setBirthState({
           value: {
             year: arr[0],
@@ -53,6 +55,9 @@ export const getPrevData = (
             date: arr[2],
           },
         });
+      }
+      if (setJob) {
+        setJob({ value: prevState.value as JobType });
       }
     }
   }
@@ -63,7 +68,6 @@ type SignUpTopBarProps = {
 };
 const SignUpTopBar = ({ openAuthNumberForm, setOpenAuthNumberForm }: SignUpTopBarProps) => {
   const { signUpState, setSignUpState } = useContext(SignUpContext);
-  const navigate = useNavigate();
   const setItem = (item: SignUpSessionDataType[]) => {
     sessionStorage.setItem('signUpBackUpData', JSON.stringify(item));
   };
@@ -118,19 +122,21 @@ const SignUpTopBar = ({ openAuthNumberForm, setOpenAuthNumberForm }: SignUpTopBa
         '.radio-btn-group input',
       ) as NodeListOf<HTMLInputElement>;
       const checkedEl = [...listOfCheckBoxEl].filter(el => el.checked)[0];
-      const backUpData: SignUpSessionDataType[] = [
-        {
-          key: 'job',
-          value: checkedEl.name,
-        },
-      ];
-      setItem(backUpData);
+      if (checkedEl) {
+        const backUpData: SignUpSessionDataType[] = [
+          {
+            key: 'job',
+            value: checkedEl.name,
+          },
+        ];
+        setItem(backUpData);
+      }
     }
   };
   const onClickPrevBtn = () => {
     const conditionToCloseAuthNumberForm = signUpState.progress === 'email' && openAuthNumberForm;
     if (signUpState.progress === 'agreeToTerms') {
-      navigate('/login');
+      window.location.pathname = '/login';
     }
     if (conditionToCloseAuthNumberForm) {
       setOpenAuthNumberForm(false);

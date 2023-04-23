@@ -12,6 +12,13 @@ export type NextBtnProps = {
 };
 const SignUpNextBtn = ({ disableBtn, onClickNextBtn, isNextBtnHidden }: NextBtnProps) => {
   const { signUpState } = useContext(SignUpContext);
+  const handleClick = () => {
+    if (signUpState.progress === 'job') {
+      const item = sessionStorage.getItem('signUpBackUpData');
+      item && sessionStorage.removeItem('signUpBackUpData');
+    }
+    onClickNextBtn();
+  };
   useEffect(() => {
     disableBtn
       ? moveProgressBar(signUpState.progress, false)
@@ -19,7 +26,7 @@ const SignUpNextBtn = ({ disableBtn, onClickNextBtn, isNextBtnHidden }: NextBtnP
   }, [disableBtn]);
   return (
     <div className={`next-btn ${!isNextBtnHidden ? 'on' : ''}`}>
-      <button type="button" disabled={disableBtn} onClick={onClickNextBtn}>
+      <button type="button" disabled={disableBtn} onClick={handleClick}>
         {signUpState.progress === 'job' ? '회원가입 완료' : '다음'}
       </button>
     </div>

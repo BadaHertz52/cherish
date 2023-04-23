@@ -14,7 +14,7 @@ import './style.scss';
 import { SIGN_UP_PROGRESS, SignUpStateType } from './signUpTypes';
 
 export const initialSignUpState: SignUpStateType = {
-  progress: SIGN_UP_PROGRESS.email,
+  progress: SIGN_UP_PROGRESS.agreeToTerms,
   agreeToTerms: {
     termsOfUse: false,
     ageCondition: false,

@@ -2,7 +2,7 @@ import { TouchEvent, ChangeEvent, useState, useEffect } from 'react';
 
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import './style.scss';
 import { LOG_IN_API_ITEM_KEY, onLogIn } from '@/api/auth/logIn';
@@ -20,12 +20,11 @@ export const XSSCheck = (str: string, level?: number) => {
   return str;
 };
 const LogIn = () => {
-  const navigate = useNavigate();
   const [email, setEmail] = useState<string>('');
   const [pw, setPw] = useState<string>('');
   const [hiddenPw, setHiddenPw] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
-  const [keepLogin, setKeepLogin] = useState<boolean>(false);
+  const [keepLogIn, setKeepLogin] = useState<boolean>(false);
   const INPUT_TARGET = {
     email: 'email',
     pw: 'pw',
@@ -33,7 +32,7 @@ const LogIn = () => {
   type InputTargetType = keyof typeof INPUT_TARGET;
   const handleTouchOfLink = (event: TouchEvent<HTMLElement>) => {
     const target = event.currentTarget;
-    target.classList.toggle('on');
+    target?.classList.toggle('on');
   };
   const handleChangeOfValue = (event: ChangeEvent<HTMLInputElement>, target: InputTargetType) => {
     const value = XSSCheck(event.target.value);
@@ -47,16 +46,22 @@ const LogIn = () => {
     setEmail('');
   };
   const handleChangeOfKeep = () => {
-    setKeepLogin(!keepLogin);
+    setKeepLogin(!keepLogIn);
   };
   const checkRegex = () => {
     return REGEX.email.test(email) && REGEX.pw.test(pw);
   };
   const sendLogInData = async () => {
-    //[todo -api]
-    // data 서버에 전송
     const data: LogInAPIParams = { email: email, password: pw };
-    onLogIn(data, keepLogin);
+    const result = await onLogIn(data);
+    if (result.success) {
+      //자동 로그인 여부를 localStorage에 저장해 ,  나중에 사이트 방문 시 로그인 자동 여부를 판별할 수 있도록 함
+      if (keepLogIn) {
+        localStorage.setItem(LOG_IN_API_ITEM_KEY.keepLogIn, 'true');
+      }
+    } else {
+      setError(true);
+    }
   };
   const handleClickLogInBtn = () => {
     if (checkRegex()) {
@@ -66,25 +71,15 @@ const LogIn = () => {
       setError(true);
     }
   };
-  const onClickSignUpBtn = () => {
-    navigate('/signup');
-  };
-
-  useEffect(() => {
-    if (sessionStorage.getItem(LOG_IN_API_ITEM_KEY.reLogIn)) {
-      setKeepLogin(true);
-      sessionStorage.removeItem(LOG_IN_API_ITEM_KEY.reLogIn);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sessionStorage.getItem(LOG_IN_API_ITEM_KEY.reLogIn)]);
-
   useEffect(() => {
     localStorage.getItem(LOG_IN_API_ITEM_KEY.keepLogIn) &&
       localStorage.removeItem(LOG_IN_API_ITEM_KEY.keepLogIn);
     sessionStorage.getItem(LOG_IN_API_ITEM_KEY.logIn) &&
       sessionStorage.removeItem(LOG_IN_API_ITEM_KEY.logIn);
-    sessionStorage.getItem(LOG_IN_API_ITEM_KEY.logInNow) &&
-      sessionStorage.removeItem(LOG_IN_API_ITEM_KEY.logInNow);
+    return () => {
+      sessionStorage.getItem(LOG_IN_API_ITEM_KEY.reLogIn) &&
+        sessionStorage.removeItem(LOG_IN_API_ITEM_KEY.reLogIn);
+    };
   }, []);
 
   return (
@@ -119,7 +114,7 @@ const LogIn = () => {
             <CheckBox
               id="checkboxKeep"
               name="autoLogIn"
-              isChecked={() => keepLogin}
+              isChecked={() => keepLogIn}
               label="자동 로그인 하기"
               onChange={handleChangeOfKeep}
             />
@@ -147,11 +142,15 @@ const LogIn = () => {
         <button type="button" className="btn-log-in" onClick={handleClickLogInBtn}>
           로그인
         </button>
-        <button type="button" className="btn-sign-up" onClick={onClickSignUpBtn}>
-          간편가입
-        </button>
+        <Link to={'/signup'} className="link-sign-up">
+          <div>간편가입</div>
+        </Link>
         <div className="banner">
-          <div>결제정보 입력 없이 1분만에 회원가입하세요!</div>
+          <div>
+            {sessionStorage.getItem(LOG_IN_API_ITEM_KEY.reLogIn)
+              ? '다시 로그인 해주세요.'
+              : '결제정보 입력 없이 1분만에 회원가입하세요!'}
+          </div>
         </div>
       </div>
     </div>
