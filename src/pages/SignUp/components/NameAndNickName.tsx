@@ -36,10 +36,12 @@ const NameAndNickName = () => {
       setName,
       undefined,
       undefined,
+      undefined,
     );
     getPrevData(
       SIGN_UP_SESSION_DATA_KEY.nickName as SignUpSessionDataKeyType,
       setNickName,
+      undefined,
       undefined,
       undefined,
     );
@@ -53,7 +55,7 @@ const NameAndNickName = () => {
     }
   }, []);
   useEffect(() => {
-    if (name.value && !name.errorMsg && nickName.value && !nickName.errorMsg) {
+    if (name.value && !name.errorType && nickName.value && !nickName.errorType) {
       setDisableBtn(false);
     } else {
       setDisableBtn(true);

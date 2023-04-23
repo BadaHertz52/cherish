@@ -3,19 +3,17 @@ import React, { useRef, useState } from 'react';
 import './style.scss';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useNavigate } from 'react-router-dom';
 
 import { onFindPw } from '@/api/auth/findPwAPI';
 import { PasswordForm, EmailVerification, ToastModal } from '@/components';
+import { getToastModalPosition } from '@/components/Modals/functions';
 import { ToastModalType } from '@/components/Modals/modalTypes';
 
-import { getToastModalPosition } from '../SignUp/functions';
 import { InputDataType, initialInputData } from '../SignUp/signUpTypes';
 
 import styles from './style.module.scss';
 
 const FindPw = () => {
-  // 이메일 인증 여부
   const [openEmailForm, setOpenEmailForm] = useState<boolean>(true);
   const [openAuthNumberForm, setOpenAuthNumberForm] = useState<boolean>(false);
   const [email, setEmail] = useState<InputDataType>(initialInputData);
@@ -29,7 +27,6 @@ const FindPw = () => {
     left: '0',
   });
   const btnChangePwRef = useRef<HTMLButtonElement>(null);
-  const navigate = useNavigate();
   const handleToastModal = () => {
     const position = getToastModalPosition();
     if (position && btnChangePwRef.current) {
@@ -44,18 +41,18 @@ const FindPw = () => {
     }
   };
   const handleClickBtn = async () => {
-    const result = await onFindPw({ password: pw.value });
+    const result = await onFindPw({ email: email.value, password: pw.value });
     if (result.success) {
       //open toast modal
       handleToastModal();
       setTimeout(() => {
-        navigate('/login');
-      }, 2100);
+        window.location.pathname = '/login';
+      }, 1000);
     }
   };
   const onClickPrevBtn = () => {
     if (openEmailForm) {
-      openAuthNumberForm ? setOpenAuthNumberForm(false) : navigate('/login');
+      openAuthNumberForm ? setOpenAuthNumberForm(false) : (window.location.pathname = '/login');
     } else {
       setOpenEmailForm(true);
       setOpenAuthNumberForm(true);

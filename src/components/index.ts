@@ -1,3 +1,4 @@
+import AuthNumberForm from './AuthNumberForm';
 import BottomNav from './BottomNav';
 import BtnShowPw from './BtnShowPw';
 import CheckBox from './CheckBox';
@@ -15,6 +16,7 @@ import Timer from './Timer';
 
 export {
   AlertModal,
+  AuthNumberForm,
   BottomNav,
   BottomNavModal,
   BtnShowPw,

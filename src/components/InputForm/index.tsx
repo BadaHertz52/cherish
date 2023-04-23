@@ -7,7 +7,6 @@ import BtnShowPw from '@/components/BtnShowPw';
 import { XSSCheck } from '@/pages/LogIn';
 import {
   ERROR_MSG,
-  ERROR_TYPE,
   INPUT_FORM_ID,
   InputDataType,
   InputFormIdType,
@@ -66,20 +65,20 @@ const InputForm = ({ id, data, setData, additionOfLabel, disabled }: InputFormPr
     let result: TestResultType = 'pass';
     switch (id) {
       case INPUT_FORM_ID.name:
-        result = REGEX.name.test(text) ? 'pass' : ERROR_TYPE.invalidName;
+        result = REGEX.name.test(text) ? 'pass' : 'invalidName';
         break;
       case INPUT_FORM_ID.nickName:
-        result = REGEX.nickName.test(text) ? 'pass' : ERROR_TYPE.invalidNickName;
+        result = REGEX.nickName.test(text) ? 'pass' : 'invalidNickName';
         break;
       case INPUT_FORM_ID.email:
-        result = REGEX.email.test(text) ? 'pass' : ERROR_TYPE.invalidEmail;
+        result = REGEX.email.test(text) ? 'pass' : 'invalidEmail';
         break;
       case INPUT_FORM_ID.pw:
-        result = REGEX.pw.test(text) ? 'pass' : ERROR_TYPE.invalidPw;
+        result = REGEX.pw.test(text) ? 'pass' : 'invalidPw';
         break;
       case INPUT_FORM_ID.confirmPw:
         const inputPwEl = document.querySelector('#input-pw') as HTMLInputElement | null;
-        result = inputPwEl?.value === text ? 'pass' : ERROR_TYPE.invalidConfirmPw;
+        result = inputPwEl?.value === text ? 'pass' : 'invalidConfirmPw';
       default:
         break;
     }
@@ -96,15 +95,15 @@ const InputForm = ({ id, data, setData, additionOfLabel, disabled }: InputFormPr
       const testResult = checkRegex(text);
       setData({
         value: text,
-        errorMsg: testResult === 'pass' ? undefined : ERROR_MSG[testResult],
+        errorType: testResult === 'pass' ? undefined : testResult,
       });
     }
   };
   const handleBlur = () => {
-    if (data.value === '') {
+    if (!data.value) {
       setData({
         ...data,
-        errorMsg: ERROR_MSG.required,
+        errorType: 'required',
       });
     }
   };
@@ -133,14 +132,14 @@ const InputForm = ({ id, data, setData, additionOfLabel, disabled }: InputFormPr
       {(id == INPUT_FORM_ID.pw || id == INPUT_FORM_ID.confirmPw) && (
         <>
           <BtnShowPw hiddenPw={hiddenPw} setHiddenPw={setHiddenPw} />
-          <div className={`pw__check-icon ${data.value && !data.errorMsg ? 'on' : ''}`}>
+          <div className={`pw__check-icon ${data.value && !data.errorType ? 'on' : ''}`}>
             <FontAwesomeIcon icon={faCheck} />
           </div>
         </>
       )}
       <div className="error-msg">
-        {data.errorMsg ? (
-          <p>{data.errorMsg}</p>
+        {data.errorType ? (
+          <p>{ERROR_MSG[data.errorType]}</p>
         ) : (
           id === INPUT_FORM_ID.email &&
           !data.value && <p className="info-email-form"> '@'을 포함하여 작성해주세요.</p>

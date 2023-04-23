@@ -1,11 +1,6 @@
 import { Dispatch, SetStateAction, useEffect } from 'react';
 
-import {
-  ERROR_MSG,
-  INPUT_FORM_ID,
-  InputDataType,
-  InputFormIdType,
-} from '@/pages/SignUp/signUpTypes';
+import { INPUT_FORM_ID, InputDataType, InputFormIdType } from '@/pages/SignUp/signUpTypes';
 
 import InputForm from '../InputForm/index';
 import './style.scss';
@@ -28,16 +23,16 @@ const PasswordForm = ({
   //pw, confirmPw 의 변화에 따라 disableBtn 상태 변경
   useEffect(() => {
     if (confirmPw.value && pw.value) {
-      if (pw.value !== confirmPw.value && !confirmPw.errorMsg) {
+      if (pw.value !== confirmPw.value && !confirmPw.errorType) {
         setConfirmPw((prev: InputDataType) => ({
           ...prev,
-          errorMsg: ERROR_MSG.invalidConfirmPw,
+          errorType: 'invalidConfirmPw',
         }));
       }
-      if (pw.value === confirmPw.value && !pw.errorMsg) {
+      if (pw.value === confirmPw.value && !pw.errorType) {
         setConfirmPw(prev => ({
           ...prev,
-          errorMsg: undefined,
+          errorType: undefined,
         }));
         setDisableBtn(false);
       } else {
