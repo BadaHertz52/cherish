@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 import { GENDER_TYPE, JOB_TYPE } from '@/pages/SignUp/signUpTypes';
 
 /**
@@ -19,7 +21,8 @@ export type ModalCommonType = {
 /**
  * the unit for top and left is px
  */
-export type ToastModalType = ModalCommonType & {
+export type ToastModalType = {
+  contents: string | ReactNode;
   top: string; // unit: px
   left: string;
 };

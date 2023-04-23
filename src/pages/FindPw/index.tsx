@@ -22,7 +22,12 @@ const FindPw = () => {
   const [disableBtn, setDisableBtn] = useState<boolean>(true);
   const [openToastModal, setOpenToastModal] = useState<boolean>(false);
   const [toastModalState, setToastModalState] = useState<ToastModalType>({
-    contents: '비밀번호가 변경되었어요. 다시 로그인 해주세요.',
+    contents: (
+      <>
+        <p>비밀번호가 변경되었어요.</p>
+        <p> 다시 로그인 해주세요.</p>
+      </>
+    ),
     top: '0',
     left: '0',
   });
