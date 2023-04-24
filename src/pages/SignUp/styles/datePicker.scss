@@ -2,15 +2,24 @@
 #date-picker {
   position: relative;
   width: 100%;
-  height: calc(36px * 3);
+  padding: 23px 0;
   overflow-y: hidden;
-  margin-top: 3.8vh;
+  margin-top: 10px;
+  border: 0.6px solid $color-dark-gray;
+  border-radius: 5px;
+  .date-picker__inner {
+    position: relative;
+    width: 100%;
+    height: calc(36px * 3);
+    overflow-y: hidden;
+  }
   .picker-container {
     position: absolute;
     top: calc(-1 * (36px * 1.5));
   }
   .picker-inner {
     -webkit-mask-box-image: none;
+    padding: 0 30px;
   }
   .picker-item {
     @include sofia-h1-font;

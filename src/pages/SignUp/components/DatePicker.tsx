@@ -89,7 +89,9 @@ const DatePicker = ({ birth, setBirth }: DatePickerProps) => {
   }, []);
   return (
     <div id="date-picker">
-      <Picker valueGroups={birthDate} optionGroups={optionGroups} onChange={handleChange} />
+      <div className="date-picker__inner">
+        <Picker valueGroups={birthDate} optionGroups={optionGroups} onChange={handleChange} />
+      </div>
     </div>
   );
 };

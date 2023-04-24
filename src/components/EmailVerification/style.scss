@@ -45,6 +45,7 @@
     .msg {
       @include bd2-font;
       color: $color-error;
+      margin-left: 6px;
       p {
         margin-top: 8px;
       }
