@@ -34,7 +34,7 @@ describe('AuthNumberForm', () => {
     wrapper.update();
     expect(wrapper.find(Timer).exists()).toBe(false);
   });
-  it('openTimer === tru && authNumber.value 일때만 인증 확인 버튼 활성화', () => {
+  it('openTimer === true && authNumber.value 일때만 인증 확인 버튼 활성화', () => {
     wrapper.setProps({ openTimer: true });
     wrapper.setProps({ authNumber: { value: '111111' } });
     wrapper.update();
