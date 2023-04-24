@@ -51,4 +51,7 @@
   button {
     @include clean-btn-style;
   }
+  .home__modal__contents__inner {
+    margin-top: 23px;
+  }
 }

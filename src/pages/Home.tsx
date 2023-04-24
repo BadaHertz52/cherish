@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
 import '../assets/styles/Home.scss';
-import { ItemCard } from '../components';
+import { ConfirmModal, ItemCard } from '../components';
 import type { Item } from '../components/ItemCard';
 
 import MyPage from './My';
@@ -108,7 +108,8 @@ const NavIcon = ({ src, onClick }: { src: string; onClick: () => void }) => (
 function Home() {
   const navigate = useNavigate();
   const [showMyPage, setShowMyPage] = useState(false);
-
+  const [openConfirmModal, setOpenConfirmModal] = useState<boolean>(false);
+  const [newMember, setNewMember] = useState<string>();
   const handleShowMyPage = () => {
     // TODO: 로그인 전 상태에서는 로그인 페이지로 이동
     setShowMyPage(true);
@@ -117,7 +118,14 @@ function Home() {
   const handleShowSearchPage = () => {
     navigate('/search');
   };
-
+  useEffect(() => {
+    const item = sessionStorage.getItem('newMember');
+    if (item) {
+      setNewMember(item);
+      setOpenConfirmModal(true);
+      sessionStorage.removeItem('newMember');
+    }
+  }, []);
   return (
     <>
       <div className="header">
@@ -149,7 +157,19 @@ function Home() {
           </div>
         ))}
       </div>
-      {showMyPage && <MyPage handleBackButton={() => setShowMyPage(false)} />}
+      {openConfirmModal && (
+        <ConfirmModal
+          yesBtn={{ text: '둘러보기' }}
+          noBtn={{ text: '선물 추천 받기', path: '/curation' }}
+          closeModal={() => setOpenConfirmModal(false)}
+        >
+          <div className="home__modal__contents__inner">
+            <p>{newMember}님 환영해요!</p>
+            <p>누구에세 무슨 선물을 줘야할 지 고민되셨다면</p>
+            <p>체리슈가 도와드릴게요.</p>
+          </div>
+        </ConfirmModal>
+      )}
     </>
   );
 }
