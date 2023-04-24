@@ -6,4 +6,8 @@
 .App {
   max-width: 767px;
   margin: 0 auto;
+  &.no-scroll {
+    height: 100vh;
+    overflow: hidden;
+  }
 }

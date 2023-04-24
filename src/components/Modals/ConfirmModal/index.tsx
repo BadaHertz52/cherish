@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { ConfirmModalBtnType } from '@/components/Modals/modalTypes';
 
+import { handleAppScroll } from '../functions';
 import ModalPortal from '../ModalPortal';
 import './style.scss';
 export type ConfirmModalProps = {
@@ -36,6 +37,10 @@ const ConfirmModal = ({ title, children, yesBtn, noBtn, closeModal }: ConfirmMod
   useEffect(() => {
     const modalEl = document.querySelector('.modal');
     modalEl?.classList.add('confirm-modal');
+    handleAppScroll(true);
+    return () => {
+      handleAppScroll(false);
+    };
   }, []);
   return (
     <ModalPortal>

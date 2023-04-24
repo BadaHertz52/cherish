@@ -1,5 +1,6 @@
 import React, { ReactNode, useEffect } from 'react';
 
+import { handleAppScroll } from '../functions';
 import ModalPortal from '../ModalPortal';
 import './style.scss';
 type AlertModalProps = {
@@ -12,6 +13,10 @@ const AlertModal = ({ children, center, short, closeModal }: AlertModalProps) =>
   useEffect(() => {
     const modalEl = document.querySelector('.modal');
     modalEl?.classList.add('alert-modal');
+    handleAppScroll(true);
+    return () => {
+      handleAppScroll(false);
+    };
   }, []);
   return (
     <ModalPortal>

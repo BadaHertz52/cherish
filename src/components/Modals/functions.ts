@@ -19,3 +19,10 @@ export const getToastModalPosition = () => {
     return { top: top, left: left };
   }
 };
+
+export const handleAppScroll = (prevent: boolean) => {
+  const appEl = document.querySelector('.App') as HTMLElement;
+  if (appEl) {
+    prevent ? appEl.classList.add('no-scroll') : appEl.classList.remove('no-scroll');
+  }
+};
