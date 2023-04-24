@@ -104,11 +104,11 @@ export type SignUpStateType = {
 };
 export const ERROR_MSG = {
   required: '필수 입력 항목이에요.',
-  invalidName: '한글,영문(대소문자)중 한 가지 이상을 사용하여 2-20자내로 입력하세요.',
-  invalidNickName: '한글,영문(대소문자),숫자 중 한 가지 이상을 사용하여 3-10자 내로 입력하세요',
+  invalidName: '한글 또는 영문을 사용하여 2-20자내로 입력하세요.',
+  invalidNickName: '한글,영문,숫자 중 1가지 이상을 사용하여 3-10자 내로 입력하세요',
   invalidEmail: '올바르지 않은 형식의 이메일이에요.',
   invalidAuthNumber: '인증번호가 일치하지 않아요.',
-  invalidPw: '영문(대소문자),숫자,특수기호(!,@,^)을 최소 한가지씩 사용하여 3~10자내로 입력하세요.',
+  invalidPw: '영문,숫자,특수기호(!,@,^)을 최소 1가지씩 사용하여 8-20자내로 입력하세요.',
   invalidConfirmPw: '비밀번호가 일치하지 않아요.',
   duplicatedEmail: '이미 회원가입된 이메일이에요.',
   notExistEmail: '해당 이메일로 가입한 이력이 없어요.',
