@@ -40,7 +40,7 @@ const JobInfo = () => {
       const { year, month, date } = state.birth;
       const params: SignUpAPIParams = {
         name: state.name,
-        nickName: state.nickname,
+        nickname: state.nickname,
         email: state.email,
         password: state.pw,
         infoCheck: state.agreeToTerms.marketing,

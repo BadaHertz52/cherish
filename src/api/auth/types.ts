@@ -34,7 +34,7 @@ export type LogInAPIResultData = {
 };
 export type SignUpAPIParams = {
   name: string;
-  nickName: string;
+  nickname: string;
   email: string;
   password: string;
   infoCheck: boolean;
