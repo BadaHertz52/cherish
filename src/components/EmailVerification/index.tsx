@@ -145,7 +145,7 @@ const EmailVerification = ({
         setToastModalState(modalForSendingEmail);
       }
     }
-  }, [openToastModal, openAuthNumberForm, toastModalPositionTargetEl]);
+  }, [openToastModal]);
 
   useEffect(() => {
     // 타이머 시간을 경과한 경우, 이메일 작성란 다시 열기
@@ -162,7 +162,7 @@ const EmailVerification = ({
     } else {
       setToastModalState(initialToastModalState);
     }
-  }, [openToastModal, changeToastModalState, initialToastModalState]);
+  }, [openToastModal]);
   return (
     <div className="email-verification">
       <section className="email-form">
