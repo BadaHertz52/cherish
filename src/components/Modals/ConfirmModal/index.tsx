@@ -1,5 +1,7 @@
 import React, { ReactNode, useEffect } from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
 import { ConfirmModalBtnType } from '@/components/Modals/modalTypes';
 
 import ModalPortal from '../ModalPortal';
@@ -12,15 +14,22 @@ export type ConfirmModalProps = {
   closeModal: () => void;
 };
 const ConfirmModal = ({ title, children, yesBtn, noBtn, closeModal }: ConfirmModalProps) => {
+  const navigate = useNavigate();
   const onClickYesBtn = () => {
     if (yesBtn?.otherFn) {
       yesBtn?.otherFn();
+    }
+    if (yesBtn?.path) {
+      navigate(yesBtn.path);
     }
     closeModal();
   };
   const onClickNoBtn = () => {
     if (noBtn?.otherFn) {
       noBtn.otherFn();
+    }
+    if (noBtn?.path) {
+      navigate(noBtn.path);
     }
     closeModal();
   };
