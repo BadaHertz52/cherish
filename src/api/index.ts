@@ -5,7 +5,7 @@ export type APIErrorData = {
 };
 
 export const httpClient = axios.create({
-  baseURL: import.meta.env.VITE_SERVER_API_URL,
+  baseURL: import.meta.env.PROD ? import.meta.env.VITE_SERVER_API_URL : '/',
 });
 
 export const handleAxiosError = (axiosError: AxiosError) => {
