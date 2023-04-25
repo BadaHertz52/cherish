@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import './style.scss';
 import { LOG_IN_API_ITEM_KEY, onLogIn } from '@/api/auth/logIn';
 import { LogInAPIParams } from '@/api/auth/types';
-import { BtnShowPw, CheckBox } from '@/components';
+import { AlertModal, BtnShowPw, CheckBox } from '@/components';
 import { REGEX } from '@/components/InputForm';
 
 export const XSSCheck = (str: string, level?: number) => {
@@ -25,6 +25,8 @@ const LogIn = () => {
   const [hiddenPw, setHiddenPw] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
   const [keepLogIn, setKeepLogin] = useState<boolean>(false);
+  const [openAlertModal, setOpenAlertModal] = useState<boolean>(true);
+
   const INPUT_TARGET = {
     email: 'email',
     pw: 'pw',
@@ -36,6 +38,9 @@ const LogIn = () => {
   };
   const handleChangeOfValue = (event: ChangeEvent<HTMLInputElement>, target: InputTargetType) => {
     const value = XSSCheck(event.target.value);
+    if (error) {
+      setError(false);
+    }
     if (target === INPUT_TARGET.email) {
       setEmail(value);
     } else {
@@ -76,10 +81,10 @@ const LogIn = () => {
       localStorage.removeItem(LOG_IN_API_ITEM_KEY.keepLogIn);
     sessionStorage.getItem(LOG_IN_API_ITEM_KEY.logIn) &&
       sessionStorage.removeItem(LOG_IN_API_ITEM_KEY.logIn);
-    return () => {
-      sessionStorage.getItem(LOG_IN_API_ITEM_KEY.reLogIn) &&
-        sessionStorage.removeItem(LOG_IN_API_ITEM_KEY.reLogIn);
-    };
+    if (sessionStorage.getItem(LOG_IN_API_ITEM_KEY.reLogIn)) {
+      setOpenAlertModal(true);
+      sessionStorage.removeItem(LOG_IN_API_ITEM_KEY.reLogIn);
+    }
   }, []);
 
   return (
@@ -152,6 +157,11 @@ const LogIn = () => {
           </div>
         </div>
       </div>
+      {openAlertModal && (
+        <AlertModal center={true} short={true} closeModal={() => setOpenAlertModal(false)}>
+          <div className="log-in__expired">로그인이 만료 되었어요. &nbsp;다시 로그인 해주세요!</div>
+        </AlertModal>
+      )}
     </div>
   );
 };
