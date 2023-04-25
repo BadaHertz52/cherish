@@ -109,35 +109,34 @@ const LogIn = () => {
             <BtnShowPw hiddenPw={hiddenPw} setHiddenPw={setHiddenPw} />
           </div>
         </div>
-        <div className="log-in__util">
-          <div className="log-in__util__keep">
-            <CheckBox
-              id="checkboxKeep"
-              name="autoLogIn"
-              isChecked={() => keepLogIn}
-              label="자동 로그인 하기"
-              onChange={handleChangeOfKeep}
-            />
-          </div>
-          <div className="log-in__util__find">
-            {/* [todo] 비밀번호찾기 path 설정 */}
-            <Link
-              to={'/findpw'}
-              className="link-find-pw"
-              onTouchStart={event => handleTouchOfLink(event)}
-              onTouchEnd={event => handleTouchOfLink(event)}
-            >
-              비밀번호 찾기
-            </Link>
-          </div>
-        </div>
-        <div className="error-msg">
+        <div className="log-in__not-data">
           {error && (
-            <>
-              <p>이메일 또는 비밀번호를 잘못 입력했어요.</p>
-              <p>입력하신 내용을 다시 확인해주세요.</p>
-            </>
+            <div className="error-msg">
+              이메일 또는 비밀번호를 잘못 입력했어요. 입력하신 내용을 다시 확인해주세요.
+            </div>
           )}
+          <div className="log-in__util">
+            <div className="log-in__util__keep">
+              <CheckBox
+                id="checkboxKeep"
+                name="autoLogIn"
+                isChecked={() => keepLogIn}
+                label="자동 로그인 하기"
+                onChange={handleChangeOfKeep}
+              />
+            </div>
+            <div className="log-in__util__find">
+              {/* [todo] 비밀번호찾기 path 설정 */}
+              <Link
+                to={'/findpw'}
+                className="link-find-pw"
+                onTouchStart={event => handleTouchOfLink(event)}
+                onTouchEnd={event => handleTouchOfLink(event)}
+              >
+                비밀번호 찾기
+              </Link>
+            </div>
+          </div>
         </div>
         <button type="button" className="btn-log-in" onClick={handleClickLogInBtn}>
           로그인

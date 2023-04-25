@@ -79,8 +79,8 @@ describe('LogIn', () => {
       },
     } as ChangeEvent<HTMLInputElement>);
     loginBtn.simulate('click');
-    const errorMsg = wrapper.find('.error-msg p').at(0).text();
-    expect(errorMsg).toEqual('이메일 또는 비밀번호를 잘못 입력했어요.');
+    const errorMsg = wrapper.find('.error-msg').text();
+    expect(errorMsg.includes('이메일 또는 비밀번호를 잘못 입력했어요.')).toBe(true);
   });
 
   it('should display "결제정보 입력 없이 1분만에 회원가입하세요!" text ', () => {

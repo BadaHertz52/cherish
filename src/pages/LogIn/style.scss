@@ -1,6 +1,9 @@
 @import '@/assets/styles/common.scss';
 
 #log-in {
+  $errorMsgLineHeight: 17px;
+  $errorMsgMaxHeight: calc($errorMsgLineHeight * 2 + 5px);
+  $logInUtilHeight: 27px;
   width: 100%;
   //100vh - bottomNav.height
   height: 100vh;
@@ -32,8 +35,7 @@
   .log-in__data__email,
   .log-in__data__pw,
   .btn-log-in,
-  .link-sign-up,
-  .error-msg {
+  .link-sign-up {
     height: 6vh;
   }
   .log-in__data__email,
@@ -63,10 +65,18 @@
       color: $color-light-black;
     }
   }
+  //log-in__not-data
+  .log-in__not-data {
+    min-height: calc($errorMsgLineHeight + $logInUtilHeight + 12px);
+    // error-message 가 화면 너비에 따라 두 줄이 될 경우
+    max-height: calc($errorMsgMaxHeight + $logInUtilHeight + 12px);
+    margin-top: 10px;
+  }
   //log-in__util
   .log-in__util {
     display: flex;
     justify-content: space-between;
+    height: 27px;
   }
   // keep
   // find
@@ -126,20 +136,17 @@
   .banner {
     box-sizing: border-box;
     position: relative;
-    @include bd2-font;
     color: $color-primary;
   }
   .error-msg {
+    @include bd3-font;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 16px 0;
-    p {
-      padding: 4px 0;
-    }
+    min-height: $errorMsgLineHeight;
+    max-height: $errorMsgMaxHeight;
+    margin-bottom: 12px;
   }
   .banner {
+    @include bd2-font;
     height: 5.5vh;
     display: flex;
     align-items: center;
