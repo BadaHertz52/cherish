@@ -138,3 +138,17 @@ $color-error: #ff3939;
   background-color: $color-gray;
   color: $color-light-black;
 }
+@mixin scroll-style {
+  &::-webkit-scrollbar {
+    display: block;
+    width: 3px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $color-dark-gray;
+    height: 94px;
+    border-radius: 30px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: $color-white;
+  }
+}

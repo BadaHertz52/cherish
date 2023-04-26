@@ -6,14 +6,11 @@
 .modal__contents__term {
   width: 100%;
   //confirmModal.maxHeight - modalInner.padding*2 - title.height - modalContent.paddingBottom - button.height
-  max-height: calc((80vh - 44px - 26px - 34px - 4vh) * 0.8);
+  max-height: calc((72vh - 44px - 26px - 34px - 4vh) * 0.8);
   margin-top: 10px;
+  padding-right: 11px;
   overflow-y: scroll;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  @include scroll-style;
   h2,
   h3,
   h4,

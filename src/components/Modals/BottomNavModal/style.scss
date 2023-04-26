@@ -27,7 +27,7 @@
     position: relative;
     width: inherit;
     height: inherit;
-    padding: 25px;
+    padding: 25px 21px;
     box-sizing: border-box;
     section {
       // - padding = btn.height - btn.bottom - a( btn과의 여유분)
@@ -77,24 +77,11 @@
     .check-box-group-container {
       // 100% - category.height
       height: calc(100% - 38px);
-      overflow-y: scroll;
       padding-top: 16px;
-      &::-webkit-scrollbar {
-        display: none;
-      }
+
       &.scroll {
-        &::-webkit-scrollbar {
-          display: block;
-          width: 3px;
-        }
-        &::-webkit-scrollbar-thumb {
-          background-color: $color-dark-gray;
-          height: 94px;
-          border-radius: 30px;
-        }
-        &::-webkit-scrollbar-track {
-          background-color: $color-white;
-        }
+        overflow-y: scroll;
+        @include scroll-style;
       }
     }
     .checkbox-group {

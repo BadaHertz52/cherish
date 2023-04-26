@@ -10,12 +10,14 @@
   }
   .modal__inner {
     @include modal-inner;
+    position: relative;
+    padding: 23px 21px calc(23px + 39px) 21px;
     min-height: 168px;
-    max-height: 80vh;
+    max-height: 72vh;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
   }
   // confirm-modal 의 height는 .modal__inner을 통해 조절
   &__title {
@@ -25,15 +27,17 @@
   }
   &__contents {
     @include bd1-font;
-    padding-bottom: 34px;
     text-align: center;
+    padding-bottom: 23px;
   }
   &__btn-group {
+    position: absolute;
+    left: 21px;
+    bottom: 23px;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    //100% - padding.left -padding.right
-    width: 100%;
+    width: calc(100% - 42px);
   }
   button {
     @include bd1-font;
