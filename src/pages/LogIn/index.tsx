@@ -25,7 +25,7 @@ const LogIn = () => {
   const [hiddenPw, setHiddenPw] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
   const [keepLogIn, setKeepLogin] = useState<boolean>(false);
-  const [openAlertModal, setOpenAlertModal] = useState<boolean>(true);
+  const [openAlertModal, setOpenAlertModal] = useState<boolean>(false);
 
   const INPUT_TARGET = {
     email: 'email',
@@ -76,6 +76,10 @@ const LogIn = () => {
       setError(true);
     }
   };
+  const closeModal = () => {
+    setOpenAlertModal(false);
+    sessionStorage.removeItem(LOG_IN_API_ITEM_KEY.reLogIn);
+  };
   useEffect(() => {
     localStorage.getItem(LOG_IN_API_ITEM_KEY.keepLogIn) &&
       localStorage.removeItem(LOG_IN_API_ITEM_KEY.keepLogIn);
@@ -83,7 +87,6 @@ const LogIn = () => {
       sessionStorage.removeItem(LOG_IN_API_ITEM_KEY.logIn);
     if (sessionStorage.getItem(LOG_IN_API_ITEM_KEY.reLogIn)) {
       setOpenAlertModal(true);
-      sessionStorage.removeItem(LOG_IN_API_ITEM_KEY.reLogIn);
     }
   }, []);
 
@@ -158,8 +161,11 @@ const LogIn = () => {
         </div>
       </div>
       {openAlertModal && (
-        <AlertModal center={true} short={true} closeModal={() => setOpenAlertModal(false)}>
-          <div className="log-in__expired">로그인이 만료 되었어요. &nbsp;다시 로그인 해주세요!</div>
+        <AlertModal center={true} short={true} closeModal={closeModal}>
+          <div className="log-in__expired">
+            <p>로그인이 만료 되었어요. </p>
+            <p>다시 로그인 해주세요!</p>
+          </div>
         </AlertModal>
       )}
     </div>
