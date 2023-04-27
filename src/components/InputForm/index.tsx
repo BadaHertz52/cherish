@@ -25,7 +25,49 @@ export const REGEX = {
   //8~20자 (영문 + 숫자 + 특수기호(!@^))
   pw: new RegExp('^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@^])[a-zA-z0-9!@^]{8,20}$'),
 };
-type InputFormProps = {
+export const INPUT_FORM_PLACE_HOLDER = {
+  name: '이름 (2-20자 영문,한글 사용 가능)',
+  nickName: '닉네임 (3-10자 영문,한글,숫자 사용 가능)',
+  email: '이메일',
+  pw: '비밀번호 (8-20자 영문,숫자,특수문자(!,@,^) 조합)',
+  confirmPw: '비밀번호 확인',
+};
+export const INPUT_FORM_LABEL = {
+  name: '이름을 입력해주세요.',
+  nickName: '닉네임을 입력해주세요.',
+  email: '이메일을 입력해주세요.',
+  pw: '비밀번호를 입력해주세요',
+};
+
+/**
+ * name, nickName, email,pw의 유효성을 검사하는 함수
+ * @param text
+ * @returns  검사 결과
+ */
+export const checkRegex = (text: string, id: InputFormIdType): TestResultType => {
+  let result: TestResultType = 'pass';
+  switch (id) {
+    case INPUT_FORM_ID.name:
+      result = REGEX.name.test(text) ? 'pass' : 'invalidName';
+      break;
+    case INPUT_FORM_ID.nickName:
+      result = REGEX.nickName.test(text) ? 'pass' : 'invalidNickName';
+      break;
+    case INPUT_FORM_ID.email:
+      result = REGEX.email.test(text) ? 'pass' : 'invalidEmail';
+      break;
+    case INPUT_FORM_ID.pw:
+      result = REGEX.pw.test(text) ? 'pass' : 'invalidPw';
+      break;
+    case INPUT_FORM_ID.confirmPw:
+      const inputPwEl = document.querySelector('#input-pw') as HTMLInputElement | null;
+      result = inputPwEl?.value === text ? 'pass' : 'invalidConfirmPw';
+    default:
+      break;
+  }
+  return result;
+};
+export type InputFormProps = {
   id: InputFormIdType;
   data: InputDataType;
   setData: Dispatch<SetStateAction<InputDataType>>;
@@ -42,48 +84,6 @@ type InputFormProps = {
 const InputForm = ({ id, data, setData, additionOfLabel, disabled }: InputFormProps) => {
   const [hiddenPw, setHiddenPw] = useState<boolean>(true);
   // ⚠️InputFormIdType 과 placeholder, label 의 property명은 동일 해야함
-  const PLACE_HOLDER = {
-    name: '이름 (2-20자 영문,한글 사용 가능)',
-    nickName: '닉네임 (3-10자 영문,한글,숫자 사용 가능)',
-    email: '이메일',
-    pw: '비밀번호 (8-20자 영문,숫자,특수문자(!,@,^) 조합)',
-    confirmPw: '비밀번호 확인',
-  };
-  const LABEL = {
-    name: '이름을 입력해주세요.',
-    nickName: '닉네임을 입력해주세요.',
-    email: '이메일을 입력해주세요.',
-    pw: '비밀번호를 입력해주세요',
-  };
-
-  /**
-   * name, nickName, email,pw의 유효성을 검사하는 함수
-   * @param text
-   * @returns  검사 결과
-   */
-  const checkRegex = (text: string): TestResultType => {
-    let result: TestResultType = 'pass';
-    switch (id) {
-      case INPUT_FORM_ID.name:
-        result = REGEX.name.test(text) ? 'pass' : 'invalidName';
-        break;
-      case INPUT_FORM_ID.nickName:
-        result = REGEX.nickName.test(text) ? 'pass' : 'invalidNickName';
-        break;
-      case INPUT_FORM_ID.email:
-        result = REGEX.email.test(text) ? 'pass' : 'invalidEmail';
-        break;
-      case INPUT_FORM_ID.pw:
-        result = REGEX.pw.test(text) ? 'pass' : 'invalidPw';
-        break;
-      case INPUT_FORM_ID.confirmPw:
-        const inputPwEl = document.querySelector('#input-pw') as HTMLInputElement | null;
-        result = inputPwEl?.value === text ? 'pass' : 'invalidConfirmPw';
-      default:
-        break;
-    }
-    return result;
-  };
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const text = XSSCheck(event.target.value, undefined);
     //유효성 검사
@@ -92,7 +92,7 @@ const InputForm = ({ id, data, setData, additionOfLabel, disabled }: InputFormPr
         value: text,
       });
     } else {
-      const testResult = checkRegex(text);
+      const testResult = checkRegex(text, id);
       setData({
         value: text,
         errorType: testResult === 'pass' ? undefined : testResult,
@@ -112,7 +112,7 @@ const InputForm = ({ id, data, setData, additionOfLabel, disabled }: InputFormPr
       {id !== 'confirmPw' && (
         <label htmlFor={`input-${id}`}>
           {additionOfLabel && <span>{additionOfLabel} &nbsp;</span>}
-          <span>{LABEL[id]}</span>
+          <span>{INPUT_FORM_LABEL[id]}</span>
         </label>
       )}
       <input
@@ -123,7 +123,7 @@ const InputForm = ({ id, data, setData, additionOfLabel, disabled }: InputFormPr
         }
         id={`input-${id}`}
         name={`data-${id}`}
-        placeholder={PLACE_HOLDER[id]}
+        placeholder={INPUT_FORM_PLACE_HOLDER[id]}
         value={data.value}
         disabled={disabled}
         onChange={event => handleChange(event)}
@@ -137,12 +137,12 @@ const InputForm = ({ id, data, setData, additionOfLabel, disabled }: InputFormPr
           </div>
         </>
       )}
-      <div className="error-msg">
+      <div className="input-form__msg">
         {data.errorType ? (
-          <p>{ERROR_MSG[data.errorType]}</p>
+          <p className="error-msg">{ERROR_MSG[data.errorType]}</p>
         ) : (
           id === INPUT_FORM_ID.email &&
-          !data.value && <p className="info-email-form"> '@'을 포함하여 작성해주세요.</p>
+          !data.value && <p className="info-email-form">'@'을 포함하여 작성해주세요.</p>
         )}
       </div>
     </div>
