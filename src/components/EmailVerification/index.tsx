@@ -6,13 +6,13 @@ import {
   useEffect,
   useRef,
   useState,
+  MouseEvent,
 } from 'react';
 
 import { onEmailVerification } from '@/api/auth/email';
 import { EMAIL_API_RESULT_TYPE, EmailAPIResultType } from '@/api/auth/types';
 import { AlertModal, InputForm, ToastModal, AuthNumberForm } from '@/components';
 import { getToastModalPosition } from '@/components/Modals/functions';
-import { debouncing } from '@/functions/debouncing';
 import {
   INPUT_FORM_ID,
   InputDataType,
@@ -66,10 +66,8 @@ const EmailVerification = ({
    */
   const [openTimer, setOpenTimer] = useState<boolean>(false);
   const [overTime, setOverTime] = useState<boolean>(false);
-  //eslint-disable-next-line
-  let timer: NodeJS.Timeout | undefined = undefined;
 
-  const sendEmail = async () => {
+  const onClickEmailBtn = async () => {
     try {
       const result: EmailAPIResultType = await onEmailVerification(
         { email: email.value },
@@ -116,10 +114,6 @@ const EmailVerification = ({
     } catch (error) {
       console.error(error);
     }
-  };
-
-  const onClickEmailBtn = () => {
-    debouncing(sendEmail, 2000, timer);
   };
   //이메일 인증 5분간 중단/ 하루 인증 횟수 초과 시 , 이메일 작성 폼으로 돌아감
   const onClickCloseBtnInAlertModal = () => {

@@ -1,4 +1,4 @@
-import { TouchEvent, ChangeEvent, useState, useEffect } from 'react';
+import { TouchEvent, ChangeEvent, useState, useEffect, MouseEvent } from 'react';
 
 import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,7 +8,6 @@ import './style.scss';
 import { LOG_IN_API_ITEM_KEY, onLogIn } from '@/api/auth/logIn';
 import { LogInAPIParams } from '@/api/auth/types';
 import { AlertModal, BtnShowPw, CheckBox } from '@/components';
-import { debouncing } from '@/functions/debouncing';
 import { REGEX } from '@/functions/regex';
 import { XSSCheck } from '@/functions/xssCheck';
 const LogIn = () => {
@@ -18,8 +17,6 @@ const LogIn = () => {
   const [error, setError] = useState<boolean>(false);
   const [keepLogIn, setKeepLogin] = useState<boolean>(false);
   const [openAlertModal, setOpenAlertModal] = useState<boolean>(false);
-  //eslint-disable-next-line
-  let timer: NodeJS.Timeout | undefined = undefined;
 
   const INPUT_TARGET = {
     email: 'email',
@@ -50,10 +47,10 @@ const LogIn = () => {
   const checkRegex = () => {
     return REGEX.email.test(email) && REGEX.pw.test(pw);
   };
-  const sendLogInData = async () => {
+  const sendLogInData = async (eventTarget: EventTarget & HTMLButtonElement) => {
     const data: LogInAPIParams = { email: email, password: pw };
     const result = await onLogIn(data);
-    clearTimeout(timer);
+    eventTarget.disabled = false;
     if (result.success) {
       //자동 로그인 여부를 localStorage에 저장해 ,  나중에 사이트 방문 시 로그인 자동 여부를 판별할 수 있도록 함
       if (keepLogIn) {
@@ -63,10 +60,12 @@ const LogIn = () => {
       setError(true);
     }
   };
-  const handleClickLogInBtn = () => {
+  const handleClickLogInBtn = (event: MouseEvent<HTMLButtonElement>) => {
+    const currentTarget = event.currentTarget;
     if (checkRegex()) {
       setError(false);
-      debouncing(sendLogInData, 7000, timer);
+      currentTarget.disabled = true;
+      sendLogInData(currentTarget);
     } else {
       setError(true);
     }
@@ -141,7 +140,7 @@ const LogIn = () => {
             </div>
           </div>
         </div>
-        <button type="button" className="btn-log-in" onClick={handleClickLogInBtn}>
+        <button type="button" className="btn-log-in" onClick={event => handleClickLogInBtn(event)}>
           로그인
         </button>
         <Link to={'/signup'} className="link-sign-up">
