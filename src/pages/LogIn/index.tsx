@@ -9,6 +9,7 @@ import { LOG_IN_API_ITEM_KEY, onLogIn } from '@/api/auth/logIn';
 import { LogInAPIParams } from '@/api/auth/types';
 import { AlertModal, BtnShowPw, CheckBox } from '@/components';
 import { REGEX } from '@/components/InputForm';
+import { debouncing } from '@/functions/debouncing';
 
 export const XSSCheck = (str: string, level?: number) => {
   if (!level || level == 0) {
@@ -26,6 +27,8 @@ const LogIn = () => {
   const [error, setError] = useState<boolean>(false);
   const [keepLogIn, setKeepLogin] = useState<boolean>(false);
   const [openAlertModal, setOpenAlertModal] = useState<boolean>(false);
+  //eslint-disable-next-line
+  let timer: NodeJS.Timeout | undefined = undefined;
 
   const INPUT_TARGET = {
     email: 'email',
@@ -59,6 +62,7 @@ const LogIn = () => {
   const sendLogInData = async () => {
     const data: LogInAPIParams = { email: email, password: pw };
     const result = await onLogIn(data);
+    clearTimeout(timer);
     if (result.success) {
       //자동 로그인 여부를 localStorage에 저장해 ,  나중에 사이트 방문 시 로그인 자동 여부를 판별할 수 있도록 함
       if (keepLogIn) {
@@ -71,7 +75,7 @@ const LogIn = () => {
   const handleClickLogInBtn = () => {
     if (checkRegex()) {
       setError(false);
-      sendLogInData();
+      debouncing(sendLogInData, 7000, timer);
     } else {
       setError(true);
     }
