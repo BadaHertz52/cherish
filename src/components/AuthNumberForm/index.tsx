@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction, ChangeEvent, MutableRefObject } from 'react';
 import { onAuthNumber } from '@/api/auth/email';
 import { APIResult, AuthNumberAPIParams } from '@/api/auth/types';
 import { Timer } from '@/components';
-import { XSSCheck } from '@/pages/LogIn';
+import { XSSCheck } from '@/functions/xssCheck';
 import { ERROR_MSG, InputDataType } from '@/pages/SignUp/signUpTypes';
 
 type AuthNumberFormProps = {

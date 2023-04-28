@@ -2,15 +2,11 @@ import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { vi } from 'vitest';
 
-import { XSSCheck } from '@/pages/LogIn';
+import { checkRegex } from '@/functions/regex';
+import { XSSCheck } from '@/functions/xssCheck';
 import { ERROR_MSG, InputFormIdType, TestResultType } from '@/pages/SignUp/signUpTypes';
 
-import InputForm, {
-  INPUT_FORM_LABEL,
-  INPUT_FORM_PLACE_HOLDER,
-  InputFormProps,
-  checkRegex,
-} from '.';
+import InputForm, { INPUT_FORM_LABEL, INPUT_FORM_PLACE_HOLDER, InputFormProps } from '.';
 
 configure({ adapter: new Adapter() });
 

@@ -4,27 +4,16 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import BtnShowPw from '@/components/BtnShowPw';
-import { XSSCheck } from '@/pages/LogIn';
+import { checkRegex } from '@/functions/regex';
+import { XSSCheck } from '@/functions/xssCheck';
 import {
   ERROR_MSG,
   INPUT_FORM_ID,
   InputDataType,
   InputFormIdType,
-  TestResultType,
 } from '@/pages/SignUp/signUpTypes';
 import './style.scss';
 
-export const REGEX = {
-  //2~20자 (한글, 영문)
-  name: new RegExp('^[ㄱ-ㅎ가-힣a-zA-Z]{2,20}$'),
-  //3~10자 (한글, 영문, 숫자)
-  nickName: new RegExp('^[ㄱ-ㅎ가-힣a-zA-Z0-9]{3,10}$'),
-  email: new RegExp(
-    '^[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\\.]?[0-9a-zA-Z])*\\.[a-zA-Z]{2,3}$',
-  ),
-  //8~20자 (영문 + 숫자 + 특수기호(!@^))
-  pw: new RegExp('^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@^])[a-zA-z0-9!@^]{8,20}$'),
-};
 export const INPUT_FORM_PLACE_HOLDER = {
   name: '이름 (2-20자 영문,한글 사용 가능)',
   nickName: '닉네임 (3-10자 영문,한글,숫자 사용 가능)',
@@ -44,29 +33,6 @@ export const INPUT_FORM_LABEL = {
  * @param text
  * @returns  검사 결과
  */
-export const checkRegex = (text: string, id: InputFormIdType): TestResultType => {
-  let result: TestResultType = 'pass';
-  switch (id) {
-    case INPUT_FORM_ID.name:
-      result = REGEX.name.test(text) ? 'pass' : 'invalidName';
-      break;
-    case INPUT_FORM_ID.nickName:
-      result = REGEX.nickName.test(text) ? 'pass' : 'invalidNickName';
-      break;
-    case INPUT_FORM_ID.email:
-      result = REGEX.email.test(text) ? 'pass' : 'invalidEmail';
-      break;
-    case INPUT_FORM_ID.pw:
-      result = REGEX.pw.test(text) ? 'pass' : 'invalidPw';
-      break;
-    case INPUT_FORM_ID.confirmPw:
-      const inputPwEl = document.querySelector('#input-pw') as HTMLInputElement | null;
-      result = inputPwEl?.value === text ? 'pass' : 'invalidConfirmPw';
-    default:
-      break;
-  }
-  return result;
-};
 export type InputFormProps = {
   id: InputFormIdType;
   data: InputDataType;

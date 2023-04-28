@@ -8,18 +8,9 @@ import './style.scss';
 import { LOG_IN_API_ITEM_KEY, onLogIn } from '@/api/auth/logIn';
 import { LogInAPIParams } from '@/api/auth/types';
 import { AlertModal, BtnShowPw, CheckBox } from '@/components';
-import { REGEX } from '@/components/InputForm';
 import { debouncing } from '@/functions/debouncing';
-
-export const XSSCheck = (str: string, level?: number) => {
-  if (!level || level == 0) {
-    str = str.replace(/\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-/g, '');
-  } else if (level == 1) {
-    str = str.replace(/\</g, '&lt;');
-    str = str.replace(/\>/g, '&gt;');
-  }
-  return str;
-};
+import { REGEX } from '@/functions/regex';
+import { XSSCheck } from '@/functions/xssCheck';
 const LogIn = () => {
   const [email, setEmail] = useState<string>('');
   const [pw, setPw] = useState<string>('');

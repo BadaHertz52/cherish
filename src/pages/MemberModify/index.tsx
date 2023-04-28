@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 
 import { modifyMemberInformation } from '@/api/auth/member';
 import { ConfirmModal } from '@/components';
-import { REGEX } from '@/components/InputForm';
+import { REGEX } from '@/functions/regex';
 import { DrawerScreen, DrawerScreenForward } from '@/layouts/DrawerScreen';
 import { ERROR_MSG } from '@/pages/SignUp/signUpTypes';
 
