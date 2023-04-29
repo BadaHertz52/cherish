@@ -54,7 +54,7 @@ const SITUATION_CHECK_BOX_ARR: CheckBoxType[] = [
 /**
  * sendData:서버에 새로운 필터링 조건 보내고 서버에서 받은 새로운 필터링 결과를 검색 결과 페이지에 보여주는 기능
  */
-type BottomNavModalProps = {
+export type BottomNavModalProps = {
   selectedFilteringCondition: FilteringConditionType;
   openBottomNavModal: boolean;
   sendData: (filteringCondition: FilteringConditionType) => void;
@@ -133,6 +133,9 @@ const BottomNavModal = ({
   const onClickSubmitBtn = () => {
     const newFilteringCondition = updateFilteringCondition();
     sendData(newFilteringCondition);
+    if (MODAL_EL) {
+      MODAL_EL.style.top = '105vh';
+    }
     closeModal();
   };
   const closeBottomNavModal = (event: Event) => {
