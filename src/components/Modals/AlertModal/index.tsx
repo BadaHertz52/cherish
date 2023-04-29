@@ -3,7 +3,7 @@ import React, { ReactNode, useEffect } from 'react';
 import { handleAppScroll } from '../functions';
 import ModalPortal from '../ModalPortal';
 import './style.scss';
-type AlertModalProps = {
+export type AlertModalProps = {
   children: ReactNode;
   center: boolean; //children 이 modal의 가운데 위치 해야하는 지
   short: boolean; //alertModal의 길이가 짧아야하는지, 길어야하는 지
