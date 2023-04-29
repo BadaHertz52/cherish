@@ -13,7 +13,7 @@ import {
   InputFormIdType,
 } from '@/pages/SignUp/signUpTypes';
 import './style.scss';
-
+// ⚠️InputFormIdType 과 placeholder, label 의 property명은 동일 해야함
 export const INPUT_FORM_PLACE_HOLDER = {
   name: '이름 (2-20자 영문,한글 사용 가능)',
   nickName: '닉네임 (3-10자 영문,한글,숫자 사용 가능)',
@@ -49,7 +49,6 @@ export type InputFormProps = {
  */
 const InputForm = ({ id, data, setData, additionOfLabel, disabled }: InputFormProps) => {
   const [hiddenPw, setHiddenPw] = useState<boolean>(true);
-  // ⚠️InputFormIdType 과 placeholder, label 의 property명은 동일 해야함
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const text = XSSCheck(event.target.value, undefined);
     //유효성 검사
