@@ -65,16 +65,78 @@ describe('InputForm', () => {
       expect(wrapper.find('.error-msg').exists()).toBe(false);
     }
   };
-  it('email 에 대한 유효성 검사와 검사 결과 보여줌', () => {
+  it('이메일에 대한 유효성 검사와 검사 결과 보여줌', () => {
     wrapper.setProps({ id: 'email' });
-    const wrongValue = ['email', 'email@', 'email@aa', 'email@test.comm', '_email@test.com'];
-    const testArray = [...wrongValue, 'email@test.co', 'email@test.com', 'email_test@test.com'];
+    const wrongValueArray = ['email', 'email@', 'email@aa', 'email@test.comm', '_email@test.com'];
+    const testArray = [
+      ...wrongValueArray,
+      'email@test.co',
+      'email@test.com',
+      'email_test@test.com',
+    ];
     for (const i of testArray) {
-      const expectedError = wrongValue.includes(i) ? ERROR_MSG.invalidEmail : undefined;
+      const expectedError = wrongValueArray.includes(i) ? ERROR_MSG.invalidEmail : undefined;
       testRegex('email', i, expectedError);
     }
   });
-  // name
-  //nickname
-  //pw
+  it('이름에 대한 유효성 검사와 검사 결과 보여줌', () => {
+    wrapper.setProps({ id: 'name' });
+    const wrongValueArray = ['a', 'a'.repeat(21), 'a!!', '123', 'a12', ' a'];
+    const testArray = [...wrongValueArray, 'aa', '이름', '이름test'];
+    for (const i of testArray) {
+      const expectedError = wrongValueArray.includes(i) ? ERROR_MSG.invalidName : undefined;
+      testRegex('name', i, expectedError);
+    }
+  });
+  it('닉네임에 대한 유효성 검사와 검사 결과 보여줌', () => {
+    wrapper.setProps({ id: 'nickName' });
+    const wrongValueArray = ['a', 'a'.repeat(11), 'a!!', ' 닉네임'];
+    const testArray = [...wrongValueArray, 'Test', '닉네임', '1234', '닉네임test'];
+    for (const i of testArray) {
+      const expectedError = wrongValueArray.includes(i) ? ERROR_MSG.invalidNickName : undefined;
+      testRegex('nickName', i, expectedError);
+    }
+  });
+  it('비밀번호에 대한 유효성 검사와 검사 결과 보여줌', () => {
+    wrapper.setProps({ id: 'pw' });
+    const wrongValueArray = [
+      'a',
+      'a'.repeat(8),
+      '1'.repeat(8),
+      '!'.repeat(8),
+      'a1'.repeat(4),
+      'test1#'.repeat(2),
+      'test1!'.repeat(4),
+      'test 1!'.repeat(2),
+    ];
+    const testArray = [...wrongValueArray, 'test123!!Test', '!123test^'];
+    for (const i of testArray) {
+      const expectedError = wrongValueArray.includes(i) ? ERROR_MSG.invalidPw : undefined;
+      testRegex('pw', i, expectedError);
+    }
+  });
+  it('비밀번호에 대한 유효성 검사 통과 여부에 따라 pw__check-icon 색상 변경됨', () => {
+    wrapper.setProps({ id: 'pw' });
+    wrapper.setProps({ data: { value: 'test!1234', errorType: undefined } });
+    wrapper.update();
+    expect(wrapper.find('.pw__check-icon').hasClass('on')).toBe(true);
+
+    wrapper.setProps({ data: { value: 'wrongpassword', errorType: 'invalidPw' } });
+    wrapper.update();
+    expect(wrapper.find('.pw__check-icon').hasClass('on')).toBe(false);
+  });
+  it('props 중 disabled를 이용해 input의 disabled 변경 가능', () => {
+    expect(wrapper.find('input').prop('disabled')).toEqual(props.disabled);
+    wrapper.setProps({ disabled: true });
+    wrapper.update();
+    expect(wrapper.find('input').prop('disabled')).toEqual(true);
+  });
+  it('비밀번호에 대한 input의 기본 type은 password 이고 나머지의 기본 타입은 text', () => {
+    for (const i of idArray) {
+      wrapper.setProps({ id: i });
+      wrapper.update();
+      const type = i === 'pw' || i === 'confirmPw' ? 'password' : 'text';
+      expect(wrapper.find('input').prop('type')).toEqual(type);
+    }
+  });
 });
