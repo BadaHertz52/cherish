@@ -61,9 +61,9 @@ const LogIn = () => {
     }
   };
   const handleClickLogInBtn = (event: MouseEvent<HTMLButtonElement>) => {
-    const currentTarget = event.currentTarget;
-    if (checkRegex()) {
+    if (checkRegex() && event) {
       setError(false);
+      const currentTarget = event.currentTarget;
       currentTarget.disabled = true;
       sendLogInData(currentTarget);
     } else {
