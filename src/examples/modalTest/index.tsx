@@ -6,6 +6,7 @@ import ConfirmModal from '@/components/Modals/ConfirmModal';
 import FullScreModal from '@/components/Modals/FullModal';
 import { getToastModalPosition } from '@/components/Modals/functions';
 import {
+  CONDITION_NAME,
   FilteringConditionType,
   FullScreModalType,
   ToastModalType,
@@ -52,10 +53,10 @@ const ModalTest = () => {
   const [alertModalChildren, setAlertModalChildren] = useState<string>('alert01');
   //사용자가 선택한 필터링 조건
   const selectedFilteringCondition: FilteringConditionType = {
-    productType: ['food'],
+    productType: [CONDITION_NAME.food],
     gender: null,
     job: null,
-    situation: null,
+    situation: [CONDITION_NAME.admissionAndGraduation],
   };
   const fullScreModalState: FullScreModalType = {
     name: 'product name',

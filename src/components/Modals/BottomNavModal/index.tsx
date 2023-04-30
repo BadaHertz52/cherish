@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Checkbox from '@/components/CheckBox';
 import {
-  ConditionType,
   FilteringConditionType,
   ConditionName,
   CONDITION_NAME,
@@ -24,32 +23,27 @@ type CategoryType = keyof typeof CATEGORY;
 type CheckBoxType = {
   name: ConditionName;
 };
-
-// CheckBoxType 의 name은 추후 필터링 조건명에 따라 수정
 const PRODUCT_TYPE_CHECK_BOX_ARR: CheckBoxType[] = [
-  { name: CONDITION_NAME.food as ConditionName },
-  { name: CONDITION_NAME.beauty as ConditionName },
-  { name: CONDITION_NAME.living as ConditionName },
-  { name: CONDITION_NAME.digital as ConditionName },
-  { name: CONDITION_NAME.clothingAndStuff as ConditionName },
-  { name: CONDITION_NAME.productEtc as ConditionName },
+  { name: 'food' },
+  { name: 'beauty' },
+  { name: 'living' },
+  { name: 'digital' },
+  { name: 'clothingAndStuff' },
+  { name: 'productEtc' },
 ];
-const GENDER_CHECK_BOX_ARR: CheckBoxType[] = [
-  { name: CONDITION_NAME.male as ConditionName },
-  { name: CONDITION_NAME.female as ConditionName },
-];
+const GENDER_CHECK_BOX_ARR: CheckBoxType[] = [{ name: 'male' }, { name: 'female' }];
 const JOB_CHECK_BOX_ARR: CheckBoxType[] = JOB_ARR;
 const SITUATION_CHECK_BOX_ARR: CheckBoxType[] = [
-  { name: CONDITION_NAME.birthday as ConditionName },
-  { name: CONDITION_NAME.moveHousewarming as ConditionName },
-  { name: CONDITION_NAME.admissionAndGraduation as ConditionName },
-  { name: CONDITION_NAME.leave as ConditionName },
-  { name: CONDITION_NAME.employmentAndJobChange as ConditionName },
-  { name: CONDITION_NAME.discharge as ConditionName },
-  { name: CONDITION_NAME.getWellVisit as ConditionName },
-  { name: CONDITION_NAME.anniversary as ConditionName },
-  { name: CONDITION_NAME.parenting as ConditionName },
-  { name: CONDITION_NAME.situationEtc as ConditionName },
+  { name: 'birthday' },
+  { name: 'moveHousewarming' },
+  { name: 'admissionAndGraduation' },
+  { name: 'leave' },
+  { name: 'employmentAndJobChange' },
+  { name: 'discharge' },
+  { name: 'getWellVisit' },
+  { name: 'anniversary' },
+  { name: 'parenting' },
+  { name: 'situationEtc' },
 ];
 /**
  * sendData:서버에 새로운 필터링 조건 보내고 서버에서 받은 새로운 필터링 결과를 검색 결과 페이지에 보여주는 기능
@@ -72,7 +66,7 @@ const BottomNavModal = ({
     selectedFilteringCondition,
   );
   //CheckBox에서 이미 선택된 조건들이 표시 되는데 사용
-  const [targetCondition, setTargetCondition] = useState<ConditionType>(
+  const [targetCondition, setTargetCondition] = useState<string[] | null>(
     filteringCondition[category],
   );
   const categoryArr: CategoryType[] = [
@@ -91,7 +85,7 @@ const BottomNavModal = ({
   const BOTTOM_MODAL_El = document.querySelector('.bottom-nav-modal') as HTMLElement | null;
   const MODAL_BACKGROUND_EL = document.querySelector('.bottom-nav-modal .modal__background');
   const MODAL_EL = BOTTOM_MODAL_El?.querySelector('.modal__box') as HTMLElement | null | undefined;
-  const onChangeCheckBox = (name: ConditionName) => {
+  const onChangeCheckBox = (name: string) => {
     const checked = targetCondition?.includes(name);
     if (checked && targetCondition) {
       const newTargetCondition = targetCondition.filter(i => i !== name);
@@ -110,7 +104,7 @@ const BottomNavModal = ({
       'input[type="checkbox"]:checked',
     );
     const nameArr = [...selectedList].map(el => el.name) as ConditionName[];
-    const newCondition = !nameArr[0] ? null : nameArr;
+    const newCondition = !nameArr[0] ? null : nameArr.map(i => CONDITION_NAME[i]);
     const newFilteringCondition: FilteringConditionType = {
       ...filteringCondition,
     };
@@ -127,6 +121,7 @@ const BottomNavModal = ({
   const onClickCategoryBtn = (item: CategoryType, index: number) => {
     updateFilteringCondition();
     setCategory(item);
+    setTargetCondition(filteringCondition[item]);
     setCheckBoxArr(arrOfCheckBoxArr[index]);
   };
   const onClickSubmitBtn = () => {
@@ -171,11 +166,6 @@ const BottomNavModal = ({
     }
   }, [openBottomNavModal]);
 
-  useEffect(() => {
-    if (filteringCondition) {
-      setTargetCondition(filteringCondition[category]);
-    }
-  }, [category, filteringCondition]);
   return (
     <BottomNavModalPortal>
       <section>
@@ -212,9 +202,13 @@ const BottomNavModal = ({
                 key={`checkbox_${i}`}
                 id={v.name}
                 name={v.name}
-                label={v.name}
-                isChecked={targetCondition ? () => targetCondition.includes(v.name) : () => false}
-                onChange={() => onChangeCheckBox(v.name)}
+                label={CONDITION_NAME[v.name]}
+                isChecked={
+                  targetCondition
+                    ? () => targetCondition.includes(CONDITION_NAME[v.name])
+                    : () => false
+                }
+                onChange={() => onChangeCheckBox(CONDITION_NAME[v.name])}
               />
             ))}
           </div>

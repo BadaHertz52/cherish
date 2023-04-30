@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import { useNavigate } from 'react-router-dom';
-
 import { onLogIn } from '@/api/auth/logIn';
 import { onSignUp } from '@/api/auth/signUp';
 import { SignUpAPIParams } from '@/api/auth/types';
@@ -16,6 +14,7 @@ import {
   SIGN_UP_SESSION_DATA_KEY,
   SignUpSessionDataKeyType,
   JobStateType,
+  JOB_TYPE,
 } from '../signUpTypes';
 
 import { getPrevData } from './SignUpTopBar';
@@ -46,30 +45,31 @@ const JobInfo = () => {
         infoCheck: state.agreeToTerms.marketing,
         gender: state.gender ? (state.gender === 'female' ? 'FEMALE' : 'MALE') : 'NONE',
         birth: new Date(`${year}-${month}-${date}`),
-        job: state.job,
+        job: JOB_TYPE[state.job],
       };
       return params;
     }
   };
   const onClickNextBtn = async () => {
-    const newState: SignUpStateType = {
-      ...signUpState,
-      job: job.value as JobType,
-    };
-    setSignUpState(newState);
-    //간편가입 api
-    const params = changeSignUpStateToParams(newState);
-    if (params) {
-      const result = await onSignUp(params);
-      if (result.success && newState.email && newState.pw) {
-        //간편 가입 성공 시 자동 로그인
-        const logInResult = await onLogIn({ email: newState.email, password: newState.pw });
-        if (logInResult.success && newState.nickname) {
-          sessionStorage.setItem('newMember', newState.nickname);
+    if (job.value) {
+      const newState: SignUpStateType = {
+        ...signUpState,
+        job: job.value,
+      };
+      setSignUpState(newState);
+      //간편가입 api
+      const params = changeSignUpStateToParams(newState);
+      if (params) {
+        const result = await onSignUp(params);
+        if (result.success && newState.email && newState.pw) {
+          //간편 가입 성공 시 자동 로그인
+          const logInResult = await onLogIn({ email: newState.email, password: newState.pw });
+          if (logInResult.success && newState.nickname) {
+            sessionStorage.setItem('newMember', newState.nickname);
+          }
         }
       }
     }
-    // 간편 가입 성공 시 1.1 로 이동
   };
   useEffect(() => {
     getPrevData(
@@ -91,7 +91,7 @@ const JobInfo = () => {
               id={`job-info-${i.name}`}
               name="job"
               value={i.name}
-              label={i.name}
+              label={JOB_TYPE[i.name]}
               onChange={() => handleChange(i.name)}
             />
           ))}

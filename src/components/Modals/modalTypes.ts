@@ -49,12 +49,11 @@ export const CONDITION_NAME = {
   situationEtc: '무관',
 };
 export type ConditionName = keyof typeof CONDITION_NAME;
-export type ConditionType = ConditionName[] | null;
 export type FilteringConditionType = {
-  productType: ConditionType;
-  gender: ConditionType;
-  job: ConditionType;
-  situation: ConditionType;
+  productType: string[] | null;
+  gender: string[] | null;
+  job: string[] | null;
+  situation: string[] | null;
 };
 const onlineStoreShop = {
   brand: '브랜드',

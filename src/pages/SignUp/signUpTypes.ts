@@ -76,15 +76,15 @@ type JobRadioBtnType = {
   name: JobType;
 };
 export const JOB_ARR: JobRadioBtnType[] = [
-  { name: JOB_TYPE.profession as JobType },
-  { name: JOB_TYPE.managementAndDesk as JobType },
-  { name: JOB_TYPE.service as JobType },
-  { name: JOB_TYPE.blueCollar as JobType },
-  { name: JOB_TYPE.selfEmployment as JobType },
-  { name: JOB_TYPE.student as JobType },
-  { name: JOB_TYPE.homemaker as JobType },
-  { name: JOB_TYPE.inoccupation as JobType },
-  { name: JOB_TYPE.jobEtc as JobType },
+  { name: 'profession' },
+  { name: 'managementAndDesk' },
+  { name: 'service' },
+  { name: 'blueCollar' },
+  { name: 'selfEmployment' },
+  { name: 'student' },
+  { name: 'homemaker' },
+  { name: 'inoccupation' },
+  { name: 'jobEtc' },
 ];
 export type BirthDateType = {
   year: string;
