@@ -20,9 +20,7 @@ describe('Alert modal', () => {
     expect(wrapper.exists()).toBeTruthy();
   });
   it('short props의 값에 따라 className 변경', () => {
-    expect(wrapper.find(AlertModal).dive().find('.alert-modal__contents').hasClass('short')).toBe(
-      true,
-    );
+    expect(wrapper.find('.alert-modal__contents').hasClass('short')).toBe(true);
     wrapper.setProps({ short: false });
     wrapper.update();
     expect(wrapper.find('.alert-modal__contents').hasClass('short')).toBe(false);
