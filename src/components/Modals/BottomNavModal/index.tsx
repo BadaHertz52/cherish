@@ -125,7 +125,6 @@ const BottomNavModal = ({
    * @param index  : categoryArr.indexOf(item)
    */
   const onClickCategoryBtn = (item: CategoryType, index: number) => {
-    // set filteringCondition
     updateFilteringCondition();
     setCategory(item);
     setCheckBoxArr(arrOfCheckBoxArr[index]);
@@ -174,7 +173,6 @@ const BottomNavModal = ({
 
   useEffect(() => {
     if (filteringCondition) {
-      //set targetCondition
       setTargetCondition(filteringCondition[category]);
     }
   }, [category, filteringCondition]);
