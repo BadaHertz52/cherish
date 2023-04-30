@@ -36,7 +36,7 @@ const FindPw = () => {
     const position = getToastModalPosition();
     if (position && btnChangePwRef.current) {
       const { top, left } = position;
-      const newTop = `${top - btnChangePwRef.current.offsetHeight}px`;
+      const newTop = `${top - btnChangePwRef.current.offsetHeight - 12 - 24}px`;
       setToastModalState(prev => ({
         ...prev,
         top: newTop,
@@ -48,7 +48,6 @@ const FindPw = () => {
   const handleClickBtn = async () => {
     const result = await onFindPw({ email: email.value, password: pw.value });
     if (result.success) {
-      //open toast modal
       handleToastModal();
       setTimeout(() => {
         window.location.pathname = '/login';

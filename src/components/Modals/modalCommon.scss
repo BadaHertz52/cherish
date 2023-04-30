@@ -38,7 +38,7 @@ $app-max-width: 767px;
     margin: 0 auto;
   }
   .toast-modal {
-    height: 39px;
+    height: fit-content;
   }
 }
 .modal__background {
