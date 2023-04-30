@@ -39,6 +39,6 @@ export type SignUpAPIParams = {
   password: string;
   infoCheck: boolean;
   gender: 'NONE' | 'MALE' | 'FEMALE';
-  birth: Date | string; // [to do]
+  birth: Date | string;
   job: string;
 };
