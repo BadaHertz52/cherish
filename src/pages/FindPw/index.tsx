@@ -36,7 +36,10 @@ const FindPw = () => {
     const position = getToastModalPosition();
     if (position && btnChangePwRef.current) {
       const { top, left } = position;
-      const newTop = `${top - btnChangePwRef.current.offsetHeight - 12 - 24}px`;
+      // toast modal의 내용이 2줄이 되면서 기존의  1줄 toastModal과의 높이 차이
+      const overHeight = 12;
+      const interval = 24;
+      const newTop = `${top - btnChangePwRef.current.offsetHeight - overHeight - interval}px`;
       setToastModalState(prev => ({
         ...prev,
         top: newTop,

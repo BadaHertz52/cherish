@@ -25,8 +25,8 @@
 .inner {
   position: relative;
   width: 100%;
-  //100vh - bottomNav.height = topBar.height
-  height: calc(100vh - 80px - 89.55px);
+  //100vh -  topBar.height
+  height: calc(100vh - 74.8px);
   padding: 22px;
   box-sizing: border-box;
   h3 {
@@ -39,7 +39,8 @@
 }
 .btnContainer {
   position: absolute;
-  bottom: 26px;
+  // bottomNav.height + bottomNav와의 간격
+  bottom: calc(80px + 26px);
   left: 0;
   width: 100%;
   display: flex;
