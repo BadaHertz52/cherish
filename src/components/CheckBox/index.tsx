@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.scss';
-type CheckBoxProps = {
+export type CheckBoxProps = {
   id: string;
   name: string;
   label: string;
