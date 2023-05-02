@@ -1,19 +1,24 @@
+import React from 'react';
+
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { vi } from 'vitest';
 
 import { Timer } from '@/components';
-import { ERROR_MSG } from '@/pages/SignUp/signUpTypes';
+import { ERROR_MSG, InputDataType } from '@/pages/SignUp/signUpTypes';
 
 import AuthNumberForm from '.';
 
 configure({ adapter: new Adapter() });
 
 describe('AuthNumberForm', () => {
+  const setStateMock = vi.fn();
+  const useStateMock: any = (useState: InputDataType) => [useState, setStateMock];
+  vi.spyOn(React, 'useState').mockImplementation(useStateMock);
   const props = {
     email: { value: 'test@email.coim' },
     authNumber: { value: '' },
-    setAuthNumber: vi.fn(),
+    setAuthNumber: setStateMock,
     openTimer: true,
     setOpenTimer: vi.fn(),
     overTime: false,
@@ -23,8 +28,23 @@ describe('AuthNumberForm', () => {
     verifiedEmail: { current: undefined },
   };
   const wrapper = shallow(<AuthNumberForm {...props} />);
+  const inputEl = wrapper.find('input');
   it('should render AuthNumberForm', () => {
     expect(wrapper.exists()).toBe(true);
+  });
+  it('input 에 입력시 XSS 막기, authNumber 값 변경', () => {
+    const targetValue = '<>1234';
+    inputEl.simulate('change', { target: { value: targetValue } });
+    expect(props.setAuthNumber).toBeCalledWith(expect.objectContaining({ value: '1234' }));
+  });
+  it(`미입력 상태로 input창을 벗어날 경우, authNumber 값 변경과 ${ERROR_MSG.required} 보여줌`, () => {
+    inputEl.simulate('blur');
+    expect(props.setAuthNumber).toBeCalledWith(expect.objectContaining({ errorType: 'required' }));
+    wrapper.setProps({ overTime: false });
+    wrapper.setProps({ authNumber: { value: '', errorType: 'required' } });
+    wrapper.update();
+    const errorMsg = wrapper.find('.error-msg p').at(0).text();
+    expect(errorMsg).toBe(ERROR_MSG.required);
   });
   it('openTimer의 값에 따라 Timer 보임', () => {
     expect(wrapper.find(Timer).exists()).toBe(true);
@@ -69,4 +89,5 @@ describe('AuthNumberForm', () => {
     const errorMsg = wrapper.find('.alert');
     expect(errorMsg.exists()).toBe(true);
   });
+  // [to do  인증 번호 api 연동]
 });

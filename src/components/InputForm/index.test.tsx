@@ -40,9 +40,10 @@ describe('InputForm', () => {
     expect(emailFormEl.text()).toEqual("'@'을 포함하여 작성해주세요.");
   });
   it(`미입력 상태로 input창을 벗어날 경우 ${ERROR_MSG.required} 보여줌`, () => {
+    inputEl.simulate('blur');
+    expect(props.setData).toBeCalledWith(expect.objectContaining({ errorType: 'required' }));
     wrapper.setProps({ data: { value: '', errorType: 'required' } });
     wrapper.update();
-    inputEl.simulate('blur');
     const errorMsg = wrapper.find('.error-msg').text();
     expect(errorMsg).toBe(ERROR_MSG.required);
   });
