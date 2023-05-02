@@ -1,20 +1,30 @@
+import React from 'react';
+
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { vi } from 'vitest';
 
 import { checkRegex } from '@/functions/regex';
 import { XSSCheck } from '@/functions/xssCheck';
-import { ERROR_MSG, InputFormIdType, TestResultType } from '@/pages/SignUp/signUpTypes';
+import {
+  ERROR_MSG,
+  InputDataType,
+  InputFormIdType,
+  TestResultType,
+} from '@/pages/SignUp/signUpTypes';
 
 import InputForm, { INPUT_FORM_LABEL, INPUT_FORM_PLACE_HOLDER, InputFormProps } from '.';
 
 configure({ adapter: new Adapter() });
 
 describe('InputForm', () => {
+  const setStateMock = vi.fn();
+  const useStateMock: any = (useState: InputDataType) => [useState, setStateMock];
+  vi.spyOn(React, 'useState').mockImplementation(useStateMock);
   const props: InputFormProps = {
     id: 'email',
     data: { value: '' },
-    setData: vi.fn(),
+    setData: setStateMock,
     additionOfLabel: undefined,
     disabled: false,
   };
@@ -39,7 +49,9 @@ describe('InputForm', () => {
   it('InputForm을 통해 data 변경할 수 있고 XSS 공격 방어', () => {
     const value = '<>test';
     inputEl.simulate('change', { target: { value: value } });
-    wrapper.setProps({ data: { value: XSSCheck(value, undefined) } });
+    const newValue = XSSCheck(value, undefined);
+    wrapper.setProps({ data: { value: newValue } });
+    expect(props.setData).toBeCalledWith(expect.objectContaining({ value: newValue }));
     wrapper.update();
     expect(wrapper.find('input').prop('value')).toEqual('test');
   });
