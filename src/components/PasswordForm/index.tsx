@@ -4,7 +4,7 @@ import { INPUT_FORM_ID, InputDataType, InputFormIdType } from '@/pages/SignUp/si
 
 import InputForm from '../InputForm/index';
 import './style.scss';
-type PasswordFormProps = {
+export type PasswordFormProps = {
   additionOfLabel?: string; //InputForm의 additionOfLabel
   confirmPw: InputDataType;
   setConfirmPw: Dispatch<SetStateAction<InputDataType>>;
@@ -23,11 +23,12 @@ const PasswordForm = ({
   //pw, confirmPw 의 변화에 따라 disableBtn 상태 변경
   useEffect(() => {
     if (confirmPw.value && pw.value) {
-      if (pw.value !== confirmPw.value && !confirmPw.errorType) {
+      if (pw.value !== confirmPw.value) {
         setConfirmPw((prev: InputDataType) => ({
           ...prev,
           errorType: 'invalidConfirmPw',
         }));
+        setDisableBtn(true);
       }
       if (pw.value === confirmPw.value && !pw.errorType) {
         setConfirmPw(prev => ({
