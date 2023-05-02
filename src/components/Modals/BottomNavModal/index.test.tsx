@@ -1,3 +1,4 @@
+import { render } from '@testing-library/react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { vi } from 'vitest';
@@ -27,8 +28,11 @@ describe('BottomNavModal', () => {
   it('should render BottomNavModal', () => {
     expect(wrapper.exists()).toBe(true);
   });
+  it('selectedFiltering 에서 선택된 필터링 조건 checked 표시', () => {
+    const checkBoxInputEl = wrapper.find(CheckBox).at(0).dive().find('input');
+    expect(checkBoxInputEl.prop('checked')).toBeTruthy();
+  });
   // 열었을때, 위에서 아래로 떠오르게
-  //카테고리 별로 checkbox 잘 나타내는지
   it('카테고리 별로 다른 checkbox 보여줌', () => {
     const categoryBtnTextArr = ['상품유형', '성별', '직업', '상황'];
     const firstItemArr: ConditionName[] = ['food', 'male', 'profession', 'birthday'];
@@ -48,8 +52,18 @@ describe('BottomNavModal', () => {
     wrapper.find('.category-btn').at(3).simulate('click');
     expect(wrapper.find('.check-box-group-container').hasClass('scroll')).toBeTruthy();
   });
+  it('카테고리 이동 시 , 조건 선택 여부에 따라 input의 checked 변경', () => {
+    wrapper.find('.category-btn').at(3).simulate('click');
+    const targetInput = wrapper.find(CheckBox).at(0).dive().find('input');
+    expect(wrapper.find(CheckBox).at(0).prop('checked')).toBeFalsy();
+    targetInput.simulate('change', { target: { checked: true } });
+    expect(wrapper.find(CheckBox).at(0).dive().find('input').prop('checked')).toBeTruthy();
+  });
+  it('초기화', () => {
+    const resetBtn = wrapper.find('.btn-reset');
+    resetBtn.simulate('click');
+    expect(wrapper.find(CheckBox).at(0).dive().find('input').prop('checked')).toBeFalsy();
+  });
   //[todo ]
-  // selectedFiltering 에서 선택된 필터링 조건 checked 표시
-  // 카테고리 이동 시 , 선택된 필터링 조건 checked 표시
-  // 초기화
+  // 마운트 시 class name 변경 ,위치 변경
 });

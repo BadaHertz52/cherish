@@ -184,7 +184,7 @@ const BottomNavModal = ({
             <button
               type="button"
               className="btn-reset"
-              title={'reset checkbox'}
+              title="reset-checkbox"
               onClick={onClickResetBtn}
               onTouchStart={event => onTouchResetBtn(event)}
               onTouchEnd={event => onTouchResetBtn(event)}
