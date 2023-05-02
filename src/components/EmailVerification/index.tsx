@@ -115,7 +115,6 @@ const EmailVerification = ({
       console.error(error);
     }
   };
-  //이메일 인증 5분간 중단/ 하루 인증 횟수 초과 시 , 이메일 작성 폼으로 돌아감
   const onClickCloseBtnInAlertModal = () => {
     setOpenAlertModal(false);
     setAlertModalChild('');

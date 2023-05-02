@@ -132,5 +132,5 @@ describe('EmailVerification', () => {
     const btnEmail = wrapper.find('.btn-email');
     expect(btnEmail.props().disabled).toBe(false);
   });
-  // 이메일 인증 버튼 클릭 시 result 값에 따란 테스트
+  // 이메일 인증 버튼 클릭 시 result 값에 따른 테스트 [to do ]
 });
