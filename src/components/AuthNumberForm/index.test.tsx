@@ -2,7 +2,7 @@ import React from 'react';
 
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import { Timer } from '@/components';
 import { ERROR_MSG, InputDataType } from '@/pages/SignUp/signUpTypes';

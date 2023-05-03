@@ -3,11 +3,9 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { vi } from 'vitest';
+import { vi, expect, it, describe } from 'vitest';
 
-import { ERROR_MSG, InputDataType } from '@/pages/SignUp/signUpTypes';
-
-import InputForm from '../InputForm';
+import { InputDataType } from '@/pages/SignUp/signUpTypes';
 
 import PasswordForm, { PasswordFormProps } from '.';
 

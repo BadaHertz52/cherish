@@ -1,7 +1,6 @@
-import { render } from '@testing-library/react';
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { vi } from 'vitest';
+import { vi, expect, it, describe } from 'vitest';
 
 import CheckBox from '@/components/CheckBox';
 

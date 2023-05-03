@@ -2,7 +2,7 @@ import React from 'react';
 
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { vi } from 'vitest';
+import { vi, describe, it, expect } from 'vitest';
 
 import { checkRegex } from '@/functions/regex';
 import { XSSCheck } from '@/functions/xssCheck';

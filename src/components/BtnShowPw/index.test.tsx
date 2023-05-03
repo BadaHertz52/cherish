@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { act, fireEvent, render } from '@testing-library/react';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import BtnShowPw from '.';
 

@@ -1,6 +1,6 @@
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { vi } from 'vitest';
+import { describe, vi, it, expect } from 'vitest';
 
 import CheckBox, { CheckBoxProps } from '.';
 

@@ -1,8 +1,6 @@
 import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { vi } from 'vitest';
-
-import ModalPortal from '../ModalPortal';
+import { vi, expect, it, describe } from 'vitest';
 
 import AlertModal, { AlertModalProps } from '.';
 
