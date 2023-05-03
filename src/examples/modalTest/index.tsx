@@ -148,7 +148,11 @@ const ModalTest = () => {
           </AlertModal>
         ))}
       {openTarget == MODAL_TYPE.confirm && (
-        <ConfirmModal title="title" closeModal={() => setOpenTarget(null)}>
+        <ConfirmModal
+          title="title"
+          yesBtn={{ path: '/', otherFn: () => console.log('click yes btn') }}
+          closeModal={() => setOpenTarget(null)}
+        >
           "confirm modal"
         </ConfirmModal>
       )}
