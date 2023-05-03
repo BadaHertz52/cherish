@@ -24,6 +24,11 @@ describe('CheckBox', () => {
     expect(inputEl.prop('name')).toEqual(props.name);
     expect(wrapper.find('.check-box__label span').text()).toEqual(props.name);
   });
+  it('label 설정 확인', () => {
+    const labelArr = wrapper.find('label');
+    expect(labelArr.at(0).prop('htmlFor')).toBe(props.id);
+    expect(labelArr.at(1).prop('htmlFor')).toBe(props.id);
+  });
   it('isChecked  값에 따라 checked 값과 check-box__label 클래스 변경', () => {
     expect(wrapper.find('input').prop('checked')).toEqual(props.isChecked());
     expect(wrapper.find('.check-box__label').hasClass('on')).toBeTruthy();
