@@ -1,9 +1,11 @@
 import { ChangeEvent } from 'react';
 
+import { render } from '@testing-library/react';
 import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
+import { LOG_IN_API_ITEM_KEY } from '@/api/auth/logIn';
 import { BtnShowPw } from '@/components';
 
 import LogIn from '.';
@@ -12,7 +14,28 @@ configure({ adapter: new Adapter() });
 
 describe('LogIn', () => {
   const wrapper = shallow(<LogIn />);
+  const sessionStorageMock = (() => {
+    let store: Record<string, string> = {};
 
+    return {
+      getItem(key: string) {
+        return store[key] || null;
+      },
+      setItem(key: string, value: string) {
+        store[key] = value.toString();
+      },
+      removeItem(key: string) {
+        delete store[key];
+      },
+      clear() {
+        store = {};
+      },
+    };
+  })();
+
+  Object.defineProperty(window, 'sessionStorage', {
+    value: sessionStorageMock,
+  });
   it('should render LogIn component', () => {
     expect(wrapper.exists()).toBe(true);
   });
@@ -86,5 +109,11 @@ describe('LogIn', () => {
   it('should display "결제정보 입력 없이 1분만에 회원가입하세요!" text ', () => {
     const banner = wrapper.find('.banner div').text();
     expect(banner).toEqual('결제정보 입력 없이 1분만에 회원가입하세요!');
+  });
+  it('로그인 만료로 로그인 페이지로 이동 하면, 재로그인에 대한 메세지 보여줌', () => {
+    window.sessionStorage.setItem(LOG_IN_API_ITEM_KEY.reLogIn, 'true');
+    const newWrapper = shallow(<LogIn />);
+    const banner = newWrapper.find('.banner div').text();
+    expect(banner).toEqual('다시 로그인 해주세요.');
   });
 });

@@ -31,7 +31,6 @@ describe('BottomNavModal', () => {
     const checkBoxInputEl = wrapper.find(CheckBox).at(0).dive().find('input');
     expect(checkBoxInputEl.prop('checked')).toBeTruthy();
   });
-  // 열었을때, 위에서 아래로 떠오르게
   it('카테고리 별로 다른 checkbox 보여줌', () => {
     const categoryBtnTextArr = ['상품유형', '성별', '직업', '상황'];
     const firstItemArr: ConditionName[] = ['food', 'male', 'profession', 'birthday'];
@@ -40,7 +39,11 @@ describe('BottomNavModal', () => {
       targetCategory.simulate('click');
       const onCategory = wrapper.find('.category-btn.on');
       if (onCategory.text() === categoryBtnArr[i]) {
-        expect(wrapper.find(CheckBox).at(0).dive().find('input').prop('name')).toBe(firstItem);
+        const inputEl = wrapper.find(CheckBox).at(0).dive().find('input');
+        expect(inputEl.prop('name')).toBe(firstItem);
+        expect(wrapper.find(CheckBox).at(0).dive().find('span').text()).toBe(
+          CONDITION_NAME[firstItem],
+        );
       }
     };
     categoryBtnTextArr.forEach((_, i, self) => checkFirstItem(self, i, firstItemArr[i]));
