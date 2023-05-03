@@ -92,6 +92,7 @@ const JobInfo = () => {
               name="job"
               value={i.name}
               label={JOB_TYPE[i.name]}
+              isChecked={job.value === i.name}
               onChange={() => handleChange(i.name)}
             />
           ))}
