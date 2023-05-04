@@ -18,15 +18,31 @@
     z-index: 1;
     font-family: 'Font Awesome 5 free';
     display: inline-block;
-    content: '\f058';
+
     color: $color-light-black;
     font-size: 16px;
   }
   input:checked + label.check:before {
-    content: '\f058';
     font-size: 16px;
     color: $color-primary;
   }
+  &.round {
+    label.check:before {
+      content: url('@/assets/svgs/disabled-check.svg');
+    }
+    input:checked + label.check:before {
+      content: url('@/assets/svgs/enabled-check.svg');
+    }
+  }
+  &.square {
+    label.check:before {
+      content: url('@/assets/svgs/square-checkbox-not-checked.svg');
+    }
+    input:checked + label.check:before {
+      content: url('@/assets/svgs/square-checkbox-checked.svg');
+    }
+  }
+
   &__label {
     margin-left: 16px;
     @include bd2-font;
@@ -36,14 +52,5 @@
     &.on {
       font-weight: bold;
     }
-  }
-}
-
-#log-in .check-box {
-  label.check:before {
-    content: '\f0c8';
-  }
-  input:checked + label.check:before {
-    content: '\f14a';
   }
 }

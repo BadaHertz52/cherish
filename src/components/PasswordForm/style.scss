@@ -19,7 +19,9 @@
       right: 10px;
       color: $color-light-black;
       &.on {
-        color: $color-primary;
+        path {
+          stroke: $color-primary;
+        }
       }
     }
   }

@@ -28,7 +28,8 @@ export type ToastModalType = {
 };
 export const CONDITION_NAME = {
   ...JOB_TYPE,
-  ...GENDER_TYPE,
+  male: '남성',
+  female: '여성',
   //상품 종류
   food: '식품',
   beauty: '뷰티',

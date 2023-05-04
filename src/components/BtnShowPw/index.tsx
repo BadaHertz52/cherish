@@ -1,8 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
 
-import { faEye } from '@fortawesome/free-regular-svg-icons';
-import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import EyeSvg from '@/assets/svgs/eye.svg';
+import EyeSlashSvg from '@/assets/svgs/eyeslash.svg';
 
 import './style.scss';
 type BtnShowPwProps = {
@@ -17,7 +16,7 @@ const BtnShowPw = ({ hiddenPw, setHiddenPw }: BtnShowPwProps) => {
       title="button that show pw as text"
       onClick={() => setHiddenPw(prev => !prev)}
     >
-      <FontAwesomeIcon icon={!hiddenPw ? faEye : faEyeSlash} />
+      {hiddenPw ? <EyeSlashSvg /> : <EyeSvg />}
     </button>
   );
 };

@@ -71,6 +71,9 @@
         &:hover,
         &.on {
           color: $color-primary;
+          path {
+            stroke: $color-primary;
+          }
         }
       }
     }

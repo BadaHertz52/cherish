@@ -1,15 +1,15 @@
 import { TouchEvent, ChangeEvent, useState, useEffect, MouseEvent } from 'react';
 
-import { faCircleXmark } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 
 import './style.scss';
 import { LOG_IN_API_ITEM_KEY, onLogIn } from '@/api/auth/logIn';
 import { LogInAPIParams } from '@/api/auth/types';
+import DeleteBtn from '@/assets/svgs/delete-btn.svg';
 import { AlertModal, BtnShowPw, CheckBox } from '@/components';
 import { REGEX } from '@/functions/regex';
 import { XSSCheck } from '@/functions/xssCheck';
+
 const LogIn = () => {
   const [email, setEmail] = useState<string>('');
   const [pw, setPw] = useState<string>('');
@@ -98,7 +98,7 @@ const LogIn = () => {
               onChange={event => handleChangeOfValue(event, INPUT_TARGET.email)}
             />
             <button type="button" title="btn-remove-email" onClick={handleClickRemoveBtn}>
-              <FontAwesomeIcon icon={faCircleXmark} />
+              <DeleteBtn />
             </button>
           </div>
           <div className="log-in__data__pw">
@@ -120,6 +120,7 @@ const LogIn = () => {
           <div className="log-in__util">
             <div className="log-in__util__keep">
               <CheckBox
+                shape="square"
                 id="checkboxKeep"
                 name="autoLogIn"
                 isChecked={() => keepLogIn}

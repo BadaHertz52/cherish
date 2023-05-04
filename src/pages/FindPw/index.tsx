@@ -1,10 +1,9 @@
 import React, { useRef, useState } from 'react';
 
 import './style.scss';
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { onFindPw } from '@/api/auth/findPwAPI';
+import BackBtn from '@/assets/svgs/back-button.svg';
 import { PasswordForm, EmailVerification, ToastModal } from '@/components';
 import { getToastModalPosition } from '@/components/Modals/functions';
 import { ToastModalType } from '@/components/Modals/modalTypes';
@@ -66,7 +65,7 @@ const FindPw = () => {
     <div id="find-pw">
       <div className={styles.topBar}>
         <button className="btn-prev" onClick={onClickPrevBtn} title="btn-prev" type="button">
-          <FontAwesomeIcon icon={faChevronLeft} />
+          <BackBtn />
         </button>
         <h2>비밀번호 찾기</h2>
       </div>

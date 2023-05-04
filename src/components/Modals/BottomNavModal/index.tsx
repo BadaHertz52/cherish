@@ -1,8 +1,6 @@
 import { useEffect, useState, TouchEvent } from 'react';
 
-import { faRotateRight } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import ResetBtn from '@/assets/svgs/reset.svg';
 import Checkbox from '@/components/CheckBox';
 import {
   FilteringConditionType,
@@ -189,7 +187,7 @@ const BottomNavModal = ({
               onTouchStart={event => onTouchResetBtn(event)}
               onTouchEnd={event => onTouchResetBtn(event)}
             >
-              <FontAwesomeIcon icon={faRotateRight} />
+              <ResetBtn />
               <span>초기화</span>
             </button>
           </div>

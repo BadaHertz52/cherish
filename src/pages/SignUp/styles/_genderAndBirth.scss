@@ -32,27 +32,23 @@
     display: flex;
     justify-content: space-between;
     background-color: $color-white;
+    border: 0.6px solid $color-light-black;
     color: $color-black;
-    border: 0.6px solid $color-dark-black;
+    .open {
+      border-color: $color-dark-black;
+    }
   }
   .birth__data {
     @include bd1-font;
     &:empty {
       &::after {
         content: '생년월일';
-        color: $color-dark-black;
+        color: $color-light-black;
       }
     }
   }
-  .fa-sort-down,
-  .fa-sort-up {
+  .btn-dropdown {
     @include bd1-font;
     display: inline-block;
-  }
-  .fa-sort-down {
-    color: $color-dark-black;
-  }
-  .fa-sort-up {
-    color: $color-black;
   }
 }

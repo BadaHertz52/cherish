@@ -1,6 +1,7 @@
 import React from 'react';
 import './style.scss';
 export type CheckBoxProps = {
+  shape?: 'round' | 'square';
   id: string;
   name: string;
   label: string;
@@ -8,12 +9,12 @@ export type CheckBoxProps = {
   isChecked: () => boolean;
   onChange?: () => void;
 };
-const CheckBox = ({ id, name, label, isChecked, onChange }: CheckBoxProps) => {
+const CheckBox = ({ shape = 'round', id, name, label, isChecked, onChange }: CheckBoxProps) => {
   const handleChange = () => {
     onChange && onChange();
   };
   return (
-    <div className="check-box">
+    <div className={`check-box ${shape}`}>
       <div className="check-box__inner">
         <input type="checkbox" checked={isChecked()} id={id} name={name} onChange={handleChange} />
         <label htmlFor={id} className="check"></label>

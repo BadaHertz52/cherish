@@ -1,8 +1,6 @@
 import { Dispatch, SetStateAction, useContext } from 'react';
 
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import BackBtn from '@/assets/svgs/back-button.svg';
 import { SignUpContext } from '@/pages/SignUp';
 
 import {
@@ -155,7 +153,7 @@ const SignUpTopBar = ({ openAuthNumberForm, setOpenAuthNumberForm }: SignUpTopBa
   return (
     <div id="sign-up__top-bar">
       <button className="btn-prev" onClick={onClickPrevBtn} title="btn-prev" type="button">
-        <FontAwesomeIcon icon={faChevronLeft} />
+        <BackBtn />
       </button>
       <div className="title">간편 가입</div>
     </div>

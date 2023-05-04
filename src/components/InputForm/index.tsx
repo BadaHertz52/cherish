@@ -3,6 +3,7 @@ import React, { ChangeEvent, Dispatch, SetStateAction, useState } from 'react';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import CheckIcon from '@/assets/svgs/password-check.svg';
 import BtnShowPw from '@/components/BtnShowPw';
 import { checkRegex } from '@/functions/regex';
 import { XSSCheck } from '@/functions/xssCheck';
@@ -98,7 +99,7 @@ const InputForm = ({ id, data, setData, additionOfLabel, disabled }: InputFormPr
         <>
           <BtnShowPw hiddenPw={hiddenPw} setHiddenPw={setHiddenPw} />
           <div className={`pw__check-icon ${data.value && !data.errorType ? 'on' : ''}`}>
-            <FontAwesomeIcon icon={faCheck} />
+            <CheckIcon />
           </div>
         </>
       )}

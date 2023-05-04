@@ -1,8 +1,7 @@
 import { MouseEvent, useContext, useEffect, useState } from 'react';
 
-import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import DownArrow from '@/assets/svgs/down-arrow.svg';
+import UpArrow from '@/assets/svgs/up-arrow.svg';
 import { SignUpContext } from '@/pages/SignUp';
 
 import {
@@ -119,14 +118,16 @@ const GenderAndBirth = () => {
         <section className="birth">
           <h4>생년월일</h4>
           <button
-            className={`btn-open-date-picker ${!birth.value ? 'none-data' : ''}`}
+            className={`btn-open-date-picker ${!birth.value ? 'none-data' : ''} ${
+              openDatePicker ? 'open' : ''
+            }`}
             type="button"
             onClick={onClickBirthBtn}
           >
             <div className="birth__data">
               {!birth.value ? '' : `${birth.value.year}. ${birth.value.month}. ${birth.value.date}`}
             </div>
-            <FontAwesomeIcon icon={openDatePicker ? faSortUp : faSortDown} />
+            <div className="btn-dropdown">{openDatePicker ? <UpArrow /> : <DownArrow />}</div>
           </button>
           {openDatePicker && <DatePicker birth={birth} setBirth={setBirth} />}
           <div className="msg">{birth.errorType && ERROR_MSG[birth.errorType]}</div>
