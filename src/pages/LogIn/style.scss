@@ -54,13 +54,18 @@
     }
     button {
       position: absolute;
-      top: calc((100% - (6vh * 0.3)) / 2);
       right: 15px;
     }
   }
   .log-in__data__email {
     button {
+      top: calc((100% - 18px) / 2);
       color: $color-light-black;
+    }
+  }
+  .log-in__data__pw {
+    button {
+      top: calc((100% - 14px) / 2);
     }
   }
   //log-in__not-data
