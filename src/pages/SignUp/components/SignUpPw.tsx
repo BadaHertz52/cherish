@@ -64,7 +64,7 @@ const SignUpPw = () => {
       const { top, left } = position;
       setToastModalState(prev => ({
         ...prev,
-        top: `${top - nextBtnEl.offsetHeight - 16}px`,
+        top: `${top - nextBtnEl.offsetHeight - 32}px`,
         left: left,
       }));
     }
