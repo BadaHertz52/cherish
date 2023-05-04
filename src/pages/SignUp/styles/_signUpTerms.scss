@@ -32,7 +32,6 @@
   .terms-group {
     margin-top: 16px;
     .check-box {
-      margin-bottom: 10px;
       .check-box__label {
         display: none;
       }
@@ -53,10 +52,7 @@
   .term {
     display: flex;
     margin-bottom: 2vh;
-    height: 5vh;
-    .check {
-      margin-top: 8px;
-    }
+    height: 37px;
   }
   .term__contents {
     display: flex;
@@ -64,6 +60,9 @@
     margin-left: 10px;
     .check-box__label {
       cursor: default;
+    }
+    button {
+      height: initial;
     }
   }
 }

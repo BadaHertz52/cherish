@@ -6,15 +6,6 @@
 @import './styles/terms';
 @import './styles/progressBar';
 #sign-up {
-  .check-box {
-    height: 3.8vw;
-    max-height: 30px;
-    .check {
-      width: 3.8vw;
-      max-width: 148px;
-      height: 100%;
-    }
-  }
   .label {
     @include bd1-font;
   }
