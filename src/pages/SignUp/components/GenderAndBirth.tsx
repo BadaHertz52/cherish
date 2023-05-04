@@ -1,7 +1,7 @@
 import { MouseEvent, useContext, useEffect, useState } from 'react';
 
+import UpArrow from '@/assets/svgs/date-picker-up-arrow.svg';
 import DownArrow from '@/assets/svgs/down-arrow.svg';
-import UpArrow from '@/assets/svgs/up-arrow.svg';
 import { SignUpContext } from '@/pages/SignUp';
 
 import {
