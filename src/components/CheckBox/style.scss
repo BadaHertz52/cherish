@@ -3,8 +3,6 @@
 .check-box {
   position: relative;
   &__inner {
-    // 상황에 맞게 조정가능
-    height: 14px;
     display: flex;
     align-items: center;
   }
@@ -28,10 +26,10 @@
   }
   &.round {
     label.check:before {
-      content: url('@/assets/svgs/disabled-check.svg');
+      content: url('@/assets/svgs/checkbox-not-selected.svg');
     }
     input:checked + label.check:before {
-      content: url('@/assets/svgs/enabled-check.svg');
+      content: url('@/assets/svgs/checkbox-selected.svg');
     }
   }
   &.square {
