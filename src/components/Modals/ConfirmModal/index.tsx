@@ -18,7 +18,7 @@ const ConfirmModal = ({ title, children, yesBtn, noBtn, closeModal }: ConfirmMod
       yesBtn?.otherFn();
     }
     if (yesBtn?.path) {
-      window.location.href = yesBtn.path;
+      window.location.pathname = yesBtn.path;
     }
     closeModal();
   };
@@ -27,7 +27,7 @@ const ConfirmModal = ({ title, children, yesBtn, noBtn, closeModal }: ConfirmMod
       noBtn.otherFn();
     }
     if (noBtn?.path) {
-      window.location.href = noBtn.path;
+      window.location.pathname = noBtn.path;
     }
     closeModal();
   };

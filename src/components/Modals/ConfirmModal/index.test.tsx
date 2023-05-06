@@ -50,11 +50,11 @@ describe('ConfirmModal', () => {
     });
     //yesBtn
     yesBtn.simulate('click');
-    expect(window.location.href).toEqual(newYesBtn.path);
+    expect(window.location.pathname).toEqual(newYesBtn.path);
     expect(otherFn).toBeCalled();
     //noBtn
     noBtn.simulate('click');
-    expect(window.location.href).toEqual(newNoBtn.path);
+    expect(window.location.pathname).toEqual(newNoBtn.path);
     expect(otherFn).toBeCalled();
   });
 });
