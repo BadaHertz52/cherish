@@ -6,20 +6,15 @@ import { getToastModalPosition } from '@/components/Modals/functions';
 import { ToastModalType } from '@/components/Modals/modalTypes';
 import { InputDataType, initialInputData } from '@/pages/SignUp/signUpTypes';
 
+import { FindPwChildProps } from '..';
 import styles from '../style.module.scss';
 
-export type FindPwContentsProps = {
-  openEmailForm: boolean;
-  setOpenEmailForm: Dispatch<SetStateAction<boolean>>;
-  openAuthNumberForm: boolean;
-  setOpenAuthNumberForm: Dispatch<SetStateAction<boolean>>;
-};
 const FindPwContents = ({
   openEmailForm,
   setOpenEmailForm,
   openAuthNumberForm,
   setOpenAuthNumberForm,
-}: FindPwContentsProps) => {
+}: FindPwChildProps) => {
   const [email, setEmail] = useState<InputDataType>(initialInputData);
   const [pw, setPw] = useState<InputDataType>(initialInputData);
   const [confirmPw, setConfirmPw] = useState<InputDataType>(initialInputData);
