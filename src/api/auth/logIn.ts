@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 
 import { handleAxiosError, httpClient } from '../index';
 
@@ -40,8 +40,8 @@ export const onSilentRefresh = async () => {
 export const onLogInSuccess = (response: AxiosResponse) => {
   const { accessToken } = response.data;
   //access token - 변수로 이용
-  axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-  axios.defaults.withCredentials = true;
+  httpClient.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+  httpClient.defaults.withCredentials = true;
   // 로그아웃시 , sessionStorage에서 LOG_IN_API_ITEM_KEY.logIn 삭제!!!
   !sessionStorage.getItem(LOG_IN_API_ITEM_KEY.logIn) &&
     sessionStorage.setItem(LOG_IN_API_ITEM_KEY.logIn, 'true');
