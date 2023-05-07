@@ -9,7 +9,6 @@ const TOKEN_REFRESH_PATH = '/public/token/refresh';
 // item key
 export const LOG_IN_API_ITEM_KEY = {
   logIn: 'logIn', // 사용자 로그인 여부 (sessionStorage)
-  accessExpireTime: 'access_expire_time', // accessToken 만료 시간 1분 전 (sessionStorage)
   keepLogIn: 'keepLogIn', // 자동 로그인 여부 (localStorage)
   reLogIn: 'reLogIn', // refreshToken 만료 로 인한 재로그인 (sessionStorage)
 };
