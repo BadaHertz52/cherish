@@ -41,7 +41,7 @@ describe('PasswordForm', () => {
     //   value: props.confirmPw.value,
     // });
   });
-  it('비밀번호와 비밀번호 값이 같을 경우, nextBtn 활성화', () => {
+  it('비밀번호와 비밀번호 값이 같을 경우, button 활성화', () => {
     render(
       <PasswordForm
         confirmPw={props.pw}
