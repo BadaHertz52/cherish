@@ -8,7 +8,7 @@ import { InputDataType, initialInputData } from '@/pages/SignUp/signUpTypes';
 
 import styles from '../style.module.scss';
 
-type FindPwContentsProps = {
+export type FindPwContentsProps = {
   openEmailForm: boolean;
   setOpenEmailForm: Dispatch<SetStateAction<boolean>>;
   openAuthNumberForm: boolean;
@@ -23,7 +23,7 @@ const FindPwContents = ({
   const [email, setEmail] = useState<InputDataType>(initialInputData);
   const [pw, setPw] = useState<InputDataType>(initialInputData);
   const [confirmPw, setConfirmPw] = useState<InputDataType>(initialInputData);
-  const [disableBtn, setDisableBtn] = useState<boolean>(true);
+  const [disabled, setDisabled] = useState<boolean>(true);
   const [openToastModal, setOpenToastModal] = useState<boolean>(false);
   const [toastModalState, setToastModalState] = useState<ToastModalType>({
     contents: (
@@ -88,14 +88,14 @@ const FindPwContents = ({
             setConfirmPw={setConfirmPw}
             pw={pw}
             setPw={setPw}
-            setDisableBtn={setDisableBtn}
+            setDisableBtn={setDisabled}
           />
           <div className={`${styles.btnContainer} btn-container`}>
             <button
               type="button"
               ref={btnChangePwRef}
               className={styles.btnChangePw}
-              disabled={disableBtn}
+              disabled={disabled}
               onClick={handleClickBtn}
             >
               비밀번호 변경
