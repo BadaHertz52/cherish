@@ -39,7 +39,7 @@
 }
 .btnContainer {
   position: absolute;
-  bottom: 26px;
+  bottom: calc(80px + 26px);
   left: 0;
   width: 100%;
   display: flex;
