@@ -6,7 +6,6 @@ import {
   useEffect,
   useRef,
   useState,
-  MouseEvent,
 } from 'react';
 
 import { onEmailVerification } from '@/api/auth/email';
