@@ -126,7 +126,6 @@ const EmailVerification = ({
     if (openToastModal && position) {
       const { top, left } = position;
       if (openAuthNumberForm) {
-        // 비밀번호 찾기 페이지에서는 toastModalPositionTargetEl === null
         const newTop = toastModalPositionTargetEl
           ? toastModalPositionTargetEl.getClientRects()[0].top - 39 - 16
           : top;

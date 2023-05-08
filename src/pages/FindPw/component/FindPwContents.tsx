@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { onFindPw } from '@/api/auth/findPwAPI';
 import { EmailVerification, PasswordForm, ToastModal } from '@/components';
@@ -18,7 +18,8 @@ const FindPwContents = ({
   const [email, setEmail] = useState<InputDataType>(initialInputData);
   const [pw, setPw] = useState<InputDataType>(initialInputData);
   const [confirmPw, setConfirmPw] = useState<InputDataType>(initialInputData);
-  const [disabled, setDisabled] = useState<boolean>(true);
+  const [changeBtnDisabled, setChangeBtnDisabled] = useState<boolean>(true);
+  const [nextBtnDisabled, setNextBtnDisabled] = useState<boolean>(true);
   const [openToastModal, setOpenToastModal] = useState<boolean>(false);
   const [toastModalState, setToastModalState] = useState<ToastModalType>({
     contents: (
@@ -31,6 +32,7 @@ const FindPwContents = ({
     left: '0',
   });
   const btnChangePwRef = useRef<HTMLButtonElement>(null);
+  const btnNextRef = useRef<HTMLButtonElement>(null);
   const handleToastModal = () => {
     const position = getToastModalPosition();
     if (position && btnChangePwRef.current) {
@@ -43,6 +45,10 @@ const FindPwContents = ({
       }));
       setOpenToastModal(true);
     }
+  };
+  const handleClickNextBtn = () => {
+    setOpenAuthNumberForm(false);
+    setOpenEmailForm(false);
   };
   const handleClickBtn = async () => {
     const result = await onFindPw({ email: email.value, password: pw.value });
@@ -63,14 +69,27 @@ const FindPwContents = ({
           </h3>
           <EmailVerification
             additionOfLabel="가입하신"
-            setDisableBtn={setOpenEmailForm}
+            setDisableBtn={setNextBtnDisabled}
             email={email}
             setEmail={setEmail}
             openAuthNumberForm={openAuthNumberForm}
             setOpenAuthNumberForm={setOpenAuthNumberForm}
-            toastModalPositionTargetEl={null}
+            toastModalPositionTargetEl={btnNextRef.current}
             isInFindPw={true}
           />
+          {openAuthNumberForm && (
+            <div className={`${styles.btnContainer} btn-container`}>
+              <button
+                type="button"
+                ref={btnNextRef}
+                className={styles.btnChangePw}
+                disabled={nextBtnDisabled}
+                onClick={handleClickNextBtn}
+              >
+                다음
+              </button>
+            </div>
+          )}
         </>
       ) : (
         <>
@@ -83,17 +102,17 @@ const FindPwContents = ({
             setConfirmPw={setConfirmPw}
             pw={pw}
             setPw={setPw}
-            setDisableBtn={setDisabled}
+            setDisableBtn={setChangeBtnDisabled}
           />
           <div className={`${styles.btnContainer} btn-container`}>
             <button
               type="button"
               ref={btnChangePwRef}
               className={styles.btnChangePw}
-              disabled={disabled}
+              disabled={changeBtnDisabled}
               onClick={handleClickBtn}
             >
-              비밀번호 변경
+              다음
             </button>
           </div>
         </>

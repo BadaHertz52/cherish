@@ -55,12 +55,10 @@ const AuthNumberForm = ({
       setOpenToastModal(true);
       if (isInFindPw) {
         setTimeout(() => {
-          setDisableBtn(false);
           setOpenToastModal(false);
         }, 1000);
-      } else {
-        setDisableBtn(false);
       }
+      setDisableBtn(false);
     } else {
       //인증 번호 불일치
       setAuthNumber(prev => ({
@@ -85,6 +83,7 @@ const AuthNumberForm = ({
           id="authNumber"
           name="authNumber"
           value={authNumber.value}
+          disabled={!overTime && !openTimer}
           onChange={onChangeAuthNumber}
           onBlur={handleBlurOfAuthNumber}
           placeholder="인증번호(6자리)"
