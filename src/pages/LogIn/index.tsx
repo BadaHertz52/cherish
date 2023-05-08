@@ -8,6 +8,7 @@ import { LogInAPIParams } from '@/api/auth/types';
 import DeleteBtn from '@/assets/svgs/delete-btn.svg';
 import { AlertModal, BtnShowPw, CheckBox } from '@/components';
 import { REGEX } from '@/functions/regex';
+import { removeVh, setVh } from '@/functions/vh';
 import { XSSCheck } from '@/functions/xssCheck';
 
 const LogIn = () => {
@@ -17,7 +18,6 @@ const LogIn = () => {
   const [error, setError] = useState<boolean>(false);
   const [keepLogIn, setKeepLogin] = useState<boolean>(false);
   const [openAlertModal, setOpenAlertModal] = useState<boolean>(false);
-
   const INPUT_TARGET = {
     email: 'email',
     pw: 'pw',
@@ -82,6 +82,12 @@ const LogIn = () => {
     if (sessionStorage.getItem(LOG_IN_API_ITEM_KEY.reLogIn)) {
       setOpenAlertModal(true);
     }
+    setVh();
+    window.addEventListener('resize', setVh);
+    return () => {
+      removeVh();
+      window.removeEventListener('resize', setVh);
+    };
   }, []);
 
   return (

@@ -2,8 +2,8 @@
 .step__inner {
   position: relative;
   width: 100%;
-  // 100%  -bottomNav.height-SignUpTopBar.height - progreebar
-  height: calc(100vh - 80px - 107px - 5px);
+  // 100vh  -SignUpTopBar.height -
+  height: calc(var(--vh, 1vh) * 100 - 74.73px);
   overflow-y: auto;
   padding-top: 30px;
   padding-left: 21px;
@@ -33,7 +33,8 @@
 .next-btn {
   display: none;
   position: absolute;
-  bottom: 26px;
+  // bottomNav.height + bottomNav와의 간격
+  bottom: calc(80px + 26px);
   left: 0;
   width: 100%;
   height: 13vw;

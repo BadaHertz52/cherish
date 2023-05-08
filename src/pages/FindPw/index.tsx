@@ -1,6 +1,8 @@
-import React, { useState, Dispatch, SetStateAction } from 'react';
+import React, { useState, Dispatch, SetStateAction, useEffect } from 'react';
 
 import './style.scss';
+
+import { removeVh, setVh } from '@/functions/vh';
 
 import FindPwContents from './component/FindPwContents';
 import FindPwTopBar from './component/FindPwTopBar';
@@ -21,7 +23,14 @@ const FindPw = () => {
     openAuthNumberForm: openAuthNumberForm,
     setOpenAuthNumberForm: setOpenAuthNumberForm,
   };
-
+  useEffect(() => {
+    setVh();
+    window.addEventListener('resize', setVh);
+    return () => {
+      removeVh();
+      window.removeEventListener('resize', setVh);
+    };
+  }, []);
   return (
     <div id="find-pw">
       <FindPwTopBar {...props} />

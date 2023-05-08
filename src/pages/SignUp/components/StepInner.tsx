@@ -1,14 +1,25 @@
-import React, { ReactNode, useContext } from 'react';
+import React, { ReactNode, useContext, useEffect } from 'react';
 
+import { removeVh, setVh } from '@/functions/vh';
 import { SignUpContext } from '@/pages/SignUp';
 
 import NextBtn, { NextBtnProps } from './SignUpNextBtn';
+
 type StepInnerProps = NextBtnProps & {
   children: ReactNode;
   isNextBtnHidden?: boolean;
 };
 const StepInner = ({ children, disableBtn, onClickNextBtn, isNextBtnHidden }: StepInnerProps) => {
   const { signUpState } = useContext(SignUpContext);
+
+  useEffect(() => {
+    setVh();
+    window.addEventListener('resize', setVh);
+    return () => {
+      removeVh();
+      window.removeEventListener('resize', setVh);
+    };
+  }, []);
   return (
     <div className="step__inner">
       {signUpState.progress !== 'agreeToTerms' && (
