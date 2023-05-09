@@ -22,7 +22,7 @@ import {
 import './style.scss';
 import { ToastModalType } from '../Modals/modalTypes';
 
-type EmailVerificationProps = {
+export type EmailVerificationProps = {
   additionOfLabel?: string; // InputForm의 additionOfLabel
   setDisableBtn: Dispatch<SetStateAction<boolean>>;
   email: InputDataType;
@@ -194,10 +194,10 @@ const EmailVerification = ({
           setOpenTimer={setOpenTimer}
           overTime={overTime}
           setOverTime={setOverTime}
+          openToastModal={openToastModal}
           setOpenToastModal={setOpenToastModal}
           setDisableBtn={setDisableBtn}
           verifiedEmail={verifiedEmail}
-          isInFindPw={isInFindPw}
         />
       )}
       {openAlertModal && (

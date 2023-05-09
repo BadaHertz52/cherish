@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, ChangeEvent, MutableRefObject } from 'react';
+import { Dispatch, SetStateAction, ChangeEvent, MutableRefObject, useEffect } from 'react';
 
 import { onAuthNumber } from '@/api/auth/email';
 import { APIResult, AuthNumberAPIParams } from '@/api/auth/types';
@@ -6,7 +6,7 @@ import { Timer } from '@/components';
 import { XSSCheck } from '@/functions/xssCheck';
 import { ERROR_MSG, InputDataType } from '@/pages/SignUp/signUpTypes';
 
-type AuthNumberFormProps = {
+export type AuthNumberFormProps = {
   email: InputDataType;
   authNumber: InputDataType;
   setAuthNumber: Dispatch<SetStateAction<InputDataType>>;
@@ -14,10 +14,10 @@ type AuthNumberFormProps = {
   setOpenTimer: Dispatch<SetStateAction<boolean>>;
   overTime: boolean;
   setOverTime: Dispatch<SetStateAction<boolean>>;
+  openToastModal: boolean;
   setOpenToastModal: Dispatch<SetStateAction<boolean>>;
   setDisableBtn: Dispatch<SetStateAction<boolean>>;
   verifiedEmail: MutableRefObject<string | undefined>;
-  isInFindPw?: boolean;
 };
 const AuthNumberForm = ({
   email,
@@ -27,10 +27,10 @@ const AuthNumberForm = ({
   setOpenTimer,
   overTime,
   setOverTime,
+  openToastModal,
   setOpenToastModal,
   setDisableBtn,
   verifiedEmail,
-  isInFindPw,
 }: AuthNumberFormProps) => {
   const onChangeAuthNumber = (event: ChangeEvent<HTMLInputElement>) => {
     const text = XSSCheck(event.target.value, undefined);
@@ -53,11 +53,6 @@ const AuthNumberForm = ({
       setOpenTimer(false);
       verifiedEmail.current = email.value;
       setOpenToastModal(true);
-      if (isInFindPw) {
-        setTimeout(() => {
-          setOpenToastModal(false);
-        }, 1000);
-      }
       setDisableBtn(false);
     } else {
       //인증 번호 불일치
@@ -75,6 +70,13 @@ const AuthNumberForm = ({
       });
     }
   };
+  useEffect(() => {
+    return () => {
+      if (openToastModal) {
+        setOpenToastModal(false);
+      }
+    };
+  }, []);
   return (
     <section className="authNumber-form">
       <label htmlFor="authNumber">인증 번호</label>

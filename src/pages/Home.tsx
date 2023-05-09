@@ -1,12 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
 import '../assets/styles/Home.scss';
 import { ConfirmModal, ItemCard } from '../components';
 import type { Item } from '../components/ItemCard';
-
-import MyPage from './My';
 
 interface Category {
   title: string;
@@ -118,7 +116,7 @@ function Home() {
   const handleShowSearchPage = () => {
     navigate('/search');
   };
-  useEffect(() => {
+  useLayoutEffect(() => {
     const item = sessionStorage.getItem('newMember');
     if (item) {
       setNewMember(item);

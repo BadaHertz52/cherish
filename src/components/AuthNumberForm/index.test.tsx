@@ -23,6 +23,7 @@ describe('AuthNumberForm', () => {
     setOpenTimer: vi.fn(),
     overTime: false,
     setOverTime: vi.fn(),
+    openToastModal: false,
     setOpenToastModal: vi.fn(),
     setDisableBtn: vi.fn(),
     verifiedEmail: { current: undefined },

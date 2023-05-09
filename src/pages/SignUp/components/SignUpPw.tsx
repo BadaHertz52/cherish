@@ -74,6 +74,13 @@ const SignUpPw = () => {
       setOpenToastModal(true);
     }
   }, [toastModalState.top]);
+  useEffect(() => {
+    return () => {
+      if (openToastModal) {
+        setOpenToastModal(false);
+      }
+    };
+  }, []);
   return (
     <div id="sing-up__pw">
       <StepInner disableBtn={disableBtn} onClickNextBtn={onClickNextBtn}>

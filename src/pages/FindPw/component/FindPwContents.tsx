@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { onFindPw } from '@/api/auth/findPwAPI';
 import { EmailVerification, PasswordForm, ToastModal } from '@/components';
@@ -59,6 +59,14 @@ const FindPwContents = ({
       }, 1000);
     }
   };
+
+  useEffect(() => {
+    return () => {
+      if (openToastModal) {
+        setOpenToastModal(false);
+      }
+    };
+  }, []);
   return (
     <div className={styles.contents}>
       {openEmailForm ? (
