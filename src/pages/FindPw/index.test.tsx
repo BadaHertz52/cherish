@@ -121,7 +121,7 @@ describe('FindPw', () => {
         setOpenAuthNumberForm={vi.fn()}
       />,
     );
-    const btn = screen.getByText('비밀번호 변경');
+    const btn = screen.getByText('다음');
     expect(btn.getAttribute('disabled')).toBeFalsy();
   });
   //[to do :axios]
