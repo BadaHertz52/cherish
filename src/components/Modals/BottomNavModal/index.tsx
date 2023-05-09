@@ -182,7 +182,7 @@ const BottomNavModal = ({
             <button
               type="button"
               className="btn-reset"
-              title="reset-checkbox"
+              title="button to reset filtering options"
               onClick={onClickResetBtn}
               onTouchStart={event => onTouchResetBtn(event)}
               onTouchEnd={event => onTouchResetBtn(event)}

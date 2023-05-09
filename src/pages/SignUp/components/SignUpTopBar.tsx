@@ -152,7 +152,7 @@ const SignUpTopBar = ({ openAuthNumberForm, setOpenAuthNumberForm }: SignUpTopBa
   };
   return (
     <div id="sign-up__top-bar">
-      <button className="btn-prev" onClick={onClickPrevBtn} title="btn-prev" type="button">
+      <button className="btn-prev" onClick={onClickPrevBtn} title="button to go back" type="button">
         <BackBtn />
       </button>
       <div className="title">간편 가입</div>

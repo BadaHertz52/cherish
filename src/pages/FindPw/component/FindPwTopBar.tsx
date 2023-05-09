@@ -23,7 +23,7 @@ const FindPwTopBar = ({
   };
   return (
     <div className={styles.topBar}>
-      <button className="btn-prev" onClick={onClickPrevBtn} title="btn-prev" type="button">
+      <button className="btn-prev" onClick={onClickPrevBtn} title="button to go back" type="button">
         <BackBtn />
       </button>
       <h2>비밀번호 찾기</h2>

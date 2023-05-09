@@ -118,6 +118,7 @@ const GenderAndBirth = () => {
         <section className="birth">
           <h4>생년월일</h4>
           <button
+            title="button to open date pick to select birthday information"
             className={`btn-open-date-picker ${!birth.value ? 'none-data' : ''} ${
               openDatePicker ? 'open' : ''
             }`}
