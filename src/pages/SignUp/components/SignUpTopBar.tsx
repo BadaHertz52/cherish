@@ -124,7 +124,7 @@ const SignUpTopBar = ({ openAuthNumberForm, setOpenAuthNumberForm }: SignUpTopBa
         const backUpData: SignUpSessionDataType[] = [
           {
             key: 'job',
-            value: checkedEl.name,
+            value: checkedEl.value,
           },
         ];
         setItem(backUpData);

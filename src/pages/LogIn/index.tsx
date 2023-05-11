@@ -130,12 +130,11 @@ const LogIn = () => {
                 id="checkboxKeep"
                 name="autoLogIn"
                 isChecked={() => keepLogIn}
-                label="자동 로그인 하기"
+                label="로그인 유지하기"
                 onChange={handleChangeOfKeep}
               />
             </div>
             <div className="log-in__util__find">
-              {/* [todo] 비밀번호찾기 path 설정 */}
               <Link
                 to={'/findpw'}
                 className="link-find-pw"

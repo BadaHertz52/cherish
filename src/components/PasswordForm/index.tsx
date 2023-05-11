@@ -11,6 +11,7 @@ export type PasswordFormProps = {
   pw: InputDataType;
   setPw: Dispatch<SetStateAction<InputDataType>>;
   setDisableBtn: Dispatch<SetStateAction<boolean>>;
+  prevPw?: string;
 };
 const PasswordForm = ({
   additionOfLabel,
@@ -19,6 +20,7 @@ const PasswordForm = ({
   pw,
   setPw,
   setDisableBtn,
+  prevPw,
 }: PasswordFormProps) => {
   //pw, confirmPw 의 변화에 따라 disableBtn 상태 변경
   useEffect(() => {
@@ -48,6 +50,7 @@ const PasswordForm = ({
         id={INPUT_FORM_ID.pw as InputFormIdType}
         data={pw}
         setData={setPw}
+        prevPw={prevPw}
       />
       <InputForm
         additionOfLabel={additionOfLabel}

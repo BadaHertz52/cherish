@@ -18,6 +18,7 @@ const FindPwContents = ({
   const [email, setEmail] = useState<InputDataType>(initialInputData);
   const [pw, setPw] = useState<InputDataType>(initialInputData);
   const [confirmPw, setConfirmPw] = useState<InputDataType>(initialInputData);
+  const [prevPw, setPrevPw] = useState<string>();
   const [changeBtnDisabled, setChangeBtnDisabled] = useState<boolean>(true);
   const [nextBtnDisabled, setNextBtnDisabled] = useState<boolean>(true);
   const [openToastModal, setOpenToastModal] = useState<boolean>(false);
@@ -84,6 +85,7 @@ const FindPwContents = ({
             setOpenAuthNumberForm={setOpenAuthNumberForm}
             toastModalPositionTargetEl={btnNextRef.current}
             isInFindPw={true}
+            //setPrevPw={setPrevPw}
           />
           {openAuthNumberForm && (
             <div className={`${styles.btnContainer} btn-container`}>
@@ -111,6 +113,7 @@ const FindPwContents = ({
             pw={pw}
             setPw={setPw}
             setDisableBtn={setChangeBtnDisabled}
+            prevPw={prevPw}
           />
           <div className={`${styles.btnContainer} btn-container`}>
             <button

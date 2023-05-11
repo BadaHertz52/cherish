@@ -40,6 +40,7 @@ export type InputFormProps = {
   setData: Dispatch<SetStateAction<InputDataType>>;
   additionOfLabel?: string;
   disabled?: boolean;
+  prevPw?: string;
 };
 /**
  *
@@ -48,7 +49,7 @@ export type InputFormProps = {
  * @param setData: input의 change event 시 해당 event의 value에 따라 data의 상태를 변경
  * @returns
  */
-const InputForm = ({ id, data, setData, additionOfLabel, disabled }: InputFormProps) => {
+const InputForm = ({ id, data, setData, additionOfLabel, disabled, prevPw }: InputFormProps) => {
   const [hiddenPw, setHiddenPw] = useState<boolean>(true);
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const text = XSSCheck(event.target.value, undefined);
@@ -58,11 +59,18 @@ const InputForm = ({ id, data, setData, additionOfLabel, disabled }: InputFormPr
         value: text,
       });
     } else {
-      const testResult = checkRegex(text, id);
-      setData({
-        value: text,
-        errorType: testResult === 'pass' ? undefined : testResult,
-      });
+      if (prevPw && prevPw === text) {
+        setData({
+          value: text,
+          errorType: 'samePw',
+        });
+      } else {
+        const testResult = checkRegex(text, id);
+        setData({
+          value: text,
+          errorType: testResult === 'pass' ? undefined : testResult,
+        });
+      }
     }
   };
   const handleBlur = () => {
@@ -79,8 +87,12 @@ const InputForm = ({ id, data, setData, additionOfLabel, disabled }: InputFormPr
         <label htmlFor={`input-${id}`}>
           {additionOfLabel && <span>{additionOfLabel} &nbsp;</span>}
           <span>{INPUT_FORM_LABEL[id]}</span>
+          {id === 'email' && window.location.pathname === '/signup' && (
+            <div className="email-form-alert">이메일은 회원가입 후 변경하실 수 없어요.</div>
+          )}
         </label>
       )}
+
       <input
         type={
           !hiddenPw || (id !== INPUT_FORM_ID.pw && id !== INPUT_FORM_ID.confirmPw)

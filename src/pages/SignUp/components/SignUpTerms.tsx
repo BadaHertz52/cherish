@@ -120,12 +120,26 @@ const SignUpTerms = () => {
     return checked;
   };
   const handleWholeAgree = () => {
-    setAgreement(prev => ({
-      termsOfUse: !prev.termsOfUse,
-      personalInformation: !prev.personalInformation,
-      ageCondition: !prev.ageCondition,
-      marketing: !prev.marketing,
-    }));
+    const allAgree =
+      agreement.termsOfUse &&
+      agreement.personalInformation &&
+      agreement.ageCondition &&
+      agreement.marketing;
+    if (allAgree) {
+      setAgreement({
+        termsOfUse: false,
+        personalInformation: false,
+        ageCondition: false,
+        marketing: false,
+      });
+    } else {
+      setAgreement({
+        termsOfUse: true,
+        personalInformation: true,
+        ageCondition: true,
+        marketing: true,
+      });
+    }
   };
   function changeAgreement(name: TermsCheckBoxNameType, agree: boolean) {
     switch (name) {

@@ -57,7 +57,7 @@ const SignUpEmail = ({ openAuthNumberForm, setOpenAuthNumberForm }: SignUpEmailP
         isNextBtnHidden={!openAuthNumberForm}
       >
         <EmailVerification
-          additionOfLabel="로그인을 위한"
+          additionOfLabel="아이디로 사용할"
           setDisableBtn={setDisableBtn}
           email={email}
           setEmail={setEmail}
