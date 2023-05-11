@@ -56,7 +56,7 @@ describe('FindPw', () => {
         <FindPwTopBar {...props} />
       </BrowserRouter>,
     );
-    const btnPrev = screen.getByRole('button', { name: 'btn-prev' });
+    const btnPrev = screen.getByRole('button', { name: 'button to go back' });
     fireEvent.click(btnPrev);
     expect(navigate).toHaveBeenCalledWith(-1);
   });
@@ -68,7 +68,7 @@ describe('FindPw', () => {
         <FindPwContents {...newProps} />
       </BrowserRouter>,
     );
-    const btnPrev = screen.getByRole('button', { name: 'btn-prev' });
+    const btnPrev = screen.getByRole('button', { name: 'button to go back' });
     fireEvent.click(btnPrev);
     expect(props.setOpenAuthNumberForm).toBeCalledWith(false);
   });
@@ -84,7 +84,7 @@ describe('FindPw', () => {
         <FindPwContents {...newProps} />
       </BrowserRouter>,
     );
-    const btnPrev = screen.getByRole('button', { name: 'btn-prev' });
+    const btnPrev = screen.getByRole('button', { name: 'button to go back' });
     fireEvent.click(btnPrev);
     expect(props.setOpenEmailForm).toBeCalledWith(true);
     expect(props.setOpenAuthNumberForm).toBeCalledWith(true);

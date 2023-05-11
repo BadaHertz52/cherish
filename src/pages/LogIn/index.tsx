@@ -103,7 +103,7 @@ const LogIn = () => {
               placeholder="이메일을 입력해주세요"
               onChange={event => handleChangeOfValue(event, INPUT_TARGET.email)}
             />
-            <button type="button" title="button  to remove email" onClick={handleClickRemoveBtn}>
+            <button type="button" title="button to remove email" onClick={handleClickRemoveBtn}>
               <DeleteBtn />
             </button>
           </div>

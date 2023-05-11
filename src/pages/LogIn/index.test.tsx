@@ -72,7 +72,7 @@ describe('LogIn', () => {
   });
 
   it('should call handleClickRemoveBtn on click of remove email button', () => {
-    const removeBtn = wrapper.find('button[title="btn-remove-email"]');
+    const removeBtn = wrapper.find('button[title="button to remove email"]');
     removeBtn.simulate('click');
     const input = wrapper.find('.log-in__data__email input');
     expect(input.prop('value')).toEqual('');
